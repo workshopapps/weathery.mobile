@@ -1,6 +1,6 @@
 name: Android Build and Release
 
-on: [ push, pull request ]
+on: [ push, pull_request ]
 
 jobs:
 
@@ -9,6 +9,7 @@ jobs:
     continue-on-error: false
 
     steps:
+
       - uses: actions/checkout@v2
 
       - name: Set Up JDK
