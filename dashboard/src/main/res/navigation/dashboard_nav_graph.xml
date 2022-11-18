@@ -9,5 +9,9 @@
         android:id="@+id/dashBoardFragment"
         android:name="com.gear.weathery.dashboard.DashBoardFragment"
         android:label="fragment_dash_board"
-        tools:layout="@layout/fragment_dash_board" />
+        tools:layout="@layout/fragment_dash_board" >
+        <argument
+            android:name="args"
+            app:argType="string" />
+    </fragment>
 </navigation>

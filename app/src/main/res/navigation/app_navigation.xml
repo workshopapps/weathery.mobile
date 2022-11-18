@@ -12,6 +12,10 @@
         android:id="@+id/splashFragment"
         android:name="com.gear.weathery.presentation.screen_one.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/fragment_splash" >
+        <argument
+            android:name="args"
+            app:argType="string" />
+    </fragment>
     <include app:graph="@navigation/boarding_nav_graph" />
 </navigation>

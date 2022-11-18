@@ -29,6 +29,7 @@ class DashBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.dashBoardText.text = arguments?.getString("args") ?: "boarding to dashboard"
         binding.dashBoardText.setOnClickListener {
             splashNavigation.navigateToSplash(navController = findNavController())
         }

@@ -30,6 +30,7 @@ class BoardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.boardingText.text = arguments?.getString("args") ?:"splash to boarding"
         binding.boardingText.setOnClickListener {
             dashBoardNavigation.navigateToDashboard(navController = findNavController())
         }

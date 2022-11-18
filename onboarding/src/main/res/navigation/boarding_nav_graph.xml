@@ -9,5 +9,9 @@
         android:id="@+id/boardingFragment"
         android:name="com.gear.weathery.onboarding.BoardingFragment"
         android:label="fragment_boarding"
-        tools:layout="@layout/fragment_boarding" />
+        tools:layout="@layout/fragment_boarding" >
+        <argument
+            android:name="args"
+            app:argType="string" />
+    </fragment>
 </navigation>

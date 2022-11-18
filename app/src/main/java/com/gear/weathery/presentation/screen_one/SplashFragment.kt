@@ -36,6 +36,7 @@ class SplashFragment : Fragment() {
         binding.onboardText.setOnClickListener {
             boardingNavigation.navigateToBoarding(navController = findNavController())
         }
+        binding.onboardText.text = arguments?.getString("args") ?:" dashboard to splash ...."
     }
 
 }
