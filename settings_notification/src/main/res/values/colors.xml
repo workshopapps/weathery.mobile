@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="weathery_orange">#EF6820</color>
+    <color name="weathery_orange_light">#FDEAD7</color>
 </resources>
