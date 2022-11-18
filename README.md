@@ -9,15 +9,6 @@
 
 ## Download
  Still in development ⚠ ..
- 
- 
-## Dev Note
-- Please and please do not make changes to the gradle important features
-- Always make a PR to the feature branch not the main branch
-- Before making PR please upload a screen recording to the Group chat on Slack or Whatsapp, so at least 2 other devs can confirm before you push
-- Before working on your selected fragment, change the Home Destination of the nav_graph to the fragment you'd be working on.
-- PLEASE AND PLEASE, do remember to change it back to the default Home Destination Fragment before you push
-### More Details Incoming
 
 
 ## Tech stack 
