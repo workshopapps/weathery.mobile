@@ -4,7 +4,6 @@
  Weathery is an app that tells the users in a simple format whether it's going to rain on the current day or not and also the time it starts. It
  demonstrates modern Android development with Hilt, Coroutines, Flow, Jetpack libraries, and Material Design based on MVVM architecture.
 </p>
-</br>
 
 
 ## Download
