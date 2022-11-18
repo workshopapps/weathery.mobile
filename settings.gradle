@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Weathery"
 include ':app'
+include ':dashboard'
+include ':common'
+include ':onboarding'
