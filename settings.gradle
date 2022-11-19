@@ -20,3 +20,5 @@ include ':features'
 include ':features:dashboard'
 include ':features:onboarding'
 include ':features:add_remove_location'
+
+include ':features:setting'
