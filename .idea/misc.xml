@@ -3,11 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/weathery.mobile/app/src/main/res/layout/activity_main.xml" value="0.13019250253292808" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/weathery.mobile/app/src/main/res/layout/fragment_onboarding.xml" value="0.4" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/weathery.mobile/app/src/main/res/layout/fragment_splash.xml" value="0.13019250253292808" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/weathery.mobile/dashboard/src/main/res/layout/fragment_dash_board.xml" value="0.12335359675785208" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/weathery.mobile/onboarding/src/main/res/layout/fragment_boarding.xml" value="0.12335359675785208" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/weathery.mobile/features/add_remove_location/src/main/res/layout/fragment_add_remove_location.xml" value="0.22916666666666666" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/weathery.mobile/features/dashboard/src/main/res/layout/fragment_dash_board.xml" value="0.8822170900692841" />
       </map>
     </option>
   </component>
