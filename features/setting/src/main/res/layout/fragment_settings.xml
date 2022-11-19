@@ -283,11 +283,7 @@
                     android:checked="true"
                     android:gravity="center"
                     android:text="0F"
-<<<<<<< HEAD
                     android:textColor="@android:color/black"
-=======
-                    android:textColor="@color/black"
->>>>>>> origin/feat/MOB-9-design-settings-ui
                     android:textSize="16sp" />
 
                 <RadioButton
@@ -300,11 +296,7 @@
                     android:checked="false"
                     android:gravity="center"
                     android:text="0C"
-<<<<<<< HEAD
                     android:textColor="@android:color/black"
-=======
-                    android:textColor="@color/black"
->>>>>>> origin/feat/MOB-9-design-settings-ui
                     android:textSize="16sp" />
             </RadioGroup>
             <ImageView
