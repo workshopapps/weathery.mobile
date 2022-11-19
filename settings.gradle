@@ -19,3 +19,5 @@ include ':common'
 include ':features'
 include ':features:dashboard'
 include ':features:onboarding'
+
+include ':features:setting'
