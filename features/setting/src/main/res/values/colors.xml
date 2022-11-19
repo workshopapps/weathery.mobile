@@ -5,4 +5,13 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="weathery_orange">#FD7536</color>
     <color name="teal_700">#FF018786</color>
+
+    <color name="weathery_orange_1">#EF6820</color>
+    <color name="weathery_orange_light">#FDEAD7</color>
+    <color name="weathery_grey_1">#2B2A30</color>
+    <color name="weathery_grey_2">#565560</color>
+
+    <color name="default_colour">@android:color/black</color>
+    <color name="popup_background">@color/weathery_orange_light</color>
+    <color name="popup_outline">@color/weathery_orange</color>
 </resources>
