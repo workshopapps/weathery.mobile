@@ -3,7 +3,6 @@ package com.gear.weathery.onboarding
 import android.Manifest
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +24,12 @@ import javax.inject.Inject
 class BoardingFragment : Fragment(), PermissionListener {
     private var _binding:FragmentBoardingBinding? =  null
     private val binding get() = _binding!!
-    lateinit var viewPager: ViewPager
     lateinit var pagerAdapter: ViewPagerAdapter
+
+
+    var permissionALlowed: Boolean = false
+
+
 
     @Inject
     lateinit var dashBoardNavigation: DashBoardNavigation
@@ -41,9 +44,10 @@ class BoardingFragment : Fragment(), PermissionListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         pagerAdapter = ViewPagerAdapter(requireContext())
         binding.viewpager.adapter = pagerAdapter
-        binding.dotsIndicator.attachTo(viewPager)
+        binding.dotsIndicator.attachTo(binding.viewpager)
         binding.viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrolled(
                 position: Int,
@@ -55,21 +59,21 @@ class BoardingFragment : Fragment(), PermissionListener {
                 if(position == 0){
                     onboardFirstPageBtnDesign()
                     binding.contBtn.setOnClickListener {
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem() + 1);
                     }
                     binding.skipBtn.setOnClickListener {
-                        viewPager.setCurrentItem(viewPager.getAdapter()!!.getCount());
+                        binding.viewpager.setCurrentItem(binding.viewpager.getAdapter()!!.getCount());
                     }
                 }
 
                 if (position == 1){
                     onboardFirstPageBtnDesign()
                     binding.contBtn.setOnClickListener {
-                        if (viewPager.currentItem < viewPager.adapter!!.count)
-                            viewPager.setCurrentItem(viewPager.currentItem + 1);
+                        if (binding.viewpager.currentItem < binding.viewpager.adapter!!.count)
+                            binding.viewpager.setCurrentItem(binding.viewpager.currentItem + 1);
                     }
                     binding.skipBtn.setOnClickListener {
-                        viewPager.setCurrentItem(viewPager.adapter!!.count);
+                        binding.viewpager.setCurrentItem(binding.viewpager.adapter!!.count);
                     }
                 }
 
@@ -77,12 +81,15 @@ class BoardingFragment : Fragment(), PermissionListener {
                     onboardSecondPageBtnDesign()
                     binding.skipBtn.setOnClickListener {
                         getLocationPermission()
+                        if (permissionALlowed) {
+                            dashBoardNavigation.navigateToDashboard(navController = findNavController())
+                        }else{
+                            getLocationPermission()
+                        }
                     }
                 }
 
-
             }
-
             override fun onPageSelected(position: Int) {
                // TODO("Not yet implemented")
             }
@@ -92,8 +99,6 @@ class BoardingFragment : Fragment(), PermissionListener {
             }
 
         })
-
-
     }
 
     private fun getLocationPermission() {
@@ -125,10 +130,14 @@ class BoardingFragment : Fragment(), PermissionListener {
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
         SharedPreference.init(requireContext().applicationContext)
         SharedPreference.putBoolean("ALLOW",false)
+        permissionALlowed = true
+
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-       // TODO("Not yet implemented")
+        dashBoardNavigation.navigateToDashboard(navController = findNavController())
+        SharedPreference.putBoolean("ALLOW",false)
+        permissionALlowed = false
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {

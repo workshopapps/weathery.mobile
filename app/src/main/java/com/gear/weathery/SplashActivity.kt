@@ -1,13 +1,19 @@
-package com.gear.weathery.onboarding
+package com.gear.weathery
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import com.gear.weathery.common.navigation.BoardingNavigation
+import com.gear.weathery.onboarding.SharedPreference
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var boardingNavigation: BoardingNavigation
     val activityScope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,13 +25,17 @@ class SplashActivity : AppCompatActivity() {
         )
 
         SharedPreference.init(applicationContext)
-        val allowsPermission : Boolean = SharedPreference.getBoolean("ALLOW", true)
+        val first : Boolean = SharedPreference.getBoolean("ALLOW", true)
         activityScope.launch {
             delay(3000)
-            if(allowsPermission){
-                // go to onboarding
+            if(first){
+                val intent:Intent = Intent(this@SplashActivity,MainActivity::class.java)
+                intent.putExtra("FIRST",first)
+                startActivity(intent)
             }else{
-                //go to dashboard
+               val intent:Intent = Intent(this@SplashActivity,MainActivity::class.java)
+                intent.putExtra("FIRST",first)
+                startActivity(intent)
             }
 
             finish()
