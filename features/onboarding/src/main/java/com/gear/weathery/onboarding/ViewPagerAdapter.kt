@@ -13,8 +13,8 @@ class ViewPagerAdapter(val context: Context) : PagerAdapter() {
     var layoutInflater : LayoutInflater? = null
 
     val imgArray = arrayOf(
-        R.drawable.onboard_pic1,
         R.drawable.onboard_pic2,
+        R.drawable.onboard_pic1,
         R.drawable.onboard_pic3
     )
 

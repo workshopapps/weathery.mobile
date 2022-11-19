@@ -53,54 +53,30 @@ class BoardingFragment : Fragment(), PermissionListener {
 
 
                 if(position == 0){
-                    Log.d("Posee", "onPageSelected: $position")
-                    binding.contBtn.visibility = View.VISIBLE
-                    binding.skipBtn.visibility = View.VISIBLE
-                    binding.contBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
-                    binding.contBtn.setText("Continue")
-                    binding.contBtn.setTextColor(Color.WHITE)
-                    binding.skipBtn.setTextColor(resources.getColor(R.color.dark_orange))
-                    binding.skipBtn.setText("Skip")
-                    binding.skipBtn.setBackgroundResource(R.drawable.onboard_transparent_btn_bg)
+                    onboardFirstPageBtnDesign()
                     binding.contBtn.setOnClickListener {
-                        Log.d("Pogs", "onPageSelected: ${position } ")
                         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-
                     }
                     binding.skipBtn.setOnClickListener {
-                        Log.d("Pogs", "onPageSelected: $position")
                         viewPager.setCurrentItem(viewPager.getAdapter()!!.getCount());
-
                     }
-
                 }
-                if (position ==1){
-                    binding.contBtn.visibility = View.VISIBLE
-                    binding.skipBtn.visibility = View.VISIBLE
-                    binding.contBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
-                    binding.contBtn.setText("Continue")
-                    binding.contBtn.setTextColor(Color.WHITE)
-                    binding.skipBtn.setTextColor(resources.getColor(R.color.dark_orange))
-                    binding.skipBtn.setText("Skip")
-                    binding.skipBtn.setBackgroundResource(R.drawable.onboard_transparent_btn_bg)
+
+                if (position == 1){
+                    onboardFirstPageBtnDesign()
                     binding.contBtn.setOnClickListener {
-                        if (viewPager.getCurrentItem() < viewPager.getAdapter()!!.getCount())
-                            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        if (viewPager.currentItem < viewPager.adapter!!.count)
+                            viewPager.setCurrentItem(viewPager.currentItem + 1);
                     }
                     binding.skipBtn.setOnClickListener {
-                        viewPager.setCurrentItem(viewPager.getAdapter()!!.getCount());
+                        viewPager.setCurrentItem(viewPager.adapter!!.count);
                     }
                 }
+
                 if (position==2){
-                    binding.contBtn.visibility = View.GONE
-                    binding.skipBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
-                    binding.skipBtn.setText("Get Started")
-                    binding.skipBtn.setTextColor(Color.WHITE)
+                    onboardSecondPageBtnDesign()
                     binding.skipBtn.setOnClickListener {
-                        Dexter.withContext(requireContext())
-                            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                            .withListener(this@BoardingFragment)
-                            .check()
+                        getLocationPermission()
                     }
                 }
 
@@ -120,16 +96,43 @@ class BoardingFragment : Fragment(), PermissionListener {
 
     }
 
+    private fun getLocationPermission() {
+        Dexter.withContext(requireContext())
+            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            .withListener(this@BoardingFragment)
+            .check()
+    }
+
+    private fun onboardSecondPageBtnDesign() {
+        binding.contBtn.visibility = View.GONE
+        binding.skipBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
+        binding.skipBtn.setText("Get Started")
+        binding.skipBtn.setTextColor(Color.WHITE)
+    }
+
+    private fun onboardFirstPageBtnDesign() {
+        binding.contBtn.visibility = View.VISIBLE
+        binding.skipBtn.visibility = View.VISIBLE
+        binding.contBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
+        binding.contBtn.setText("Continue")
+        binding.contBtn.setTextColor(Color.WHITE)
+        binding.skipBtn.setTextColor(resources.getColor(R.color.dark_orange))
+        binding.skipBtn.setText("Skip")
+        binding.skipBtn.setBackgroundResource(R.drawable.onboard_transparent_btn_bg)
+    }
+
+
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-        TODO("Not yet implemented")
+        SharedPreference.init(requireContext().applicationContext)
+        SharedPreference.putBoolean("ALLOW",false)
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-        TODO("Not yet implemented")
+       // TODO("Not yet implemented")
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
-        TODO("Not yet implemented")
+       // TODO("Not yet implemented")
     }
 
 }
