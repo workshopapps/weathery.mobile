@@ -71,5 +71,5 @@ dependencies {
     implementation project(':common')
     implementation project(':features:dashboard')
     implementation project(':features:onboarding')
-    implementation project(':features:add_remove_location')
+    implementation project(':features:location')
 }
