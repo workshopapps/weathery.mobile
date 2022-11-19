@@ -1,20 +1,32 @@
 package com.gear.weathery.onboarding
 
+import android.Manifest
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager
 import com.gear.weathery.common.navigation.DashBoardNavigation
 import com.gear.weathery.onboarding.databinding.FragmentBoardingBinding
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BoardingFragment : Fragment() {
+class BoardingFragment : Fragment(), PermissionListener {
     private var _binding:FragmentBoardingBinding? =  null
     private val binding get() = _binding!!
+    lateinit var viewPager: ViewPager
+    lateinit var pagerAdapter: ViewPagerAdapter
 
     @Inject
     lateinit var dashBoardNavigation: DashBoardNavigation
@@ -29,10 +41,95 @@ class BoardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.boardingText.text = arguments?.getString("args") ?:" boarding here"
-        binding.boardingText.setOnClickListener {
-            dashBoardNavigation.navigateToDashboard(navController = findNavController())
-        }
+        pagerAdapter = ViewPagerAdapter(requireContext())
+        binding.viewpager.adapter = pagerAdapter
+        binding.dotsIndicator.attachTo(viewPager)
+        binding.viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+
+                if(position == 0){
+                    Log.d("Posee", "onPageSelected: $position")
+                    binding.contBtn.visibility = View.VISIBLE
+                    binding.skipBtn.visibility = View.VISIBLE
+                    binding.contBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
+                    binding.contBtn.setText("Continue")
+                    binding.contBtn.setTextColor(Color.WHITE)
+                    binding.skipBtn.setTextColor(resources.getColor(R.color.dark_orange))
+                    binding.skipBtn.setText("Skip")
+                    binding.skipBtn.setBackgroundResource(R.drawable.onboard_transparent_btn_bg)
+                    binding.contBtn.setOnClickListener {
+                        Log.d("Pogs", "onPageSelected: ${position } ")
+                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+
+                    }
+                    binding.skipBtn.setOnClickListener {
+                        Log.d("Pogs", "onPageSelected: $position")
+                        viewPager.setCurrentItem(viewPager.getAdapter()!!.getCount());
+
+                    }
+
+                }
+                if (position ==1){
+                    binding.contBtn.visibility = View.VISIBLE
+                    binding.skipBtn.visibility = View.VISIBLE
+                    binding.contBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
+                    binding.contBtn.setText("Continue")
+                    binding.contBtn.setTextColor(Color.WHITE)
+                    binding.skipBtn.setTextColor(resources.getColor(R.color.dark_orange))
+                    binding.skipBtn.setText("Skip")
+                    binding.skipBtn.setBackgroundResource(R.drawable.onboard_transparent_btn_bg)
+                    binding.contBtn.setOnClickListener {
+                        if (viewPager.getCurrentItem() < viewPager.getAdapter()!!.getCount())
+                            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                    }
+                    binding.skipBtn.setOnClickListener {
+                        viewPager.setCurrentItem(viewPager.getAdapter()!!.getCount());
+                    }
+                }
+                if (position==2){
+                    binding.contBtn.visibility = View.GONE
+                    binding.skipBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
+                    binding.skipBtn.setText("Get Started")
+                    binding.skipBtn.setTextColor(Color.WHITE)
+                    binding.skipBtn.setOnClickListener {
+                        Dexter.withContext(requireContext())
+                            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                            .withListener(this@BoardingFragment)
+                            .check()
+                    }
+                }
+
+
+            }
+
+            override fun onPageSelected(position: Int) {
+               // TODO("Not yet implemented")
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+               // TODO("Not yet implemented")
+            }
+
+        })
+
+
+    }
+
+    override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
+        TODO("Not yet implemented")
     }
 
 }
