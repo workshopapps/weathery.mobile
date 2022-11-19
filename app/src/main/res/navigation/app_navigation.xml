@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation.xml"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/boardingFragment">
 
 
 
     <include app:graph="@navigation/dashboard_nav_graph" />
+
     <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.gear.weathery.presentation.screen_one.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        android:id="@+id/boardingFragment"
+        android:name="com.gear.weathery.onboarding.BoardingFragment"
+        android:label="fragment_boarding"
+        tools:layout="@layout/fragment_boarding" >
         <argument
             android:name="args"
             app:argType="string" />

@@ -1,13 +1,12 @@
 package com.gear.weathery.onboarding
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.DashBoardNavigation
-import com.gear.weathery.common.navigation.SplashNavigation
 import com.gear.weathery.onboarding.databinding.FragmentBoardingBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class BoardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.boardingText.text = arguments?.getString("args") ?:"splash to boarding"
+        binding.boardingText.text = arguments?.getString("args") ?:" boarding here"
         binding.boardingText.setOnClickListener {
             dashBoardNavigation.navigateToDashboard(navController = findNavController())
         }
