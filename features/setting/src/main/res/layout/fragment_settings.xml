@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="?attr/colorSurface">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Navigate back" />
+
+            <TextView
+                android:id="@+id/tvDisplayThemeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/outfit_extrabold"
+                android:text="Settings"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/ivBackButton"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackButton" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"
+            android:paddingHorizontal="24dp">
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="General"
+                android:fontFamily="@font/outfit_semibold"
+                android:textAllCaps="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_device_mobile"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@+id/tvGeneral"
+                app:layout_constraintTop_toBottomOf="@+id/tvGeneral" />
+
+            <TextView
+                android:id="@+id/tvDisplayTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Display theme"
+                android:fontFamily="@font/outfit_semibold"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toStartOf="@+id/ivThemesBtn"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/ivThemesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_arrow_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDisplayTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvDisplayTheme" />
+
+            <TextView
+                android:id="@+id/tvDispalyThemeSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/outfit_light"
+                android:text="Customize your weather app"
+                app:layout_constraintStart_toStartOf="@+id/tvDisplayTheme"
+                app:layout_constraintTop_toBottomOf="@+id/tvDisplayTheme" />
+
+            <ImageView
+                android:id="@+id/ivNotificationIcon"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_notifications"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/tvDispalyThemeSummary" />
+
+            <TextView
+                android:id="@+id/tvNotificationSettings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="1dp"
+                android:fontFamily="@font/outfit_semibold"
+                android:text="Notificaton  settings"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivNotificationIcon"
+                app:layout_constraintEnd_toStartOf="@+id/tvNotificationStatus"
+                app:layout_constraintStart_toStartOf="@+id/tvDispalyThemeSummary"
+                app:layout_constraintTop_toTopOf="@+id/ivNotificationIcon" />
+
+            <TextView
+                android:id="@+id/tvNotificationStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/outfit_regular"
+                android:text="On"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNotificationSettings"
+                app:layout_constraintEnd_toStartOf="@+id/IvNotificationBtn"
+                app:layout_constraintTop_toTopOf="@+id/tvNotificationSettings" />
+
+            <ImageView
+                android:id="@+id/IvNotificationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_forward"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNotificationSettings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvNotificationSettings" />
+
+
+            <ImageView
+                android:id="@+id/ivLanguageIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_language"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@+id/ivNotificationIcon"
+                app:layout_constraintTop_toBottomOf="@+id/tvNotificationSettings" />
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/outfit_semibold"
+                android:text="Language"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivLanguageIcon"
+                app:layout_constraintEnd_toStartOf="@+id/ivThemesBtn"
+                app:layout_constraintStart_toEndOf="@+id/ivLanguageIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivLanguageIcon" />
+
+            <ImageView
+                android:id="@+id/ivLanguagebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_forward"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvLanguage" />
+
+            <TextView
+                android:id="@+id/tvLanguageSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/outfit_light"
+                android:text="English(United Kingdom)"
+                app:layout_constraintStart_toStartOf="@+id/tvLanguage"
+                app:layout_constraintTop_toBottomOf="@+id/tvLanguage" />
+
+            <View
+                android:id="@+id/dividerTwo"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLanguageSummary" />
+
+            <TextView
+                android:id="@+id/tvUnitSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Unit Settings"
+                android:fontFamily="@font/outfit_semibold"
+                android:textAllCaps="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@+id/dividerTwo" />
+
+
+            <ImageView
+                android:id="@+id/ivTemperatureIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_thermometer"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@+id/tvUnitSettings"
+                app:layout_constraintTop_toBottomOf="@+id/tvUnitSettings" />
+
+            <TextView
+                android:id="@+id/tvTemperature"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Temperature"
+                android:fontFamily="@font/outfit_semibold"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivTemperatureIcon"
+                app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+                app:layout_constraintStart_toEndOf="@+id/ivTemperatureIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivTemperatureIcon" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:background="@drawable/switch_background"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTemperature"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTemperature">
+
+                <RadioButton
+                    android:id="@+id/rbFarehieth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/toggle_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="0F"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rbCelsius"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/toggle_selector"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:text="0C"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </RadioGroup>
+            <ImageView
+                android:id="@+id/ivPressureIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_funnel"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@+id/ivTemperatureIcon"
+                app:layout_constraintTop_toBottomOf="@+id/tvTemperature" />
+
+            <TextView
+                android:id="@+id/tvPressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Pressure"
+                android:fontFamily="@font/outfit_semibold"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPressureIcon"
+                app:layout_constraintEnd_toStartOf="@+id/tvSelectedPressureUnit"
+                app:layout_constraintStart_toEndOf="@+id/ivPressureIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivPressureIcon" />
+
+            <TextView
+                android:id="@+id/tvSelectedPressureUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hPo"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPressure"
+                app:layout_constraintEnd_toStartOf="@+id/ivPressureBtn"
+                app:layout_constraintTop_toTopOf="@+id/tvPressure" />
+
+
+            <ImageView
+                android:id="@+id/ivPressureBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_arrow_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPressure"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvPressure" />
+
+            <ImageView
+                android:id="@+id/ivWindSpeedIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_wind_speed"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@+id/ivPressureIcon"
+                app:layout_constraintTop_toBottomOf="@+id/tvPressure" />
+
+            <TextView
+                android:id="@+id/tvWindSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Wind Speed"
+                android:fontFamily="@font/outfit_semibold"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivWindSpeedIcon"
+                app:layout_constraintEnd_toStartOf="@+id/tvSelectedWindUnit"
+                app:layout_constraintStart_toEndOf="@+id/ivWindSpeedIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivWindSpeedIcon" />
+
+            <TextView
+                android:id="@+id/tvSelectedWindUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="km/h"
+                app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeed"
+                app:layout_constraintEnd_toStartOf="@+id/ivWindSpeedBtn"
+                app:layout_constraintTop_toTopOf="@+id/tvWindSpeed" />
+
+
+            <ImageView
+                android:id="@+id/ivWindSpeedBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="true"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_arrow_forward"
+                app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeed"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvWindSpeed" />
+
+            <View
+                android:id="@+id/dividerThree"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivWindSpeedIcon" />
+
+
+            <ImageView
+                android:id="@+id/ivAboutUsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_users"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerThree" />
+
+            <TextView
+                android:id="@+id/tvAboutUs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="About Us"
+                android:fontFamily="@font/outfit_semibold"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivAboutUsIcon"
+                app:layout_constraintEnd_toStartOf="@+id/tvSelectedWindUnit"
+                app:layout_constraintStart_toEndOf="@+id/ivAboutUsIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivAboutUsIcon" />
+
+
+            <ImageView
+                android:id="@+id/ivPrivatePolicyIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_file_text"
+                app:tint="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivAboutUsIcon" />
+
+            <TextView
+                android:id="@+id/tvPrivacyPolicy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Privacy policy"
+                android:fontFamily="@font/outfit_semibold"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPrivatePolicyIcon"
+                app:layout_constraintEnd_toStartOf="@+id/tvSelectedWindUnit"
+                app:layout_constraintStart_toEndOf="@+id/ivPrivatePolicyIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivPrivatePolicyIcon" />
+
+            <TextView
+                android:id="@+id/tvAppVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="24dp"
+                android:text="Version 6.7.02"
+                android:fontFamily="@font/outfit_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPrivacyPolicy"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
