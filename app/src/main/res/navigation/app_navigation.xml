@@ -19,4 +19,5 @@
             app:argType="string" />
     </fragment>
     <include app:graph="@navigation/boarding_nav_graph" />
+    <include app:graph="@navigation/location_nav_graph"/>
 </navigation>
