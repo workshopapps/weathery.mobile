@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp">
 
+
     <ImageView
         android:id="@+id/ivBackButton"
         android:layout_width="wrap_content"
@@ -13,7 +14,7 @@
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorOnSurface" />
+        />
 
     <TextView
         android:id="@+id/tvSettingsTitle"
@@ -68,7 +69,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:tint="?attr/colorOnSurface"
                 android:src="@drawable/ic_device_mobile"
                 app:layout_constraintStart_toStartOf="@+id/tvGeneral"
                 app:layout_constraintTop_toBottomOf="@+id/tvGeneral" />
@@ -96,7 +96,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvDisplayTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvDisplayTheme"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvDispalyThemeSummary"
@@ -116,7 +116,7 @@
                 android:src="@drawable/ic_notifications"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/tvDispalyThemeSummary"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvNotificationSettings"
@@ -151,7 +151,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvNotificationSettings"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvNotificationSettings"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <ImageView
                 android:id="@+id/ivLanguageIcon"
@@ -161,7 +161,7 @@
                 android:src="@drawable/ic_language"
                 app:layout_constraintStart_toStartOf="@+id/ivNotificationIcon"
                 app:layout_constraintTop_toBottomOf="@+id/tvNotificationSettings"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvLanguage"
@@ -186,7 +186,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvLanguage"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvLanguageSummary"
@@ -230,7 +230,7 @@
                 android:src="@drawable/ic_thermometer"
                 app:layout_constraintStart_toStartOf="@+id/tvUnitSettings"
                 app:layout_constraintTop_toBottomOf="@+id/tvUnitSettings"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvTemperature"
@@ -293,7 +293,7 @@
                 android:src="@drawable/ic_funnel"
                 app:layout_constraintStart_toStartOf="@+id/ivTemperatureIcon"
                 app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvPressure"
@@ -330,7 +330,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvPressure"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvPressure"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <ImageView
                 android:id="@+id/ivWindSpeedIcon"
@@ -340,7 +340,7 @@
                 android:src="@drawable/ic_wind_speed"
                 app:layout_constraintStart_toStartOf="@+id/ivPressureIcon"
                 app:layout_constraintTop_toBottomOf="@+id/tvPressure"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvWindSpeed"
@@ -377,7 +377,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeed"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvWindSpeed"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <View
                 android:id="@+id/dividerThree"
@@ -398,7 +398,7 @@
                 android:src="@drawable/ic_users"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerThree"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvAboutUs"
@@ -424,7 +424,7 @@
                 android:src="@drawable/ic_file_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivAboutUsIcon"
-                app:tint="?attr/colorOnSurface" />
+                />
 
             <TextView
                 android:id="@+id/tvPrivacyPolicy"

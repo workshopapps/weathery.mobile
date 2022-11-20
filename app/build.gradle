@@ -72,4 +72,5 @@ dependencies {
     implementation project(':features:dashboard')
     implementation project(':features:onboarding')
     implementation project(':features:location')
+    implementation project(':features:setting')
 }
