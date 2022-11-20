@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/features/location" />
             <option value="$PROJECT_DIR$/features/onboarding" />
             <option value="$PROJECT_DIR$/features/setting" />
+            <option value="$PROJECT_DIR$/features/signin" />
           </set>
         </option>
       </GradleProjectSettings>
