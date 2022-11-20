@@ -21,3 +21,4 @@ include ':features:dashboard'
 include ':features:onboarding'
 
 include ':features:setting'
+include ':features:signin'
