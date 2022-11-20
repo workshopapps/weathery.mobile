@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_colour">@android:color/white</color>
+    <color name="popup_background">@color/weathery_grey_1</color>
+    <color name="popup_outline">@color/weathery_grey_2</color>
+</resources>
