@@ -3,11 +3,11 @@ name: Feature branch test and build
 on:
   push:
     branches:
-      - fix/MOB-26-fix-the-work-flow-file
+      - feature
 
   pull_request:
     branches:
-      - fix/MOB-26-fix-the-work-flow-file
+      - feature
 
 jobs:
   test:
