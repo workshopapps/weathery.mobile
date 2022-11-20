@@ -11,6 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/dashboard" />
+            <option value="$PROJECT_DIR$/features/location" />
+            <option value="$PROJECT_DIR$/features/onboarding" />
+            <option value="$PROJECT_DIR$/features/setting" />
           </set>
         </option>
       </GradleProjectSettings>

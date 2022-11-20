@@ -18,6 +18,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures{
+        viewBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -58,4 +61,15 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    def nav_version = "2.5.1"
+
+// nav components
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation project(':common')
+    implementation project(':features:dashboard')
+    implementation project(':features:onboarding')
+    implementation project(':features:location')
 }

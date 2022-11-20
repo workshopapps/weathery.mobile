@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_layout"
+    tools:context=".BoardingFragment">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="250dp"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/dot_frame"
+        app:layout_constraintBottom_toTopOf="@id/bottom_layout"
+        app:layout_constraintTop_toBottomOf="@id/viewpager"
+        android:layout_centerHorizontal="true">
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsColor="#FFBE9D"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="5dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="6"
+            app:progressMode="true"
+            app:selectedDotColor="#EF6820"/>
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/bottom_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:id="@+id/cont_btn"
+                android:layout_width="match_parent"
+                android:background="@drawable/onboard_button_round_corner"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Continue" />
+
+            <Button
+                android:id="@+id/skip_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:textColor="#EF6820"
+                android:background="@drawable/onboard_transparent_btn_bg"
+                android:layout_marginEnd="32dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/cont_btn"
+                android:text="Skip" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
