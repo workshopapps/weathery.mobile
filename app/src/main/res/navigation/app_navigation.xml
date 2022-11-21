@@ -20,5 +20,6 @@
     </fragment>
     <include app:graph="@navigation/boarding_nav_graph" />
     <include app:graph="@navigation/location_nav_graph"/>
+    <include app:graph="@navigation/settings_nav_graph"/>
     <include app:graph="@navigation/signin_nav_graph"/>
 </navigation>

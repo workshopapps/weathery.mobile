@@ -16,7 +16,7 @@ class Settings : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSettingsBinding.inflate(inflater)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
         binding.apply {
             IvNotificationBtn.setOnClickListener {
@@ -29,6 +29,7 @@ class Settings : Fragment() {
                 findNavController().navigate(R.id.displayTheme)
             }
         }
+
         return binding.root
     }
 }
