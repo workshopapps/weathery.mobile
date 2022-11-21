@@ -41,6 +41,7 @@ class FragmentOtpVerification : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+        binding = FragmentOtpVerificationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 }
