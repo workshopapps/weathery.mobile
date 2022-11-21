@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.signin.databinding.FragmentResetPasswordBinding
+import com.gear.weathery.signin.databinding.FragmentSignInBinding
 
 class FragmentResetPassword : Fragment() {
     private lateinit var cancelPasswordReset: ImageView
