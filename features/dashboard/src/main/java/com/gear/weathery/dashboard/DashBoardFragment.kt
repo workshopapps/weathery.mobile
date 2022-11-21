@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
 import com.gear.weathery.common.navigation.BoardingNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
+import com.gear.weathery.common.navigation.SignInNavigation
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -35,7 +36,7 @@ class DashBoardFragment : Fragment() {
     lateinit var settingsNavigation: SettingsNavigation
 
 //    @Inject
-//    lateinit var signinNavigation: Sign
+//    lateinit var signinNavigation: SignInNavigation
 
     @Inject
     lateinit var locationsNavigation: AddRemoveLocationNavigation
@@ -61,9 +62,9 @@ class DashBoardFragment : Fragment() {
             navigateToSettings()
         }
 
-        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
-            navigateToSignin()
-        }
+//        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
+//            navigateToSignin()
+//        }
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
@@ -87,9 +88,9 @@ class DashBoardFragment : Fragment() {
 
 
 
-    fun navigateToSignin(){
-
-    }
+//    fun navigateToSignin(){
+//        signinNavigation.navigateToSignIn(navController = findNavController())
+//    }
 
     fun navigateToSettings(){
         settingsNavigation.navigateToSettings(navController = findNavController())

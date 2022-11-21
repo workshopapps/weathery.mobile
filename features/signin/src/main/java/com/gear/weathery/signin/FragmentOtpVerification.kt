@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.signin.databinding.FragmentOtpVerificationBinding
+import com.gear.weathery.signin.databinding.FragmentSignInBinding
 
 class FragmentOtpVerification : Fragment() {
     private lateinit var cancelOtp: ImageView
