@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".SignUpFragment">
 
     <TextView
@@ -147,7 +148,7 @@
         android:layout_width="215dp"
         android:layout_height="23dp"
         android:layout_marginTop="26dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="40dp"
         android:text="Terms of Use and Privacy Notice"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="#ef6820"
@@ -173,13 +174,11 @@
         android:id="@+id/textView15"
         android:layout_width="164dp"
         android:layout_height="22dp"
-        android:layout_marginStart="63dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="104dp"
         android:text="Already have an account?"
         android:textColor="#242424"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
@@ -188,7 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="118dp"
+        android:layout_marginEnd="105dp"
         android:text="Sign in"
         android:textColor="#ef6820"
         android:textStyle="bold"
