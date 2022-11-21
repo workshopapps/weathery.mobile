@@ -87,7 +87,6 @@ class DashBoardFragment : Fragment() {
     }
 
 
-
     fun navigateToSignin(){
         signinNavigation.navigateToSignIn(navController = findNavController())
     }
@@ -96,9 +95,9 @@ class DashBoardFragment : Fragment() {
         settingsNavigation.navigateToSettings(navController = findNavController())
     }
 
-    fun navigateToNotifications(){
-
-    }
+//    fun navigateToNotifications(){
+//
+//    }
 
     fun navigateToLocation(){
         locationsNavigation.navigateToAddRemoveLocation(navController = findNavController())
