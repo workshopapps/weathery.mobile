@@ -35,8 +35,8 @@ class DashBoardFragment : Fragment() {
     @Inject
     lateinit var settingsNavigation: SettingsNavigation
 
-//    @Inject
-//    lateinit var signinNavigation: SignInNavigation
+    @Inject
+    lateinit var signinNavigation: SignInNavigation
 
     @Inject
     lateinit var locationsNavigation: AddRemoveLocationNavigation
@@ -62,9 +62,9 @@ class DashBoardFragment : Fragment() {
             navigateToSettings()
         }
 
-//        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
-//            navigateToSignin()
-//        }
+        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
+            navigateToSignin()
+        }
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
@@ -88,9 +88,9 @@ class DashBoardFragment : Fragment() {
 
 
 
-//    fun navigateToSignin(){
-//        signinNavigation.navigateToSignIn(navController = findNavController())
-//    }
+    fun navigateToSignin(){
+        signinNavigation.navigateToSignIn(navController = findNavController())
+    }
 
     fun navigateToSettings(){
         settingsNavigation.navigateToSettings(navController = findNavController())

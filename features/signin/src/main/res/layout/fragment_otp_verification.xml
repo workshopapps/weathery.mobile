@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/textView22"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="19dp"
@@ -45,10 +45,10 @@
 
     <Button
         android:id="@+id/verifyButton"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#ef6820"
         android:text="Verify"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -61,7 +61,7 @@
         android:id="@+id/textView23"
         android:layout_width="150dp"
         android:layout_height="17dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:text="Didn't receive the OTP?"
         android:textColor="#242424"
