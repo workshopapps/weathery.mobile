@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.signin.databinding.FragmentOtpVerificationBinding
+import com.gear.weathery.signin.databinding.FragmentSignInBinding
 
 class FragmentOtpVerification : Fragment() {
     private lateinit var cancelOtp: ImageView
@@ -40,6 +41,7 @@ class FragmentOtpVerification : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+        binding = FragmentOtpVerificationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 }
