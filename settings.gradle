@@ -14,12 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Weathery"
 include ':app'
-include ':common'
-
-include ':features'
-include ':features:dashboard'
-include ':features:onboarding'
-include ':features:location'
-
-include ':features:setting'
-include ':features:signin'
