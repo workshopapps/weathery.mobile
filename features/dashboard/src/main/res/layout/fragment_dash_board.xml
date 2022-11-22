@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".DashBoardFragment">
+            tools:context=".ui.DashBoardFragment">
 
             <ImageView
                 android:id="@+id/navLayoutButton_imageView"
@@ -82,17 +82,61 @@
                 app:layout_constraintTop_toBottomOf="@id/locationHeader_linearLayout"
                 tools:listitem="@layout/weather_for_times_list_item" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mainWeather_recylcerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/mainWeather_recylcerView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/weatherForTimes_recylcerView"-->
+<!--                tools:listitem="@layout/main_weather_list_item" />-->
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="380dp"
+                android:layout_height="657dp"
                 app:layout_constraintTop_toBottomOf="@id/weatherForTimes_recylcerView"
-                tools:listitem="@layout/main_weather_list_item" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <LinearLayout
+                android:id="@+id/scrollIndicators_linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/pager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <ImageView
+                    android:id="@+id/scrollIndicator1_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:src="@drawable/scoll_indicator_active"
+                    />
+
+                <ImageView
+                    android:id="@+id/scrollIndicator2_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:src="@drawable/scoll_indicator_inactive"
+                    />
+
+                <ImageView
+                    android:id="@+id/scrollIndicator3_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:src="@drawable/scoll_indicator_inactive"
+                    />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/bottomWeather_imageview"
@@ -102,7 +146,8 @@
                 android:src="@drawable/weather_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mainWeather_recylcerView" />
+                app:layout_constraintTop_toBottomOf="@id/scrollIndicators_linearLayout"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -125,6 +170,7 @@
         android:layout_width="320dp"
         android:layout_height="0dp"
         android:alpha="0.0"
+        android:visibility="invisible"
         android:background="@android:color/white"
         android:paddingHorizontal="24dp"
         android:paddingVertical="40dp"
