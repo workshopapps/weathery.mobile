@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.WeatheryForm" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#2b2a30</item>
+        <item name="colorPrimaryVariant">#2b2a30</item>
+        <item name="colorOnPrimary">#ffffff</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#ef6820</item>
+        <item name="colorSecondaryVariant">#ef6820</item>
+        <item name="colorOnSecondary">#ef6820</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#2b2a30</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
