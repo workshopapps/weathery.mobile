@@ -8,8 +8,11 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.findNavController
-import com.gear.add_remove_location.presentation.AddRemoveLocationScreen
+import com.gear.add_remove_location.presentation.SetUpNavGraph
+import com.gear.add_remove_location.presentation.manage_location.ManageLocationScreen
 import com.gear.add_remove_location.presentation.ui.theme.LocationWeatheryTheme
 import com.gear.weathery.common.navigation.DashBoardNavigation
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +24,8 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
     @Inject
     lateinit var dashBoardNavigation: DashBoardNavigation
 
+    lateinit var navController: NavHostController
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,8 +36,9 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    AddRemoveLocationScreen(onNavBack = { dashBoardNavigation.navigateToDashboard(navController = findNavController()) }) {
-                        //To navigate to the the dashboard: with some args to be added
+                    navController = rememberNavController()
+                    SetUpNavGraph(navController = navController) {
+                        //Add lat long args on this
                         dashBoardNavigation.navigateToDashboard(navController = findNavController())
                     }
                 }
