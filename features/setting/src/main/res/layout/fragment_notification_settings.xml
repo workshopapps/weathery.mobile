@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".NotificationSettings"
-    android:padding="24dp">
+    android:padding="24dp"
+    tools:context=".NotificationSettings">
 
-            <TextView
-                android:id="@+id/tvNotificationSettingsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/outfit_extrabold"
-                android:text="Notification settings"
-                android:layout_marginTop="24dp"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/ivBackButton"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackButton" />
+    <TextView
+        android:id="@+id/tvNotificationSettingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/outfit_extrabold"
+        android:text="Notification settings"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/ivBackButton"
+        app:layout_constraintTop_toBottomOf="@+id/ivBackButton" />
 
-            <ImageView
-                android:id="@+id/ivBackButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/ivBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@+id/tvNotificationSettingsTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotificationSettingsTitle">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/tvNotificationDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="16sp"
                 android:fontFamily="@font/outfit_regular"
                 android:text="Weathery will send you notification whenever the weather changes"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -79,45 +81,48 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swNotificationOnOff" >
+                app:layout_constraintTop_toBottomOf="@+id/swNotificationOnOff">
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/rBtnDaily"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:button="@null"
-                    app:drawableTint="?attr/colorOnSurface"
                     android:drawableEnd="@drawable/ic_done"
+                    android:fontFamily="@font/outfit_semibold"
                     android:gravity="center_vertical"
                     android:text="Daily"
-                    android:fontFamily="@font/outfit_semibold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:drawableTint="@android:color/black" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/rBtnWeekly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:minHeight="40dp"
+
                     android:button="@null"
-                    app:drawableTint="?attr/colorOnSurface"
                     android:fontFamily="@font/outfit_semibold"
                     android:gravity="center_vertical"
                     android:text="Weekly"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:drawableTint="@android:color/black" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/rBtnMonthly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:minHeight="40dp"
                     android:button="@null"
-                    app:drawableTint="?attr/colorOnSurface"
+                    android:fontFamily="@font/outfit_semibold"
                     android:gravity="center_vertical"
                     android:text="Monthly"
-                    android:fontFamily="@font/outfit_semibold"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    app:drawableTint="@android:color/black" />
             </RadioGroup>
 
             <View
@@ -138,69 +143,70 @@
                 android:fontFamily="@font/outfit_semibold"
                 android:text="Notification Tone"
                 android:textAllCaps="true"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <TextView
                 android:id="@+id/tvDefaultTone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Default(fate)"
+                android:minHeight="30dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/outfit_semibold"
+                android:gravity="center_vertical"
+                android:text="Default(fate)"
                 android:textAllCaps="false"
-                app:drawableTint="?attr/colorOnSurface"
-                app:layout_constraintTop_toBottomOf="@+id/tvNotificationTones"
-                app:layout_constraintStart_toStartOf="parent"
+                android:drawableEnd="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableEndCompat="@drawable/ic_arrow_forward" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNotificationTones" />
 
             <TextView
                 android:id="@+id/tvVibrate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/outfit_semibold"
                 android:text="Vibrate"
                 android:textAllCaps="true"
-                app:layout_constraintTop_toBottomOf="@+id/tvDefaultTone"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDefaultTone" />
+
             <TextView
-                android:id="@+id/tvDefaultVibrate"
+                android:id="@+id/tvVibrateStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Default"
+                android:minHeight="30dp"
+                android:gravity="center_vertical"
                 android:fontFamily="@font/outfit_regular"
+                android:text="Default"
                 android:textAllCaps="false"
-                app:drawableTint="?attr/colorOnSurface"
-                app:layout_constraintTop_toBottomOf="@+id/tvVibrate"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableEndCompat="@drawable/ic_arrow_forward" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVibrate"
+                android:drawableEnd="@drawable/ic_arrow_forward"/>
 
             <RadioGroup
                 android:id="@+id/rgVibrate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/tvDefaultVibrate"
-                app:layout_constraintStart_toStartOf="@+id/tvDefaultVibrate"
-                app:layout_constraintTop_toBottomOf="@+id/tvDefaultVibrate">
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/tvVibrateStatus"
+                app:layout_constraintStart_toStartOf="@+id/tvVibrateStatus"
+                app:layout_constraintTop_toBottomOf="@+id/tvVibrateStatus">
 
                 <RadioButton
-                android:id="@+id/rbtnOff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Off"
-                android:fontFamily="@font/outfit_semibold"/>
+                    android:id="@+id/rBtnVibrateOff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_semibold"
+                    android:text="Off" />
 
                 <RadioButton
-                    android:id="@+id/rbtnDefault"
+                    android:id="@+id/rBtnVibrateDefault"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -212,14 +218,13 @@
                 android:id="@+id/tvBanner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Banner"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/outfit_semibold"
+                android:text="Banner"
                 android:textAllCaps="true"
-                app:layout_constraintTop_toBottomOf="@+id/rgVibrate"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rgVibrate" />
 
             <TextView
                 android:id="@+id/tvBannerOnOff"
@@ -228,239 +233,23 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/outfit_regular"
-                app:layout_constraintEnd_toStartOf="@id/swBannerOnOff"
                 android:text="Show notification preview on the top of your screen"
+                app:layout_constraintEnd_toStartOf="@id/swBannerOnOff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBanner" />
 
             <Switch
-            android:id="@+id/swBannerOnOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            app:layout_constraintBottom_toBottomOf="@id/tvBannerOnOff"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvBannerOnOff" />
+                android:id="@+id/swBannerOnOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:trackTint="@color/weathery_orange"
+                android:thumbTint="@color/weathery_orange"
+                app:layout_constraintBottom_toBottomOf="@id/tvBannerOnOff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvBannerOnOff"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="24dp"
-        android:paddingBottom="30dp">
-        <TextView
-            android:id="@+id/tvNotificationDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:fontFamily="@font/outfit_regular"
-            android:text="Weathery will send you notification whenever the weather changes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvPushNotifications"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:fontFamily="@font/outfit_semibold"
-            android:text="Push Notifications"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNotificationDescription" />
-
-        <TextView
-            android:id="@+id/tvTurnOffAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/outfit_regular"
-            android:text="Turn off all notification"
-            app:layout_constraintStart_toStartOf="@id/tvPushNotifications"
-            app:layout_constraintTop_toBottomOf="@id/tvPushNotifications" />
-
-       &lt;!&ndash; <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/swNotificationOnOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            app:layout_constraintBottom_toBottomOf="@id/tvTurnOffAll"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTurnOffAll" />
-&ndash;&gt;
-        <RadioGroup
-            android:id="@+id/rgPushNotifications"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/swNotificationOnOff"
-            app:layout_constraintStart_toStartOf="@+id/tvTurnOffAll"
-            app:layout_constraintTop_toBottomOf="@+id/tvTurnOffAll">
-
-            &lt;!&ndash;<RadioButton
-                android:id="@+id/rbtnDaily"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                app:drawableTint="?attr/colorOnSurface"
-                android:drawableEnd="@drawable/ic_done"
-                android:gravity="center_vertical"
-                android:text="Daily"
-                android:fontFamily="@font/outfit_semibold"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/rbtnWeekly"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                app:drawableTint="?attr/colorOnSurface"
-                android:gravity="center_vertical"
-                android:text="Weekly"
-                android:fontFamily="@font/outfit_semibold"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/rbtnMonthly"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                app:drawableTint="?attr/colorOnSurface"
-                android:gravity="center_vertical"
-                android:text="Monthly"
-                android:fontFamily="@font/outfit_semibold"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="16sp" />&ndash;&gt;
-        </RadioGroup>
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgPushNotifications" />
-
-        <TextView
-            android:id="@+id/tvNotificationTones"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/outfit_semibold"
-            android:text="Notification Tone"
-            android:textAllCaps="true"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/tvDefaultTone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Default(fate)"
-            android:fontFamily="@font/outfit_semibold"
-            android:textAllCaps="false"
-            app:drawableTint="?attr/colorOnSurface"
-            app:layout_constraintTop_toBottomOf="@+id/tvNotificationTones"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:drawableEndCompat="@drawable/ic_arrow_forward" />
-
-        <TextView
-            android:id="@+id/tvVibrate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/outfit_semibold"
-            android:text="Vibrate"
-            android:textAllCaps="true"
-            app:layout_constraintTop_toBottomOf="@+id/tvDefaultTone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-        <TextView
-            android:id="@+id/tvDefaultVibrate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Default"
-            android:fontFamily="@font/outfit_regular"
-            android:textAllCaps="false"
-            app:drawableTint="?attr/colorOnSurface"
-            app:layout_constraintTop_toBottomOf="@+id/tvVibrate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:drawableEndCompat="@drawable/ic_arrow_forward" />
-
-        <RadioGroup
-            android:id="@+id/rgVibrate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/tvDefaultVibrate"
-            app:layout_constraintStart_toStartOf="@+id/tvDefaultVibrate"
-            app:layout_constraintTop_toBottomOf="@+id/tvDefaultVibrate">
-
-            &lt;!&ndash; <RadioButton
-           android:id="@+id/rbtnOff"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Off"
-              android:fontFamily="@font/outfit_semibold"/>
-
-          <RadioButton
-              android:id="@+id/rbtnDefault"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:checked="true"
-              android:fontFamily="@font/outfit_semibold"
-              android:text="Default" />&ndash;&gt;
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/tvBanner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Banner"
-            android:fontFamily="@font/outfit_semibold"
-            android:textAllCaps="true"
-            app:layout_constraintTop_toBottomOf="@+id/rgVibrate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/tvBannerOnOff"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/outfit_regular"
-            app:layout_constraintEnd_toStartOf="@id/swBannerOnOff"
-            android:text="Show notification preview on the top of your screen"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBanner" />
-
-       &lt;!&ndash; <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/swBannerOnOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            app:layout_constraintBottom_toBottomOf="@id/tvBannerOnOff"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvBannerOnOff" />
-&ndash;&gt;
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
