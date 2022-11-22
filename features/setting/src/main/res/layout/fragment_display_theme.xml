@@ -63,7 +63,10 @@
                     android:id="@+id/rbtnLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:checked="true"
+                    android:textSize="18sp"
+                    android:buttonTint="@color/weathery_orange"
                     android:fontFamily="@font/outfit_semibold"
                     android:text="Light" />
 
@@ -71,7 +74,9 @@
                     android:id="@+id/rBtnDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:text="Dark"
+                    android:textSize="18sp"
                     android:fontFamily="@font/outfit_semibold"
                     />
 
@@ -79,7 +84,9 @@
                     android:id="@+id/rbtnUseDeviceTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:text="Use device theme"
+                    android:textSize="18sp"
                     android:fontFamily="@font/outfit_semibold"
                     />
             </RadioGroup>
