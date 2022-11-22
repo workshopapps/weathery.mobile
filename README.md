@@ -4,6 +4,7 @@
  Weathery is an app that tells the users in a simple format whether it's going to rain on the current day or not and also the time it starts. It
  demonstrates modern Android development with Hilt, Coroutines, Flow, Jetpack libraries, and Material Design based on MVVM architecture.
 </p>
+</br>
 
 
 ## Download
@@ -40,7 +41,7 @@ The overall architecture of **Weathery** is composed of three layers; the UI lay
 - Each layer follows [unidirectional event/data flow](https://developer.android.com/topic/architecture/ui-layer#udf); the UI layer emits user events to the data layer, and the data layer exposes data as a stream to other layers.
 - The data layer is designed to work independently from other layers and must be pure, which means it doesn't have any dependencies on the other layers.
 
-With this loosely coupled architecture, you can increase the usability of components and scalability of the app.
+With this loosely coupled architecture, you can increase the reusability of components and scalability of the app.
 
 ### UI Layer
 ![ui layer2](https://user-images.githubusercontent.com/82452881/202275088-291c7952-9770-4d04-8eb0-c2c8fc11ac78.png)
@@ -51,7 +52,7 @@ The UI layer consists of UI elements to configure screens that could interact wi
 
 ### Domain layer
   The domain layer is an optional layer that sits between the UI and data layers.
-The domain layer is responsible for encapsulating complex business logic, or simple business logic that is reused by multiple ViewModels. This layer is optional because not all apps will have these requirements. It should be used only when needed—for example, to handle complexity or favor usability.
+The domain layer is responsible for encapsulating complex business logic, or simple business logic that is reused by multiple ViewModels. This layer is optional because not all apps will have these requirements. It should be used only when needed—for example, to handle complexity or favor reusability.
 
 ### Data Layer
 ![data layer](https://user-images.githubusercontent.com/82452881/202275293-44e5ba41-d26f-4c52-b961-0850fa6d4861.png)
