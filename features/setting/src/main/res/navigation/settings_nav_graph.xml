@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/displayTheme"
-        android:name="com."
+        android:name="com.gear.weathery.setting.DisplayTheme"
         tools:layout="@layout/fragment_display_theme" />
     <fragment
         android:id="@+id/notificationSettings"

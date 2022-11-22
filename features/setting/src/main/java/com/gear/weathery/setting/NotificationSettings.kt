@@ -33,12 +33,10 @@ class NotificationSettings : Fragment() {
                 if (isChecked) {
                     rgPushNotifications.visibility = View.VISIBLE
                     rgVibrate.visibility = View.VISIBLE
-                    rBtnVibrateDefault.isChecked = true
                     swNotificationOnOff.text = "Turn off all notifications"
                 } else {
                     rgPushNotifications.visibility = View.GONE
                     rgVibrate.visibility = View.GONE
-                    rBtnVibrateOff.isChecked = true
                     swNotificationOnOff.text = "Turn on all notifications"
                 }
             }
@@ -46,20 +44,12 @@ class NotificationSettings : Fragment() {
                 Log.d("NotificationSetting", "Vibrate Status: $vibrateOptionsExpanded")
                 if (vibrateOptionsExpanded) {
                     tvVibrateStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.ic_arrow_down,
-                        0
-                    )
+                        0, 0, R.drawable.ic_arrow_down, 0)
                     rgVibrate.visibility = View.VISIBLE
                     vibrateOptionsExpanded = false
                 } else {
                     tvVibrateStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.ic_arrow_forward,
-                        0
-                    )
+                        0, 0, R.drawable.ic_arrow_forward, 0)
                     rgVibrate.visibility = View.GONE
                     vibrateOptionsExpanded = true
                 }
@@ -94,11 +84,7 @@ class NotificationSettings : Fragment() {
                     }
                     R.id.rBtnMonthly -> {
                         rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0,
-                            0,
-                            R.drawable.ic_done,
-                            0
-                        )
+                            0, 0, R.drawable.ic_done, 0)
                         rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
                             0, 0, 0, 0)
                         rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
