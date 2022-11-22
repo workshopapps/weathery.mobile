@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.gear.weathery.common.navigation.DashBoardNavigation
 import com.gear.weathery.setting.databinding.FragmentSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class Settings : Fragment() {
 
-
     private lateinit var binding: FragmentSettingsBinding
+    @Inject
+    lateinit var dashBoardNavigation: DashBoardNavigation
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -19,6 +24,10 @@ class Settings : Fragment() {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
         binding.apply {
+            ivBackButton.setOnClickListener {
+                dashBoardNavigation.navigateToDashboard(navController = findNavController())
+            }
+
             IvNotificationBtn.setOnClickListener {
                 findNavController().navigate(R.id.notificationSettings)
             }
