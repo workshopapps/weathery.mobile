@@ -1,4 +1,4 @@
-package com.gear.add_remove_location.presentation.components
+package com.gear.add_remove_location.presentation.manage_location.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
