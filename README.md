@@ -58,3 +58,30 @@ The domain layer is responsible for encapsulating complex business logic, or sim
 
 The data Layer consists of repositories, which include business logic, such as querying and requesting remote data from the network and also
 determine how the app creates, stores, and changes data.
+
+
+## MODULARIZATION
+![module structure](https://user-images.githubusercontent.com/82452881/203658789-f3335d5b-912b-4eed-a646-30d583eb8fd1.png)
+
+**Weathery** adopted modularization for these reasons:
+
+- **Reusability**: Modularizing reusable codes properly enable opportunities for code sharing and limits code accessibility in other modules at the same time.
+- **Parallel Building**: Each module can be run in parallel and it reduces the build time.
+- **Strict visibility control**: Modules restrict to expose dedicated components and access to other layers, so it prevents they're being used outside the module
+- **Decentralized focusing**: Each developer team can assign their dedicated module and they can focus on their own modules.
+
+For more information, check out the [Guide to Android app modularization](https://developer.android.com/topic/modularization).
+
+
+## Contributing
+ 
+To contribute:
+- Clone the repository `https://github.com/workshopapps/weathery.mobile.git`
+- Create a separate branch you’ll be working on
+- Commit all changes and push to that branch
+- Once you’re done, make a PR to the **Feature** branch
+
+**Exploring:** each feature/flow is a module and components that'll be reused amongst other module can be found in the **Common** module .
+
+All PR must be made to the Feature branch before it is then merged into the main branch **i.e** create a branch per feature then make a PR to the Feature branch once it’s been approved and merged, a PR will then be made from the Feature branch to the Main branch.
+
