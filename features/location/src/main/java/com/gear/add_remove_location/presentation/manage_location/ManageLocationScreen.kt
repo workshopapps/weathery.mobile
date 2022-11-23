@@ -14,30 +14,29 @@ import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import com.gear.add_remove_location.R
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.gear.add_remove_location.data.getColor
-import com.gear.add_remove_location.data.getImageRes
-import com.gear.add_remove_location.data.getWeather
+import com.gear.add_remove_location.R
+import com.gear.add_remove_location.data.*
 import com.gear.add_remove_location.presentation.LocationScreen
 import com.gear.add_remove_location.presentation.manage_location.components.LearnMore
 import com.gear.add_remove_location.presentation.manage_location.components.LocationSearchBar
 import com.gear.add_remove_location.presentation.manage_location.components.WeatherItem
 import com.gear.add_remove_location.presentation.manage_location.components.WeatherSearchItem
-import com.gear.add_remove_location.presentation.ui.theme.*
+import com.gear.add_remove_location.presentation.ui.theme.Outfit
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun ManageLocationScreen(onNavBack: () -> Unit,navController: NavController) {
+fun ManageLocationScreen(
+    onNavBack: () -> Unit,
+    navController: NavController,
+) {
     var state by remember { mutableStateOf(false) }
-    val weatherList = getWeather()
+    val weatherList = remember{ getWeather()}
     Column(Modifier.fillMaxSize()) {
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
@@ -53,12 +52,12 @@ fun ManageLocationScreen(onNavBack: () -> Unit,navController: NavController) {
             fontSize = 24.sp,
         )
         LocationSearchBar {
-            if (it == "Lagos") {
+            if (it.contains("Lagos")) {
                 state = true
             }
         }
         Text(
-            text = " Popular locations",
+            text = "Saved locations",
             modifier = Modifier.padding(start = 24.dp, bottom = 24.dp),
             fontFamily = Outfit,
             fontWeight = FontWeight.SemiBold,
@@ -78,6 +77,7 @@ fun ManageLocationScreen(onNavBack: () -> Unit,navController: NavController) {
                             confirmStateChange = {
                                 if (it == DismissValue.DismissedToStart) {
                                     weatherList.remove(weather)
+                                    removeWeather(weather)
                                 }
                                 true
                             }
@@ -90,17 +90,19 @@ fun ManageLocationScreen(onNavBack: () -> Unit,navController: NavController) {
                                     DismissDirection.EndToStart -> Color.Red
                                     null -> Color.Transparent
                                 }
-                                Box(
+                                Row(
                                     modifier = Modifier
                                         .padding(horizontal = 24.dp)
                                         .fillMaxSize()
-                                        .background(color, RoundedCornerShape(8.dp))
+                                        .background(color, RoundedCornerShape(8.dp)),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.End
                                 ) {
+                                    Text(text = "Delete", color = Color.White)
                                     Icon(
                                         imageVector = Icons.Outlined.DeleteForever,
                                         contentDescription = "Delete",
                                         tint = Color.White,
-                                        modifier = Modifier.align(Alignment.CenterEnd)
                                     )
                                 }
                             },
@@ -121,7 +123,6 @@ fun ManageLocationScreen(onNavBack: () -> Unit,navController: NavController) {
             }
         }
         if (state) {
-
             WeatherSearchItem(
                 location = "Lagos",
                 country = "Nigeria",
@@ -142,10 +143,4 @@ fun ManageLocationScreen(onNavBack: () -> Unit,navController: NavController) {
         }
         LearnMore {}
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ScreenPrev() {
-    ManageLocationScreen({}, rememberNavController())
 }
