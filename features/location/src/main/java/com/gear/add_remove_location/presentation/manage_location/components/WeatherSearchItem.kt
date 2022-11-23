@@ -67,7 +67,8 @@ fun WeatherSearchItem(
                 Text(
                     text = "$location,",
                     fontFamily = Outfit,
-                    fontSize = 18.sp
+                    fontSize = 18.sp,
+                    color = Gray900
                 )
                 Text(
                     text = country,

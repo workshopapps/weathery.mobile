@@ -1,6 +1,8 @@
 package com.gear.add_remove_location.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,7 +14,10 @@ fun SetUpNavGraph(
     navController: NavHostController,
     onNavBack: () -> Unit
 ) {
-    NavHost(
+
+    //Change to hiltVm in implementation
+
+            NavHost(
         navController = navController,
         startDestination = LocationScreen.Manage.route
     ) {

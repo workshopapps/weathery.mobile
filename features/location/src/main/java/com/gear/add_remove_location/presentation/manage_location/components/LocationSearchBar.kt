@@ -4,10 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.*
@@ -42,7 +39,7 @@ fun LocationSearchBar(getText:(String) -> Unit) {
                 painter = painterResource(id = R.drawable.location_ic_search_icon),
                 contentDescription = "",
                 modifier = Modifier.size(16.dp),
-                tint = Gray800
+                tint = MaterialTheme.colors.primary
             )
         },
         placeholder = {
@@ -64,8 +61,7 @@ fun LocationSearchBar(getText:(String) -> Unit) {
                 contentDescription = "",
                 modifier = Modifier
                     .size(16.dp)
-                    .clickable { text = "" },
-                tint = Gray800
+                    .clickable { text = "" }
             )
             }
         },

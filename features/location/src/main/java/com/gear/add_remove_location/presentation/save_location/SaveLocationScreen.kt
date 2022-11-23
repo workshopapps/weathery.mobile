@@ -1,10 +1,7 @@
 package com.gear.add_remove_location.presentation.save_location
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -18,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.gear.add_remove_location.data.WeatherData
+import com.gear.add_remove_location.data.addWeather
 import com.gear.add_remove_location.presentation.save_location.components.HourlyWeatherItem
 import com.gear.add_remove_location.presentation.ui.theme.Gray900
 import com.gear.add_remove_location.presentation.ui.theme.Outfit
@@ -25,6 +24,7 @@ import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @Composable
 fun SaveLocationScreen(navController: NavController) {
+
 
     Column(Modifier.fillMaxSize()) {
         Icon(
@@ -44,8 +44,9 @@ fun SaveLocationScreen(navController: NavController) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
             HourlyWeatherItem()
             OutlinedButton(
-                onClick = { navController.popBackStack() },//change to add args to the manage screen
-                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp)
+                onClick = {
+                    navController.popBackStack() },//change to add args to the manage screen
+                modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding( 24.dp)
             ) {
                 Text(text = "SAVE LOCATION", color = Primary500)
             }

@@ -61,3 +61,11 @@ fun getColor(location: String): Color {
         else -> { Clear }
     }
 }
+
+fun removeWeather(weatherData: WeatherData){
+    getWeather().remove(weatherData)
+}
+
+fun addWeather(weatherData: WeatherData){
+    getWeather().add(weatherData)
+}
