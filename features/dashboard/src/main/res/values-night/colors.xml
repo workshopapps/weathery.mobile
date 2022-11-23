@@ -3,4 +3,5 @@
     <color name="default_colour">@android:color/white</color>
     <color name="popup_background">@color/weathery_grey_1</color>
     <color name="popup_outline">@color/weathery_grey_2</color>
+    <color name="nav_drawer_color">@color/weathery_black</color>
 </resources>

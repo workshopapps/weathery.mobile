@@ -26,7 +26,8 @@
                 android:layout_margin="16dp"
                 android:src="@drawable/menu_05"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/default_colour" />
 
             <LinearLayout
                 android:id="@+id/locationHeader_linearLayout"
@@ -43,7 +44,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:src="@drawable/marker_pin_01" />
+                    android:src="@drawable/marker_pin_01"
+                    app:tint="@color/default_colour"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +60,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:src="@drawable/chevron_down" />
+                    android:src="@drawable/chevron_down"
+                    app:tint="@color/default_colour"
+                    />
 
             </LinearLayout>
 
@@ -68,7 +73,8 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/share_07"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/navLayoutButton_imageView" />
+                app:layout_constraintTop_toTopOf="@id/navLayoutButton_imageView"
+                app:tint="@color/default_colour" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/weatherForTimes_recylcerView"
@@ -171,7 +177,7 @@
         android:layout_height="0dp"
         android:alpha="0.0"
         android:visibility="invisible"
-        android:background="@android:color/white"
+        android:background="@color/nav_drawer_color"
         android:paddingHorizontal="24dp"
         android:paddingVertical="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
