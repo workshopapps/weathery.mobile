@@ -1,11 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
     <style name="Theme.Weathery" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <!-- Primary brand color. -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/weathery_orange</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
