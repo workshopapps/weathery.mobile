@@ -74,4 +74,5 @@ dependencies {
     implementation project(':features:location')
     implementation project(':features:setting')
     implementation project(':features:signin')
+    implementation project(':features:account')
 }

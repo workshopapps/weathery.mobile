@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ProfileFragment">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:id="@+id/lin5">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_to_dash_board"
+            android:src="@drawable/account_back_arrow"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:textColor="#EF6820"
+            android:text="Profile" />
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_launcher_background"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+    <ImageView
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/account_change_picture"
+        app:layout_constraintBottom_toTopOf="@id/lin1"
+        app:layout_constraintEnd_toEndOf="@id/profile_image"
+        app:fabSize="mini" />
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/lin1"
+        app:layout_constraintTop_toBottomOf="@id/profile_image"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_name"
+            android:fontFamily="@font/outfit_regular"
+            android:textSize="20sp"
+            android:text="Lemzeeyyy"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_email"
+            android:fontFamily="@font/outfit_regular"
+            android:layout_gravity="center"
+            android:text="Lemzeeyyy@gmail.com"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/user_name"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="330dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lin1"
+
+        android:id="@+id/lin2"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:id="@+id/persol_data_rel">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_gravity="start"
+
+                android:layout_alignParentStart="true"
+                android:layout_height="24dp"
+                android:src="@drawable/account_ic_person"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginStart="30dp"
+                android:text="Personal Data" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_gravity="start"
+                android:layout_alignParentStart="true"
+                android:layout_height="24dp"
+                android:src="@drawable/account_display_theme"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginLeft="30dp"
+                android:text="Display Theme" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_gravity="start"
+                android:layout_alignParentStart="true"
+                android:layout_height="24dp"
+                android:src="@drawable/account_weather_notification"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:id="@+id/weather_text_id"
+                android:layout_marginEnd="120dp"
+                android:layout_marginStart="30dp"
+                android:text="Weather Notification" />
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:text="On" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_gravity="start"
+                android:layout_alignParentStart="true"
+                android:layout_height="24dp"
+                android:src="@drawable/account_ic_person"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:id="@+id/language_text_id"
+                android:layout_marginStart="30dp"
+                android:text="Language" />
+
+            <TextView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:text="En" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_gravity="start"
+                android:layout_alignParentStart="true"
+                android:layout_height="24dp"
+                android:src="@drawable/account_contact_us"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginStart="30dp"
+                android:text="About Us" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_gravity="start"
+                android:layout_alignParentStart="true"
+                android:layout_height="24dp"
+                android:src="@drawable/account_ic_logout"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#DC2626"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_marginStart="30dp"
+                android:text="Logout" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/lin2"
+        >
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lin2"
+        android:fontFamily="@font/outfit_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
+        android:textSize="12sp"
+        android:text="version"/>
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

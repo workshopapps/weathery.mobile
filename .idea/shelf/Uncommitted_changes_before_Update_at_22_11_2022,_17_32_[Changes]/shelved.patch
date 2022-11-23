@@ -1,0 +1,15 @@
+Index: features/account_profile/src/main/res/account_update_btn_bg.xml
+===================================================================
+diff --git a/features/account_profile/src/main/res/account_update_btn_bg.xml b/features/account_profile/src/main/res/account_update_btn_bg.xml
+deleted file mode 100644
+--- a/features/account_profile/src/main/res/account_update_btn_bg.xml	(revision ebaac98a142947446fffe01309beaed6e25d1aa9)
++++ /dev/null	(revision ebaac98a142947446fffe01309beaed6e25d1aa9)
+@@ -1,7 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-
+-<shape android:shape="rectangle">
+-    <corners android:radius="10dp"/>
+-    <solid android:color="#EF6820"/>
+-
+-</shape>
+\ No newline at end of file

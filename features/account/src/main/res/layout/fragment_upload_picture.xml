@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UploadPictureFragment">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/account_back_arrow"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            android:textColor="#EF6820"
+            android:textSize="20sp"
+            android:text="Upload Image"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="380dp"
+        android:layout_height="201dp"
+        android:id="@+id/picture_container_id"
+        android:background="@drawable/dash"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RelativeLayout
+            android:layout_width="231dp"
+            android:layout_height="128dp"
+            android:id="@+id/picture"
+            android:layout_centerInParent="true"
+            android:background="@drawable/dash">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/account_ic_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Drag and drop or"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=" Upload image"
+
+                    android:textAlignment="center"
+                    android:textColor="#EF6820"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/outfit_regular"
+                android:gravity="center"
+                android:text="Support Jpeg, Jpeg 2000, Png"
+                android:textAlignment="center"
+                android:textColor="#B1B0B9"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Upload Image"
+        android:id="@+id/upload_picture_btn_id"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/picture_container_id"
+        android:background="@drawable/account_update_btn_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#EF6820"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
