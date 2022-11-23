@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.setting.databinding.FragmentDisplayThemeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DisplayTheme : Fragment() {
   private lateinit var binding: FragmentDisplayThemeBinding
 
