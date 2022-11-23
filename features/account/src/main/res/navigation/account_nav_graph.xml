@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/personalDataFragment"
-        android:name="com.gear.weathery.PersonalDataFragment"
+        android:name="com.gear.weathery.account.PersonalDataFragment"
         android:label="fragment_personal_data"
         tools:layout="@layout/fragment_personal_data" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.gear.weathery.ProfileFragment"
+        android:name="com.gear.weathery.account.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/uploadPictureFragment"
-        android:name="com.gear.weathery.UploadPictureFragment"
+        android:name="com.gear.weathery.account.UploadPictureFragment"
         android:label="fragment_upload_picture"
         tools:layout="@layout/fragment_upload_picture" />
 </navigation>
