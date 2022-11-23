@@ -1,4 +1,4 @@
-package com.gear.weathery
+package com.gear.weathery.account
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

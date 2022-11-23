@@ -1,10 +1,9 @@
-package com.gear.weathery.utils
+package com.gear.weathery.account.utils
 
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import com.gear.weathery.R
 import com.gear.weathery.common.navigation.AccountNavigation
-import com.gear.weathery.common.navigation.DashBoardNavigation
 
 
 class AccountProfileNavigationImpl:AccountNavigation {

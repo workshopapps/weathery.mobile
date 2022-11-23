@@ -1,4 +1,4 @@
-package com.gear.weathery.utils
+package com.gear.weathery.account.utils
 
 import com.gear.weathery.common.navigation.AccountNavigation
 import dagger.Module
