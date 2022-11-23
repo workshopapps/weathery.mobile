@@ -1,13 +1,11 @@
 package com.gear.weathery.setting.adapters
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gear.weathery.setting.R
 import com.gear.weathery.setting.databinding.ItemLanguageBinding
 import com.gear.weathery.setting.util.Language
 
@@ -21,20 +19,21 @@ class LanguagesAdapter(val onLangSelected:(Language)->Unit) :ListAdapter<Languag
         holder.bind(getItem(position))
     }
 
-    inner class LangViewHolder(val binding: ItemLanguageBinding):RecyclerView.ViewHolder(binding.root) {
+    inner class LangViewHolder(private val binding: ItemLanguageBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(lang: Language) {
             binding.apply {
-
                 tvLocale.text = lang.locale
                 tvLanguagevalue.text = lang.lang
                 rBtnSelectLang.isChecked= adapterPosition == selectedPosition
-                rBtnSelectLang.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked){
-                        selectedPosition = adapterPosition
-                        onLangSelected(lang)
-                        notifyItemChanged(selectedPosition)
-                    }
+
+                val checkListener = View.OnClickListener {
+                    selectedPosition = adapterPosition
+                    notifyDataSetChanged()
+                    onLangSelected(lang)
+                    notifyItemChanged(selectedPosition)
                 }
+                rBtnSelectLang.setOnClickListener(checkListener)
+                root.setOnClickListener(checkListener)
             }
 
             }

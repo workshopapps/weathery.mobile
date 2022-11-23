@@ -32,11 +32,9 @@ class NotificationSettings : Fragment() {
                 isPushNotificationOn = isChecked
                 if (isChecked) {
                     rgPushNotifications.visibility = View.VISIBLE
-                    rgVibrate.visibility = View.VISIBLE
                     swNotificationOnOff.text = "Turn off all notifications"
                 } else {
                     rgPushNotifications.visibility = View.GONE
-                    rgVibrate.visibility = View.GONE
                     swNotificationOnOff.text = "Turn on all notifications"
                 }
             }
