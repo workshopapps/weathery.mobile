@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/notif_alert_nav_graph"
+    app:startDestination="@id/settings">
+
+
+    <fragment
+        android:id="@+id/notifications"
+        android:name="com.gear.weathery.setting.notifications.Notifications"
+        android:label="Notifications" />
+</navigation>

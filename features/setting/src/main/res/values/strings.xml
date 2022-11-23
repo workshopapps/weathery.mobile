@@ -1,4 +1,8 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigate_back">Navigate back</string>
+    <string name="weatherReport">There will be heavy rain for some in northeast with a few brighter exceptions.</string>
+    <string name="notifications">Notifications</string>
+    <string name="time">12m</string>
 </resources>

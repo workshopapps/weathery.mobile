@@ -1,0 +1,262 @@
+Index: features/setting/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/setting/src/main/res/values/strings.xml b/features/setting/src/main/res/values/strings.xml
+--- a/features/setting/src/main/res/values/strings.xml	(revision 8722ea28875d2d196e23837daf62c34afb529910)
++++ b/features/setting/src/main/res/values/strings.xml	(date 1669195250176)
+@@ -1,4 +1,8 @@
+ <resources>
+     <!-- TODO: Remove or change this placeholder text -->
+     <string name="hello_blank_fragment">Hello blank fragment</string>
++    <string name="navigate_back">Navigate back</string>
++    <string name="weatherReport">There will be heavy rain for some in northeast with a few brighter exceptions.</string>
++    <string name="notifications">Notifications</string>
++    <string name="time">12m</string>
+ </resources>
+\ No newline at end of file
+Index: common/src/main/res/values-night/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/common/src/main/res/values-night/colors.xml b/common/src/main/res/values-night/colors.xml
+new file mode 100644
+--- /dev/null	(date 1669195250423)
++++ b/common/src/main/res/values-night/colors.xml	(date 1669195250423)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="default_colour">@android:color/white</color>
++    <color name="popup_background">@color/weathery_grey_1</color>
++    <color name="popup_outline">@color/weathery_grey_2</color>
++</resources>
+\ No newline at end of file
+Index: features/setting/src/main/res/navigation/notif_alert_nav_graph.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/setting/src/main/res/navigation/notif_alert_nav_graph.xml b/features/setting/src/main/res/navigation/notif_alert_nav_graph.xml
+new file mode 100644
+--- /dev/null	(date 1669195250692)
++++ b/features/setting/src/main/res/navigation/notif_alert_nav_graph.xml	(date 1669195250692)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<navigation xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:id="@+id/alert_nav_graph"
++    app:startDestination="@id/settings">
++
++</navigation>
+\ No newline at end of file
+Index: common/src/main/java/com/gear/weathery/common/navigation/NotificationAlertNavigation.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/common/src/main/java/com/gear/weathery/common/navigation/NotificationAlertNavigation.kt b/common/src/main/java/com/gear/weathery/common/navigation/NotificationAlertNavigation.kt
+new file mode 100644
+--- /dev/null	(date 1669195250793)
++++ b/common/src/main/java/com/gear/weathery/common/navigation/NotificationAlertNavigation.kt	(date 1669195250793)
+@@ -0,0 +1,4 @@
++package com.gear.weathery.common.navigation
++
++interface NotificationAlertNavigation {
++}
+\ No newline at end of file
+Index: features/setting/src/main/res/layout/notifications_list_item.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    >\r\n\r\n    <TextView\r\n        android:id=\"@+id/notificationBody_textView\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginVertical=\"24dp\"\r\n        android:layout_marginEnd=\"24dp\"\r\n        android:fontFamily=\"@font/outfit_medium\"\r\n        android:textSize=\"16sp\"\r\n        android:text=\"There will be heavy rain for some in northeast with a few brighter exceptions.\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"@id/divider_view\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toStartOf=\"@id/age_textView\"\r\n\r\n        />\r\n\r\n    <TextView\r\n        android:id=\"@+id/age_textView\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:fontFamily=\"@font/outfit_semibold\"\r\n        android:textSize=\"16sp\"\r\n        android:text=\"12m\"\r\n        android:layout_marginEnd=\"16dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"@id/notificationBody_textView\"\r\n        />\r\n\r\n    <View\r\n        android:id=\"@+id/divider_view\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0.5dp\"\r\n        android:alpha=\"0.3\"\r\n        android:background=\"@color/default_colour\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/setting/src/main/res/layout/notifications_list_item.xml b/features/setting/src/main/res/layout/notifications_list_item.xml
+--- a/features/setting/src/main/res/layout/notifications_list_item.xml	(revision 8722ea28875d2d196e23837daf62c34afb529910)
++++ b/features/setting/src/main/res/layout/notifications_list_item.xml	(date 1669195250436)
+@@ -2,11 +2,33 @@
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    >
++    android:layout_height="match_parent"
++    >
++
++    <ImageView
++        android:id="@+id/ivBackButton"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:contentDescription="@string/navigate_back"
++        android:src="@drawable/ic_arrow_back"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        />
+ 
+     <TextView
+-        android:id="@+id/notificationBody_textView"
++        android:id="@+id/notif_title"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="24dp"
++        android:fontFamily="@font/outfit_extrabold"
++        android:text="@string/notifications"
++        android:textSize="24sp"
++        app:layout_constraintStart_toStartOf="@+id/ivBackButton"
++        app:layout_constraintTop_toBottomOf="@+id/ivBackButton" />
++
++
++    <TextView
++        android:id="@+id/notif_info"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="16dp"
+@@ -14,25 +36,24 @@
+         android:layout_marginEnd="24dp"
+         android:fontFamily="@font/outfit_medium"
+         android:textSize="16sp"
+-        android:text="There will be heavy rain for some in northeast with a few brighter exceptions."
+-        app:layout_constraintTop_toTopOf="parent"
++        android:text="@string/weatherReport"
++        app:layout_constraintTop_toBottomOf="@id/notif_title"
+         app:layout_constraintBottom_toBottomOf="@id/divider_view"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toStartOf="@id/age_textView"
+-
++        app:layout_constraintEnd_toStartOf="@id/time"
+         />
+ 
+     <TextView
+-        android:id="@+id/age_textView"
++        android:id="@+id/time"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
++        android:layout_marginEnd="16dp"
+         android:fontFamily="@font/outfit_semibold"
++        android:text="@string/time"
+         android:textSize="16sp"
+-        android:text="12m"
+-        android:layout_marginEnd="16dp"
++        app:layout_constraintBottom_toBottomOf="@+id/notif_info"
+         app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintTop_toTopOf="@id/notificationBody_textView"
+-        />
++        app:layout_constraintTop_toTopOf="@id/notif_info" />
+ 
+     <View
+         android:id="@+id/divider_view"
+Index: features/dashboard/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"weathery_orange\">#FD7536</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n\r\n    <color name=\"weathery_orange_1\">#EF6820</color>\r\n    <color name=\"weathery_orange_light\">#FDEAD7</color>\r\n    <color name=\"weathery_grey_1\">#2B2A30</color>\r\n    <color name=\"weathery_grey_2\">#565560</color>\r\n    <color name=\"weathery_black\">#161518</color>\r\n\r\n\r\n    <color name=\"default_colour\">@android:color/black</color>\r\n    <color name=\"popup_background\">@color/weathery_orange_light</color>\r\n    <color name=\"popup_outline\">@color/weathery_orange</color>\r\n    <color name=\"nav_drawer_color\">@android:color/white</color>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/dashboard/src/main/res/values/colors.xml b/features/dashboard/src/main/res/values/colors.xml
+--- a/features/dashboard/src/main/res/values/colors.xml	(revision 8722ea28875d2d196e23837daf62c34afb529910)
++++ b/features/dashboard/src/main/res/values/colors.xml	(date 1669195250478)
+@@ -1,20 +1,21 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <color name="purple_200">#FFBB86FC</color>
+-    <color name="purple_500">#FF6200EE</color>
+-    <color name="purple_700">#FF3700B3</color>
+-    <color name="weathery_orange">#FD7536</color>
+-    <color name="teal_700">#FF018786</color>
+ 
+-    <color name="weathery_orange_1">#EF6820</color>
+-    <color name="weathery_orange_light">#FDEAD7</color>
+-    <color name="weathery_grey_1">#2B2A30</color>
+-    <color name="weathery_grey_2">#565560</color>
++<!--    <color name="purple_200">#FFBB86FC</color>-->
++<!--    <color name="purple_500">#FF6200EE</color>-->
++<!--    <color name="purple_700">#FF3700B3</color>-->
++<!--    <color name="weathery_orange">#FD7536</color>-->
++<!--    <color name="teal_700">#FF018786</color>-->
+     <color name="weathery_black">#161518</color>
+ 
+ 
+-    <color name="default_colour">@android:color/black</color>
+-    <color name="popup_background">@color/weathery_orange_light</color>
+-    <color name="popup_outline">@color/weathery_orange</color>
++<!--    <color name="weathery_orange_1">#EF6820</color>-->
++<!--    <color name="weathery_orange_light">#FDEAD7</color>-->
++<!--    <color name="weathery_grey_1">#2B2A30</color>-->
++<!--    <color name="weathery_grey_2">#565560</color>-->
++
++<!--    <color name="default_colour">@android:color/black</color>-->
++<!--    <color name="popup_background">@color/weathery_orange_light</color>-->
++<!--    <color name="popup_outline">@color/weathery_orange</color>-->
+     <color name="nav_drawer_color">@android:color/white</color>
+ </resources>
+\ No newline at end of file
+Index: common/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/common/src/main/res/values/colors.xml b/common/src/main/res/values/colors.xml
+new file mode 100644
+--- /dev/null	(date 1669195250295)
++++ b/common/src/main/res/values/colors.xml	(date 1669195250295)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="purple_200">#FFBB86FC</color>
++    <color name="purple_500">#FF6200EE</color>
++    <color name="purple_700">#FF3700B3</color>
++    <color name="weathery_orange">#FD7536</color>
++    <color name="teal_700">#FF018786</color>
++
++    <color name="weathery_orange_1">#EF6820</color>
++    <color name="weathery_orange_light">#FDEAD7</color>
++    <color name="weathery_grey_1">#2B2A30</color>
++    <color name="weathery_grey_2">#565560</color>
++
++    <color name="default_colour">@android:color/black</color>
++    <color name="popup_background">@color/weathery_orange_light</color>
++    <color name="popup_outline">@color/weathery_orange</color>
++</resources>
+\ No newline at end of file
+Index: features/dashboard/src/main/res/values-night/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"default_colour\">@android:color/white</color>\r\n    <color name=\"popup_background\">@color/weathery_grey_1</color>\r\n    <color name=\"popup_outline\">@color/weathery_grey_2</color>\r\n    <color name=\"nav_drawer_color\">@color/weathery_black</color>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/dashboard/src/main/res/values-night/colors.xml b/features/dashboard/src/main/res/values-night/colors.xml
+--- a/features/dashboard/src/main/res/values-night/colors.xml	(revision 8722ea28875d2d196e23837daf62c34afb529910)
++++ b/features/dashboard/src/main/res/values-night/colors.xml	(date 1669195250625)
+@@ -1,7 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <color name="default_colour">@android:color/white</color>
+-    <color name="popup_background">@color/weathery_grey_1</color>
+-    <color name="popup_outline">@color/weathery_grey_2</color>
++
+     <color name="nav_drawer_color">@color/weathery_black</color>
+ </resources>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"Embedded JDK\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n            <option value=\"$PROJECT_DIR$/common\" />\r\n            <option value=\"$PROJECT_DIR$/features\" />\r\n            <option value=\"$PROJECT_DIR$/features/add_remove_location\" />\r\n            <option value=\"$PROJECT_DIR$/features/account_profile\" />\r\n            <option value=\"$PROJECT_DIR$/features/account\" />\r\n            <option value=\"$PROJECT_DIR$/features/dashboard\" />\r\n            <option value=\"$PROJECT_DIR$/features/location\" />\r\n            <option value=\"$PROJECT_DIR$/features/onboarding\" />\r\n            <option value=\"$PROJECT_DIR$/features/setting\" />\r\n            <option value=\"$PROJECT_DIR$/features/signin\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 8722ea28875d2d196e23837daf62c34afb529910)
++++ b/.idea/gradle.xml	(date 1669195295648)
+@@ -7,7 +7,6 @@
+         <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="Embedded JDK" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
