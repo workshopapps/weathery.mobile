@@ -81,9 +81,9 @@ class DashBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scrollIndicator1 = binding.scrollIndicator1ImageView
-        scrollIndicator2 = binding.scrollIndicator2ImageView
-        scrollIndicator3 = binding.scrollIndicator3ImageView
+//        scrollIndicator1 = binding.scrollIndicator1ImageView
+//        scrollIndicator2 = binding.scrollIndicator2ImageView
+//        scrollIndicator3 = binding.scrollIndicator3ImageView
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
@@ -96,9 +96,9 @@ class DashBoardFragment : Fragment() {
             navigateToSettings()
         }
 
-        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
-            navigateToSignin()
-        }
+//        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
+//            navigateToSignin()
+//        }
 
         overlay.setOnClickListener {
             hideDialog(navDrawer)
@@ -111,42 +111,42 @@ class DashBoardFragment : Fragment() {
         binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
         demoCollectionAdapter = PagerCollectionAdapter(this)
-        viewPager = view.findViewById(R.id.pager)
-        viewPager.adapter = demoCollectionAdapter
-        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updateScrollIndicator(position)
-            }
-        })
+//        viewPager = view.findViewById(R.id.pager)
+//        viewPager.adapter = demoCollectionAdapter
+//        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                updateScrollIndicator(position)
+//            }
+//        })
 
     }
+//
+//    private fun updateScrollIndicator(newPosition: Int) {
+//        when(newPosition){
+//            0 -> {
+//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
+//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+//            }
+//
+//            1 -> {
+//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
+//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+//            }
+//
+//            2 -> {
+//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
+//            }
+//        }
+//    }
 
-    private fun updateScrollIndicator(newPosition: Int) {
-        when(newPosition){
-            0 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-            }
-
-            1 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-            }
-
-            2 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
-            }
-        }
-    }
-
-
-    private fun navigateToSignin(){
-        signInNavigation.navigateToSignIn(navController = findNavController())
-    }
+//
+//    private fun navigateToSignin(){
+//        signInNavigation.navigateToSignIn(navController = findNavController())
+//    }
 
     private fun navigateToSettings(){
         settingsNavigation.navigateToSettings(navController = findNavController())

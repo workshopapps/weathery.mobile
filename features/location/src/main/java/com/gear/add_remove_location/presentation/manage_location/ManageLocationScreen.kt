@@ -16,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,13 +41,13 @@ fun ManageLocationScreen(
     Column(Modifier.fillMaxSize()) {
         Icon(
             imageVector = Icons.Default.ArrowBackIos,
-            contentDescription = "navigate",
+            contentDescription = stringResource(R.string.navigate),
             modifier = Modifier
                 .clickable { onNavBack() }
                 .padding(start = 24.dp, bottom = 24.dp, top = 8.dp)
         )
         Text(
-            text = "Manage cities",
+            text = stringResource(R.string.manageCities),
             modifier = Modifier.padding(start = 24.dp),
             fontFamily = Outfit,
             fontSize = 24.sp,
@@ -57,7 +58,7 @@ fun ManageLocationScreen(
             }
         }
         Text(
-            text = "Saved locations",
+            text = stringResource(R.string.savedLocations),
             modifier = Modifier.padding(start = 24.dp, bottom = 24.dp),
             fontFamily = Outfit,
             fontWeight = FontWeight.SemiBold,
@@ -98,10 +99,10 @@ fun ManageLocationScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.End
                                 ) {
-                                    Text(text = "Delete", color = Color.White)
+                                    Text(text = stringResource(R.string.delete), color = Color.White)
                                     Icon(
                                         imageVector = Icons.Outlined.DeleteForever,
-                                        contentDescription = "Delete",
+                                        contentDescription = stringResource(R.string.delete),
                                         tint = Color.White,
                                     )
                                 }
@@ -124,19 +125,19 @@ fun ManageLocationScreen(
         }
         if (state) {
             WeatherSearchItem(
-                location = "Lagos",
-                country = "Nigeria",
-                time = "2:00pm",
-                weather = "Cloudy",
+                location = stringResource(R.string.lagos),
+                country = stringResource(R.string.nigeria),
+                time = stringResource(R.string._2_pm),
+                weather = stringResource(R.string.cloudy),
                 conditionBgRes = R.drawable.location_cloudy_bg,
                 conditionFgRes = R.drawable.location_ic_windy_cloud
             ) { navController.navigate(LocationScreen.Save.route) }
             Spacer(modifier = Modifier.height(16.dp))
             WeatherSearchItem(
-                location = "Lagosanto FE",
-                country = "Italy",
-                time = "9.00pm",
-                weather = "Clear",
+                location = stringResource(R.string.lagosantofe),
+                country = stringResource(R.string.italy),
+                time = stringResource(R.string._9_pm),
+                weather = stringResource(R.string.clear),
                 conditionBgRes = R.drawable.location_clear_night_bg,
                 conditionFgRes = R.drawable.location_ic_halfmoon
             ) {navController.navigate(LocationScreen.Save.route)}

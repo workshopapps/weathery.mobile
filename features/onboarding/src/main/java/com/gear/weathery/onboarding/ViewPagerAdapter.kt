@@ -19,9 +19,9 @@ class ViewPagerAdapter(val context: Context) : PagerAdapter() {
     )
 
     val titleArray = arrayOf(
-        "Before stepping outside your comfort zone, familiarize yourself with the weather",
-        "Plan your whole day while weathery guides your movement",
-        "No matter the weather, you are always informed and prepared"
+        R.string.arrayitem1,
+        R.string.arrayitem2,
+        R.string.arrayitem3
     )
 
     override fun getCount(): Int {

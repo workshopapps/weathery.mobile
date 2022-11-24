@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,12 +53,12 @@ fun WeatherSearchItem(
                     modifier = Modifier
                         .height(100.dp)
                         .fillMaxWidth(),
-                    contentDescription = "Condition Background Image",
+                    contentDescription = stringResource(R.string.conditionBackgroundImage),
                     colorFilter = ColorFilter.tint(Rainy.copy(0.83f), blendMode = BlendMode.SrcAtop)
                 )
                 Image(
                     painter = painterResource(id = conditionFgRes),
-                    contentDescription = "Condition ForegroundImage",
+                    contentDescription = stringResource(R.string.conditionForegroundImage),
                     modifier = Modifier.align(Alignment.CenterEnd).padding(end = 24.dp)
                 )
             }
@@ -101,12 +102,12 @@ fun WeatherSearchItem(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "add button",
+                        contentDescription = stringResource(R.string.addButton),
                         modifier = Modifier.size(24.dp),
                         tint = Primary500
                     )
                     Text(
-                        text = "Add",
+                        text = stringResource(R.string.add),
                         fontFamily = Outfit,
                         color = Primary500,
                         fontSize = 24.sp
@@ -123,10 +124,10 @@ fun WeatherSearchItem(
 @Composable
 fun LocationSearchItemPrev() {
     WeatherSearchItem(
-        location = "Nairobi",
-        country = "Kenya",
-        time = "8.00pm",
-        weather = "Cloudy",
+        location = stringResource(R.string.nairobi),
+        country = stringResource(R.string.kenya),
+        time = stringResource(R.string._8_pm),
+        weather = stringResource(R.string.cloudy),
         conditionBgRes = R.drawable.location_cloudy_bg,
         conditionFgRes = R.drawable.location_ic_windy_cloud
     ) {}

@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/outfit_medium"
         android:textSize="16sp"
-        android:text="Expect rain in 1 hour. This should last for 3 days"
+        android:text="@string/expect_rain"
         android:layout_marginStart="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/icon_imageView"

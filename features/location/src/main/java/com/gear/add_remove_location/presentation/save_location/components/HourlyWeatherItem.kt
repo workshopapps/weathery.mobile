@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,7 @@ fun HourlyWeatherItem() {
             .padding(horizontal = 24.dp)
     ) {
         Text(
-            text = "Lagos",
+            text = stringResource(R.string.lagos),
             fontFamily = Outfit,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
@@ -29,18 +30,18 @@ fun HourlyWeatherItem() {
         )
         Image(
             painter = painterResource(id = R.drawable.location_umbrella),
-            contentDescription = "Rainy"
+            contentDescription = stringResource(R.string.rainy)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Rainy", fontFamily = Outfit, fontSize = 16.sp)
+        Text(text = stringResource(R.string.rainy), fontFamily = Outfit, fontSize = 16.sp)
         Text(
-            text = "Expect rain and scattered thunderstorms by 12:00pm",
+            text = stringResource(R.string.expectRain),
             fontFamily = Outfit,
             fontSize = 40.sp
         )
         Spacer(Modifier.height(24.dp))
         Text(
-            text = "FLOODING RISK: HIGH",
+            text = stringResource(R.string.floodingRisk),
             fontFamily = Outfit,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold

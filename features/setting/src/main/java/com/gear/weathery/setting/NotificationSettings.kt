@@ -32,10 +32,10 @@ class NotificationSettings : Fragment() {
                 isPushNotificationOn = isChecked
                 if (isChecked) {
                     rgPushNotifications.visibility = View.VISIBLE
-                    swNotificationOnOff.text = "Turn off all notifications"
+                    swNotificationOnOff.text = getString(R.string.turn_off_all_notifications)
                 } else {
                     rgPushNotifications.visibility = View.GONE
-                    swNotificationOnOff.text = "Turn on all notifications"
+                    swNotificationOnOff.text = getString(R.string.turn_on_all_notifications)
                 }
             }
             tvVibrateStatus.setOnClickListener {
@@ -55,10 +55,10 @@ class NotificationSettings : Fragment() {
             rgVibrate.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.rBtnVibrateOff -> {
-                        tvVibrateStatus.text = "Off"
+                        tvVibrateStatus.text = getString(R.string.off)
                     }
                     R.id.rBtnVibrateDefault -> {
-                        tvVibrateStatus.text = "Default"
+                        tvVibrateStatus.text = getString(R.string.default1)
                     }
                 }
             }
