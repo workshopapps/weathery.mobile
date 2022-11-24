@@ -10,7 +10,12 @@
     <color name="weathery_orange_light">#FDEAD7</color>
     <color name="weathery_grey_1">#2B2A30</color>
     <color name="weathery_grey_2">#565560</color>
+    <color name="weathery_grey_3">#F3F3F4</color>
     <color name="weathery_black">#161518</color>
+    <color name="weathery_yellow_1">#F5DA79</color>
+    <color name="weathery_yellow_2">#F5BD52</color>
+    <color name="weathery_sky_blue_1">#7E83A9</color>
+    <color name="weathery_sky_blue_2">#CED3EA</color>
 
 
     <color name="default_colour">@android:color/black</color>

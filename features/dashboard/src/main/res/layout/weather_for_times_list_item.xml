@@ -14,16 +14,16 @@
         android:layout_height="wrap_content"
         android:text="Raining"
         android:fontFamily="@font/outfit_medium"
-        android:textSize="10sp"
-        android:layout_marginBottom="8dp"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"
         />
 
     <ImageView
         android:id="@+id/weatherIcon_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/rain"
-        android:layout_marginBottom="8dp"
+        android:src="@drawable/rain_2"
+        android:layout_marginBottom="4dp"
         />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Now"
         android:fontFamily="@font/outfit_medium"
-        android:textSize="10sp"
+        android:textSize="14sp"
         />
 
 
