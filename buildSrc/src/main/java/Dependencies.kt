@@ -1,4 +1,6 @@
 object Versions {
+    const val compileSdkVersion = 33
+    const val minSdkVersion = 21
 
     const val core_version = "1.7.0"
     const val appcompat_version = "1.5.1"
