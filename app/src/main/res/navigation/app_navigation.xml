@@ -8,7 +8,6 @@
 
 
     <include app:graph="@navigation/dashboard_nav_graph" />
-    <include app:graph="@navigation/account_nav_graph" />
 
     <fragment
         android:id="@+id/boardingFragment"
