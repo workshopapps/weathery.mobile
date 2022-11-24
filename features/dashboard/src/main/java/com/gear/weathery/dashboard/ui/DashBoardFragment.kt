@@ -33,7 +33,7 @@ class DashBoardFragment : Fragment() {
     private lateinit var backPressedCallback: OnBackPressedCallback
 
     private lateinit var demoCollectionAdapter: PagerCollectionAdapter
-    private lateinit var viewPager: ViewPager2
+   // private lateinit var viewPager: ViewPager2
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
@@ -81,9 +81,9 @@ class DashBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scrollIndicator1 = binding.scrollIndicator1ImageView
-        scrollIndicator2 = binding.scrollIndicator2ImageView
-        scrollIndicator3 = binding.scrollIndicator3ImageView
+//        scrollIndicator1 = binding.scrollIndicator1ImageView
+//        scrollIndicator2 = binding.scrollIndicator2ImageView
+//        scrollIndicator3 = binding.scrollIndicator3ImageView
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
@@ -111,13 +111,13 @@ class DashBoardFragment : Fragment() {
         binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
         demoCollectionAdapter = PagerCollectionAdapter(this)
-        viewPager = view.findViewById(R.id.pager)
-        viewPager.adapter = demoCollectionAdapter
-        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updateScrollIndicator(position)
-            }
-        })
+      // viewPager = view.findViewById(R.id.pager)
+      //  viewPager.adapter = demoCollectionAdapter
+//        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                updateScrollIndicator(position)
+//            }
+//        })
 
     }
 
