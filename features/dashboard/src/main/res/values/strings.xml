@@ -22,4 +22,5 @@
     <string name="fog">Fog</string>
     <string name="wind">Wind</string>
     <string name="_exit_">press again to exit</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
