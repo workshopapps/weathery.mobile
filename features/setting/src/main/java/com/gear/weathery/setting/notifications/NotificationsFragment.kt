@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.gear.weathery.common.navigation.DashBoardNavigation
 import com.gear.weathery.setting.R
+import com.gear.weathery.setting.databinding.FragmentNotificationsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,11 +22,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Notifications.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+@AndroidEntryPoint
 class Notifications : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var binding: FragmentNotificationsBinding
+
+    @Inject
+    lateinit var dashBoardNavigation: DashBoardNavigation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +46,11 @@ class Notifications : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+        binding = FragmentNotificationsBinding.inflate(inflater)
+        binding.backButtonImageView.setOnClickListener {
+            dashBoardNavigation.navigateToDashboard(navController = findNavController())
+        }
+        return binding.root
     }
 
     companion object {

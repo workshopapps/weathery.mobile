@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
+import com.gear.weathery.common.navigation.NotificationsNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
 import com.gear.weathery.common.navigation.SignInNavigation
 import com.gear.weathery.dashboard.R
@@ -55,6 +56,9 @@ class DashBoardFragment : Fragment() , LocationListener{
 
     @Inject
     lateinit var settingsNavigation: SettingsNavigation
+
+    @Inject
+    lateinit var notificationsNavigation: NotificationsNavigation
 
     @Inject
     lateinit var signInNavigation: SignInNavigation
@@ -102,6 +106,9 @@ class DashBoardFragment : Fragment() , LocationListener{
 
         _binding?.locationsMenuItemLinearLayout?.setOnClickListener{
             navigateToLocation()
+        }
+        _binding?.notificationsMenuItemLinearLayout?.setOnClickListener {
+            navigateToNotifications()
         }
 
         _binding?.settingsMenuItemLinearLayout?.setOnClickListener {
@@ -164,6 +171,9 @@ class DashBoardFragment : Fragment() , LocationListener{
         settingsNavigation.navigateToSettings(navController = findNavController())
     }
 
+    private fun navigateToNotifications(){
+        notificationsNavigation.navigateToNotifications(navController = findNavController())
+    }
 
     private fun navigateToLocation(){
         locationsNavigation.navigateToAddRemoveLocation(navController = findNavController())

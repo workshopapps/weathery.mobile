@@ -6,13 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.databinding.FragmentNotificationSettingsBinding
-
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+@AndroidEntryPoint
 class NotificationSettings : Fragment() {
     private lateinit var binding: FragmentNotificationSettingsBinding
     private var isPushNotificationOn: Boolean = false
     private var vibrateOptionsExpanded: Boolean = true
+    @Inject
+    lateinit var settingsPreference: SettingsPreference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,21 +32,86 @@ class NotificationSettings : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            lifecycleScope.launch {
+                settingsPreference.pushNotification().collect{ isPushNotification ->
+                        isPushNotificationOn = isPushNotification
+                        swNotificationOnOff.isChecked = isPushNotification
+                        swNotificationOnOff.text = if (isPushNotification){
+                            rgPushNotifications.visibility = View.VISIBLE
+                            getString(R.string.turn_off_notification_label)
+                        }else{
+                            rgPushNotifications.visibility = View.GONE
+                            getString(R.string.turn_on_notification_label)
+                        }
+                    }
+            }
+            lifecycleScope.launch {
+                settingsPreference.vibrateMode().collect{ isVibrateDefault ->
+                        if (isVibrateDefault){
+                            rBtnVibrateDefault.isChecked = true
+                            tvVibrateStatus.text = getString(R.string.default_label)
+                        }else{
+                            rBtnVibrateOff.isChecked = true
+                            tvVibrateStatus.text = getString(R.string.off_label)
+                        }
+
+                    }}
+            lifecycleScope.launch {
+                settingsPreference.pushNotificationFrequency().collect{ frequency ->
+                        when (frequency) {
+                            getString(R.string.text_daily) -> {
+                                rBtnDaily.isChecked = true
+                                rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0,0,R.drawable.ic_done,0)
+                                rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0, 0, 0, 0)
+                                rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0, 0, 0, 0)
+                            }
+                            getString(R.string.text_weekly) -> {
+                                rBtnWeekly.isChecked = true
+                                rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0, 0, R.drawable.ic_done, 0)
+                                rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0,0,0,0)
+                                rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0, 0, 0, 0)
+                            }
+                            getString(R.string.text_monthly) -> {
+                                rBtnMonthly.isChecked = true
+                                rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0, 0, R.drawable.ic_done, 0)
+                                rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0, 0, 0, 0)
+                                rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                    0,0,0,0)
+                            }
+                        }
+                    }}
+            lifecycleScope.launch {
+                settingsPreference.bannerEnabled().collect { isBannerEnabled ->
+                    swBannerOnOff.isChecked = isBannerEnabled
+                }
+            }
+
+
+
             ivBackButton.setOnClickListener {
                 findNavController().popBackStack()
             }
-            swNotificationOnOff.setOnCheckedChangeListener { buttonView, isChecked ->
+            swNotificationOnOff.setOnCheckedChangeListener { _, isChecked ->
                 isPushNotificationOn = isChecked
                 if (isChecked) {
-                    rgPushNotifications.visibility = View.VISIBLE
-                    swNotificationOnOff.text = "Turn off all notifications"
+                    lifecycleScope.launch {
+                        settingsPreference.togglePushNotification(true)
+                    }
                 } else {
-                    rgPushNotifications.visibility = View.GONE
-                    swNotificationOnOff.text = "Turn on all notifications"
+                    lifecycleScope.launch {
+                        settingsPreference.togglePushNotification(false)
+                    }
                 }
             }
             tvVibrateStatus.setOnClickListener {
-                Log.d("NotificationSetting", "Vibrate Status: $vibrateOptionsExpanded")
                 if (vibrateOptionsExpanded) {
                     tvVibrateStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
                         0, 0, R.drawable.ic_arrow_down, 0)
@@ -55,43 +127,52 @@ class NotificationSettings : Fragment() {
             rgVibrate.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.rBtnVibrateOff -> {
-                        tvVibrateStatus.text = "Off"
+                        tvVibrateStatus.text = getString(R.string.off_label)
+                        lifecycleScope.launch {
+                            settingsPreference.toggleVibrationMode(false)
+                        }
                     }
                     R.id.rBtnVibrateDefault -> {
-                        tvVibrateStatus.text = "Default"
+                        tvVibrateStatus.text = getString(R.string.default_label)
+                        lifecycleScope.launch {
+                            settingsPreference.toggleVibrationMode(true)
+                        }
+
                     }
                 }
             }
             rgPushNotifications.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.rBtnDaily -> {
-                        rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0,0,R.drawable.ic_done,0)
-                        rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0, 0, 0, 0)
-                        rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0, 0, 0, 0)
+                        lifecycleScope.launch {
+                            settingsPreference.setPushNotification(frequency = getString(R.string.text_daily))
+                        }
                     }
                     R.id.rBtnWeekly -> {
-                        rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0, 0, R.drawable.ic_done, 0)
-                        rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0,0,0,0)
-                        rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0, 0, 0, 0)
+                        lifecycleScope.launch {
+                            settingsPreference.setPushNotification(frequency = getString(R.string.text_weekly))
+                        }
                     }
                     R.id.rBtnMonthly -> {
-                        rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0, 0, R.drawable.ic_done, 0)
-                        rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0, 0, 0, 0)
-                        rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            0,0,0,0)
+                        lifecycleScope.launch {
+                            settingsPreference.setPushNotification(frequency = getString(R.string.text_monthly))
+                        }
                     }
+
                 }
             }
 
-
+            swBannerOnOff.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked){
+                    lifecycleScope.launch {
+                        settingsPreference.toggleBanner(true)
+                    }
+                }else{
+                    lifecycleScope.launch {
+                        settingsPreference.toggleBanner( false)
+                    }
+                }
+            }
         }
     }
 
