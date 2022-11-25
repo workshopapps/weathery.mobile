@@ -27,13 +27,13 @@ class MainActivity : AppCompatActivity() {
             settingsPreference.darkMode().collect{ theme ->
 
                 when (theme) {
-                    getString(com.gear.weathery.setting.R.string.text_light) -> {
+                    "light" -> {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     }
-                    getString(com.gear.weathery.setting.R.string.text_dark) -> {
+                    "dark" -> {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     }
-                    getString(com.gear.weathery.setting.R.string.text_system)-> {
+                   "system"-> {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     }
                 }

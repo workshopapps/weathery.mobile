@@ -1,15 +1,19 @@
 package com.gear.weathery.setting
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.databinding.FragmentNotificationSettingsBinding
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,6 +33,7 @@ class NotificationSettings : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
@@ -38,10 +43,10 @@ class NotificationSettings : Fragment() {
                         swNotificationOnOff.isChecked = isPushNotification
                         swNotificationOnOff.text = if (isPushNotification){
                             rgPushNotifications.visibility = View.VISIBLE
-                            getString(R.string.turn_off_notification_label)
+                            getString(R.string.turn_off_all_notifications)
                         }else{
                             rgPushNotifications.visibility = View.GONE
-                            getString(R.string.turn_on_notification_label)
+                            getString(R.string.turn_on_all_notifications)
                         }
                     }
             }
@@ -49,17 +54,17 @@ class NotificationSettings : Fragment() {
                 settingsPreference.vibrateMode().collect{ isVibrateDefault ->
                         if (isVibrateDefault){
                             rBtnVibrateDefault.isChecked = true
-                            tvVibrateStatus.text = getString(R.string.default_label)
+                            tvVibrateStatus.text = getString(R.string.default_fate)
                         }else{
                             rBtnVibrateOff.isChecked = true
-                            tvVibrateStatus.text = getString(R.string.off_label)
+                            tvVibrateStatus.text = getString(R.string.off)
                         }
 
                     }}
             lifecycleScope.launch {
                 settingsPreference.pushNotificationFrequency().collect{ frequency ->
                         when (frequency) {
-                            getString(R.string.text_daily) -> {
+                            getString(R.string.daily).lowercase() -> {
                                 rBtnDaily.isChecked = true
                                 rBtnDaily.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                     0,0,R.drawable.ic_done,0)
@@ -68,7 +73,7 @@ class NotificationSettings : Fragment() {
                                 rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                     0, 0, 0, 0)
                             }
-                            getString(R.string.text_weekly) -> {
+                            getString(R.string.weekly).lowercase() -> {
                                 rBtnWeekly.isChecked = true
                                 rBtnWeekly.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                     0, 0, R.drawable.ic_done, 0)
@@ -77,7 +82,7 @@ class NotificationSettings : Fragment() {
                                 rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                     0, 0, 0, 0)
                             }
-                            getString(R.string.text_monthly) -> {
+                            getString(R.string.monthly).lowercase() -> {
                                 rBtnMonthly.isChecked = true
                                 rBtnMonthly.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                     0, 0, R.drawable.ic_done, 0)
@@ -92,6 +97,12 @@ class NotificationSettings : Fragment() {
                 settingsPreference.bannerEnabled().collect { isBannerEnabled ->
                     swBannerOnOff.isChecked = isBannerEnabled
                 }
+            }
+            lifecycleScope.launch {
+                settingsPreference.notificationTone().collect{ tone ->
+                    tvDefaultTone.text = tone?:"Default(fate)"
+                }
+
             }
 
 
@@ -124,16 +135,22 @@ class NotificationSettings : Fragment() {
                     vibrateOptionsExpanded = true
                 }
             }
+            tvDefaultTone.setOnClickListener {
+                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                intent.putExtra(Settings.EXTRA_CHANNEL_ID, "channel.id" )
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName )
+                startActivity(intent)
+            }
             rgVibrate.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.rBtnVibrateOff -> {
-                        tvVibrateStatus.text = getString(R.string.off_label)
+                        tvVibrateStatus.text = getString(R.string.off)
                         lifecycleScope.launch {
                             settingsPreference.toggleVibrationMode(false)
                         }
                     }
                     R.id.rBtnVibrateDefault -> {
-                        tvVibrateStatus.text = getString(R.string.default_label)
+                        tvVibrateStatus.text = getString(R.string.default1)
                         lifecycleScope.launch {
                             settingsPreference.toggleVibrationMode(true)
                         }
@@ -145,20 +162,19 @@ class NotificationSettings : Fragment() {
                 when (checkedId) {
                     R.id.rBtnDaily -> {
                         lifecycleScope.launch {
-                            settingsPreference.setPushNotification(frequency = getString(R.string.text_daily))
+                            settingsPreference.setPushNotification(frequency = getString(R.string.daily).lowercase())
                         }
                     }
                     R.id.rBtnWeekly -> {
                         lifecycleScope.launch {
-                            settingsPreference.setPushNotification(frequency = getString(R.string.text_weekly))
+                            settingsPreference.setPushNotification(frequency = getString(R.string.weekly).lowercase())
                         }
                     }
                     R.id.rBtnMonthly -> {
                         lifecycleScope.launch {
-                            settingsPreference.setPushNotification(frequency = getString(R.string.text_monthly))
+                            settingsPreference.setPushNotification(frequency = getString(R.string.monthly).lowercase())
                         }
                     }
-
                 }
             }
 

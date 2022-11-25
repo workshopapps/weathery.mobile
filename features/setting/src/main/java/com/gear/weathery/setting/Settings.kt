@@ -32,9 +32,9 @@ class Settings : Fragment() {
             lifecycleScope.launchWhenStarted {
                 settingsPreference.pushNotification().collect{ isPushNotification ->
                     tvNotificationStatus.text = if (isPushNotification){
-                        getString(R.string.on_label)
+                        getString(R.string.on)
                     }else{
-                        getString(R.string.off_label)
+                        getString(R.string.off)
                     }
                 }
             }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -38,13 +37,13 @@ class DisplayTheme : Fragment() {
             lifecycleScope.launchWhenCreated {
                 settingsPreference.darkMode().collect{ theme ->
                     when(theme) {
-                        getString(R.string.text_light) -> {
-                            rBtnLight.isChecked = true
+                        "light".lowercase() -> {
+                            rbtnLight.isChecked = true
                         }
-                        getString(R.string.text_dark) -> {
+                        "dark" -> {
                             rBtnDark.isChecked=true
                         }
-                        getString(R.string.text_system) ->{
+                        "system" ->{
                             rbtnUseDeviceTheme.isChecked = true
                         }
                     }
@@ -54,21 +53,21 @@ class DisplayTheme : Fragment() {
 
             rgTheme.setOnCheckedChangeListener { _, checkedId ->
                 when(checkedId){
-                    R.id.rBtnLight ->{
+                    R.id.rbtnLight ->{
                         lifecycleScope.launch {
-                            settingsPreference.toggleDayMode(getString(R.string.text_light))
+                            settingsPreference.toggleDayMode("light")
                             requireActivity().recreate() }
                     }
                     R.id.rBtnDark ->{
                         lifecycleScope.launch {
-                            settingsPreference.toggleDayMode(getString(R.string.text_dark))
+                            settingsPreference.toggleDayMode("dark")
                             requireActivity().recreate()
                         }
                     }
 
                     R.id.rBtnDark ->{
                         lifecycleScope.launch {
-                            settingsPreference.toggleDayMode(getString(R.string.text_system))
+                            settingsPreference.toggleDayMode("system")
                             requireActivity().recreate()
                         }
                         }
