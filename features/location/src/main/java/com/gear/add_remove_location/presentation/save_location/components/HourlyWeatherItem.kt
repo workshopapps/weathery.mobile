@@ -14,17 +14,17 @@ import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.ui.theme.Outfit
 
 @Composable
-fun HourlyWeatherItem() {
+fun HourlyWeatherItem(country: String, location: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
     ) {
         Text(
-            text = "Lagos",
+            text = "${location},${country}",
             fontFamily = Outfit,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Medium,
             modifier = Modifier.padding(vertical = 24.dp)
         )
         Image(
@@ -34,7 +34,7 @@ fun HourlyWeatherItem() {
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Rainy", fontFamily = Outfit, fontSize = 16.sp)
         Text(
-            text = "Expect rain and scattered thunderstorms by 12:00pm",
+            text = "Expect rain and scattered thunderstorms from 3:00pm to 6:00pm",
             fontFamily = Outfit,
             fontSize = 40.sp
         )
@@ -51,5 +51,5 @@ fun HourlyWeatherItem() {
 @Preview
 @Composable
 fun HPrev() {
-    HourlyWeatherItem()
+    HourlyWeatherItem("Nigeria","Lagos")
 }

@@ -21,7 +21,9 @@ import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @Composable
 fun SaveLocationScreen(navController: NavController, viewModel: LocationViewModel) {
-
+    val state = viewModel.saveScreenState.value
+    val country = state.country
+    val location = state.name
 
     Column(Modifier.fillMaxSize()) {
         Icon(
@@ -39,7 +41,7 @@ fun SaveLocationScreen(navController: NavController, viewModel: LocationViewMode
             color = Gray900
         )
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
-            HourlyWeatherItem()
+            HourlyWeatherItem(country, location)
             OutlinedButton(
                 onClick = {
                     navController.popBackStack() },//change to add args to the manage screen

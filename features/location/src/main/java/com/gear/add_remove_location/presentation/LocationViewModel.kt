@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gear.add_remove_location.domain.repository.LocationFeatureRepo
 import com.gear.add_remove_location.presentation.manage_location.ManageScreenState
+import com.gear.add_remove_location.presentation.save_location.SaveLocationState
 import com.gear.weathery.common.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,6 +19,9 @@ class LocationViewModel @Inject constructor(
 
     private val _manageScreenState = mutableStateOf(ManageScreenState())
     val manageScreenState: State<ManageScreenState> = _manageScreenState
+
+    private val _saveScreenState = mutableStateOf(SaveLocationState())
+    val saveScreenState: State<SaveLocationState> = _saveScreenState
 
     fun onLocationSearch(query: String){
         viewModelScope.launch {
@@ -47,5 +51,10 @@ class LocationViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+
+    fun setLocationData(name: String, country: String) {
+        _saveScreenState.value = _saveScreenState.value.copy(name = name, country = country)
     }
 }

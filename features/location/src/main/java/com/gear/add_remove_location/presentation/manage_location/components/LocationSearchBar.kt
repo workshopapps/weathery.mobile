@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -23,11 +24,14 @@ import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LocationSearchBar(onSearch:(String) -> Unit) {
+fun LocationSearchBar(onSearch: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
-        colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Primary500),
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Primary500,
+            backgroundColor = Color.Transparent
+        ),
         value = text,
         onValueChange = {
             text = it
@@ -41,7 +45,7 @@ fun LocationSearchBar(onSearch:(String) -> Unit) {
             )
         },
         placeholder = {
-            Box (Modifier.fillMaxSize()){
+            Box(Modifier.fillMaxSize()) {
                 Text(
                     text = "Choose a location",
                     fontFamily = Outfit,
@@ -53,21 +57,22 @@ fun LocationSearchBar(onSearch:(String) -> Unit) {
         trailingIcon = {
             //Set visibility to focus change
             //Add trailing unit to show Cancel
-            if(text.isNotBlank()){
+            if (text.isNotBlank()) {
                 Icon(
-                imageVector = Icons.Outlined.Close,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(16.dp)
-                    .clickable { text = "" }
-            )
+                    imageVector = Icons.Outlined.Close,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(16.dp)
+                        .clickable { text = "" }
+                )
             }
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
             onSearch(text)
-            keyboardController?.hide()}),
+            keyboardController?.hide()
+        }),
         modifier = Modifier
             .padding(24.dp)
             .height(56.dp)
@@ -77,5 +82,5 @@ fun LocationSearchBar(onSearch:(String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun LocSearchPrev() {
-    LocationSearchBar{}
+    LocationSearchBar {}
 }
