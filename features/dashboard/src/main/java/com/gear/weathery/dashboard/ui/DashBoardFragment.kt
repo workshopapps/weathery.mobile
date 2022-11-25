@@ -1,7 +1,13 @@
 package com.gear.weathery.dashboard.ui
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -12,10 +18,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
 import com.gear.weathery.common.navigation.SignInNavigation
@@ -27,13 +32,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment() {
+class DashBoardFragment : Fragment() , LocationListener{
     private var _binding:FragmentDashBoardBinding? =  null
     private val binding get() = _binding!!
     private lateinit var backPressedCallback: OnBackPressedCallback
 
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 2
+
+    private var longitude : Int = 0
+    private var latitude : Int = 0
+
+
     private lateinit var demoCollectionAdapter: PagerCollectionAdapter
-    private lateinit var viewPager: ViewPager2
+   // private lateinit var viewPager: ViewPager2
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
@@ -111,8 +123,8 @@ class DashBoardFragment : Fragment() {
         binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
         demoCollectionAdapter = PagerCollectionAdapter(this)
-//        viewPager = view.findViewById(R.id.pager)
-//        viewPager.adapter = demoCollectionAdapter
+      // viewPager = view.findViewById(R.id.pager)
+      //  viewPager.adapter = demoCollectionAdapter
 //        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
 //            override fun onPageSelected(position: Int) {
 //                updateScrollIndicator(position)
@@ -215,4 +227,29 @@ class DashBoardFragment : Fragment() {
         exitAppToastStillShowing = true
         exitAppTimer.start()
     }
+
+
+
+    private fun getLocation() {
+        locationManager =  (requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+            return
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+    }
+
+    override fun onLocationChanged(location: Location) {
+        latitude = location.latitude.toInt()
+        longitude = location.longitude.toInt()
+
+    }
+
 }

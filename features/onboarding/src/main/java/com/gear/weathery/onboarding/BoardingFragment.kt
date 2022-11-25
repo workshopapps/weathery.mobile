@@ -59,10 +59,10 @@ class BoardingFragment : Fragment(), PermissionListener {
                 if(position == 0){
                     onboardFirstPageBtnDesign()
                     binding.contBtn.setOnClickListener {
-                        binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem() + 1);
+                        binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem() + 1)
                     }
                     binding.skipBtn.setOnClickListener {
-                        binding.viewpager.setCurrentItem(binding.viewpager.getAdapter()!!.getCount());
+                        binding.viewpager.setCurrentItem(binding.viewpager.getAdapter()!!.getCount())
                     }
                 }
 
@@ -70,10 +70,10 @@ class BoardingFragment : Fragment(), PermissionListener {
                     onboardFirstPageBtnDesign()
                     binding.contBtn.setOnClickListener {
                         if (binding.viewpager.currentItem < binding.viewpager.adapter!!.count)
-                            binding.viewpager.setCurrentItem(binding.viewpager.currentItem + 1);
+                            binding.viewpager.setCurrentItem(binding.viewpager.currentItem + 1)
                     }
                     binding.skipBtn.setOnClickListener {
-                        binding.viewpager.setCurrentItem(binding.viewpager.adapter!!.count);
+                        binding.viewpager.setCurrentItem(binding.viewpager.adapter!!.count)
                     }
                 }
 
@@ -130,6 +130,7 @@ class BoardingFragment : Fragment(), PermissionListener {
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
         SharedPreference.init(requireContext().applicationContext)
         SharedPreference.putBoolean("ALLOW",false)
+        SharedPreference.putBoolean("ALLOWPERMISSION",true)
         permissionALlowed = true
 
     }
@@ -137,6 +138,7 @@ class BoardingFragment : Fragment(), PermissionListener {
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
         dashBoardNavigation.navigateToDashboard(navController = findNavController())
         SharedPreference.putBoolean("ALLOW",false)
+        SharedPreference.putBoolean("ALLOWPERMISSION",false)
         permissionALlowed = false
     }
 
