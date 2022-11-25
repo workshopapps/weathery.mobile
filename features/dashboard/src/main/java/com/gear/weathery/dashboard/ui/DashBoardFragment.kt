@@ -1,7 +1,13 @@
 package com.gear.weathery.dashboard.ui
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -12,11 +18,11 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
+import com.gear.weathery.common.navigation.NotificationsNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
 import com.gear.weathery.common.navigation.SignInNavigation
 import com.gear.weathery.dashboard.R
@@ -27,13 +33,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment() {
+class DashBoardFragment : Fragment() , LocationListener{
     private var _binding:FragmentDashBoardBinding? =  null
     private val binding get() = _binding!!
     private lateinit var backPressedCallback: OnBackPressedCallback
 
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 2
+
+    private var longitude : Int = 0
+    private var latitude : Int = 0
+
+
     private lateinit var demoCollectionAdapter: PagerCollectionAdapter
-    private lateinit var viewPager: ViewPager2
+   // private lateinit var viewPager: ViewPager2
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
@@ -43,6 +56,9 @@ class DashBoardFragment : Fragment() {
 
     @Inject
     lateinit var settingsNavigation: SettingsNavigation
+
+    @Inject
+    lateinit var notificationsNavigation: NotificationsNavigation
 
     @Inject
     lateinit var signInNavigation: SignInNavigation
@@ -91,14 +107,17 @@ class DashBoardFragment : Fragment() {
         _binding?.locationsMenuItemLinearLayout?.setOnClickListener{
             navigateToLocation()
         }
+        _binding?.notificationsMenuItemLinearLayout?.setOnClickListener {
+            navigateToNotifications()
+        }
 
         _binding?.settingsMenuItemLinearLayout?.setOnClickListener {
             navigateToSettings()
         }
 
-//        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
-//            navigateToSignin()
-//        }
+        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
+            navigateToSignin()
+        }
 
         overlay.setOnClickListener {
             hideDialog(navDrawer)
@@ -111,8 +130,8 @@ class DashBoardFragment : Fragment() {
         binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
         demoCollectionAdapter = PagerCollectionAdapter(this)
-//        viewPager = view.findViewById(R.id.pager)
-//        viewPager.adapter = demoCollectionAdapter
+      // viewPager = view.findViewById(R.id.pager)
+      //  viewPager.adapter = demoCollectionAdapter
 //        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
 //            override fun onPageSelected(position: Int) {
 //                updateScrollIndicator(position)
@@ -120,38 +139,41 @@ class DashBoardFragment : Fragment() {
 //        })
 
     }
-//
-//    private fun updateScrollIndicator(newPosition: Int) {
-//        when(newPosition){
-//            0 -> {
-//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
-//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-//            }
-//
-//            1 -> {
-//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
-//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-//            }
-//
-//            2 -> {
-//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
-//            }
-//        }
-//    }
 
-//
-//    private fun navigateToSignin(){
-//        signInNavigation.navigateToSignIn(navController = findNavController())
-//    }
+    private fun updateScrollIndicator(newPosition: Int) {
+        when(newPosition){
+            0 -> {
+                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
+                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
+                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+            }
+
+            1 -> {
+                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
+                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
+                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+            }
+
+            2 -> {
+                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
+                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
+                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
+            }
+        }
+    }
+
+
+    private fun navigateToSignin(){
+        signInNavigation.navigateToSignIn(navController = findNavController())
+    }
 
     private fun navigateToSettings(){
         settingsNavigation.navigateToSettings(navController = findNavController())
     }
 
+    private fun navigateToNotifications(){
+        notificationsNavigation.navigateToNotifications(navController = findNavController())
+    }
 
     private fun navigateToLocation(){
         locationsNavigation.navigateToAddRemoveLocation(navController = findNavController())
@@ -196,8 +218,7 @@ class DashBoardFragment : Fragment() {
 
     private fun generateMockTimesWeatherUIItems(): List<UITimesWeather>{
         val uiTimesWeatherList = mutableListOf<UITimesWeather>()
-        val weatherNames = listOf(getString(R.string.rainy), getString(R.string.cloudy), getString(R.string.drizzle), getString(
-                    R.string.fog), getString(R.string.wind))
+        val weatherNames = listOf("Rainy", "Cloudy", "Drizzle", "Fog", "Wind")
         val weatherIconRsrcIds = listOf(R.drawable.rain, R.drawable.cloudy, R.drawable.drizzle, R.drawable.fog, R.drawable.wind)
         for(item in 1..20){
             val randomIndex = (0..4).random()
@@ -212,9 +233,33 @@ class DashBoardFragment : Fragment() {
             return
         }
 
-        Toast.makeText(this.requireContext(), getString(R.string._exit_), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT).show()
         exitAppToastStillShowing = true
         exitAppTimer.start()
+    }
+
+
+
+    private fun getLocation() {
+        locationManager =  (requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+            return
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+    }
+
+    override fun onLocationChanged(location: Location) {
+        latitude = location.latitude.toInt()
+        longitude = location.longitude.toInt()
+
     }
 
 }

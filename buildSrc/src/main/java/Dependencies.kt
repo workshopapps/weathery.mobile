@@ -32,6 +32,7 @@ object Versions {
     const val okhttp3_version ="5.0.0-alpha.3"
     const val okhttp3_logging_interceptor_version ="5.0.0-alpha.3"
     const val gson_version ="2.9.0"
+    const val datastore_version ="1.0.0"
 
 }
 
@@ -59,6 +60,8 @@ object LibDependencies {
     val feature_module_support_navigation =
         "androidx.navigation:navigation-dynamic-features-fragment:${Versions.nav_version}"
 
+    // datastore
+    val datastore = "androidx.datastore:datastore-preferences:${Versions.datastore_version}"
 
     //unit test
     val junit = "junit:junit:${Versions.unit_junit_test}"

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.gear.weathery">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".WeatheryApp"
         android:allowBackup="true"
@@ -24,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
+            android:configChanges="uiMode|orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true" />
     </application>
 

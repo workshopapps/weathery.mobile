@@ -14,5 +14,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/weathery_orange</item>
     </style>
 </resources>

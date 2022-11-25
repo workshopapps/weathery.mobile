@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -18,22 +19,23 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gear.add_remove_location.presentation.ui.theme.Gray800
-import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import com.gear.add_remove_location.R
+import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LocationSearchBar(getText:(String) -> Unit) {
+fun LocationSearchBar(onSearch: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
-        colors = TextFieldDefaults.textFieldColors(focusedIndicatorColor = Primary500),
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Primary500,
+            backgroundColor = Color.Transparent
+        ),
         value = text,
         onValueChange = {
             text = it
-            getText(it)
         },
         leadingIcon = {
             Icon(
@@ -44,7 +46,7 @@ fun LocationSearchBar(getText:(String) -> Unit) {
             )
         },
         placeholder = {
-            Box (Modifier.fillMaxSize()){
+            Box(Modifier.fillMaxSize()) {
                 Text(
                     text = stringResource(R.string.choosealocation),
                     fontFamily = Outfit,
@@ -56,19 +58,22 @@ fun LocationSearchBar(getText:(String) -> Unit) {
         trailingIcon = {
             //Set visibility to focus change
             //Add trailing unit to show Cancel
-            if(text.isNotBlank()){
+            if (text.isNotBlank()) {
                 Icon(
-                imageVector = Icons.Outlined.Close,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(16.dp)
-                    .clickable { text = "" }
-            )
+                    imageVector = Icons.Outlined.Close,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(16.dp)
+                        .clickable { text = "" }
+                )
             }
         },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(onDone = {keyboardController?.hide()}),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = {
+            onSearch(text)
+            keyboardController?.hide()
+        }),
         modifier = Modifier
             .padding(24.dp)
             .height(56.dp)
@@ -78,5 +83,5 @@ fun LocationSearchBar(getText:(String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun LocSearchPrev() {
-    LocationSearchBar{}
+    LocationSearchBar {}
 }
