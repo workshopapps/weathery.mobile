@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/outfit_extrabold"
-        android:text="Notification settings"
+        android:text="@string/notification_settings_label"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/ivBackButton"
         app:layout_constraintTop_toBottomOf="@+id/ivBackButton" />
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/outfit_regular"
-                android:text="Weathery will send you notification whenever the weather changes"
+                android:text="@string/notification_settings_summary"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/outfit_semibold"
-                android:text="Push Notifications"
+                android:text="@string/push_notifications_label"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/outfit_light"
-                android:text="Turn off all notification"
+                android:text="@string/turn_off_notification_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPushNotifications"
@@ -96,22 +96,22 @@
                     android:drawableEnd="@drawable/ic_done"
                     android:fontFamily="@font/outfit_semibold"
                     android:gravity="center_vertical"
-                    android:text="Daily"
+                    android:text="@string/daily_label"
                     android:textSize="16sp"
-                    app:drawableTint="@android:color/black" />
+                    app:drawableTint="?android:colorForeground" />
 
                 <RadioButton
                     android:id="@+id/rBtnWeekly"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="40dp"
-
                     android:button="@null"
+
                     android:fontFamily="@font/outfit_semibold"
                     android:gravity="center_vertical"
-                    android:text="Weekly"
+                    android:text="@string/weekly_label"
                     android:textSize="16sp"
-                    app:drawableTint="@android:color/black" />
+                    app:drawableTint="?android:colorForeground" />
 
                 <RadioButton
                     android:id="@+id/rBtnMonthly"
@@ -121,9 +121,9 @@
                     android:button="@null"
                     android:fontFamily="@font/outfit_semibold"
                     android:gravity="center_vertical"
-                    android:text="Monthly"
+                    android:text="@string/monthly_label"
                     android:textSize="16sp"
-                    app:drawableTint="@android:color/black" />
+                    app:drawableTint="?android:colorForeground" />
             </RadioGroup>
 
             <View
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/outfit_semibold"
-                android:text="Notification Tone"
+                android:text="@string/notification_tone_label"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +156,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/outfit_semibold"
                 android:gravity="center_vertical"
-                android:text="Default(fate)"
+                android:text="@string/current_notification_tone_label"
                 android:textAllCaps="false"
                 android:drawableTint="?android:colorForeground"
                 android:drawableEnd="@drawable/ic_arrow_forward"
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/outfit_semibold"
-                android:text="Vibrate"
+                android:text="@string/vibrate_label"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +183,7 @@
                 android:minHeight="30dp"
                 android:gravity="center_vertical"
                 android:fontFamily="@font/outfit_regular"
-                android:text="Default"
+                android:text="@string/vibrate_status_label"
                 android:drawableTint="?android:colorForeground"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -206,15 +206,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/outfit_semibold"
-                    android:text="Off" />
+                    android:text="@string/off_label" />
 
                 <RadioButton
                     android:id="@+id/rBtnVibrateDefault"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:fontFamily="@font/outfit_semibold"
-                    android:text="Default" />
+                    android:text="@string/default_label" />
             </RadioGroup>
 
             <TextView
@@ -223,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/outfit_semibold"
-                android:text="Banner"
+                android:text="@string/banner_label"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,7 +235,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/outfit_regular"
-                android:text="Show notification preview on the top of your screen"
+                android:text="@string/banner_desc_label"
                 app:layout_constraintEnd_toStartOf="@id/swBannerOnOff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBanner" />
@@ -245,7 +244,6 @@
                 android:id="@+id/swBannerOnOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 app:layout_constraintBottom_toBottomOf="@id/tvBannerOnOff"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvBannerOnOff"
