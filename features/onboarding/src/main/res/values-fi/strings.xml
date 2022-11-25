@@ -1,0 +1,15 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_boarding_fragment">Hei Boarding fragmentti</string>
+    <string name="getStarted">Aloittaa</string>
+    <string name="continueForm">Jatkaa</string>
+<!--    <string name="skip">Skip</string>-->
+<!--    <string name="arrayitem1">Before stepping outside your comfort zone, familiarize yourself with the weather</string>-->
+    <string name="arrayitem2">Suunnittele koko päivä, kun sää ohjaa liikkeitäsi</string>
+    <string name="skip">Ohita</string>
+    <string name="arrayitem1">Ennen kuin astut mukavuusalueesi ulkopuolelle, tutustu säähän</string>
+    <string name="arrayitem3">Säästä riippumatta olet aina tietoinen ja valmistautunut</string>
+    <string name="onboarding_page_demo">Aloitussivun demo</string>
+    <!--    <string name="arrayitem3">No matter the weather, you are always informed and prepared</string>-->
+<!--    <string name="onboarding_page_demo">Onboarding page demo</string>-->
+</resources>

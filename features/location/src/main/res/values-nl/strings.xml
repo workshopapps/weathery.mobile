@@ -1,0 +1,30 @@
+<resources>
+    <string name="learnmore">\\"Leer meer over \\"</string>
+    <string name="weatherreport">weerbericht</string>
+    <string name="choosealocation">Kies een locatie</string>
+    <string name="rainy">Regenachtig</string>
+    <string name="lagos">lagos</string>
+    <string name="conditionBackgroundImage">Voorwaarde Achtergrondafbeelding</string>
+    <string name="conditionForegroundImage">Conditie VoorgrondAfbeelding</string>
+    <string name="addButton">knop toevoegen</string>
+    <string name="nairobi">Nairobi</string>
+    <string name="kenya">Kenia</string>
+    <string name="_8_pm">20.00 uur</string>
+    <string name="cloudy">Bewolkt</string>
+    <string name="add">Toevoegen</string>
+    <string name="noResults">Geen resultaten</string>
+    <string name="navigate">navigeren</string>
+    <string name="manageCities">Beheer steden</string>
+    <string name="savedLocations">Opgeslagen locaties</string>
+    <string name="delete">Verwijderen</string>
+    <string name="nigeria">Niger</string>
+    <string name="_2_pm">2:00</string>
+    <string name="lagosantofe">Lagosanto FE</string>
+    <string name="italy">Italië</string>
+    <string name="_9_pm">21.00 uur</string>
+    <string name="clear">Duidelijk</string>
+    <string name="expectRain">Verwacht rond 12.00 uur regen en verspreide onweersbuien</string>
+    <string name="floodingRisk">OVERSTROMINGSRISICO: HOOG</string>
+    <string name="saveLocation">Locatie opslaan</string>
+    <string name="savelocation">LOCATIE OPSLAAN</string>
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+  <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+  <string name="turn_off_all_notifications">Alle Benachrichtigungen ausschalten</string>
+  <string name="turn_on_all_notifications">Alle Benachrichtigungen aktivieren</string>
+  <string name="off">Aus</string>
+  <string name="default1">Standard</string>
+  <string name="display_theme">Thema anzeigen</string>
+  <string name="select_your_prefered_display_theme">Wählen Sie Ihr bevorzugtes Anzeigethema</string>
+  <string name="light">Licht</string>
+  <string name="dark">Dunkel</string>
+  <string name="use_device_theme">Gerätedesign verwenden</string>
+  <string name="notification_settings">Benachrichtigungseinstellungen</string>
+  <string name="weathery_will_send_you_notification_whenever_the_weather_changes">Weathery sendet Ihnen eine Benachrichtigung, wenn sich das Wetter ändert</string>
+  <string name="push_notifications">Push-Benachrichtigungen</string>
+  <string name="turn_off_all_notification">Alle Benachrichtigungen ausschalten</string>
+  <string name="daily">Täglich</string>
+  <string name="weekly">Wöchentlich</string>
+  <string name="monthly">Monatlich</string>
+  <string name="notification_tone">Benachrichtigungston</string>
+  <string name="default_fate">Standard(Schicksal)</string>
+  <string name="vibrate">Vibration</string>
+  <string name="banner">Banner</string>
+  <string name="show_notification_preview_on_the_top_of_your_screen">Benachrichtigungsvorschau oben auf dem Bildschirm anzeigen</string>
+  <string name="notifications">Mitteilungen</string>
+  <string name="notifications_will_be_deleted_after_30_days">Benachrichtigungen werden nach 30 Tagen gelöscht</string>
+  <string name="empty_now">Jetzt leer</string>
+  <string name="select_your_language_you_best_understand">Wählen Sie Ihre Sprache, die Sie am besten verstehen</string>
+  <string name="language">Sprache</string>
+  <string name="navigate_back">Zurück navigieren</string>
+  <string name="settings">Einstellungen</string>
+  <string name="general">Allgemeines</string>
+  <string name="customize_your_weather_app">Passen Sie Ihre Wetter-App an</string>
+  <string name="notificaton_settings">Benachrichtigungseinstellungen</string>
+  <string name="on">An</string>
+  <string name="english_united_kingdom">Englisch(Vereinigtes Königreich)</string>
+  <string name="unit_settings">Geräteeinstellungen</string>
+  <string name="temperature">Temperatur</string>
+  <string name="f">°F</string>
+  <string name="c">°C</string>
+  <string name="pressure">Druck</string>
+  <string name="hpo">hPo</string>
+  <string name="wind_speed">Windgeschwindigkeit</string>
+  <string name="km_h">km/h</string>
+  <string name="about_us">Über uns</string>
+  <string name="privacy_policy">Datenschutzerklärung</string>
+  <string name="version_6_7_02">Version 6.7.02</string>
+  <string name="english">Englisch</string>
+  <string name="expect_rain">Erwartet Regen in einer Stunde. Dies sollte drei Tage dauern</string>
+  <string name="heavy_rain_northeast">Für einige im Nordosten wird es mit einigen helleren Ausnahmen heftigen Regen geben.</string>
+  <string name="_12m">12m</string>
+</resources>

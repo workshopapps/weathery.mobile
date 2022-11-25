@@ -8,8 +8,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
@@ -25,11 +27,11 @@ fun LearnMore(
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Learn more about ",
+            text = stringResource(R.string.learnmore),
             fontFamily = Outfit,
             fontSize = 16.sp
         )
-        Text(text = "weather report",
+        Text(text = stringResource(R.string.weatherreport),
             fontFamily = Outfit,
             fontSize = 16.sp,
             color = Primary500,

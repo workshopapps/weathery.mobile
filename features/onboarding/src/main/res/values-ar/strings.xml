@@ -1,0 +1,12 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_boarding_fragment">مرحبا جزء الصعود</string>
+    <string name="getStarted">البدء</string>
+    <string name="continueForm">يكمل</string>
+    <string name="skip">يتخطى</string>
+    <string name="arrayitem1">قبل الخروج من منطقة الراحة الخاصة بك ، تعرف على الطقس</string>
+<!--    <string name="arrayitem2">Plan your whole day while weathery guides your movement</string>-->
+    <string name="arrayitem3">بغض النظر عن الطقس ، فأنت دائمًا على اطلاع ومستعد</string>
+    <string name="onboarding_page_demo">عرض صفحة الإعداد</string>
+    <string name="arrayitem2">خطط ليومك بالكامل بينما يوجه الطقس حركتك</string>
+</resources>

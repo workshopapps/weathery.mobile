@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="learnmore">\"Lerne mehr über \"</string>
+    <string name="weatherreport">Wetterbericht</string>
+    <string name="choosealocation">Wählen Sie einen Standort aus</string>
+    <string name="rainy">Regnerisch</string>
+    <string name="lagos">Lagos</string>
+    <string name="conditionBackgroundImage">Bedingung Hintergrundbild</string>
+    <string name="conditionForegroundImage">Bedingung Vordergrundbild</string>
+    <string name="addButton">Schaltfläche hinzufügen</string>
+    <string name="nairobi">Nairobi</string>
+    <string name="kenya">Kenia</string>
+    <string name="_8_pm">20.00 Uhr</string>
+    <string name="cloudy">Wolkig</string>
+    <string name="add">Hinzufügen</string>
+    <string name="noResults">Keine Ergebnisse</string>
+    <string name="navigate">navigieren</string>
+    <string name="manageCities">Städte verwalten</string>
+    <string name="savedLocations">Gespeicherte Orte</string>
+    <string name="delete">Löschen</string>
+    <string name="nigeria">Nigeria</string>
+    <string name="_2_pm">14:00 Uhr</string>
+    <string name="lagosantofe">Lagosanto FE</string>
+    <string name="italy">Italien</string>
+    <string name="_9_pm">21:00 Uhr</string>
+    <string name="clear">Klar</string>
+    <string name="expectRain">Erwarten Sie Regen und vereinzelte Gewitter bis 12:00 Uhr</string>
+    <string name="floodingRisk">ÜBERSCHWEMMUNGSRISIKO: HOCH</string>
+    <string name="saveLocation">Sicherer Ort</string>
+    <string name="savelocation">SICHERER ORT</string>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+<!--    <string name="hello_boarding_fragment">Hello Boarding fragment</string>-->
+<!--    <string name="getStarted">Get Started</string>-->
+    <string name="continueForm">Nastaviti</string>
+<!--    <string name="skip">Skip</string>-->
+<!--    <string name="arrayitem1">Before stepping outside your comfort zone, familiarize yourself with the weather</string>-->
+    <string name="arrayitem2">Planirajte cijeli dan dok vremenska prognoza vodi vaše kretanje</string>
+<!--    <string name="arrayitem3">No matter the weather, you are always informed and prepared</string>-->
+    <string name="onboarding_page_demo">Demo stranice za uvođenje</string>
+    <string name="hello_boarding_fragment">Hello Boarding fragment</string>
+    <string name="getStarted">Započnite</string>
+    <string name="skip">Preskočiti</string>
+    <string name="arrayitem1">Prije nego izađete iz svoje zone udobnosti, upoznajte se s vremenskim prilikama</string>
+    <string name="arrayitem3">Bez obzira na vremenske prilike, uvijek ste informirani i spremni</string>
+</resources>

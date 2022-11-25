@@ -1,0 +1,14 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_boarding_fragment">Фрагмент Hello Boarding</string>
+    <string name="getStarted">Пачаць</string>
+    <string name="continueForm">Працягнуць</string>
+    <string name="skip">Прапусціць</string>
+    <string name="arrayitem1">Перш чым выйсці за межы зоны камфорту, азнаёмцеся з надвор\'ем</string>
+    <string name="arrayitem3">Незалежна ад надвор\'я, вы заўсёды ў курсе і падрыхтаваны</string>
+    <string name="onboarding_page_demo">Дэманстрацыя старонкі ўваходу</string>
+    <string name="arrayitem2">Плануйце ўвесь дзень, пакуль надвор\'е будзе кіраваць вашым рухам</string>
+    <!--    <string name="arrayitem2">Plan your whole day while weathery guides your movement</string>-->
+<!--    <string name="arrayitem3">No matter the weather, you are always informed and prepared</string>-->
+<!--    <string name="onboarding_page_demo">Onboarding page demo</string>-->
+</resources>

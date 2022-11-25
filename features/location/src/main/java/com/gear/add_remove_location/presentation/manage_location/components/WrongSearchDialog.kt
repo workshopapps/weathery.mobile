@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,10 +26,10 @@ fun WrongSearchDialog(wrongSearch: String) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.location_ic_search_icon),//Change to actual res
-            contentDescription = "No results"
+            contentDescription = stringResource(R.string.noResults)
         )
         Text(
-            text = "No Results",
+            text = stringResource(R.string.noResults),
             fontFamily = Outfit,
             color = Gray900,
             fontSize = 32.sp,

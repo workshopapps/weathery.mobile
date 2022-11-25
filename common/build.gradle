@@ -42,7 +42,6 @@ dependencies {
     androidTestImplementation LibDependencies.INSTANCE.test_ext_junit
     androidTestImplementation LibDependencies.INSTANCE.test_espresso_core
 
-
     implementation LibDependencies.INSTANCE.dagger_hilt_android
     kapt LibDependencies.INSTANCE.dagger_hilt_android_compiler
     kapt LibDependencies.INSTANCE.hilt_hilt_compiler
@@ -50,4 +49,7 @@ dependencies {
     implementation LibDependencies.INSTANCE.navigation_fragment_ktx
     implementation LibDependencies.INSTANCE.navigation_ui_ktx
     implementation LibDependencies.INSTANCE.datastore
+
+    //for localization
+    implementation "com.github.YarikSOffice:lingver:1.3.0"
 }

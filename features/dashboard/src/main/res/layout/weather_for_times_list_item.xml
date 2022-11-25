@@ -12,7 +12,7 @@
         android:id="@+id/weather_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Raining"
+        android:text="@string/raining"
         android:fontFamily="@font/outfit_medium"
         android:textSize="14sp"
         android:layout_marginBottom="4dp"
@@ -30,7 +30,7 @@
         android:id="@+id/time_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Now"
+        android:text="@string/now"
         android:fontFamily="@font/outfit_medium"
         android:textSize="14sp"
         />

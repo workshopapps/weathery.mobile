@@ -1,0 +1,16 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+<!--    <string name="hello_boarding_fragment">Hello Boarding fragment</string>-->
+    <string name="getStarted">Začít</string>
+<!--    <string name="continueForm">Continue</string>-->
+    <string name="skip">Přeskočit</string>
+<!--    <string name="arrayitem1">Before stepping outside your comfort zone, familiarize yourself with the weather</string>-->
+    <string name="arrayitem2">Naplánujte si celý den, zatímco počasí povede váš pohyb</string>
+    <string name="hello_boarding_fragment">Dobrý den, fragment z nástupu</string>
+    <string name="continueForm">Pokračovat</string>
+    <string name="arrayitem1">Než vystoupíte ze své komfortní zóny, seznamte se s počasím</string>
+    <string name="arrayitem3">Bez ohledu na počasí jste vždy informováni a připraveni</string>
+    <string name="onboarding_page_demo">Ukázka vstupní stránky</string>
+    <!--    <string name="arrayitem3">No matter the weather, you are always informed and prepared</string>-->
+<!--    <string name="onboarding_page_demo">Onboarding page demo</string>-->
+</resources>

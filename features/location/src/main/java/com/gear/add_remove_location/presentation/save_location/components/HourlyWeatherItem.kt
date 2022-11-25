@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,24 +24,24 @@ fun HourlyWeatherItem(country: String, location: String) {
         Text(
             text = "${location},${country}",
             fontFamily = Outfit,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Medium,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(vertical = 24.dp)
         )
         Image(
             painter = painterResource(id = R.drawable.location_umbrella),
-            contentDescription = "Rainy"
+            contentDescription = stringResource(R.string.rainy)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Rainy", fontFamily = Outfit, fontSize = 16.sp)
+        Text(text = stringResource(R.string.rainy), fontFamily = Outfit, fontSize = 16.sp)
         Text(
-            text = "Expect rain and scattered thunderstorms from 3:00pm to 6:00pm",
+            text = stringResource(R.string.expectRain),
             fontFamily = Outfit,
             fontSize = 40.sp
         )
         Spacer(Modifier.height(24.dp))
         Text(
-            text = "FLOODING RISK: HIGH",
+            text = stringResource(R.string.floodingRisk),
             fontFamily = Outfit,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
@@ -51,5 +52,5 @@ fun HourlyWeatherItem(country: String, location: String) {
 @Preview
 @Composable
 fun HPrev() {
-    HourlyWeatherItem("Nigeria","Lagos")
+    HourlyWeatherItem("Nigeria", "Lagos")
 }

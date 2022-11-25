@@ -1,0 +1,17 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+<!--    <string name="hello_boarding_fragment">Hello Boarding fragment</string>-->
+<!--    <string name="getStarted">Get Started</string>-->
+<!--    <string name="continueForm">Continue</string>-->
+    <string name="skip">Overslaan</string>
+<!--    <string name="arrayitem1">Before stepping outside your comfort zone, familiarize yourself with the weather</string>-->
+<!--    <string name="arrayitem2">Plan your whole day while weathery guides your movement</string>-->
+<!--    <string name="arrayitem3">No matter the weather, you are always informed and prepared</string>-->
+    <string name="onboarding_page_demo">Demo van de introductiepagina</string>
+    <string name="hello_boarding_fragment">Hallo instapfragment</string>
+    <string name="getStarted">Get Started</string>
+    <string name="continueForm">Doorgaan</string>
+    <string name="arrayitem1">Maak uzelf vertrouwd met het weer voordat u buiten uw comfortzone stapt</string>
+    <string name="arrayitem3">Wat voor weer het ook is, u bent altijd op de hoogte en voorbereid</string>
+    <string name="arrayitem2">Plan je hele dag terwijl het weer je beweging begeleidt</string>
+</resources>

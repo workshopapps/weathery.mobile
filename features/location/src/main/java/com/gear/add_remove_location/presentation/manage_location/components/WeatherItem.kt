@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,9 +63,9 @@ fun WeatherItem(
 fun AddRemovePrev() {
     WeatherItem(
         imageResource = R.drawable.location_ic_scattered_thunderstorm,
-        location = "lagos",
+        location = stringResource(R.string.lagos),
         time = "9.00p.m",
-        weather = "Rainy",
+        weather = stringResource(R.string.rainy),
         color = Rainy
     )
 }

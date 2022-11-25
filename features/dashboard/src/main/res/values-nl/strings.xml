@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_dashboard_fragment">Hallo DashBoard-fragment</string>
+    <string name="raining">Regenen</string>
+    <string name="now">nutsvoorzieningen</string>
+    <string name="lagos_nigeria">Lagos, Nigeria</string>
+    <string name="sunny">ZONNIG</string>
+    <string name="dust_level">Stof niveau</string>
+    <string name="high">Hoog</string>
+    <string name="sun_burn">Zonnebrand</string>
+    <string name="tomorrow_s_forecast">DE VERWACHTING VAN MORGEN</string>
+    <string name="_12_3pm">12.00 - 15.00 uur</string>
+    <string name="weathery">Weerachtig</string>
+    <string name="home">Huis</string>
+    <string name="saved_locations">Opgeslagen locaties</string>
+    <string name="notifications">Meldingen</string>
+    <string name="settings">Instellingen</string>
+    <string name="sign_in_to_account">Log in op account</string>
+    <string name="fog">Mist</string>
+    <string name="_exit_">druk nogmaals om af te sluiten</string>
+    <string name="cloudy">Bewolkt</string>
+    <string name="rainy">Regenachtig</string>
+    <string name="drizzle">Motregen</string>
+    <string name="wind">Wind</string>
+</resources>

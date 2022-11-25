@@ -1,0 +1,30 @@
+<resources>
+    <string name="learnmore">\\"Даведацца больш пра \\"</string>
+    <string name="weatherreport">прагноз надвор\'я</string>
+    <string name="choosealocation">Выберыце месца</string>
+    <string name="rainy">Дажджлівы</string>
+    <string name="lagos">лагос</string>
+    <string name="conditionBackgroundImage">Фонавы малюнак стану</string>
+    <string name="conditionForegroundImage">Умова ForegroundImage</string>
+    <string name="addButton">кнопка дадаць</string>
+    <string name="nairobi">Найробі</string>
+    <string name="kenya">Кенія</string>
+    <string name="_8_pm">8.00 вечара</string>
+    <string name="cloudy">Воблачна</string>
+    <string name="add">Дадаць</string>
+    <string name="noResults">Няма вынікаў</string>
+    <string name="navigate">арыентавацца</string>
+    <string name="manageCities">Кіруйце гарадамі</string>
+    <string name="savedLocations">Захаваныя месцы</string>
+    <string name="delete">Выдаліць</string>
+    <string name="nigeria">Нігерыя</string>
+    <string name="_2_pm">14:00</string>
+    <string name="lagosantofe">Lagosanto FE</string>
+    <string name="italy">Італія</string>
+    <string name="_9_pm">21.00</string>
+    <string name="clear">Ясна</string>
+    <string name="expectRain">Да 12:00 чакаюцца дажджы, месцамі навальніцы</string>
+    <string name="floodingRisk">РЫЗЫКА ЗАТАПЛЕННЯ: ВЫСОКАЯ</string>
+    <string name="saveLocation">Захаваць месцазнаходжанне</string>
+    <string name="savelocation">ЗАХАВАЦЬ МЕСЦА</string>
+</resources>

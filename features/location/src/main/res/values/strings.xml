@@ -1,3 +1,30 @@
 <resources>
-
+    <string name="learnmore">\"Learn more about \"</string>
+    <string name="weatherreport">weather report</string>
+    <string name="choosealocation">Choose a location</string>
+    <string name="rainy">Rainy</string>
+    <string name="lagos">lagos</string>
+    <string name="conditionBackgroundImage">Condition Background Image</string>
+    <string name="conditionForegroundImage">Condition ForegroundImage</string>
+    <string name="addButton">add button</string>
+    <string name="nairobi">Nairobi</string>
+    <string name="kenya">Kenya</string>
+    <string name="_8_pm">8.00pm</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="add">Add</string>
+    <string name="noResults">No results</string>
+    <string name="navigate">navigate</string>
+    <string name="manageCities">Manage cities</string>
+    <string name="savedLocations">Saved locations</string>
+    <string name="delete">Delete</string>
+    <string name="nigeria">Nigeria</string>
+    <string name="_2_pm">2:00pm</string>
+    <string name="lagosantofe">Lagosanto FE</string>
+    <string name="italy">Italy</string>
+    <string name="_9_pm">9.00pm</string>
+    <string name="clear">Clear</string>
+    <string name="expectRain">Expect rain and scattered thunderstorms by 12:00pm</string>
+    <string name="floodingRisk">FLOODING RISK: HIGH</string>
+    <string name="saveLocation">Save Location</string>
+    <string name="savelocation">SAVE LOCATION</string>
 </resources>

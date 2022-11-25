@@ -111,7 +111,7 @@ class BoardingFragment : Fragment(), PermissionListener {
     private fun onboardSecondPageBtnDesign() {
         binding.contBtn.visibility = View.GONE
         binding.skipBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
-        binding.skipBtn.setText("Get Started")
+        binding.skipBtn.setText(getString(R.string.getStarted))
         binding.skipBtn.setTextColor(Color.WHITE)
     }
 
@@ -119,10 +119,10 @@ class BoardingFragment : Fragment(), PermissionListener {
         binding.contBtn.visibility = View.VISIBLE
         binding.skipBtn.visibility = View.VISIBLE
         binding.contBtn.setBackgroundResource(R.drawable.onboard_button_round_corner)
-        binding.contBtn.setText("Continue")
+        binding.contBtn.setText(getString(R.string.continueForm))
         binding.contBtn.setTextColor(Color.WHITE)
         binding.skipBtn.setTextColor(resources.getColor(R.color.dark_orange))
-        binding.skipBtn.setText("Skip")
+        binding.skipBtn.setText(getString(R.string.skip))
         binding.skipBtn.setBackgroundResource(R.drawable.onboard_transparent_btn_bg)
     }
 
