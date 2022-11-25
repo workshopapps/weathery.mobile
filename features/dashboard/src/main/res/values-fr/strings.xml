@@ -16,4 +16,10 @@
     <string name="notifications">Avis</string>
     <string name="settings">Réglages</string>
     <string name="sign_in_to_account">Connectez-vous au compte</string>
+    <string name="cloudy">Nuageux</string>
+    <string name="rainy">Pluvieux</string>
+    <string name="drizzle">Bruine</string>
+    <string name="fog">Brouillard</string>
+    <string name="wind">Vent</string>
+    <string name="_exit_">appuyez à nouveau pour quitter</string>
 </resources>

@@ -196,7 +196,8 @@ class DashBoardFragment : Fragment() {
 
     private fun generateMockTimesWeatherUIItems(): List<UITimesWeather>{
         val uiTimesWeatherList = mutableListOf<UITimesWeather>()
-        val weatherNames = listOf("Rainy", "Cloudy", "Drizzle", "Fog", "Wind")
+        val weatherNames = listOf(getString(R.string.rainy), getString(R.string.cloudy), getString(R.string.drizzle), getString(
+                    R.string.fog), getString(R.string.wind))
         val weatherIconRsrcIds = listOf(R.drawable.rain, R.drawable.cloudy, R.drawable.drizzle, R.drawable.fog, R.drawable.wind)
         for(item in 1..20){
             val randomIndex = (0..4).random()
@@ -211,7 +212,7 @@ class DashBoardFragment : Fragment() {
             return
         }
 
-        Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.requireContext(), getString(R.string._exit_), Toast.LENGTH_SHORT).show()
         exitAppToastStillShowing = true
         exitAppTimer.start()
     }

@@ -16,4 +16,10 @@
     <string name="notifications">Ilmoitukset</string>
     <string name="settings">asetukset</string>
     <string name="sign_in_to_account">Kirjaudu sisään tilille</string>
+    <string name="wind">Tuuli</string>
+    <string name="_exit_">paina uudelleen poistuaksesi</string>
+    <string name="cloudy">Pilvinen</string>
+    <string name="rainy">Sateinen</string>
+    <string name="drizzle">Tihkusade</string>
+    <string name="fog">Sumu</string>
 </resources>

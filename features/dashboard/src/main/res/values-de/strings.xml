@@ -16,4 +16,10 @@
     <string name="notifications">Benachrichtigungen</string>
     <string name="settings">Einstellungen</string>
     <string name="sign_in_to_account">Melden Sie sich beim Konto an</string>
+    <string name="cloudy">Wolkig</string>
+    <string name="rainy">Regnerisch</string>
+    <string name="drizzle">Nieselregen</string>
+    <string name="fog">Nebel</string>
+    <string name="wind">Wind</string>
+    <string name="_exit_">erneut drücken, um zu beenden</string>
 </resources>

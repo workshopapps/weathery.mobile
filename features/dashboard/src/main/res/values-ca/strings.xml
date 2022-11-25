@@ -16,4 +16,10 @@
     <string name="notifications">Notificacions</string>
     <string name="settings">Configuració</string>
     <string name="sign_in_to_account">Inicieu la sessió al compte</string>
+    <string name="cloudy">Ennuvolat</string>
+    <string name="rainy">Plujós</string>
+    <string name="drizzle">Ruixer</string>
+    <string name="fog">Boira</string>
+    <string name="wind">Vent</string>
+    <string name="_exit_">premeu de nou per sortir</string>
 </resources>

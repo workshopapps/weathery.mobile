@@ -16,4 +16,10 @@
     <string name="notifications">إشعارات</string>
     <string name="settings">إشعارات</string>
     <string name="sign_in_to_account">تسجيل الدخول إلى الحساب</string>
+    <string name="cloudy">غائم</string>
+    <string name="rainy">ماطر</string>
+    <string name="drizzle">رذاذ</string>
+    <string name="fog">ضباب</string>
+    <string name="wind">ريح</string>
+    <string name="_exit_">اضغط مرة أخرى للخروج</string>
 </resources>

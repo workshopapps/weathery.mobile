@@ -16,4 +16,10 @@
     <string name="notifications">Meldingen</string>
     <string name="settings">Instellingen</string>
     <string name="sign_in_to_account">Log in op account</string>
+    <string name="fog">Mist</string>
+    <string name="_exit_">druk nogmaals om af te sluiten</string>
+    <string name="cloudy">Bewolkt</string>
+    <string name="rainy">Regenachtig</string>
+    <string name="drizzle">Motregen</string>
+    <string name="wind">Wind</string>
 </resources>

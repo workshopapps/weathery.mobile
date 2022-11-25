@@ -16,4 +16,10 @@
     <string name="notifications">Oznámení</string>
     <string name="settings">Nastavení</string>
     <string name="sign_in_to_account">Přihlaste se k účtu</string>
+    <string name="_exit_">stiskněte znovu pro ukončení</string>
+    <string name="wind">Vítr</string>
+    <string name="cloudy">Zataženo</string>
+    <string name="rainy">Deštivý</string>
+    <string name="drizzle">Mrholení</string>
+    <string name="fog">Mlha</string>
 </resources>

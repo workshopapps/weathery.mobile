@@ -16,4 +16,10 @@
     <string name="notifications">Obavijesti</string>
     <string name="settings">Settings</string>
     <string name="sign_in_to_account">Prijavite se na račun</string>
+    <string name="cloudy">Oblačno</string>
+    <string name="rainy">kišovito</string>
+    <string name="drizzle">Rominjati</string>
+    <string name="fog">Magla</string>
+    <string name="wind">Vjetar</string>
+    <string name="_exit_">ponovno pritisnite za izlaz</string>
 </resources>
