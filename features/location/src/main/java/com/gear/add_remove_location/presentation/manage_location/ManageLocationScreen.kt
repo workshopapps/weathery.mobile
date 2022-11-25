@@ -14,13 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.gear.add_remove_location.presentation.LocationScreen
 import com.gear.add_remove_location.presentation.LocationViewModel
 import com.gear.add_remove_location.presentation.manage_location.components.LearnMore
 import com.gear.add_remove_location.presentation.manage_location.components.LocationSearchBar
+import com.gear.add_remove_location.presentation.manage_location.components.WeatherSearchItem
 import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import java.util.*
 
@@ -62,38 +63,21 @@ fun ManageLocationScreen(
         )
         Box(Modifier.fillMaxSize()) {
             if (locations.any()) {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     items(locations) { location ->
                         val loc = Locale("", location.country)
-
-                        Column(Modifier.padding(24.dp)) {
-                            Text(
-                                text = location.name,
-                                fontFamily = Outfit,
-                                fontSize = 14.sp,
-                                lineHeight = 22.18.sp,
-                                letterSpacing = (-0.3).sp,
-                                textAlign = TextAlign.Start,
-                                fontWeight = FontWeight.W400,
-                                //                color = Gray900
-                            )
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(
-                                text = loc.displayCountry,
-                                fontFamily = Outfit,
-                                fontSize = 14.sp,
-                                lineHeight = 22.18.sp,
-                                letterSpacing = (-0.3).sp,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.W400,
-                                //                color = Gray500
-                            )
+                        val country = loc.displayCountry
+                        WeatherSearchItem(location = location.name, country = country) {
+                            viewModel.setLocationData(location.name,country)
+                            navController.navigate(LocationScreen.Save.route)
                         }
                     }
                 }
             }
 
-            LearnMore(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)) { Toast.makeText(context, "check", Toast.LENGTH_LONG).show() }
+            LearnMore(modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 8.dp)) { Toast.makeText(context, "check", Toast.LENGTH_LONG).show() }
         }
     }
 }
