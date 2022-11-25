@@ -1,15 +1,12 @@
-package com.gear.weathery
+package com.gear.weathery.setting
 
 import android.app.Application
 import com.yariksoffice.lingver.Lingver
-import dagger.hilt.android.HiltAndroidApp
 
-@HiltAndroidApp
-class WeatheryApp: Application () {
+class LocalizationC : Application() {
 
     override fun onCreate() {
         super.onCreate()
         Lingver.init(this)
     }
-
 }
