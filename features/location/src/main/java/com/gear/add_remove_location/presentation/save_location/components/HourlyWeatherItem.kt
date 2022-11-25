@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,7 +15,7 @@ import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.ui.theme.Outfit
 
 @Composable
-fun HourlyWeatherItem() {
+fun HourlyWeatherItem(country: String, location: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,5 +52,5 @@ fun HourlyWeatherItem() {
 @Preview
 @Composable
 fun HPrev() {
-    HourlyWeatherItem()
+    HourlyWeatherItem("Nigeria", "Lagos")
 }
