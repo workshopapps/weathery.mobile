@@ -16,6 +16,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resConfigs "en", "ar", "fr", "be", "ca", "hr", "cs", "nl", "fi", "de"
     }
 
     buildFeatures{
@@ -63,6 +64,10 @@ dependencies {
 
     implementation LibDependencies.INSTANCE.navigation_fragment_ktx
     implementation LibDependencies.INSTANCE.navigation_ui_ktx
+
+
+    //for localization
+    implementation "com.github.YarikSOffice:lingver:1.3.0"
 
 
 

@@ -54,5 +54,8 @@ dependencies {
 
     implementation LibDependencies.INSTANCE.view_pager2
 
+    //for localization
+    implementation "com.github.YarikSOffice:lingver:1.3.0"
+
 
 }

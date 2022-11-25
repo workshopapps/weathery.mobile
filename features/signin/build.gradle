@@ -57,4 +57,7 @@ dependencies {
     implementation LibDependencies.INSTANCE.navigation_ui_ktx
     implementation LibDependencies.INSTANCE.feature_module_support_navigation
 
+    //for localization
+    implementation "com.github.YarikSOffice:lingver:1.3.0"
+
 }

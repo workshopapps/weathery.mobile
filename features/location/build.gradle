@@ -86,5 +86,8 @@ dependencies {
     androidTestImplementation LibDependencies.INSTANCE.compose_ui_test
     debugImplementation LibDependencies.INSTANCE.debug_compose_ui_tooling
 
+    //for localization
+    implementation "com.github.YarikSOffice:lingver:1.3.0"
+
 
 }
