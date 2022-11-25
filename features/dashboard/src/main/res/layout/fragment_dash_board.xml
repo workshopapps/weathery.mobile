@@ -325,7 +325,8 @@
         />
 
 
-<!--    check that visibility is set to invisible-->
+<!--    check that visibility is set to invisible
+to ensure animation behaves as expected-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navDrawer_constraintLayout"
         android:layout_width="320dp"
