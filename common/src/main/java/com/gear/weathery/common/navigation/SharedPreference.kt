@@ -1,4 +1,4 @@
-package com.gear.weathery.onboarding
+package com.gear.weathery.common.navigation
 
 import android.app.Activity
 import android.content.Context

@@ -5,18 +5,18 @@ import androidx.lifecycle.ViewModel
 import com.gear.weathery.dashboard.models.WeatherResponse
 import com.gear.weathery.dashboard.repository.WeatherResponseRepository
 
-class WeatherResponseViewModel: ViewModel {
-    private var weatherRepository: WeatherResponseRepository? = null
+class WeatherResponseViewModel(private val weatherRepo: WeatherResponseRepository) : ViewModel() {
+  val allWeatherinfo : LiveData<List<WeatherResponse>?> = weatherRepo.getWeatherInfoFromApi()
 
-    constructor() {
-        weatherRepository =WeatherResponseRepository.getInstance()
-    }
+//    init {
+//        weatherRepository =WeatherResponseRepository.getInstance()
+//    }
 
     fun setWeatherInfo(lat: Int, lon:Int) {
-        weatherRepository!!.setWeatherApi(lat,lon)
+        weatherRepo.setWeatherApi(lat,lon)
     }
 
     fun getAllWeatherInfo(): LiveData<List<WeatherResponse>?> {
-        return weatherRepository!!.getWeatherInfoFromApi()
+        return weatherRepo.getWeatherInfoFromApi()
     }
 }
