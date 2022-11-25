@@ -8,11 +8,12 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.findNavController
+import com.gear.add_remove_location.presentation.LocationViewModel
 import com.gear.add_remove_location.presentation.SetUpNavGraph
-import com.gear.add_remove_location.presentation.manage_location.ManageLocationScreen
 import com.gear.add_remove_location.presentation.ui.theme.LocationWeatheryTheme
 import com.gear.weathery.common.navigation.DashBoardNavigation
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,8 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
 
     lateinit var navController: NavHostController
 
+    lateinit var viewModel: LocationViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,8 +39,9 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    viewModel = hiltViewModel()
                     navController = rememberNavController()
-                    SetUpNavGraph(navController = navController) {
+                    SetUpNavGraph(navController = navController, viewModel = viewModel) {
                         //Add lat long args on this
                         dashBoardNavigation.navigateToDashboard(navController = findNavController())
                     }

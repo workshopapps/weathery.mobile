@@ -17,14 +17,13 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gear.add_remove_location.presentation.ui.theme.Gray800
-import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import com.gear.add_remove_location.R
+import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LocationSearchBar(getText:(String) -> Unit) {
+fun LocationSearchBar(onSearch:(String) -> Unit) {
     var text by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -32,7 +31,6 @@ fun LocationSearchBar(getText:(String) -> Unit) {
         value = text,
         onValueChange = {
             text = it
-            getText(it)
         },
         leadingIcon = {
             Icon(
@@ -66,8 +64,10 @@ fun LocationSearchBar(getText:(String) -> Unit) {
             }
         },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(onDone = {keyboardController?.hide()}),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = {
+            onSearch(text)
+            keyboardController?.hide()}),
         modifier = Modifier
             .padding(24.dp)
             .height(56.dp)
