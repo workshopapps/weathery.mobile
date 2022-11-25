@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_dashboard_fragment">Hei DashBoard-fragmentti</string>
+    <string name="raining">sataa</string>
+    <string name="now">Nyt</string>
+    <string name="lagos_nigeria">Lagos, Nigeria</string>
+    <string name="sunny">AURINKOINEN</string>
+    <string name="dust_level">Pölyn taso</string>
+    <string name="high">Korkea</string>
+    <string name="sun_burn">Auringon palaminen</string>
+    <string name="tomorrow_s_forecast">HUOMISEN ENNUSTE</string>
+    <string name="_12_3pm">klo 12-15</string>
+    <string name="weathery">Sääinen</string>
+    <string name="home">Koti</string>
+    <string name="saved_locations">Tallennetut paikat</string>
+    <string name="notifications">Ilmoitukset</string>
+    <string name="settings">asetukset</string>
+    <string name="sign_in_to_account">Kirjaudu sisään tilille</string>
+</resources>

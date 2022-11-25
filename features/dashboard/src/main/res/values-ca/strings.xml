@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_dashboard_fragment">Hola fragment de Dashboard</string>
+    <string name="raining">plovent</string>
+    <string name="now">Ara</string>
+    <string name="lagos_nigeria">Lagos, Nigèria</string>
+    <string name="sunny">SOL</string>
+    <string name="dust_level">Nivell de pols</string>
+    <string name="high">Alt</string>
+    <string name="sun_burn">Cremada solar</string>
+    <string name="tomorrow_s_forecast">PREDICCIÓ DE DEMÀ</string>
+    <string name="_12_3pm">12-15h</string>
+    <string name="weathery">Tempestuós</string>
+    <string name="home">Casa</string>
+    <string name="saved_locations">Ubicacions desades</string>
+    <string name="notifications">Notificacions</string>
+    <string name="settings">Configuració</string>
+    <string name="sign_in_to_account">Inicieu la sessió al compte</string>
+</resources>

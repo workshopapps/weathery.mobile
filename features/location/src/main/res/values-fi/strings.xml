@@ -1,0 +1,30 @@
+<resources>
+    <string name="learnmore">\\"Lisätietoja \\"</string>
+    <string name="weatherreport">Säätiedotus</string>
+    <string name="choosealocation">Valitse sijainti</string>
+    <string name="rainy">Sateinen</string>
+    <string name="lagos">lagos</string>
+    <string name="conditionBackgroundImage">Kunto taustakuva</string>
+    <string name="conditionForegroundImage">Kunto ForegroundImage</string>
+    <string name="addButton">Lisää-painike</string>
+    <string name="nairobi">Nairobi</string>
+    <string name="kenya">Kenia</string>
+    <string name="_8_pm">20.00</string>
+    <string name="cloudy">Pilvinen</string>
+    <string name="add">Lisätä</string>
+    <string name="noResults">Ei tuloksia</string>
+    <string name="navigate">navigoida</string>
+    <string name="manageCities">Hallitse kaupunkeja</string>
+    <string name="savedLocations">Tallennetut sijainnit</string>
+    <string name="delete">Poistaa</string>
+    <string name="nigeria">Nigeria</string>
+    <string name="_2_pm">klo 14.00</string>
+    <string name="lagosantofe">Lagosanto FE</string>
+    <string name="italy">Italia</string>
+    <string name="_9_pm">klo 21.00</string>
+    <string name="clear">Asia selvä</string>
+    <string name="expectRain">Odotettavissa sadetta ja hajanaisia ​​ukkosmyrskyjä klo 12.00 mennessä</string>
+    <string name="floodingRisk">TURVAVARKI: KORKEA</string>
+    <string name="saveLocation">Tallenna sijainti</string>
+    <string name="savelocation">TALLENNA SIJAINTI</string>
+</resources>

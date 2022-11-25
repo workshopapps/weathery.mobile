@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_dashboard_fragment">مرحبًا جزء لوحة التحكم</string>
+    <string name="raining">تمطر</string>
+    <string name="now">حاليا</string>
+    <string name="lagos_nigeria">لاغوس ، نيجيريا</string>
+    <string name="sunny">مشمس</string>
+    <string name="dust_level">مستوى الغبار</string>
+    <string name="high">عالٍ</string>
+    <string name="sun_burn">ضربة شمس</string>
+    <string name="tomorrow_s_forecast">توقعات الغد</string>
+    <string name="_12_3pm">12 - 3 مساءً</string>
+    <string name="weathery">طقس</string>
+    <string name="home">مسكن</string>
+    <string name="saved_locations">المواقع المحفوظة</string>
+    <string name="notifications">إشعارات</string>
+    <string name="settings">إشعارات</string>
+    <string name="sign_in_to_account">تسجيل الدخول إلى الحساب</string>
+</resources>

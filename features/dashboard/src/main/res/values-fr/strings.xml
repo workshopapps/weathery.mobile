@@ -1,0 +1,19 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_dashboard_fragment">Bonjour fragment de tableau de bord</string>
+    <string name="raining">Il pleut</string>
+    <string name="now">À présent</string>
+    <string name="lagos_nigeria">Lagos, Nigéria</string>
+    <string name="sunny">ENSOLEILLÉ</string>
+    <string name="dust_level">Niveau de poussière</string>
+    <string name="high">Haute</string>
+    <string name="sun_burn">Coup de soleil</string>
+    <string name="tomorrow_s_forecast">LES PREVISIONS DE DEMAIN</string>
+    <string name="_12_3pm">12h - 15h</string>
+    <string name="weathery">Météo</string>
+    <string name="home">Maison</string>
+    <string name="saved_locations">Emplacements enregistrés</string>
+    <string name="notifications">Avis</string>
+    <string name="settings">Réglages</string>
+    <string name="sign_in_to_account">Connectez-vous au compte</string>
+</resources>

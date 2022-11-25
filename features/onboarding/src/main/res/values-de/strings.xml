@@ -1,0 +1,14 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_boarding_fragment">Hallo Boarding-Fragment</string>
+    <string name="getStarted">Loslegen</string>
+    <string name="continueForm">Fortsetzen</string>
+    <string name="skip">Überspringen</string>
+<!--    <string name="arrayitem1">Before stepping outside your comfort zone, familiarize yourself with the weather</string>-->
+    <string name="arrayitem2">Planen Sie Ihren ganzen Tag, während Weathery Ihre Bewegung leitet</string>
+    <string name="arrayitem1">Bevor Sie Ihre Komfortzone verlassen, machen Sie sich mit dem Wetter vertraut</string>
+    <string name="arrayitem3">Egal bei welchem ​​Wetter, Sie sind immer informiert und vorbereitet</string>
+    <string name="onboarding_page_demo">Demo der Onboarding-Seite</string>
+    <!--    <string name="arrayitem3">No matter the weather, you are always informed and prepared</string>-->
+<!--    <string name="onboarding_page_demo">Onboarding page demo</string>-->
+</resources>

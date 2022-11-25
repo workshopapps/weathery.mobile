@@ -1,0 +1,13 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_boarding_fragment">Hola fragment d\'embarcament</string>
+    <string name="getStarted">Començar</string>
+<!--    <string name="continueForm">Continue</string>-->
+    <string name="skip">Omet</string>
+    <string name="arrayitem1">Abans de sortir de la vostra zona de confort, familiaritzeu-vos amb el clima</string>
+    <string name="arrayitem2">Planifiqueu tot el dia mentre el temps guia el vostre moviment</string>
+    <string name="arrayitem3">No importa el temps, sempre estàs informat i preparat</string>
+    <string name="continueForm">Continua</string>
+    <string name="onboarding_page_demo">Demostració de la pàgina d\'incorporació</string>
+    <!--    <string name="onboarding_page_demo">Onboarding page demo</string>-->
+</resources>

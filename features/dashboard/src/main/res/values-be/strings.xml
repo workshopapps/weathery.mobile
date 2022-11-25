@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_dashboard_fragment">Фрагмент Hello DashBoard</string>
+    <string name="raining">Дождж</string>
+    <string name="now">зараз</string>
+    <string name="lagos_nigeria">Лагас, Нігерыя</string>
+    <string name="sunny">СОНЕЧНА</string>
+    <string name="dust_level">Узровень пылу</string>
+    <string name="high">Высокі</string>
+    <string name="sun_burn">Сонечны апёк</string>
+    <string name="tomorrow_s_forecast">ПРАГНОЗ НА ЗАЎТРА</string>
+    <string name="_12_3pm">12 - 15 гадзін</string>
+    <string name="weathery">Паветраны</string>
+    <string name="home">дадому</string>
+    <string name="saved_locations">Захаваныя месцы</string>
+    <string name="notifications">Апавяшчэнні</string>
+    <string name="settings">Налады</string>
+    <string name="sign_in_to_account">Увайдзіце ва ўліковы запіс</string>
+</resources>

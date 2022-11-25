@@ -1,0 +1,30 @@
+<resources>
+    <string name="learnmore">\\"تعلم المزيد عن \\"</string>
+    <string name="weatherreport">تقرير حالة ألطقس</string>
+    <string name="choosealocation">اختر موقعا</string>
+    <string name="rainy">ماطر</string>
+    <string name="lagos">لاغوس</string>
+    <string name="conditionBackgroundImage">صورة خلفية الشرط</string>
+    <string name="conditionForegroundImage">مقدمة الشرط</string>
+    <string name="addButton">زر الإضافة</string>
+    <string name="nairobi">نيروبي</string>
+    <string name="kenya">كينيا</string>
+    <string name="_8_pm">8.00 م</string>
+    <string name="cloudy">غائم</string>
+    <string name="add">يضيف</string>
+    <string name="noResults">لا نتائج</string>
+    <string name="navigate">التنقل</string>
+    <string name="manageCities">إدارة المدن</string>
+    <string name="savedLocations">المواقع المحفوظة</string>
+    <string name="delete">حذف</string>
+    <string name="nigeria">نيجيريا</string>
+    <string name="_2_pm">02:00</string>
+    <string name="lagosantofe">لاغوسانتو إف</string>
+    <string name="italy">إيطاليا</string>
+    <string name="_9_pm">9.00 مساءً</string>
+    <string name="clear">صافي</string>
+    <string name="expectRain">توقع هطول أمطار وعواصف رعدية متفرقة بحلول الساعة 12 ظهراً</string>
+    <string name="floodingRisk">مخاطر الفيضانات: مرتفعة</string>
+    <string name="saveLocation">حفظ الموقع</string>
+    <string name="savelocation">حفظ الموقع</string>
+</resources>

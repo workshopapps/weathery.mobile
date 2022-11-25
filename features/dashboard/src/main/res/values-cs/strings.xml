@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_dashboard_fragment">Dobrý den, fragment DashBoard</string>
+    <string name="raining">Prší</string>
+    <string name="now">Nyní</string>
+    <string name="lagos_nigeria">Lagos, Nigérie</string>
+    <string name="sunny">SLUNNÝ</string>
+    <string name="dust_level">Úroveň prachu</string>
+    <string name="high">Vysoký</string>
+    <string name="sun_burn">Spálení sluncem</string>
+    <string name="tomorrow_s_forecast">PROGNÓZA NA ZÍTRA</string>
+    <string name="_12_3pm">12–15 hodin</string>
+    <string name="weathery">Zvětralý</string>
+    <string name="home">Domov</string>
+    <string name="saved_locations">Uložená místa</string>
+    <string name="notifications">Oznámení</string>
+    <string name="settings">Nastavení</string>
+    <string name="sign_in_to_account">Přihlaste se k účtu</string>
+</resources>
