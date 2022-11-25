@@ -16,12 +16,13 @@ import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @Composable
 fun LearnMore(
+    modifier: Modifier = Modifier,
     learnMore: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = "Learn more about ",

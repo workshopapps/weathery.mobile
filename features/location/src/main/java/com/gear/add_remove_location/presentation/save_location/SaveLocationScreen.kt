@@ -10,20 +10,17 @@ import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.gear.add_remove_location.data.WeatherData
-import com.gear.add_remove_location.data.addWeather
+import com.gear.add_remove_location.presentation.LocationViewModel
 import com.gear.add_remove_location.presentation.save_location.components.HourlyWeatherItem
 import com.gear.add_remove_location.presentation.ui.theme.Gray900
 import com.gear.add_remove_location.presentation.ui.theme.Outfit
 import com.gear.add_remove_location.presentation.ui.theme.Primary500
 
 @Composable
-fun SaveLocationScreen(navController: NavController) {
+fun SaveLocationScreen(navController: NavController, viewModel: LocationViewModel) {
 
 
     Column(Modifier.fillMaxSize()) {
@@ -52,10 +49,4 @@ fun SaveLocationScreen(navController: NavController) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun SavePrev() {
-    SaveLocationScreen(navController = rememberNavController())
 }

@@ -9,5 +9,4 @@ class AddRemoveLocationNavigationImpl: AddRemoveLocationNavigation {
     override fun navigateToAddRemoveLocation(args: String, navController: NavController) {
         navController.navigate(R.id.location_nav_graph, bundleOf("args" to args))
     }
-
 }
