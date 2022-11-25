@@ -1,16 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-<!--    <string name="hello_boarding_fragment">Hello Boarding fragment</string>-->
-    <string name="getStarted">Commencer</string>
-<!--    <string name="continueForm">Continue</string>-->
-    <string name="skip">Sauter</string>
-<!--    <string name="arrayitem1">Before stepping outside your comfort zone, familiarize yourself with the weather</string>-->
-<!--    <string name="arrayitem2">Plan your whole day while weathery guides your movement</string>-->
-    <string name="arrayitem3">Peu importe la météo, vous êtes toujours informé et préparé</string>
     <string name="hello_boarding_fragment">Bonjour Fragment d\'embarquement</string>
+    <string name="getStarted">Get Started</string>
     <string name="continueForm">Continuer</string>
+    <string name="skip">Sauter</string>
     <string name="arrayitem1">Avant de sortir de votre zone de confort, familiarisez-vous avec la météo</string>
-    <string name="onboarding_page_demo">Démo de la page d\'accueil</string>
     <string name="arrayitem2">Planifiez votre journée entière pendant que la météo guide votre mouvement</string>
-    <!--    <string name="onboarding_page_demo">Onboarding page demo</string>-->
+    <string name="arrayitem3">Peu importe la météo, vous êtes toujours informé et préparé</string>
+    <string name="onboarding_page_demo">Démo de la page d\'accueil</string>
 </resources>
