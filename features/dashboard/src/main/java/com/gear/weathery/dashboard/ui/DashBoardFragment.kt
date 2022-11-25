@@ -32,14 +32,9 @@ class DashBoardFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var backPressedCallback: OnBackPressedCallback
 
-    private lateinit var demoCollectionAdapter: PagerCollectionAdapter
-    private lateinit var viewPager: ViewPager2
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
-    private lateinit var scrollIndicator1: ImageView
-    private lateinit var scrollIndicator2: ImageView
-    private lateinit var scrollIndicator3: ImageView
 
     @Inject
     lateinit var settingsNavigation: SettingsNavigation
@@ -81,10 +76,6 @@ class DashBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scrollIndicator1 = binding.scrollIndicator1ImageView
-        scrollIndicator2 = binding.scrollIndicator2ImageView
-        scrollIndicator3 = binding.scrollIndicator3ImageView
-
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
 
@@ -110,38 +101,30 @@ class DashBoardFragment : Fragment() {
 
         binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
-        demoCollectionAdapter = PagerCollectionAdapter(this)
-        viewPager = view.findViewById(R.id.pager)
-        viewPager.adapter = demoCollectionAdapter
-        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updateScrollIndicator(position)
-            }
-        })
 
     }
 
-    private fun updateScrollIndicator(newPosition: Int) {
-        when(newPosition){
-            0 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-            }
-
-            1 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-            }
-
-            2 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
-            }
-        }
-    }
+//    private fun updateScrollIndicator(newPosition: Int) {
+//        when(newPosition){
+//            0 -> {
+//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
+//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+//            }
+//
+//            1 -> {
+//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
+//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+//            }
+//
+//            2 -> {
+//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
+//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
+//            }
+//        }
+//    }
 
 
     private fun navigateToSignin(){

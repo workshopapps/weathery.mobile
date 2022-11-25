@@ -3,7 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+//    id 'com.android.application'
+
 }
+
 
 android {
     compileSdk Versions.INSTANCE.compileSdkVersion
@@ -53,6 +56,9 @@ dependencies {
     implementation LibDependencies.INSTANCE.navigation_ui_ktx
 
     implementation LibDependencies.INSTANCE.view_pager2
+
+    //google play services
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
 
 }
