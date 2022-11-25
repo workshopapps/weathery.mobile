@@ -4,6 +4,7 @@ import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -13,26 +14,32 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
 import com.gear.weathery.common.navigation.SignInNavigation
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
-import com.gear.weathery.dashboard.models.UITimesWeather
-import com.gear.weathery.dashboard.ui.viewPager.PagerCollectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment() , LocationListener{
+    private val viewModel: DashBoardViewModel by activityViewModels {
+        DashBoardViewModelFactory()
+    }
+
+    private val timeWeathersAdapter = TimeWeatherRecyclerAdapterX{
+        viewModel.updateHighLightedTimeWeather(it)
+    }
+
     private var _binding:FragmentDashBoardBinding? =  null
     private val binding get() = _binding!!
     private lateinit var backPressedCallback: OnBackPressedCallback
@@ -40,12 +47,9 @@ class DashBoardFragment : Fragment() , LocationListener{
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
 
+    private lateinit var location: Location
     private var longitude : Int = 0
     private var latitude : Int = 0
-
-
-    private lateinit var demoCollectionAdapter: PagerCollectionAdapter
-   // private lateinit var viewPager: ViewPager2
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
@@ -75,6 +79,8 @@ class DashBoardFragment : Fragment() , LocationListener{
             exitApp()
         }
         backPressedCallback.isEnabled = true
+
+//        getLocation()
     }
 
 
@@ -113,32 +119,27 @@ class DashBoardFragment : Fragment() , LocationListener{
             showDialog(navDrawer)
         }
 
-        binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
+        binding.weatherForTimesRecylcerView.adapter = timeWeathersAdapter
 
+        viewModel.timeWeather.observe(viewLifecycleOwner){weathersList ->
+            timeWeathersAdapter.updateItemList(weathersList)
+
+            val highlightedWeather = weathersList.find { it.highlighted }!!
+            binding.mainWidgetWeatherDescTextView.text = highlightedWeather.description
+            binding.mainWidgetTimeRangeTextView.text = highlightedWeather.time
+            val weatherIcon = when(highlightedWeather.main){
+                "Clear" -> R.drawable.sun_orange
+                "Clouds" -> R.drawable.rain_4
+                else -> R.drawable.heavy_rain
+            }
+            binding.mainWidgetWeatherIconImageView.setImageResource(weatherIcon)
+        }
+
+        binding.shareButtonImageView.setOnClickListener{
+            shareWeather()
+        }
 
     }
-
-//    private fun updateScrollIndicator(newPosition: Int) {
-//        when(newPosition){
-//            0 -> {
-//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
-//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-//            }
-//
-//            1 -> {
-//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
-//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-//            }
-//
-//            2 -> {
-//                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-//                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
-//            }
-//        }
-//    }
 
 
     private fun navigateToSignin(){
@@ -191,16 +192,16 @@ class DashBoardFragment : Fragment() , LocationListener{
         animator.start()
     }
 
-    private fun generateMockTimesWeatherUIItems(): List<UITimesWeather>{
-        val uiTimesWeatherList = mutableListOf<UITimesWeather>()
-        val weatherNames = listOf("Rainy", "Cloudy", "Drizzle", "Fog", "Wind")
-        val weatherIconRsrcIds = listOf(R.drawable.rain, R.drawable.cloudy, R.drawable.drizzle, R.drawable.fog, R.drawable.wind)
-        for(item in 1..20){
-            val randomIndex = (0..4).random()
-            uiTimesWeatherList.add(UITimesWeather(weatherNames[randomIndex], weatherIconRsrcIds[randomIndex], "${item}am"))
-        }
-        return uiTimesWeatherList
-    }
+//    private fun generateMockTimesWeatherUIItems(): List<UITimesWeather>{
+//        val uiTimesWeatherList = mutableListOf<UITimesWeather>()
+//        val weatherNames = listOf("Rainy", "Cloudy", "Drizzle", "Fog", "Wind")
+//        val weatherIconRsrcIds = listOf(R.drawable.rain, R.drawable.cloudy, R.drawable.drizzle, R.drawable.fog, R.drawable.wind)
+//        for(item in 1..20){
+//            val randomIndex = (0..4).random()
+//            uiTimesWeatherList.add(UITimesWeather(weatherNames[randomIndex], weatherIconRsrcIds[randomIndex], "${item}am"))
+//        }
+//        return uiTimesWeatherList
+//    }
 
     private fun exitApp() {
         if (exitAppToastStillShowing){
@@ -235,6 +236,20 @@ class DashBoardFragment : Fragment() , LocationListener{
         latitude = location.latitude.toInt()
         longitude = location.longitude.toInt()
 
+
+        this.location = location
+        viewModel.updateLocation(location)
+
     }
 
+    fun shareWeather(){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, viewModel.generateShareWeatherText())
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
 }

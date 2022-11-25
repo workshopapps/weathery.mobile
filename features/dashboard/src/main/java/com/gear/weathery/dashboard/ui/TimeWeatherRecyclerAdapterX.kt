@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.WeatherForTimesListItemBinding
 import com.gear.weathery.dashboard.models.TimeWeather
-import com.gear.weathery.dashboard.models.UITimesWeather
+import com.gear.weathery.dashboard.models.UITimeWeather
 import com.gear.weathery.dashboard.ui.TimeWeatherRecyclerAdapterX.TimesWeatherViewHolder
 
-class TimeWeatherRecyclerAdapterX: RecyclerView.Adapter<TimesWeatherViewHolder>() {
+class TimeWeatherRecyclerAdapterX(val onItemClick: (Int) -> Unit): RecyclerView.Adapter<TimesWeatherViewHolder>() {
 
-    private var items = listOf<TimeWeather>()
-    fun updateItemList(items: List<TimeWeather>){
+    private var items = listOf<UITimeWeather>()
+    fun updateItemList(items: List<UITimeWeather>){
         this.items = items
         notifyDataSetChanged()
     }
@@ -22,7 +22,9 @@ class TimeWeatherRecyclerAdapterX: RecyclerView.Adapter<TimesWeatherViewHolder>(
     }
 
     override fun onBindViewHolder(holder: TimesWeatherViewHolder, position: Int) {
-        holder.bind(items[position])
+        val item = items[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener{onItemClick(item.id)}
     }
 
     override fun getItemCount(): Int {
@@ -30,16 +32,20 @@ class TimeWeatherRecyclerAdapterX: RecyclerView.Adapter<TimesWeatherViewHolder>(
     }
 
     class TimesWeatherViewHolder(var binding: WeatherForTimesListItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(timeWeather: TimeWeather){
+        fun bind(timeWeather: UITimeWeather){
             binding.apply {
                 timeTextView.text = timeWeather.time
+
                 weatherTextView.text = timeWeather.main
+
                 val weatherIcon = when(timeWeather.main){
-                    "clear" -> R.drawable.sun_orange
-                    "rain" -> R.drawable.rain_4
+                    "Clear" -> R.drawable.sun_orange
+                    "Clouds" -> R.drawable.rain_4
                     else -> R.drawable.heavy_rain
                 }
                 weatherIconImageView.setImageResource(weatherIcon)
+
+                containerLinearLayout.setBackgroundResource(if (timeWeather.highlighted) R.drawable.bg_highlight else android.R.color.white)
             }
         }
     }

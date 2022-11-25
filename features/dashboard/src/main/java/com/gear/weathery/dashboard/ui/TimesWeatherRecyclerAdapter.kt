@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.gear.weathery.dashboard.databinding.WeatherForTimesListItemBinding
-import com.gear.weathery.dashboard.models.UITimesWeather
+import com.gear.weathery.dashboard.models.UITimeWeather
 import com.gear.weathery.dashboard.ui.TimesWeatherRecyclerAdapter.TimesWeatherViewHolder
 
 class TimesWeatherRecyclerAdapter: RecyclerView.Adapter<TimesWeatherViewHolder>() {
 
-    private var items = listOf<UITimesWeather>()
-    fun updateItemList(items: List<UITimesWeather>){
+    private var items = listOf<UITimeWeather>()
+    fun updateItemList(items: List<UITimeWeather>){
         this.items = items
         notifyDataSetChanged()
     }
@@ -29,12 +29,12 @@ class TimesWeatherRecyclerAdapter: RecyclerView.Adapter<TimesWeatherViewHolder>(
     }
 
     class TimesWeatherViewHolder(var binding: WeatherForTimesListItemBinding): ViewHolder(binding.root){
-        fun bind(uiTimesWeather: UITimesWeather){
-            binding.apply {
-                weatherTextView.text = uiTimesWeather.weather
-                weatherIconImageView.setImageResource(uiTimesWeather.iconResrcId)
-                timeTextView.text = uiTimesWeather.time
-            }
+        fun bind(uiTimesWeather: UITimeWeather){
+//            binding.apply {
+//                weatherTextView.text = uiTimesWeather.weather
+//                weatherIconImageView.setImageResource(uiTimesWeather.iconResrcId)
+//                timeTextView.text = uiTimesWeather.time
+//            }
         }
     }
 }

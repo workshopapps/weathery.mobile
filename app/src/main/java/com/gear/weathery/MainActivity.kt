@@ -10,6 +10,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.gear.weathery.dashboard.R.id.dashBoardFragment
 import com.gear.weathery.dashboard.R.id.dashboard_nav_graph
 import com.gear.weathery.databinding.ActivityMainBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -17,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(dashboard_nav_graph)
            // navController.clearBackStack(dashboard_nav_graph)
         }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
     }
     override fun onSupportNavigateUp(): Boolean {

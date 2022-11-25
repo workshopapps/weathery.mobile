@@ -46,6 +46,7 @@ dependencies {
 
     implementation LibDependencies.INSTANCE.coroutine_core
     implementation LibDependencies.INSTANCE.coroutine_android
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     testImplementation LibDependencies.INSTANCE.junit
     androidTestImplementation LibDependencies.INSTANCE.test_ext_junit

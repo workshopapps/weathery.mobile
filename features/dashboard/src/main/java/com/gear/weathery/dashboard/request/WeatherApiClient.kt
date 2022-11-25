@@ -3,6 +3,7 @@ package com.gear.weathery.dashboard.request
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gear.weathery.dashboard.models.TimeWeather
 import com.gear.weathery.dashboard.models.WeatherResponse
 import com.gear.weathery.dashboard.util.AppExecutor
 import retrofit2.Call
@@ -83,7 +84,7 @@ class WeatherApiClient {
             }
 
         }
-        fun getWeatherInfo(lat: Int, lon:Int): Call<List<WeatherResponse>> {
+        fun getWeatherInfo(lat: Int, lon:Int): Call<List<TimeWeather>> {
             return Service.getWeatherApi().getWeatherInfo(lat,lon)
         }
 
