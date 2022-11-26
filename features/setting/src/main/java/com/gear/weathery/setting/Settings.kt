@@ -21,13 +21,38 @@ class Settings : Fragment() {
     lateinit var dashBoardNavigation: DashBoardNavigation
 
     @Inject
-    //lateinit var settingsPreference: SettingsPreference
+    lateinit var settingsPreference: SettingsPreference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
+        binding.apply {
+            lifecycleScope.launchWhenStarted {
+                settingsPreference.pushNotification().collect{ isPushNotification ->
+                    tvNotificationStatus.text = if (isPushNotification){
+                        getString(R.string.on)
+                    }else{
+                        getString(R.string.off)
+                    }
+                }
+            }
+
+            ivBackButton.setOnClickListener {
+                dashBoardNavigation.navigateToDashboard(navController = findNavController())
+            }
+
+            IvNotificationBtn.setOnClickListener {
+                findNavController().navigate(R.id.notificationSettings)
+            }
+            ivLanguagebtn.setOnClickListener {
+                findNavController().navigate(R.id.selectLanguage)
+            }
+            ivThemesBtn.setOnClickListener {
+                findNavController().navigate(R.id.displayTheme)
+            }
+        }
 //        binding.apply {
 //            lifecycleScope.launchWhenStarted {
 //                settingsPreference.pushNotification().collect{ isPushNotification ->
