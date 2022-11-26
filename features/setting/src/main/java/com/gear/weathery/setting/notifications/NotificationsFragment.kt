@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.DashBoardNavigation
-import com.gear.weathery.setting.adapters.NotificationsAdapter
 import com.gear.weathery.setting.notifications.adapter.NotificationsAdapter
 import com.gear.weathery.setting.databinding.FragmentNotificationsBinding
 import com.gear.weathery.setting.notifications.model.NotificationData
