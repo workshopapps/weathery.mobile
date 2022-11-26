@@ -2,7 +2,7 @@ package com.gear.weathery.setting
 
 import com.gear.weathery.common.navigation.NotificationsNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
-import com.gear.weathery.setting.notifications.NotificationsNavigationImpl
+import com.gear.weathery.setting.notifications.utils.NotificationsNavigationImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

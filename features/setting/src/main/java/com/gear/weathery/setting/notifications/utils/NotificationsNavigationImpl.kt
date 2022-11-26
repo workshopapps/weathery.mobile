@@ -1,4 +1,4 @@
-package com.gear.weathery.setting.notifications
+package com.gear.weathery.setting.notifications.utils
 
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
