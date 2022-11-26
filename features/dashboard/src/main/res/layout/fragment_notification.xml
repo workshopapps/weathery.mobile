@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+    tools:context=".NotificationFragment">
 
     <ImageView
         android:id="@+id/backButton_imageView"
@@ -15,14 +15,14 @@
         android:src="@drawable/chevron_left"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/default_colour"
+        app:tint="#000000"
         />
 
     <TextView
         android:id="@+id/notifications_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/notifications"
+        android:text="Notifications"
         android:textSize="24sp"
         android:fontFamily="@font/outfit_extrabold"
         android:layout_marginTop="8dp"
@@ -40,21 +40,17 @@
         app:layout_constraintTop_toTopOf="@id/notifications_textView"
         app:layout_constraintBottom_toBottomOf="@id/notifications_textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/default_colour"
+        app:tint="#000000"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notif"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:orientation="vertical"
         android:layout_marginBottom="32dp"
         tools:listitem="@layout/notifications_list_item"
         app:layout_constraintTop_toBottomOf="@id/notifications_textView"
         app:layout_constraintBottom_toTopOf="@id/notificationsWillBeDeleted_textView"
-
         />
 
 
@@ -64,7 +60,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/outfit_medium"
         android:textSize="16sp"
-        android:text="@string/notifications_will_be_deleted_after_30_days"
+        android:text="Notifications will be deleted after 30 days"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@id/emptyNowButton_frameLayout"
         app:layout_constraintStart_toStartOf="@id/emptyNowButton_frameLayout"
@@ -87,8 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/outfit_light"
-            android:text="@string/empty_now"
-            android:textColor="@color/weathery_orange"
+            android:text="Empty now"
+            android:textColor="#FD7536"
             android:textSize="18sp"
             />
 

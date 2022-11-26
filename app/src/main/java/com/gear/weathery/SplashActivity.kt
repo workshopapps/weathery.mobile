@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
-import com.gear.weathery.common.preference.SettingsPreference
+//import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.common.navigation.BoardingNavigation
-import com.gear.weathery.onboarding.SharedPreference
+import com.gear.weathery.common.navigation.SharedPreference
+import com.gear.weathery.common.preference.SettingsPreference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject

@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
 import com.gear.weathery.common.navigation.NotificationsNavigation
 import com.gear.weathery.common.navigation.SettingsNavigation
+import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.navigation.SignInNavigation
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
@@ -40,6 +41,8 @@ class DashBoardFragment : Fragment() , LocationListener{
 
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
+
+
 
     private var longitude : Int = 0
     private var latitude : Int = 0
@@ -100,6 +103,10 @@ class DashBoardFragment : Fragment() , LocationListener{
 //        scrollIndicator1 = binding.scrollIndicator1ImageView
 //        scrollIndicator2 = binding.scrollIndicator2ImageView
 //        scrollIndicator3 = binding.scrollIndicator3ImageView
+
+        SharedPreference.init(requireContext())
+        var permissionAllowed = SharedPreference.getBoolean("ALLOWPERMISSION",true)
+
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView

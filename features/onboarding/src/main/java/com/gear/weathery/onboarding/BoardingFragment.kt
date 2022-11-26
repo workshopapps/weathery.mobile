@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.gear.weathery.common.navigation.DashBoardNavigation
+import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.onboarding.databinding.FragmentBoardingBinding
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
