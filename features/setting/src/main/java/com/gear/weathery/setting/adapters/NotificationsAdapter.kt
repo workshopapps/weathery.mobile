@@ -1,13 +1,10 @@
 package com.gear.weathery.setting.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gear.weathery.setting.R
 import com.gear.weathery.setting.databinding.NotificationsListItemBinding
-import com.gear.weathery.setting.notifications.NotificationData
+import com.gear.weathery.setting.notifications.model.NotificationData
 
 class NotificationsAdapter :  RecyclerView.Adapter<NotificationsAdapter.NotificationViewHolder>() {
 

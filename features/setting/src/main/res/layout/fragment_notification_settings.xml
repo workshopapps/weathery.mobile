@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="30dp"
     tools:context=".NotificationSettings">
 
     <TextView
         android:id="@+id/tvNotificationSettingsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/outfit_extrabold"
         android:text="@string/notification_settings"
         android:textSize="24sp"
@@ -20,8 +21,9 @@
 
     <ImageView
         android:id="@+id/ivBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:paddingEnd="20dp"
         android:src="@drawable/ic_arrow_back"
         app:tint="?android:colorForeground"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +100,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/daily"
                     android:textSize="16sp"
-                    app:drawableTint="@android:color/black" />
+                    app:drawableTint="?android:colorForeground" />
 
                 <RadioButton
                     android:id="@+id/rBtnWeekly"
@@ -111,7 +113,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/weekly"
                     android:textSize="16sp"
-                    app:drawableTint="@android:color/black" />
+                    app:drawableTint="?android:colorForeground"/>
 
                 <RadioButton
                     android:id="@+id/rBtnMonthly"
@@ -123,7 +125,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/monthly"
                     android:textSize="16sp"
-                    app:drawableTint="@android:color/black" />
+                    app:drawableTint="?android:colorForeground" />
             </RadioGroup>
 
             <View

@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SelectLanguage"
-    android:padding="24dp">
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="30dp">
             <TextView
                 android:id="@+id/tvLanguageSettingsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/outfit_extrabold"
                 android:text="@string/language"
                 android:textSize="24sp"
@@ -19,8 +20,9 @@
 
             <ImageView
                 android:id="@+id/ivBackButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingEnd="20dp"
                 android:src="@drawable/ic_arrow_back"
                 app:tint="?android:colorForeground"
                 app:layout_constraintStart_toStartOf="parent"
