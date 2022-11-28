@@ -54,7 +54,7 @@ class NotificationSettings : Fragment() {
                 settingsPreference.vibrateMode().collect{ isVibrateDefault ->
                         if (isVibrateDefault){
                             rBtnVibrateDefault.isChecked = true
-                            tvVibrateStatus.text = getString(R.string.default_fate)
+                            tvVibrateStatus.text = getString(R.string.default1)
                         }else{
                             rBtnVibrateOff.isChecked = true
                             tvVibrateStatus.text = getString(R.string.off)
@@ -119,6 +119,7 @@ class NotificationSettings : Fragment() {
                 } else {
                     lifecycleScope.launch {
                         settingsPreference.togglePushNotification(false)
+                        settingsPreference.toggleBanner(false)
                     }
                 }
             }

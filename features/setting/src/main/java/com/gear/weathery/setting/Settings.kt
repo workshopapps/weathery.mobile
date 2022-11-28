@@ -11,6 +11,7 @@ import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.common.navigation.DashBoardNavigation
 import com.gear.weathery.setting.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,6 +52,12 @@ class Settings : Fragment() {
             }
             ivThemesBtn.setOnClickListener {
                 findNavController().navigate(R.id.displayTheme)
+            }
+            val defaultLanguage = Locale.getDefault().displayLanguage
+            tvLanguageSummary.text = if (defaultLanguage=="English"){
+                "$defaultLanguage(United Kingdom)"
+            }else{
+                defaultLanguage
             }
         }
 

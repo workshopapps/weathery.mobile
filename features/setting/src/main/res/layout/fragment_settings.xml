@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="24dp">
-
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="30dp">
 
     <ImageView
         android:id="@+id/ivBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:paddingEnd="20dp"
         android:contentDescription="@string/navigate_back"
         android:src="@drawable/ic_arrow_back"
         app:tint="?android:colorForeground"
@@ -21,7 +22,7 @@
         android:id="@+id/tvSettingsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/outfit_extrabold"
         android:text="@string/settings"
         android:textSize="24sp"
@@ -92,8 +93,10 @@
 
             <ImageView
                 android:id="@+id/ivThemesBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="16dp"
                 android:src="@drawable/ic_arrow_forward"
                 app:tint="?android:colorForeground"
                 app:layout_constraintBottom_toBottomOf="@+id/tvDisplayTheme"
@@ -149,8 +152,10 @@
 
             <ImageView
                 android:id="@+id/IvNotificationBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="16dp"
                 android:src="@drawable/ic_arrow_forward"
                 app:tint="?android:colorForeground"
                 app:layout_constraintBottom_toBottomOf="@+id/tvNotificationSettings"
@@ -186,8 +191,10 @@
 
             <ImageView
                 android:id="@+id/ivLanguagebtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="16dp"
                 android:src="@drawable/ic_arrow_forward"
                 app:tint="?android:colorForeground"
                 app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
@@ -273,7 +280,6 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/toggle_selector"
                     android:button="@null"
-                    android:checked="true"
                     android:gravity="center"
                     android:text="@string/f"
                     android:textColor="@android:color/black"
@@ -286,7 +292,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/toggle_selector"
                     android:button="@null"
-                    android:checked="false"
+                    android:checked="true"
                     android:gravity="center"
                     android:text="@string/c"
                     android:textColor="@android:color/black"
@@ -332,8 +338,10 @@
 
             <ImageView
                 android:id="@+id/ivPressureBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="16dp"
                 android:enabled="true"
                 app:tint="?android:colorForeground"
                 android:src="@drawable/ic_arrow_forward"
@@ -381,8 +389,10 @@
 
             <ImageView
                 android:id="@+id/ivWindSpeedBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="16dp"
                 android:enabled="true"
                 app:tint="?android:colorForeground"
                 android:src="@drawable/ic_arrow_forward"
@@ -459,7 +469,7 @@
                 android:id="@+id/tvAppVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="30dp"
+                android:layout_marginVertical="50dp"
                 android:fontFamily="@font/outfit_light"
                 android:text="@string/version_6_7_02"
                 app:layout_constraintBottom_toBottomOf="parent"
