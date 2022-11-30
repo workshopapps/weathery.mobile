@@ -171,6 +171,7 @@
                     android:text="@string/dust_level"
                     android:fontFamily="@font/outfit_regular"
                     android:layout_marginStart="8dp"
+                    android:textColor="@android:color/black"
                     android:layout_weight="1"
                     />
 
@@ -180,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/high"
                     android:textSize="16sp"
+                    android:textColor="@android:color/black"
                     android:fontFamily="@font/outfit_extrabold"
                     android:layout_marginStart="8dp"
                     />
@@ -213,6 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sun_burn"
+                    android:textColor="@android:color/black"
                     android:fontFamily="@font/outfit_regular"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
@@ -224,6 +227,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/high"
                     android:textSize="16sp"
+                    android:textColor="@android:color/black"
                     android:fontFamily="@font/outfit_extrabold"
                     android:layout_marginStart="8dp"
                     />
