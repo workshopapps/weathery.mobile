@@ -16,6 +16,7 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
     private val bannerKey = booleanPreferencesKey("banner")
     private val vibrateModeKey = booleanPreferencesKey("vibrate_key")
     private val toneKey = stringPreferencesKey("tone_key")
+    private val langKey = stringPreferencesKey("lang_key")
 
     fun darkMode(): Flow<String?> {
         return dataStore.data.map { preferences ->
@@ -36,6 +37,9 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
 
     fun notificationTone () = dataStore.data.map { preferences ->
         preferences[toneKey] }
+
+    fun currentlanguage() = dataStore.data.map { preferences ->
+        preferences[langKey] }
 
     fun vibrateMode(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
@@ -85,6 +89,13 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
     suspend fun toggleBanner(isEnabled:Boolean){
         dataStore.edit { preference ->
             preference[bannerKey] = isEnabled
+
+        }
+    }
+
+    suspend fun saveLanguage(lang:String){
+        dataStore.edit { preference ->
+            preference[langKey] = lang
 
         }
     }
