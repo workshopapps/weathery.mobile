@@ -5,6 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="weathery_orange">#FD7536</color>
     <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
 
     <color name="weathery_orange_1">#EF6820</color>
     <color name="weathery_orange_light">#FDEAD7</color>
