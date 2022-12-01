@@ -45,6 +45,8 @@ class BoardingFragment : Fragment(), PermissionListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        SharedPreference.init(requireContext().applicationContext)
+        SharedPreference.putBoolean("FIRST",false)
 
         pagerAdapter = ViewPagerAdapter(requireContext())
         binding.viewpager.adapter = pagerAdapter
@@ -80,13 +82,9 @@ class BoardingFragment : Fragment(), PermissionListener {
 
                 if (position==2){
                     onboardSecondPageBtnDesign()
+                    getLocationPermission()
                     binding.skipBtn.setOnClickListener {
-                        getLocationPermission()
-                        if (permissionALlowed) {
-                            dashBoardNavigation.navigateToDashboard(navController = findNavController())
-                        }else{
-                            getLocationPermission()
-                        }
+                        dashBoardNavigation.navigateToDashboard(navController = findNavController())
                     }
                 }
 
@@ -98,7 +96,6 @@ class BoardingFragment : Fragment(), PermissionListener {
             override fun onPageScrollStateChanged(state: Int) {
                // TODO("Not yet implemented")
             }
-
         })
     }
 
@@ -108,6 +105,7 @@ class BoardingFragment : Fragment(), PermissionListener {
             .withListener(this@BoardingFragment)
             .check()
     }
+
 
     private fun onboardSecondPageBtnDesign() {
         binding.contBtn.visibility = View.GONE
@@ -130,17 +128,17 @@ class BoardingFragment : Fragment(), PermissionListener {
 
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
         SharedPreference.init(requireContext().applicationContext)
-        SharedPreference.putBoolean("ALLOW",false)
-        SharedPreference.putBoolean("ALLOWPERMISSION",true)
         permissionALlowed = true
+        SharedPreference.putBoolean("ALLOWPERMISSION",permissionALlowed)
+
 
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-        dashBoardNavigation.navigateToDashboard(navController = findNavController())
-        SharedPreference.putBoolean("ALLOW",false)
-        SharedPreference.putBoolean("ALLOWPERMISSION",false)
+        SharedPreference.init(requireContext().applicationContext)
         permissionALlowed = false
+        SharedPreference.putBoolean("ALLOWPERMISSION",permissionALlowed)
+
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
