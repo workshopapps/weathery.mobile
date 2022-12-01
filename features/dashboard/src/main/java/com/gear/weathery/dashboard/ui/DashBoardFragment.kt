@@ -134,7 +134,7 @@ class DashBoardFragment : Fragment() , LocationListener{
             showDialog(navDrawer)
         }
 
-        binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
+      //  binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
         demoCollectionAdapter = PagerCollectionAdapter(this)
       // viewPager = view.findViewById(R.id.pager)

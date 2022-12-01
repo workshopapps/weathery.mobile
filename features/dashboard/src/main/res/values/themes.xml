@@ -14,4 +14,8 @@
         <!-- Customize your theme here. -->
 
     </style>
+    <!-- This style is where you define the tint color of your overflow menu button -->
+    <style name="actionOverflowButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/black</item>
+    </style>
 </resources>
