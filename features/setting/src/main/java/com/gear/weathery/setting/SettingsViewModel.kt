@@ -56,9 +56,9 @@ class SettingsViewModel @Inject constructor(val settingsPreference: SettingsPref
         }
     }
 
-    var temperature : MutableLiveData<String> = MutableLiveData("")
-    var pressure : MutableLiveData<String> = MutableLiveData("")
-    var windSpeed : MutableLiveData<String> = MutableLiveData("")
+    var temperature : MutableLiveData<String> = MutableLiveData("°C")
+    var pressure : MutableLiveData<String> = MutableLiveData("hPo")
+    var windSpeed : MutableLiveData<String> = MutableLiveData("km/h")
 
     var units : MutableLiveData<Units> = MutableLiveData()
 
