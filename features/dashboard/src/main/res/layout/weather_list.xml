@@ -10,7 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/weather_item_id"
@@ -25,10 +24,6 @@
             android:text="8:00\nAM"
             android:textAlignment="viewEnd"
             android:textColor="#1E1E1E"
-            android:padding="10dp"
-            android:textAlignment="viewEnd"
-            android:id="@+id/time_id"
-            android:fontFamily="@font/outfit_regular"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ellipse" />
+                android:src="@drawable/ellipse_white" />
 
             <ImageView
                 android:id="@+id/divider_line"
@@ -56,7 +51,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/line" />
+                android:src="@drawable/line_white" />
         </LinearLayout>
 
 
@@ -73,13 +68,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/line1"
             />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/weather_description_tv"
-                android:textSize="16sp"
-                android:fontFamily="@font/outfit_regular"
-                android:text="Partly Sunny" />
+
 
 
         <TextView
@@ -96,16 +85,6 @@
             app:layout_constraintTop_toBottomOf="@id/weatherDescription_textView"
             app:layout_constraintStart_toStartOf="@id/weatherDescription_textView"
             />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textSize="14sp"
-                    android:id="@+id/weather_risk_tv"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:fontFamily="@font/outfit_regular"
-                    android:text="High dust level" />
 
         <ImageView
             android:id="@+id/riskIndicator_imageView"
