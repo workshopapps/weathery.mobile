@@ -1,7 +1,9 @@
 package com.gear.weathery.dashboard.network
 
+import com.gear.weathery.dashboard.models.LinkResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -38,6 +40,16 @@ interface GeoCodingNetworkService{
     suspend fun getLocationName(@Query("lat") lat: Double, @Query("lng") lon: Double, @Query("username") username: String = "aaction77"): String
 }
 
+interface ShareWeather{
+    @GET("generate/share-link")
+    suspend fun getShareLinkResponse(
+        @Query("city") city:String,
+        @Query("state") state:String,
+        @Query("country") country:String
+    ): Response<LinkResponse>
+}
+
+
 object NetworkApi{
     val retrofitService: NetworkService by lazy {
         retrofit.create(NetworkService::class.java)
@@ -47,5 +59,10 @@ object NetworkApi{
 object GeoCodingNetworkApi{
     val geoCodingRetrofitService: GeoCodingNetworkService by lazy {
         geoCodingRetrofit.create(GeoCodingNetworkService::class.java)
+    }
+}
+object ShareLinkNetworkApi{
+    val shareLinkRetrofit: ShareWeather by lazy {
+        retrofit.create(ShareWeather::class.java)
     }
 }
