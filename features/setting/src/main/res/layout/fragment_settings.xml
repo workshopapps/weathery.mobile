@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -219,7 +220,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLanguageSummary" />
 
-       <!--     <TextView
+            <TextView
                 android:id="@+id/tvUnitSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -320,29 +321,14 @@
                 app:layout_constraintStart_toEndOf="@+id/ivPressureIcon"
                 app:layout_constraintTop_toTopOf="@+id/ivPressureIcon" />
 
-            <TextView
+            <Spinner
                 android:id="@+id/tvSelectedPressureUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hpo"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPressure"
-                app:layout_constraintEnd_toStartOf="@+id/ivPressureBtn"
-                app:layout_constraintTop_toTopOf="@+id/tvPressure" />
-
-
-            <ImageView
-                android:id="@+id/ivPressureBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:paddingVertical="10dp"
-                android:paddingStart="16dp"
-                android:enabled="true"
-                app:tint="?android:colorForeground"
-                android:src="@drawable/ic_arrow_forward"
                 app:layout_constraintBottom_toBottomOf="@+id/tvPressure"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvPressure"
-                />
+                app:layout_constraintTop_toTopOf="@+id/tvPressure" />
+
 
             <ImageView
                 android:id="@+id/ivWindSpeedIcon"
@@ -369,29 +355,14 @@
                 app:layout_constraintStart_toEndOf="@+id/ivWindSpeedIcon"
                 app:layout_constraintTop_toTopOf="@+id/ivWindSpeedIcon" />
 
-            <TextView
+            <Spinner
                 android:id="@+id/tvSelectedWindUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/km_h"
-                app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeed"
-                app:layout_constraintEnd_toStartOf="@+id/ivWindSpeedBtn"
-                app:layout_constraintTop_toTopOf="@+id/tvWindSpeed" />
-
-
-            <ImageView
-                android:id="@+id/ivWindSpeedBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:paddingVertical="10dp"
-                android:paddingStart="16dp"
-                android:enabled="true"
-                app:tint="?android:colorForeground"
-                android:src="@drawable/ic_arrow_forward"
                 app:layout_constraintBottom_toBottomOf="@+id/tvWindSpeed"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvWindSpeed"
-                />
+                app:layout_constraintTop_toTopOf="@+id/tvWindSpeed" />
+
 
             <View
                 android:id="@+id/dividerThree"
@@ -402,7 +373,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivWindSpeedIcon" />
--->
 
             <ImageView
                 android:id="@+id/ivAboutUsIcon"
@@ -412,7 +382,7 @@
                 android:src="@drawable/ic_users"
                 app:tint="?android:colorForeground"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dividerTwo"
+                app:layout_constraintTop_toBottomOf="@+id/dividerThree"
                 />
 
             <TextView

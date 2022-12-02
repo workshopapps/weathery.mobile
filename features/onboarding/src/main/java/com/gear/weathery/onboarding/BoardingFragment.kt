@@ -48,6 +48,7 @@ class BoardingFragment : Fragment(), PermissionListener {
         SharedPreference.init(requireContext().applicationContext)
         SharedPreference.putBoolean("FIRST",false)
 
+
         pagerAdapter = ViewPagerAdapter(requireContext())
         binding.viewpager.adapter = pagerAdapter
         binding.dotsIndicator.attachTo(binding.viewpager)
