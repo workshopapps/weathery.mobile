@@ -45,6 +45,15 @@ val LocationTitleStyle = TextStyle(
     letterSpacing = 0.01.em
 )
 
+val ButtonTextStyle = TextStyle(
+    fontFamily = Outfit,
+    lineHeight = 24.em,
+    fontWeight = FontWeight.Normal,
+    textAlign = TextAlign.Center,
+    fontSize = 14.sp,
+    letterSpacing = 0.em
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     defaultFontFamily = Outfit

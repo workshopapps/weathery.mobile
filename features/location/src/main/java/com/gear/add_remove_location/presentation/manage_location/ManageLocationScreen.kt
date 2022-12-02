@@ -1,8 +1,6 @@
 package com.gear.add_remove_location.presentation.manage_location
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -27,7 +25,7 @@ fun ManageLocationScreen(
 
     val state = viewModel.manageScreenState.value
     val locations = state.locations
-    val action by remember { mutableStateOf(Action.SEARCH) }
+    val action by remember { mutableStateOf(Action.SEARCH_SAVE) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -60,16 +58,28 @@ fun ManageLocationScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             when (action) {
-                Action.SEARCH -> {
+                Action.SEARCH_SAVE -> {
                     SearchAction(
                         locations = locations,
-                        onLocationSearch = { viewModel.onLocationSearch(it) })
+                        isOnSearch = viewModel.isOnSearchState.value,
+                        onLocationSearch = {
+                            viewModel.onLocationSearch(it)
+                        },
+                        text = viewModel.searchTextState.value,
+                        onLocationSelected = {
+                            viewModel.setSearchState(it)
+                        },
+                        onSaveItemClicked = {index, location, isSelected ->
+                            viewModel.saveItemSelected(index,location,isSelected)
+                        },
+                        saveLocations = {viewModel.saveLocations()}
+                    )
                 }
                 Action.EDIT -> {}
-                Action.SAVE -> {}
+                Action.VIEW -> {}
             }
         }
     }
 }
 
-enum class Action { SEARCH, EDIT, SAVE }
+enum class Action { SEARCH_SAVE, EDIT, VIEW }

@@ -25,12 +25,14 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
     @Inject
     lateinit var dashBoardNavigation: DashBoardNavigation
 
-    lateinit var navController: NavHostController
+    private lateinit var navController: NavHostController
 
     lateinit var viewModel: LocationViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.)
 
         view.findViewById<ComposeView>(R.id.location_compose_view).setContent {
             LocationWeatheryTheme {
