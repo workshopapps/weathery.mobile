@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.common.navigation.DashBoardNavigation
 import com.gear.weathery.setting.databinding.FragmentSettingsBinding
+import com.gear.weathery.setting.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.Locale
 import javax.inject.Inject
 
@@ -23,6 +26,7 @@ class Settings : Fragment() {
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,11 +57,16 @@ class Settings : Fragment() {
             ivThemesBtn.setOnClickListener {
                 findNavController().navigate(R.id.displayTheme)
             }
-            val defaultLanguage = Locale.getDefault().displayLanguage
-            tvLanguageSummary.text = if (defaultLanguage=="English"){
-                "$defaultLanguage(United Kingdom)"
-            }else{
-                defaultLanguage
+            lifecycleScope.launch {
+                val defaultLanguage = Locale.getDefault().displayLanguage
+                settingsPreference.currentLanguage().collect{ lang ->
+                      val selectedLang =  Constants.languages.find { it.locale == lang }
+                    tvLanguageSummary.text = if (selectedLang!=null) {
+                        "${ selectedLang.lang }(${selectedLang.locale})"
+                    }else{
+                        "$defaultLanguage(United Kingdom)"
+                    }
+                }
             }
         }
 
