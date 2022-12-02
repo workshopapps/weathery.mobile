@@ -38,6 +38,7 @@ class DashBoardFragment : Fragment() , LocationListener{
     private var _binding:FragmentDashBoardBinding? =  null
     private val binding get() = _binding!!
     private lateinit var backPressedCallback: OnBackPressedCallback
+    private lateinit var timelineAdapter: WeatherTimelineAdapter
 
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
@@ -102,7 +103,11 @@ class DashBoardFragment : Fragment() , LocationListener{
 
 //        scrollIndicator1 = binding.scrollIndicator1ImageView
 //        scrollIndicator2 = binding.scrollIndicator2ImageView
-//        scrollIndicator3 = binding.scrollIndicator3ImageView
+//        scrollIndicator3 = binding.scrollIndicator3ImageView\
+
+        timelineAdapter = WeatherTimelineAdapter()
+        //timelineAdapter.updateDataList()
+        binding.recyclerId.adapter = timelineAdapter
 
         SharedPreference.init(requireContext())
         var permissionAllowed = SharedPreference.getBoolean("ALLOWPERMISSION",true)

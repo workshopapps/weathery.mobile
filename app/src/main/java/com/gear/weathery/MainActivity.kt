@@ -3,6 +3,7 @@ package com.gear.weathery
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -27,16 +28,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragHost = supportFragmentManager.findFragmentById(R.id.fragHost) as NavHostFragment
+        val fragHost = supportFragmentManager.findFragmentById(com.gear.weathery.R.id.fragHost) as NavHostFragment
         navController = fragHost.findNavController()
-        val first  = intent.getBooleanExtra("FIRST",true)
 
-       if(!first){
-            navController.navigate(com.gear.weathery.dashboard.R.id.dashboard_nav_graph)
-        }
+
+
 
     }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val first  = intent.getBooleanExtra("FIRST",true)
+//               if(!first){
+//            navController.navigate(R.id.dashboard_nav_graph)
+//
+//        }
+
     }
 }

@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/weather_item_id"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:text="8:00\nAM"
-            android:textColor="#1E1E1E"
             android:padding="10dp"
             android:textAlignment="viewEnd"
             android:id="@+id/time_id"
@@ -61,7 +61,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#1E1E1E"
                 android:id="@+id/weather_description_tv"
                 android:textSize="16sp"
                 android:fontFamily="@font/outfit_regular"
@@ -74,7 +73,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#2F3B47"
                     android:layout_marginTop="8dp"
                     android:textSize="14sp"
                     android:id="@+id/weather_risk_tv"
