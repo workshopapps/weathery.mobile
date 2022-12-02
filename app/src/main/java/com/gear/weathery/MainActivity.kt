@@ -27,16 +27,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val fragHost = supportFragmentManager.findFragmentById(R.id.fragHost) as NavHostFragment
         navController = fragHost.findNavController()
-        var first  = intent.getBooleanExtra("FIRST",true)
+        val first  = intent.getBooleanExtra("FIRST",true)
 
-        /*if(!first){
-
-            navController.navigate(dashboard_nav_graph)
-           // navController.clearBackStack(dashboard_nav_graph)
-        }*/
+       if(!first){
+            navController.navigate(com.gear.weathery.dashboard.R.id.dashboard_nav_graph)
+        }
 
     }
     override fun onSupportNavigateUp(): Boolean {
