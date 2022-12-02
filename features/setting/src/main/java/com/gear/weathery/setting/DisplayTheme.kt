@@ -38,7 +38,7 @@ class DisplayTheme : Fragment() {
         SharedPreference.init(requireContext())
 
         binding.apply {
-            lifecycleScope.launchWhenCreated {
+            lifecycleScope.launch {
                 settingsPreference.darkMode().collect{ theme ->
                     when(theme) {
                         "light".lowercase() -> {
