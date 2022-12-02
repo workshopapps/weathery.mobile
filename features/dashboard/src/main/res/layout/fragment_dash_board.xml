@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -70,7 +71,6 @@
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/outfit_semibold"
                         android:text="Lagos, Nigeria"
-                        android:textColor="#1E1E1E"
                         android:textSize="16sp" />
 
                     <ImageView
@@ -134,7 +134,7 @@
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/outfit_semibold"
                         android:text="TODAY'S FORECAST"
-                        android:textColor="#565560"
+
                         android:textSize="12sp" />
 
 
@@ -188,7 +188,7 @@
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/outfit_bold"
                         android:text="Heavy Rain"
-                        android:textColor="#4D5E6F"
+
                         android:textSize="34sp" />
 
                     <TextView
@@ -198,7 +198,6 @@
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/outfit_semibold"
                         android:text="12:00pm to 3:00pm"
-                        android:textColor="#4D5E6F"
                         android:textSize="28sp" />
 
                     <RelativeLayout
@@ -225,7 +224,6 @@
                             android:fontFamily="@font/outfit_regular"
                             android:text="Cloud, heavy rain in the afternoon"
                             android:textAlignment="center"
-                            android:textColor="#4D5E6F"
                             android:textSize="12sp" />
                     </RelativeLayout>
 
@@ -243,6 +241,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
                 android:gravity="center"
+                android:background="@color/white_color"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,7 +254,6 @@
                     android:fontFamily="@font/outfit_black"
                     android:gravity="start"
                     android:text="Today"
-                    android:textColor="#000000"
                     android:textSize="24sp" />
 
                 <ImageButton
@@ -263,6 +261,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    app:tint="@color/default_colour"
                     tools:ignore="TouchTargetSizeCheck" />
 
 
@@ -277,6 +276,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/today_lin">
@@ -286,6 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:background="@color/white_color"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/weather_list"
                     app:layout_constraintTop_toTopOf="parent"

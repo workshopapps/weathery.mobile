@@ -37,6 +37,14 @@ class TimelineRecyclerAdapter: RecyclerView.Adapter<TimelineRecyclerAdapter.Hour
                 timeTextView.text = "${time.first}:00\n${time.second}"
                 weatherDescriptionTextView.text = hourWeather.main
                 weatherRiskTextView.text = hourWeather.risk
+
+                if(adapterPosition == 0){
+                    ellipseId.setImageResource(R.drawable.ellipse)
+                    dividerLine.setImageResource(R.drawable.line)
+                }else{
+                    ellipseId.setImageResource(R.drawable.ellipse_white)
+                    dividerLine.setImageResource(R.drawable.line_white)
+                }
                 weatherIconImageView.setImageResource(
                     when(hourWeather.main){
                         "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain
