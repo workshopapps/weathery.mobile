@@ -45,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
         SharedPreference.init(applicationContext)
 
         val first : Boolean = SharedPreference.getBoolean("FIRST", true)
+
         activityScope.launch {
             delay(3000)
             if(first){

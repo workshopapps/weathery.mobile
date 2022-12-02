@@ -2,12 +2,14 @@ package com.gear.weathery
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,10 +44,15 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val first  = intent.getBooleanExtra("FIRST",true)
-//               if(!first){
-//            navController.navigate(R.id.dashboard_nav_graph)
-//
-//        }
+        val themeChange = SharedPreference.getBoolean("THEMECHANGE",false)
+        Log.d("TAGf", "onStart: $themeChange")
+        //go to dashboard if not first and not theme change
+               if(!first && !themeChange){
+                   val check = SharedPreference.getBoolean("THEMECHANGE",false)
+            navController.navigate(R.id.dashboard_nav_graph)
+               }else{
+                   SharedPreference.putBoolean("THEMECHANGE",false)
+               }
 
     }
 }

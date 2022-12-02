@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.databinding.FragmentDisplayThemeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,9 @@ class DisplayTheme : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        SharedPreference.init(requireContext())
+
         binding.apply {
             lifecycleScope.launchWhenCreated {
                 settingsPreference.darkMode().collect{ theme ->
@@ -52,6 +56,9 @@ class DisplayTheme : Fragment() {
 
 
             rgTheme.setOnCheckedChangeListener { _, checkedId ->
+                SharedPreference.putBoolean("THEMECHANGE",true)
+                val theme = SharedPreference.getBoolean("THEMECHANGE",true)
+
                 when(checkedId){
                     R.id.rbtnLight ->{
                         lifecycleScope.launch {
