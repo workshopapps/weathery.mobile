@@ -65,5 +65,7 @@ dependencies {
     //for localization
     implementation "com.github.YarikSOffice:lingver:1.3.0"
 
+    implementation LibDependencies.INSTANCE.datastore
+
 
 }
