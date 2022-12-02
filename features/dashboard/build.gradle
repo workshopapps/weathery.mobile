@@ -69,5 +69,19 @@ dependencies {
     //for localization
     implementation "com.github.YarikSOffice:lingver:1.3.0"
 
+    //google play service api
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    // Retrofit with Moshi Converter
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    // Moshi
+    implementation 'com.squareup.moshi:moshi-kotlin:1.9.3'
+
+    // Scalar
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
 
 }
