@@ -1,10 +1,14 @@
 package com.gear.weathery.dashboard.repository
 
+import android.util.Log
+import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.dashboard.models.DayWeather
 import com.gear.weathery.dashboard.models.HourWeather
+import com.gear.weathery.dashboard.models.LinkResponse
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.network.GeoCodingNetworkApi
 import com.gear.weathery.dashboard.network.NetworkApi
+import com.gear.weathery.dashboard.network.ShareLinkNetworkApi
 import org.json.JSONObject
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -54,7 +58,7 @@ object WeatherRepo {
 
         var stateName: String
         var countryName: String
-        getStateAndCountryName(lat, long).also {
+        getStateAndCountryName(false,lat, long).also {
             stateName = it.first
             countryName = it.second
         }
@@ -83,10 +87,10 @@ object WeatherRepo {
         }
     }
 
-    private suspend fun getStateAndCountryName(lat: Double, long: Double): Pair<String, String> {
+    private suspend fun getStateAndCountryName(fullDetails:Boolean,lat: Double, long: Double): Pair<String, String> {
         val jsonResponse = GeoCodingNetworkApi.geoCodingRetrofitService.getLocationName(lat, long)
         val jsonObject = JSONObject(jsonResponse)
-        return parseJsonToLocationName(jsonObject)
+        return if (!fullDetails) parseJsonToLocationName(jsonObject) else parseJsonToFullLocationName(jsonObject)
     }
 
     private fun parseJsonToLocationName(jsonObject: JSONObject): Pair<String, String> {
@@ -137,5 +141,34 @@ object WeatherRepo {
     private fun getTimeInMillisFromString(dateText: String): Long {
         val date = SimpleDateFormat.getDateTimeInstance().parse(dateText, ParsePosition(0))
         return date.time
+    }
+
+   suspend fun getSharedWeatherLink(lat:Double,lon:Double):Resource<LinkResponse>{
+        var stateName: String
+        var areaName: String
+        getStateAndCountryName(true,lat, lon).also {
+            stateName = it.first
+            areaName = it.second
+        }
+
+       return try {
+           val response = ShareLinkNetworkApi.shareLinkRetrofit.getShareLinkResponse(areaName,stateName,"Nigeria")
+           if (!response.isSuccessful){
+               Resource.Error(message = response.message())
+           }else{
+               Resource.Success(data = response.body())
+           }
+
+       }catch (e:Exception){
+           Resource.Error(message = e.toString())
+
+       }
+    }
+
+    private fun parseJsonToFullLocationName(jsonObject: JSONObject): Pair<String, String> {
+        val payLoadJsonObject = jsonObject.getJSONArray("geonames").getJSONObject(0)
+        val stateName = payLoadJsonObject.getString("adminName1")
+        val areaName = payLoadJsonObject.getString("toponymName")
+        return Pair(stateName, areaName)
     }
 }
