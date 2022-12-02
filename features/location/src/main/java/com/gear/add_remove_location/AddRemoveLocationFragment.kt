@@ -42,7 +42,6 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
                     viewModel = hiltViewModel()
                     navController = rememberNavController()
                     SetUpNavGraph(navController = navController, viewModel = viewModel) {
-                        //Add lat long args on this
                         dashBoardNavigation.navigateToDashboard(navController = findNavController())
                     }
                 }

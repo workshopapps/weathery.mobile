@@ -49,8 +49,7 @@ dependencies {
 
 
     implementation project(':common')
-
-
+    implementation project(":common:location-impl")
 
     implementation LibDependencies.INSTANCE.androidx_core
     implementation LibDependencies.INSTANCE.androidx_appcompat

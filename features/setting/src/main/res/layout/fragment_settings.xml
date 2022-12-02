@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="24dp"
-    android:paddingBottom="30dp">
+    android:paddingBottom="16dp">
 
     <ImageView
         android:id="@+id/ivBackButton"
@@ -219,7 +219,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLanguageSummary" />
 
-            <TextView
+       <!--     <TextView
                 android:id="@+id/tvUnitSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -402,7 +402,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivWindSpeedIcon" />
-
+-->
 
             <ImageView
                 android:id="@+id/ivAboutUsIcon"
@@ -412,7 +412,7 @@
                 android:src="@drawable/ic_users"
                 app:tint="?android:colorForeground"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dividerThree"
+                app:layout_constraintTop_toBottomOf="@+id/dividerTwo"
                 />
 
             <TextView
@@ -420,12 +420,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/outfit_regular"
                 android:text="@string/about_us"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivAboutUsIcon"
-                app:layout_constraintEnd_toStartOf="@+id/tvSelectedWindUnit"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivAboutUsIcon"
                 app:layout_constraintTop_toTopOf="@+id/ivAboutUsIcon" />
 
@@ -446,12 +445,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/outfit_regular"
                 android:text="@string/privacy_policy"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivPrivatePolicyIcon"
-                app:layout_constraintEnd_toStartOf="@+id/tvSelectedWindUnit"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivPrivatePolicyIcon"
                 app:layout_constraintTop_toTopOf="@+id/ivPrivatePolicyIcon" />
 
@@ -465,9 +463,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPrivacyPolicy" />
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/divider3"
+        android:layout_width="120dp"
+        android:layout_height="5dp"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="?android:colorForeground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
