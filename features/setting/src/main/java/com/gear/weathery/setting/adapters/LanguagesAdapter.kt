@@ -24,10 +24,9 @@ class LanguagesAdapter(val onLangSelected:(Language)->Unit) :ListAdapter<Languag
             binding.apply {
                 tvLocale.text = lang.locale
                 tvLanguagevalue.text = lang.lang
-                rBtnSelectLang.isChecked= adapterPosition == selectedPosition
+                rBtnSelectLang.isChecked = lang.isSelected
 
                 val checkListener = View.OnClickListener {
-                    selectedPosition = adapterPosition
                     notifyDataSetChanged()
                     onLangSelected(lang)
                     notifyItemChanged(selectedPosition)
