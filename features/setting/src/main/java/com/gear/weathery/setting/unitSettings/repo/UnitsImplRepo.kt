@@ -14,7 +14,7 @@ const val Datastore_NAME = "UNITS"
 
 val Context.datastore : DataStore<Preferences> by preferencesDataStore(name = Datastore_NAME)
 
-class UnitsImplRepo (private val context: Context) {
+class UnitsImplRepo (private val context: Context) : Abstract {
 
     companion object {
         val TEMPERATURE = stringPreferencesKey("TEMPERATURE")
@@ -31,11 +31,11 @@ class UnitsImplRepo (private val context: Context) {
 
     }
 
-    override suspend fun getUnits() = context.datastore.data.map { unit ->
+    override suspend fun getUnits() = context.datastore.data.map { units ->
         Units(
-            temperature = unit[TEMPERATURE]?:"°C",
-            pressure = unit[PRESSURE]?:"hPo",
-            windSpeed = unit[WINDSPEED]?:"km/hr"
+            temperature = units[TEMPERATURE]?:"°C",
+            pressure = units[PRESSURE]?:"hPo",
+            windSpeed = units[WINDSPEED]?:"km/hr"
         )
     }
 }
