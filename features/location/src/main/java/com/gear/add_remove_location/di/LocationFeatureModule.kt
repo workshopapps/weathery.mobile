@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -19,9 +20,13 @@ object LocationFeatureModule {
     @Provides
     @Singleton
     fun provideLocationsApi(): LocationsApi{
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
         return Retrofit.Builder()
             .baseUrl(LocationsApi.BASE_URL_SEARCH)
-            .client(OkHttpClient())
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(LocationsApi::class.java)

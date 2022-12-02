@@ -1,10 +1,13 @@
 package com.gear.add_remove_location.presentation.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.gear.add_remove_location.R
 
@@ -12,11 +15,37 @@ val Outfit = FontFamily(
     Font(R.font.location_outfit_regular)
 )
 
+val LocationItemStyle = TextStyle(
+    fontFamily = Outfit,
+    lineHeight = 32.em,
+    fontWeight = FontWeight.Normal,
+    textAlign = TextAlign.Center,
+    fontSize = 16.sp,
+    color = Color.Black,
+    letterSpacing = 0.sp
+)
+
+val LocationSubStyle = TextStyle(
+    fontFamily = Outfit,
+    lineHeight = 32.em,
+    fontWeight = FontWeight.Bold,
+    textAlign = TextAlign.Start,
+    fontSize = 24.sp,
+    color = Color.Black,
+    letterSpacing = 0.sp
+)
+
+val LocationTitleStyle = TextStyle(
+    fontFamily = Outfit,
+    lineHeight = 20.em,
+    fontWeight = FontWeight.Normal,
+    textAlign = TextAlign.Center,
+    fontSize = 24.sp,
+    color = Color.Black,
+    letterSpacing = 0.01.em
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    )
+    defaultFontFamily = Outfit
 )
