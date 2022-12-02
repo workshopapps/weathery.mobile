@@ -23,10 +23,6 @@ class SettingsModule {
     @Provides
     fun provideNotificationsNavigation(): NotificationsNavigation = NotificationsNavigationImpl()
 
-}
-
-object UnitModule {
-
     @Singleton
     @Provides
     fun provideUnitSettingsRepository(@ApplicationContext context: Context) = UnitsImplRepo(context)
