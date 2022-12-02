@@ -3,12 +3,13 @@ package com.gear.weathery.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gear.weathery.common.preference.SettingsPreference
+import com.gear.weathery.setting.unitSettings.repo.UnitsImplRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(val settingsPreference: SettingsPreference):ViewModel() {
+class SettingsViewModel @Inject constructor(val settingsPreference: SettingsPreference, val UnitsImplRepo: UnitsImplRepo):ViewModel() {
     fun toggleDayMode(theme:String){
        viewModelScope.launch {
            settingsPreference.toggleDayMode(theme)
