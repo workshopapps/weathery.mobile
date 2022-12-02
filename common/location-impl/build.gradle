@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.gear.weathery.location.impl'
+    compileSdk Versions.INSTANCE.compileSdkVersion
+
+    defaultConfig {
+        minSdk Versions.INSTANCE.minSdkVersion
+        targetSdk Versions.INSTANCE.compileSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+    api(project(":common:location-api"))
+    implementation project(':common')
+
+    implementation LibDependencies.INSTANCE.androidx_core
+
+    implementation LibDependencies.INSTANCE.dagger_hilt_android
+    kapt LibDependencies.INSTANCE.dagger_hilt_android_compiler
+    kapt LibDependencies.INSTANCE.hilt_hilt_compiler
+
+    implementation LibDependencies.INSTANCE.retrofit2
+    implementation LibDependencies.INSTANCE.retrofit2_converter_gson
+    implementation LibDependencies.INSTANCE.okhttp3
+    implementation LibDependencies.INSTANCE.okhttp3_logging_interceptor
+    implementation LibDependencies.INSTANCE.gson
+
+    implementation LibDependencies.INSTANCE.room_runtime
+    implementation LibDependencies.INSTANCE.room_ktx
+    kapt LibDependencies.INSTANCE.room_compiler
+}

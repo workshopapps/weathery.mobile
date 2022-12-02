@@ -1,6 +1,6 @@
 package com.gear.add_remove_location.data.reppository
 
-import com.gear.add_remove_location.data.responses.locations.LocationDtoItem
+import com.gear.add_remove_location.data.responses.dto.LocationDtoItem
 import com.gear.add_remove_location.data.responses.locations.LocationsApi
 import com.gear.add_remove_location.domain.repository.LocationFeatureRepo
 import com.gear.weathery.common.utils.Resource
@@ -15,7 +15,7 @@ class LocationFeatureRepoImpl @Inject constructor(
         return try {
             val response = api.getLocations(query)
             Resource.Success(
-                data = response
+                data = response.results
             )
         } catch (e: IOException){
             Resource.Error(

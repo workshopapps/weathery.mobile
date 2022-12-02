@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.gear.add_remove_location.presentation.manage_location.ManageLocationScreen
-import com.gear.add_remove_location.presentation.save_location.SaveLocationScreen
 
 @Composable
 fun SetUpNavGraph(
@@ -13,23 +12,17 @@ fun SetUpNavGraph(
     viewModel: LocationViewModel,
     onNavBack: () -> Unit,
 ) {
-
-    //Change to hiltVm in implementation
-
-
-            NavHost(
+    NavHost(
         navController = navController,
         startDestination = LocationScreen.Manage.route
     ) {
         composable(
             route = LocationScreen.Manage.route
         ) {
-            ManageLocationScreen(onNavBack = onNavBack, navController = navController, viewModel = viewModel)
-        }
-        composable(
-            route = LocationScreen.Save.route
-        ) {
-            SaveLocationScreen(navController = navController, viewModel = viewModel)
+            ManageLocationScreen(
+                onNavBack = onNavBack,
+                viewModel = viewModel
+            )
         }
     }
 }

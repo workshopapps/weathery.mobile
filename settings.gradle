@@ -25,3 +25,5 @@ include ':features:location'
 include ':features:setting'
 include ':features:signin'
 
+include ':common:location-api'
+include ':common:location-impl'
