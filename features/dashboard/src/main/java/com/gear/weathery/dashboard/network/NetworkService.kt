@@ -10,6 +10,7 @@ import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.tropicalweather.hng.tech"
 private const val GEO_CODING_BASE_URL = "http://api.geonames.org"
+const val URL_TO_SHARE = "https://tropicalweather.hng.tech/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())

@@ -4,6 +4,7 @@ import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -29,6 +30,7 @@ import com.gear.weathery.common.navigation.SignInNavigation
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
 import com.gear.weathery.dashboard.models.DayWeather
 import com.gear.weathery.dashboard.models.getTimeForDisplay
+import com.gear.weathery.dashboard.network.URL_TO_SHARE
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -158,7 +160,16 @@ class DashBoardFragment : Fragment(), LocationListener {
             updateViews(it)
         }
 
+        binding.shareButtonImageView.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, URL_TO_SHARE)
+            startActivity(Intent.createChooser(intent, "Share"))
+        }
+
     }
+
 
     private fun updateViews(it: DayWeather?) {
         if (it == null){
