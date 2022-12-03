@@ -50,11 +50,9 @@ class Settings : Fragment() {
                     }
                 }
             }
-
             ivBackButton.setOnClickListener {
                 dashBoardNavigation.navigateToDashboard(navController = findNavController())
             }
-
             IvNotificationBtn.setOnClickListener {
                 findNavController().navigate(R.id.notificationSettings)
             }
