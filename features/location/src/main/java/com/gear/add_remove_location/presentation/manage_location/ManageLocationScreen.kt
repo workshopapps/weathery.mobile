@@ -5,15 +5,15 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.presentation.LocationViewModel
+import com.gear.add_remove_location.presentation.manage_location.components.MenuActions
 import com.gear.add_remove_location.presentation.manage_location.components.actions.SearchAction
+import com.gear.add_remove_location.presentation.manage_location.components.actions.ViewAction
 import com.gear.add_remove_location.presentation.ui.theme.LocationTitleStyle
 
 
@@ -22,10 +22,10 @@ fun ManageLocationScreen(
     onNavBack: () -> Unit,
     viewModel: LocationViewModel,
 ) {
-
+    var expandActions by remember { mutableStateOf(false) }
     val state = viewModel.manageScreenState.value
     val locations = state.locations
-    val action by remember { mutableStateOf(Action.SEARCH_SAVE) }
+    val action = viewModel.screenState.value
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,36 +47,46 @@ fun ManageLocationScreen(
                     )
                 },
                 actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { expandActions = true }) {
                         Icon(imageVector = Icons.Default.MoreVert, contentDescription = "menu")
                     }
                 }
             )
         }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            when (action) {
-                Action.SEARCH_SAVE -> {
-                    SearchAction(
-                        locations = locations,
-                        isOnSearch = viewModel.isOnSearchState.value,
-                        onLocationSearch = {
-                            viewModel.onLocationSearch(it)
-                        },
-                        text = viewModel.searchTextState.value,
-                        onLocationSelected = {
-                            viewModel.setSearchState(it)
-                        },
-                        onSaveItemClicked = {index, location, isSelected ->
-                            viewModel.saveItemSelected(index,location,isSelected)
-                        },
-                        saveLocations = {viewModel.saveLocations()}
-                    )
+        Box(modifier = Modifier.padding(paddingValues)) {
+
+            if (expandActions) {
+                MenuActions(modifier = Modifier.align(Alignment.TopEnd)) {
+                    viewModel.setAction(it)
+                    expandActions = false
                 }
-                Action.EDIT -> {}
-                Action.VIEW -> {}
+            }
+
+            Column {
+                when (action) {
+                    Action.SEARCH_SAVE -> {
+                        SearchAction(
+                            locations = locations,
+                            isOnSearch = viewModel.isOnSearchState.value,
+                            onLocationSearch = {
+                                viewModel.onLocationSearch(it)
+                            },
+                            text = viewModel.searchTextState.value,
+                            onLocationSelected = {
+                                viewModel.setSearchState(it)
+                            },
+                            onSaveItemClicked = { index, location, isSelected ->
+                                viewModel.saveItemSelected(index, location, isSelected)
+                            },
+                            saveLocations = { viewModel.saveLocations() }
+                        )
+                    }
+                    Action.EDIT -> {}
+                    Action.VIEW -> {
+                        ViewAction(savedLocations = viewModel.savedLocations.value)
+                    }
+                }
             }
         }
     }

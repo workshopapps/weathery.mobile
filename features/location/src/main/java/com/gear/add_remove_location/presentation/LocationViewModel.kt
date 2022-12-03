@@ -5,12 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gear.add_remove_location.domain.repository.LocationFeatureRepo
+import com.gear.add_remove_location.presentation.manage_location.Action
 import com.gear.add_remove_location.presentation.manage_location.ManageScreenState
 import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.location.api.Location
 import com.gear.weathery.location.api.LocationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +22,10 @@ class LocationViewModel @Inject constructor(
     private val service: LocationFeatureRepo,
     private val local: LocationsRepository
 ) : ViewModel() {
+
+    private val _savedLocations = mutableStateOf<List<Location>>(emptyList())
+    val savedLocations: State<List<Location>> = _savedLocations
+
     private val _manageScreenState = mutableStateOf(ManageScreenState())
     val manageScreenState: State<ManageScreenState> = _manageScreenState
 
@@ -27,6 +34,13 @@ class LocationViewModel @Inject constructor(
 
     private val _searchTextState = mutableStateOf("")
     val searchTextState: State<String> = _searchTextState
+
+    private val _screenState = mutableStateOf(Action.VIEW)
+    val screenState: State<Action> = _screenState
+
+    init {
+        getSavedLocations()
+    }
 
     private val saveItemMap: HashMap<Int, Location> = HashMap()
 
@@ -82,5 +96,18 @@ class LocationViewModel @Inject constructor(
                 local.saveLocation(*locations.toTypedArray())
             }
         }
+        _screenState.value = Action.VIEW
+    }
+
+    private fun getSavedLocations(){
+        with(local) {
+            locations.onEach {
+                _savedLocations.value = it
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun setAction(action: Action) {
+        _screenState.value = action
     }
 }

@@ -32,10 +32,9 @@ fun SearchAction(
     )
 
 
-    LocationSearchBar(
+    if (isOnSearch) {LocationSearchBar(
         modifier = Modifier.padding(top = 16.dp), text = text,
     ) { onLocationSearch(it) }
-    if (isOnSearch) {
         Box(
             Modifier
                 .background(Color(0xFFD9D9D9).copy(0.15f))
