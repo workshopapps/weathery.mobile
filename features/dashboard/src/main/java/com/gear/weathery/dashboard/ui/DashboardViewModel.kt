@@ -2,10 +2,14 @@ package com.gear.weathery.dashboard.ui
 
 import android.location.Location
 import androidx.lifecycle.*
+import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.dashboard.models.DayWeather
+import com.gear.weathery.dashboard.models.LinkResponse
 import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.repository.WeatherRepo
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 const val TODAY_VIEW_MODE = "today view mode"
@@ -21,6 +25,15 @@ class DashboardViewModel: ViewModel() {
 
     private var _dayWeather = MutableLiveData<DayWeather>()
     val dayWeather: LiveData<DayWeather> get() = _dayWeather
+
+    private val _sharedLinkEvent = Channel<ShareLinkEvents>()
+    val sharedLinkEvent = _sharedLinkEvent.receiveAsFlow()
+
+    sealed class ShareLinkEvents {
+        class Successful(val data:Resource<LinkResponse>) : ShareLinkEvents()
+        object Failure : ShareLinkEvents()
+    }
+
 
     private var _currentWeather = MutableLiveData<WeatherCondition>()
     val currentWeather: LiveData<WeatherCondition> get() = _currentWeather
@@ -111,6 +124,12 @@ class DashboardViewModel: ViewModel() {
 
 
 
+
+    fun getSharedWeatherLink(lat: Double,long: Double){
+        viewModelScope.launch {
+            _sharedLinkEvent.send(ShareLinkEvents.Successful(WeatherRepo.getSharedWeatherLink(lat,long)))
+        }
+    }
 
     class DashboardViewModelFactory() :
         ViewModelProvider.Factory {

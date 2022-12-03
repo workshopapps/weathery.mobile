@@ -6,8 +6,13 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 //import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.common.navigation.BoardingNavigation
+import com.gear.weathery.common.navigation.DashBoardNavigation
 import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +25,9 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject
     lateinit var boardingNavigation: BoardingNavigation
+
+    @Inject
+    lateinit var dashBoardNavigation: DashBoardNavigation
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
@@ -37,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
         SharedPreference.init(applicationContext)
 
         val first : Boolean = SharedPreference.getBoolean("FIRST", true)
+
         activityScope.launch {
             delay(3000)
             if(first){
@@ -44,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
                 intent.putExtra("FIRST",first)
                 startActivity(intent)
             }else{
-               val intent:Intent = Intent(this@SplashActivity,MainActivity::class.java)
+                val intent:Intent = Intent(this@SplashActivity,MainActivity::class.java)
                 intent.putExtra("FIRST",first)
                 startActivity(intent)
             }

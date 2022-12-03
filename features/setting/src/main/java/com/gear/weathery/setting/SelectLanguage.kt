@@ -17,6 +17,7 @@ import com.gear.weathery.setting.databinding.FragmentSelectLanguageBinding
 import com.gear.weathery.setting.util.Constants
 import com.yariksoffice.lingver.Lingver
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,8 +41,21 @@ class SelectLanguage : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         languagesAdapter = LanguagesAdapter{ selectedLanguage ->
             Toast.makeText(requireContext(), "${selectedLanguage.lang}", Toast.LENGTH_SHORT).show()
+            settingsViewModel.saveLanguage(selectedLanguage.locale)
             Lingver.getInstance().setLocale(requireContext(), selectedLanguage.locale)
             recreate(requireActivity())
+
+        }
+        lifecycleScope.launch{
+            settingsPreference.currentLanguage().collect{langValue ->
+                Constants.languages.forEach {
+                    if (it.locale == langValue) {
+                        it.isSelected = true
+                    } else {
+                        it.isSelected = false
+                    }
+                }
+            }
         }
         languagesAdapter.submitList(Constants.languages)
         binding.apply {

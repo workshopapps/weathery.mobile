@@ -24,9 +24,9 @@ import com.gear.add_remove_location.presentation.ui.theme.Primary500
 @Composable
 fun LocationSearchBar(
     modifier: Modifier = Modifier,
+    text: String,
     onSearch: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
         shape = RoundedCornerShape(8.dp),
@@ -36,7 +36,7 @@ fun LocationSearchBar(
         ),
         value = text,
         onValueChange = {
-            text = it
+            onSearch(it)
         },
         leadingIcon = {
             IconButton(onClick = {

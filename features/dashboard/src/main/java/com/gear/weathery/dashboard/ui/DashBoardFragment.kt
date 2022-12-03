@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.content.Intent
+import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
@@ -25,23 +26,26 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
-import com.gear.weathery.common.navigation.NotificationsNavigation
-import com.gear.weathery.common.navigation.SettingsNavigation
-import com.gear.weathery.common.navigation.SharedPreference
-import com.gear.weathery.common.navigation.SignInNavigation
+import com.gear.weathery.common.navigation.*
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
 import com.gear.weathery.dashboard.models.DayWeather
 import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.models.getTimeForDisplay
+import com.gear.weathery.dashboard.network.URL_TO_SHARE
+import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
+import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 const val REQUEST_LOCATION_SETTINGS = 25
@@ -50,7 +54,7 @@ const val REQUEST_LOCATION_SETTINGS = 25
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), LocationListener {
     private lateinit var binding: FragmentDashBoardBinding
-    private val viewModel: DashboardViewModel by activityViewModels { DashboardViewModel.DashboardViewModelFactory() }
+    private val viewModel: DashboardViewModel by activityViewModels { DashboardViewModelFactory() }
     private val adapter = TimelineRecyclerAdapter()
 
     private lateinit var backPressedCallback: OnBackPressedCallback
@@ -60,6 +64,7 @@ class DashBoardFragment : Fragment(), LocationListener {
 
     private var longitude: Int = 0
     private var latitude: Int = 0
+    private lateinit var currentLocation: Location
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
@@ -185,15 +190,14 @@ class DashBoardFragment : Fragment(), LocationListener {
                 this.requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
+        ) { return }
 
         fusedLocationClient.getCurrentLocation(
             Priority.PRIORITY_BALANCED_POWER_ACCURACY,
             CancellationTokenSource().token
         ).addOnSuccessListener { location: Location? ->
             viewModel.updateCurrentLocation(location)
+            currentLocation = it
         }
     }
 
@@ -256,6 +260,10 @@ class DashBoardFragment : Fragment(), LocationListener {
             updateViewsForNewTimeline(it)
         }
 
+        binding.shareButtonImageView.setOnClickListener {
+            updateWeatherLink()
+        }
+
         viewModel.viewMode.observe(viewLifecycleOwner){
             updateViewsForNewViewMode(it)
         }
@@ -285,6 +293,7 @@ class DashBoardFragment : Fragment(), LocationListener {
         }
 
     }
+
 
     private fun updateViewsForNewCurrentWeatherStatus(newCurrentWeatherStatus: Int?) {
         if (newCurrentWeatherStatus == null){
@@ -489,6 +498,43 @@ class DashBoardFragment : Fragment(), LocationListener {
         Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT).show()
         exitAppToastStillShowing = true
         exitAppTimer.start()
+    }
+
+    private fun updateWeatherLink() {
+        viewModel.getSharedWeatherLink(currentLocation.latitude, currentLocation.longitude)
+        lifecycleScope.launch {
+            viewModel.sharedLinkEvent.collect { linkResponse ->
+                when (linkResponse) {
+                    is ShareLinkEvents.Successful -> {
+
+                        linkResponse.data.data?.link?.let {
+                            getShareIntent(it)
+                        } ?: Toast.makeText(
+                            requireContext(),
+                            "Current Location Link Not Available",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        getShareIntent(URL_TO_SHARE)
+                    }
+                    is ShareLinkEvents.Failure -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Current Location Link Not Available",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        getShareIntent(URL_TO_SHARE)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getShareIntent(url: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(Intent.createChooser(intent, "Share"))
     }
 
 

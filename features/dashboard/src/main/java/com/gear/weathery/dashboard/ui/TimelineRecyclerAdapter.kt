@@ -41,6 +41,14 @@ class TimelineRecyclerAdapter :
         fun bind(timelineWeather: TimelineWeather, timelineType: String) {
             binding.apply {
 
+                if(adapterPosition == 0){
+                    ellipseId.setImageResource(R.drawable.ellipse)
+                    dividerLine.setImageResource(R.drawable.line)
+                }else{
+                    ellipseId.setImageResource(R.drawable.ellipse_white)
+                    dividerLine.setImageResource(R.drawable.line_white)
+                }
+
                 timeTextView.text =
                     if (timelineType == DAILY_TIMELINE) {
                         val date = getDateForDisplay(timelineWeather.timeInMillis)
