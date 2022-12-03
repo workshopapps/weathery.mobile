@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,31 +31,26 @@ import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.*
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
-import com.gear.weathery.dashboard.models.DayWeather
 import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.models.getTimeForDisplay
 import com.gear.weathery.dashboard.network.URL_TO_SHARE
 import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
+import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.LocationsRepository
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 const val REQUEST_LOCATION_SETTINGS = 25
 
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment(), LocationListener {
+class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
     private lateinit var binding: FragmentDashBoardBinding
     @Inject
     lateinit var locationsRepository: LocationsRepository
@@ -400,6 +394,7 @@ class DashBoardFragment : Fragment(), LocationListener {
         val endTime = getTimeForDisplay(newCurrentWeather.endTimeTimeInMillis)
         binding.currentWeatherTimeTextView.text = "$startTime to $endTime"
         binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
+        binding.locationTextView.text = "${newCurrentWeather.state}, ${newCurrentWeather.country}"
     }
 
     private fun updateViewsForNewTimeline(newTimeLine: Pair<List<TimelineWeather>, String>){
@@ -519,7 +514,6 @@ class DashBoardFragment : Fragment(), LocationListener {
                     is ShareLinkEvents.Successful -> {
 
                         linkResponse.data.data?.link?.let {
-                            Log.d("API","Suxcess$it")
                             getShareIntent(it)
                         } ?:getShareIntent(URL_TO_SHARE)
                     }
@@ -570,6 +564,10 @@ class DashBoardFragment : Fragment(), LocationListener {
         latitude = location.latitude.toInt()
         longitude = location.longitude.toInt()
 
+    }
+
+    override fun onSavedLocationClicked(lat: Double, long: Double) {
+        viewModel.updateSavedWeatherView(lat, long)
     }
 
     private fun setTodayView(){

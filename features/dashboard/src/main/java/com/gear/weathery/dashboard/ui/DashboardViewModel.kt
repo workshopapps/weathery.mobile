@@ -79,7 +79,6 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
             _timelineStatus.value = PASSED
 
             _viewMode.value = TODAY_VIEW_MODE
-            Log.d("JOSEPH","do weather imple ${dayWeather.currentWeather}")
         }
     }
 
@@ -144,7 +143,7 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
         }
     }
 
-    fun doWeatherOperation(lat: Double,long: Double){
+    fun updateSavedWeatherView(lat: Double, long: Double){
         updateWeatherWithLocation(lat=lat, long =  long)
     }
 

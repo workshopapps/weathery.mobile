@@ -2,13 +2,13 @@ package com.gear.weathery.dashboard.ui
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.gear.weathery.dashboard.databinding.BottomSheetDrawerBinding
+import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.Location
 import com.gear.weathery.location.api.LocationsRepository
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,6 +24,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     private lateinit var viewModel: DashboardViewModel
     private val locationAdapter by lazy { SavedLocationAdapter() }
     private var savedLocationList = emptyList<Location>()
+    private lateinit var  onClickEvent: OnClickEvent
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
@@ -47,10 +48,11 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
             viewModelProviderFactory
         )[DashboardViewModel::class.java]
         viewModel.getSavedLocation()
+        onClickEvent = requireParentFragment() as OnClickEvent
+
 
         lifecycleScope.launch {
             viewModel.locationFlow.collect {
-                Log.d("JOSEPH", "$it")
                 savedLocationList = it
                 locationAdapter.submitList(it)
             }
@@ -58,7 +60,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
 
         binding.savedLocationRecyclerView.adapter = locationAdapter
         locationAdapter.adapterClick {
-            viewModel.doWeatherOperation(it.latitude, it.longitude)
+            onClickEvent.onSavedLocationClicked(it.latitude,it.longitude)
             this.dismiss()
         }
         binding.searchView.setOnQueryTextListener(object :
@@ -66,16 +68,22 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     val searchList = savedLocationList.filter {
-                        it.name.contains(query) || it.country.contains(query)
+                        it.name.lowercase().contains(query.lowercase()) || it.country.lowercase().contains(query.lowercase()) ||
+                        it.name.uppercase().contains(query.uppercase()) || it.country.uppercase().contains(query.uppercase())
                     }
-
                     locationAdapter.submitList(searchList)
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+                if (newText != null) {
+                    val searchList = savedLocationList.filter {
+                        it.name.contains(newText) || it.country.contains(newText)
+                    }
+                    locationAdapter.submitList(searchList)
+                }
+                return true
             }
         })
 
