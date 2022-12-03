@@ -23,4 +23,5 @@
     <color name="popup_background">@color/weathery_orange_light</color>
     <color name="popup_outline">@color/weathery_orange</color>
     <color name="nav_drawer_color">@android:color/white</color>
+    <color name="dialog_color">@android:color/white</color>
 </resources>

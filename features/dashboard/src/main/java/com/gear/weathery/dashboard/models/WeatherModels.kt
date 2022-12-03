@@ -1,18 +1,19 @@
 package com.gear.weathery.dashboard.models
 
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
-data class HourWeather(val main: String, val risk: String, val timeInMillis: Long)
+data class TimelineWeather(val main: String, val risk: String, val timeInMillis: Long)
 
 class DayWeather{
     var state: String = ""
     var country: String = ""
     lateinit var currentWeather: WeatherCondition
-    var timeLine: List<HourWeather> = mutableListOf()
+    var timeLine: List<TimelineWeather> = mutableListOf()
 }
 
-data class WeatherCondition(val main: String, val risk: String, val timeInMillis: Long, val endTimeTimeInMillis: Long)
+data class WeatherCondition(val state: String, val country: String, val main: String, val risk: String, val timeInMillis: Long, val endTimeTimeInMillis: Long)
 
 fun getTimeForDisplay(timeInMillis: Long): String{
     val format = DateFormat.getTimeInstance(DateFormat.SHORT)
@@ -26,4 +27,15 @@ fun getAmPmTime(timeInMillis: Long): Pair<String, String>{
     val amPmValue = date.get(Calendar.AM_PM)
     val amPmStringValue = if (amPmValue == Calendar.AM) "AM" else "PM"
     return Pair(twelveHourTime.toString(), amPmStringValue)
+}
+
+fun getDateForDisplay(timeInMillis: Long): Pair<String, String>{
+    val calendar = Calendar.getInstance().also { it.timeInMillis = timeInMillis }
+    val dayFormat = SimpleDateFormat("EEE")
+    val day = dayFormat.format(calendar.time).uppercase()
+
+    val dateFormat = SimpleDateFormat("d'/'MM")
+    val date = dateFormat.format(calendar.time)
+
+    return Pair(day, date)
 }
