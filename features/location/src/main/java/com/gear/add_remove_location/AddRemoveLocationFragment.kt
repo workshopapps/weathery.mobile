@@ -32,7 +32,6 @@ class AddRemoveLocationFragment: Fragment(R.layout.fragment_add_remove_location)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.)
 
         view.findViewById<ComposeView>(R.id.location_compose_view).setContent {
             LocationWeatheryTheme {
