@@ -5,10 +5,21 @@ import androidx.lifecycle.*
 import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.dashboard.models.DayWeather
 import com.gear.weathery.dashboard.models.LinkResponse
+import com.gear.weathery.dashboard.models.TimelineWeather
+import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.repository.WeatherRepo
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+
+const val TODAY_VIEW_MODE = "today view mode"
+const val TOMORROW_VIEW_MODE = "tomorrow view mode"
+const val THIS_WEEK_VIEW_MODE = "this week view mode"
+
+const val DEFAULT = 0
+const val BUSY = 1
+const val PASSED = 2
+const val FAILED = 3
 
 class DashboardViewModel: ViewModel() {
 
@@ -24,24 +35,95 @@ class DashboardViewModel: ViewModel() {
     }
 
 
+    private var _currentWeather = MutableLiveData<WeatherCondition>()
+    val currentWeather: LiveData<WeatherCondition> get() = _currentWeather
 
-    fun updateWeatherWithNewLocation(location: Location?) {
+    private var _timeline = MutableLiveData<Pair<List<TimelineWeather>, String>>()
+    val timeline: LiveData<Pair<List<TimelineWeather>, String>> get() = _timeline
+
+    private var _viewMode = MutableLiveData<String>()
+    val viewMode: LiveData<String> get() = _viewMode
+
+    private lateinit var latestLocation: Location
+
+    private var _currentWeatherStatus = MutableLiveData<Int>()
+    val currentWeatherStatus: LiveData<Int> get() = _currentWeatherStatus
+
+    private var _timelineStatus = MutableLiveData<Int>()
+    val timelineStatus: LiveData<Int> get() = _timelineStatus
+
+
+    fun updateCurrentLocation(location: Location?) {
         if (location == null){
             return
         }
 
+        latestLocation = location
+        updateWeatherWithLocation(location.latitude, location.longitude)
+    }
+
+    private fun updateWeatherWithLocation(lat: Double = latestLocation.latitude, long: Double = latestLocation.longitude) {
+
         viewModelScope.launch {
-            val dayWeather = WeatherRepo.getWeatherForToday(location.latitude, location.longitude)
-            _dayWeather.value = dayWeather
+            _currentWeatherStatus.value = BUSY
+            _timelineStatus.value = BUSY
+
+            val dayWeather = WeatherRepo.getWeatherForToday(lat, long)
+            _currentWeather.value = dayWeather.currentWeather
+            _timeline.value = Pair(dayWeather.timeLine, HOURLY_TIMELINE)
+
+            _currentWeatherStatus.value = PASSED
+            _timelineStatus.value = PASSED
+
+            _viewMode.value = TODAY_VIEW_MODE
         }
     }
 
-    fun updateWeatherWithNewLocation(lat: Double, long: Double) {
+    fun showTomorrowView(){
+        _viewMode.value = TOMORROW_VIEW_MODE
+        showTomorrowWeather()
+    }
+
+    fun showTodayView(){
+        _viewMode.value = TODAY_VIEW_MODE
+        updateWeatherWithLocation()
+    }
+
+    fun showThisWeekView(){
+        _viewMode.value = THIS_WEEK_VIEW_MODE
+        showThisWeekWeather()
+    }
+
+    private fun showTomorrowWeather(){
         viewModelScope.launch {
-            val dayWeather = WeatherRepo.getWeatherForToday(lat, long)
-            _dayWeather.value = dayWeather
+            _timelineStatus.value = BUSY
+
+            val tomorrowWeatherTimeline = WeatherRepo.getTomorrowWeatherTimeline(latestLocation.latitude, latestLocation.longitude)
+            _timeline.value = Pair(tomorrowWeatherTimeline, HOURLY_TIMELINE)
+
+            _timelineStatus.value = PASSED
         }
     }
+
+    private fun showThisWeekWeather(){
+        viewModelScope.launch {
+            _timelineStatus.value = BUSY
+
+            val thisWeekWeatherTimeline = WeatherRepo.getThisWeekTimeline(latestLocation.latitude, latestLocation.longitude)
+            _timeline.value = Pair(thisWeekWeatherTimeline, DAILY_TIMELINE)
+
+            _timelineStatus.value = PASSED
+        }
+    }
+
+    init {
+        _viewMode.value = TODAY_VIEW_MODE
+        _currentWeatherStatus.value = BUSY
+        _timelineStatus.value = BUSY
+    }
+
+
+
 
     fun getSharedWeatherLink(lat: Double,long: Double){
         viewModelScope.launch {

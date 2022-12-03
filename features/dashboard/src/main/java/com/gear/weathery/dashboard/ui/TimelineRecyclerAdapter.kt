@@ -6,15 +6,22 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.WeatherListBinding
-import com.gear.weathery.dashboard.models.HourWeather
+import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.getAmPmTime
+import com.gear.weathery.dashboard.models.getDateForDisplay
 import com.gear.weathery.dashboard.repository.NONE
 
-class TimelineRecyclerAdapter: RecyclerView.Adapter<TimelineRecyclerAdapter.HourWeatherViewHolder>() {
+const val HOURLY_TIMELINE = "hourly timeline"
+const val DAILY_TIMELINE = "daily timeline"
 
-    private var items = listOf<HourWeather>()
-    fun updateItemList(items: List<HourWeather>){
+class TimelineRecyclerAdapter :
+    RecyclerView.Adapter<TimelineRecyclerAdapter.HourWeatherViewHolder>() {
+
+    private var items = listOf<TimelineWeather>()
+    private var timeLineType = ""
+    fun updateItemList(items: List<TimelineWeather>, timelineType: String) {
         this.items = items
+        this.timeLineType = timelineType
         notifyDataSetChanged()
     }
 
@@ -23,20 +30,16 @@ class TimelineRecyclerAdapter: RecyclerView.Adapter<TimelineRecyclerAdapter.Hour
     }
 
     override fun onBindViewHolder(holder: HourWeatherViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], timeLineType)
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    class HourWeatherViewHolder(var binding: WeatherListBinding): ViewHolder(binding.root){
-        fun bind(hourWeather: HourWeather){
+    class HourWeatherViewHolder(var binding: WeatherListBinding) : ViewHolder(binding.root) {
+        fun bind(timelineWeather: TimelineWeather, timelineType: String) {
             binding.apply {
-                val time = getAmPmTime(hourWeather.timeInMillis)
-                timeTextView.text = "${time.first}:00\n${time.second}"
-                weatherDescriptionTextView.text = hourWeather.main
-                weatherRiskTextView.text = hourWeather.risk
 
                 if(adapterPosition == 0){
                     ellipseId.setImageResource(R.drawable.ellipse)
@@ -45,8 +48,20 @@ class TimelineRecyclerAdapter: RecyclerView.Adapter<TimelineRecyclerAdapter.Hour
                     ellipseId.setImageResource(R.drawable.ellipse_white)
                     dividerLine.setImageResource(R.drawable.line_white)
                 }
+
+                timeTextView.text =
+                    if (timelineType == DAILY_TIMELINE) {
+                        val date = getDateForDisplay(timelineWeather.timeInMillis)
+                        "${date.first}\n${date.second}"
+                    } else {
+                        val time = getAmPmTime(timelineWeather.timeInMillis)
+                        "${time.first}:00\n${time.second}"
+                    }
+
+                weatherDescriptionTextView.text = timelineWeather.main
+                weatherRiskTextView.text = timelineWeather.risk
                 weatherIconImageView.setImageResource(
-                    when(hourWeather.main){
+                    when (timelineWeather.main) {
                         "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain
                         "Rain", "Rain showers", "Thunderstorm" -> R.drawable.cloud_rain
                         "Fog and depositing rime fog" -> R.drawable.cloud
@@ -54,7 +69,7 @@ class TimelineRecyclerAdapter: RecyclerView.Adapter<TimelineRecyclerAdapter.Hour
                         else -> R.drawable.sun
                     }
                 )
-                riskIndicatorImageView.setImageResource(if (hourWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
+                riskIndicatorImageView.setImageResource(if (timelineWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
             }
         }
     }
