@@ -25,7 +25,8 @@ fun SearchResultsWidget(
     BoxWithConstraints(
         modifier
             .padding(horizontal = 16.dp)
-            .padding(bottom = 100.dp)
+            .padding(bottom = 8.dp)
+            .imePadding()
             .drawDropShadow(color = Color(0xFF4D5E6F))
             .background(Color.White, RoundedCornerShape(8.dp))
     ) {
