@@ -1,5 +1,7 @@
 package com.gear.weathery.setting
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -119,6 +121,31 @@ class Settings : Fragment() {
                     TODO("Not yet implemented")
                 }
             }
+
+            ivAboutUsIcon.setOnClickListener {
+                val aboutUs = Intent(Intent.ACTION_VIEW)
+                aboutUs.data = Uri.parse("https://tropicalweather.hng.tech/about-us")
+                startActivity(aboutUs)
+            }
+
+            tvAboutUs.setOnClickListener {
+                val aboutUs = Intent(Intent.ACTION_VIEW)
+                aboutUs.data = Uri.parse("https://tropicalweather.hng.tech/about-us")
+                startActivity(aboutUs)
+            }
+
+            ivPrivatePolicyIcon.setOnClickListener {
+                val privacyPolicy = Intent(Intent.ACTION_VIEW)
+                privacyPolicy.data = Uri.parse("https://tropicalweather.hng.tech/")
+                startActivity(privacyPolicy)
+            }
+
+            tvPrivacyPolicy.setOnClickListener {
+                val privacyPolicy = Intent(Intent.ACTION_VIEW)
+                privacyPolicy.data = Uri.parse("https://tropicalweather.hng.tech/")
+                startActivity(privacyPolicy)
+            }
+
 
             return binding.root
         }
