@@ -78,4 +78,6 @@ dependencies {
     implementation project(':features:setting')
     implementation project(':features:signin')
 
+    implementation project(':common:location-impl')
+
 }

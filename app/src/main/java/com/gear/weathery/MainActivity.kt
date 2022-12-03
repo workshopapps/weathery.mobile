@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -11,7 +12,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
+import com.gear.weathery.dashboard.ui.DashboardViewModel
 import com.gear.weathery.databinding.ActivityMainBinding
+import com.gear.weathery.location.api.LocationsRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,13 +23,17 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var viewModel:DashboardViewModel
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
+    @Inject
+    lateinit var locationsRepository: LocationsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository)
+        viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

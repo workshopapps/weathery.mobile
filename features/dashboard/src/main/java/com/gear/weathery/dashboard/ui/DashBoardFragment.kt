@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,10 @@ import com.gear.weathery.dashboard.models.getTimeForDisplay
 import com.gear.weathery.dashboard.network.URL_TO_SHARE
 import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
+import com.gear.weathery.location.api.LocationsRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -53,7 +58,9 @@ const val REQUEST_LOCATION_SETTINGS = 25
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), LocationListener {
     private lateinit var binding: FragmentDashBoardBinding
-    private val viewModel: DashboardViewModel by activityViewModels { DashboardViewModelFactory() }
+    @Inject
+    lateinit var locationsRepository: LocationsRepository
+    private val viewModel: DashboardViewModel by activityViewModels{ DashboardViewModelFactory(locationsRepository) }
     private val adapter = TimelineRecyclerAdapter()
 
     private lateinit var backPressedCallback: OnBackPressedCallback
@@ -224,6 +231,9 @@ class DashBoardFragment : Fragment(), LocationListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.locationHeaderLinearLayout.setOnClickListener {
+            BottomSheetDrawer().show(childFragmentManager,"BOTTOM SHEET")
+        }
 
         SharedPreference.init(requireContext())
         var permissionAllowed = SharedPreference.getBoolean("ALLOWPERMISSION", true)
@@ -509,13 +519,9 @@ class DashBoardFragment : Fragment(), LocationListener {
                     is ShareLinkEvents.Successful -> {
 
                         linkResponse.data.data?.link?.let {
+                            Log.d("API","Suxcess$it")
                             getShareIntent(it)
-                        } ?: Toast.makeText(
-                            requireContext(),
-                            "Current Location Link Not Available",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        getShareIntent(URL_TO_SHARE)
+                        } ?:getShareIntent(URL_TO_SHARE)
                     }
                     is ShareLinkEvents.Failure -> {
                         Toast.makeText(
