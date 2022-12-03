@@ -29,4 +29,6 @@ class WeatherResponseRepository {
     fun getWeatherInfoFromApi(): LiveData<List<WeatherResponse>?> {
         return weatherApiClient.getWeatherInfo()
     }
+
+
 }

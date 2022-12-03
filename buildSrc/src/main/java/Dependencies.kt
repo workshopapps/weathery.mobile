@@ -34,6 +34,7 @@ object Versions {
     const val gson_version ="2.9.0"
     const val datastore_version ="1.0.0"
 
+    const val room_version = "2.4.3"
 }
 
 object LibDependencies {
@@ -118,5 +119,8 @@ object LibDependencies {
     val compose_ui_test = "androidx.compose.ui:ui-test-junit4:${Versions.compose_version}"
     val debug_compose_ui_tooling = "androidx.compose.ui:ui-tooling:${Versions.compose_version}"
 
-
+    //Room
+    val room_runtime = "androidx.room:room-runtime:${Versions.room_version}"
+    val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
+    val room_ktx = "androidx.room:room-ktx:${Versions.room_version}"
 }

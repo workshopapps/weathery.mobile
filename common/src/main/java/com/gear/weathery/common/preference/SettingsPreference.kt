@@ -38,8 +38,8 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
     fun notificationTone () = dataStore.data.map { preferences ->
         preferences[toneKey] }
 
-    fun currentlanguage() = dataStore.data.map { preferences ->
-        preferences[langKey] }
+    fun currentLanguage() = dataStore.data.map { preferences ->
+        preferences[langKey]?:"en" }
 
     fun vibrateMode(): Flow<Boolean> {
         return dataStore.data.map { preferences ->

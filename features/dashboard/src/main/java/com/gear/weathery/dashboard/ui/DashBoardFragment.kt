@@ -4,58 +4,74 @@ import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
+import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.gear.weathery.common.navigation.AddRemoveLocationNavigation
-import com.gear.weathery.common.navigation.NotificationsNavigation
-import com.gear.weathery.common.navigation.SettingsNavigation
-import com.gear.weathery.common.navigation.SharedPreference
-import com.gear.weathery.common.navigation.SignInNavigation
+import com.gear.weathery.common.navigation.*
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
-import com.gear.weathery.dashboard.models.UITimesWeather
-import com.gear.weathery.dashboard.ui.viewPager.PagerCollectionAdapter
+import com.gear.weathery.dashboard.models.DayWeather
+import com.gear.weathery.dashboard.models.TimelineWeather
+import com.gear.weathery.dashboard.models.WeatherCondition
+import com.gear.weathery.dashboard.models.getTimeForDisplay
+import com.gear.weathery.dashboard.network.URL_TO_SHARE
+import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
+import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
+const val REQUEST_LOCATION_SETTINGS = 25
+
+
 @AndroidEntryPoint
-class DashBoardFragment : Fragment() , LocationListener{
-    private var _binding:FragmentDashBoardBinding? =  null
-    private val binding get() = _binding!!
+class DashBoardFragment : Fragment(), LocationListener {
+    private lateinit var binding: FragmentDashBoardBinding
+    private val viewModel: DashboardViewModel by activityViewModels { DashboardViewModelFactory() }
+    private val adapter = TimelineRecyclerAdapter()
+
     private lateinit var backPressedCallback: OnBackPressedCallback
 
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
 
-
-
-    private var longitude : Int = 0
-    private var latitude : Int = 0
-
-
-    private lateinit var demoCollectionAdapter: PagerCollectionAdapter
-   // private lateinit var viewPager: ViewPager2
+    private var longitude: Int = 0
+    private var latitude: Int = 0
+    private lateinit var currentLocation: Location
 
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
-    private lateinit var scrollIndicator1: ImageView
-    private lateinit var scrollIndicator2: ImageView
-    private lateinit var scrollIndicator3: ImageView
+    private lateinit var viewsMenu: LinearLayout
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var locationRequest: LocationRequest
 
     @Inject
     lateinit var settingsNavigation: SettingsNavigation
@@ -85,114 +101,325 @@ class DashBoardFragment : Fragment() , LocationListener{
             exitApp()
         }
         backPressedCallback.isEnabled = true
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                locationResult ?: return
+                for (location in locationResult.locations){
+                    viewModel.updateCurrentLocation(location)
+                }
+            }
+        }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        setUpLocation()
     }
 
+    override fun onResume() {
+        super.onResume()
+        startLocationUpdates()
+    }
+
+    private fun startLocationUpdates() {
+
+        if (ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+
+        fusedLocationClient.requestLocationUpdates(locationRequest,
+            locationCallback,
+            Looper.getMainLooper())
+    }
+
+    private fun setUpLocation() {
+
+        locationRequest = (LocationRequest.create().apply {
+            interval = 2 * 60 * 1000
+            fastestInterval = 60 * 1000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        })
+
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener { locationSettingsResponse ->
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+            // ...
+
+            startGettingLocationUpdates()
+        }
+
+        task.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException){
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    exception.startResolutionForResult(requireActivity(), REQUEST_LOCATION_SETTINGS)
+
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+
+    }
+
+    private fun startGettingLocationUpdates() {
+
+        // this checks if the required permissions have been granted.
+        // this check is redundant here since the permission was already granted in the previous screen before navigating here.
+        // but without this check here again, android studio keeps showing errors. so,...
+        if (ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) { return }
+        /// end of check
+
+
+        Handler().postDelayed({
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                viewModel.updateCurrentLocation(location)
+                currentLocation = location!!
+            }
+        }, 200)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_LOCATION_SETTINGS){
+            startGettingLocationUpdates()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentDashBoardBinding.inflate(inflater, container, false)
+        binding = FragmentDashBoardBinding.inflate(inflater, container, false)
+
+        binding.apply {
+            binding.timelineRecyclerView.adapter = adapter
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        scrollIndicator1 = binding.scrollIndicator1ImageView
-//        scrollIndicator2 = binding.scrollIndicator2ImageView
-//        scrollIndicator3 = binding.scrollIndicator3ImageView
-
         SharedPreference.init(requireContext())
-        var permissionAllowed = SharedPreference.getBoolean("ALLOWPERMISSION",true)
+        var permissionAllowed = SharedPreference.getBoolean("ALLOWPERMISSION", true)
 
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
+        viewsMenu = binding.timelineViewsMenuLinearLayout
 
-        _binding?.locationsMenuItemLinearLayout?.setOnClickListener{
+        binding.locationsMenuItemLinearLayout.setOnClickListener {
             navigateToLocation()
         }
-        _binding?.notificationsMenuItemLinearLayout?.setOnClickListener {
+        binding.notificationsMenuItemLinearLayout.setOnClickListener {
             navigateToNotifications()
         }
 
-        _binding?.settingsMenuItemLinearLayout?.setOnClickListener {
+        binding.settingsMenuItemLinearLayout.setOnClickListener {
             navigateToSettings()
         }
 
-        _binding?.signInMenuItemLinearLayout?.setOnClickListener {
+        binding.signInMenuItemLinearLayout.setOnClickListener {
             navigateToSignin()
         }
 
-        overlay.setOnClickListener {
-            hideDialog(navDrawer)
-        }
-
-        binding.navLayoutButtonImageView.setOnClickListener{
+        binding.navLayoutButtonImageView.setOnClickListener {
             showDialog(navDrawer)
         }
 
-        binding.weatherForTimesRecylcerView.adapter = TimesWeatherRecyclerAdapter().also { it.updateItemList(generateMockTimesWeatherUIItems()) }
 
-        demoCollectionAdapter = PagerCollectionAdapter(this)
-      // viewPager = view.findViewById(R.id.pager)
-      //  viewPager.adapter = demoCollectionAdapter
-//        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                updateScrollIndicator(position)
-//            }
-//        })
+        viewModel.currentWeather.observe(viewLifecycleOwner){
+            updateViewsForNewCurrentWeather(it)
+        }
+
+        viewModel.timeline.observe(viewLifecycleOwner){
+            updateViewsForNewTimeline(it)
+        }
+
+        binding.shareButtonImageView.setOnClickListener {
+            updateWeatherLink()
+        }
+
+        viewModel.viewMode.observe(viewLifecycleOwner){
+            updateViewsForNewViewMode(it)
+        }
+
+        binding.timelineViewsMenuImageView.setOnClickListener{
+            showViewsMenu(viewsMenu)
+        }
+
+        binding.todayGroupLinearLayout.setOnClickListener {
+            setTodayView()
+        }
+
+        binding.tomorrowGroupLinearLayout.setOnClickListener {
+            setTomorrowView()
+        }
+
+        binding.thisWeekGroupLinearLayout.setOnClickListener {
+            setThisWeekView()
+        }
+
+        viewModel.currentWeatherStatus.observe(viewLifecycleOwner){
+            updateViewsForNewCurrentWeatherStatus(it)
+        }
+
+        viewModel.timelineStatus.observe(viewLifecycleOwner){
+            updateViewsForNewTimelineStatus(it)
+        }
 
     }
 
-    private fun updateScrollIndicator(newPosition: Int) {
-        when(newPosition){
-            0 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_active)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
+
+    private fun updateViewsForNewCurrentWeatherStatus(newCurrentWeatherStatus: Int?) {
+        if (newCurrentWeatherStatus == null){
+            return
+        }
+
+        when(newCurrentWeatherStatus){
+
+            BUSY -> {
+                binding.currentWeatherLoadingTextView.visibility = View.VISIBLE
+                binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
             }
 
-            1 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_active)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_inactive)
-            }
-
-            2 -> {
-                scrollIndicator1.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator2.setImageResource(R.drawable.scoll_indicator_inactive)
-                scrollIndicator3.setImageResource(R.drawable.scoll_indicator_active)
+            PASSED -> {
+                binding.currentWeatherLoadingTextView.visibility = View.GONE
+                binding.currentWeatherGroupLinearLayout.visibility = View.VISIBLE
             }
         }
     }
 
+    private fun updateViewsForNewTimelineStatus(newTimelineStatus: Int?) {
+        if (newTimelineStatus == null){
+            return
+        }
 
-    private fun navigateToSignin(){
+        when(newTimelineStatus){
+            BUSY -> {
+                binding.timelineLoadingTextView.visibility = View.VISIBLE
+                binding.timelineRecyclerView.visibility = View.GONE
+            }
+
+            PASSED -> {
+                binding.timelineLoadingTextView.visibility = View.GONE
+                binding.timelineRecyclerView.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun updateViewsForNewViewMode(newViewMode: String?) {
+        if (newViewMode == null){
+            return
+        }
+
+        when(newViewMode){
+            TODAY_VIEW_MODE -> {
+                binding.apply {
+                    currentViewTextView.text = "Today"
+                    todayTextView.setTextColor(resources.getColor(R.color.weathery_orange))
+                    todayIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weathery_orange), android.graphics.PorterDuff.Mode.SRC_IN)
+                    tomorrowTextView.setTextColor(resources.getColor(R.color.default_colour))
+                    tomorrowIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
+                    thisWeekIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                }
+            }
+
+            TOMORROW_VIEW_MODE -> {
+                binding.apply {
+                    currentViewTextView.text = "Tomorrow"
+                    tomorrowTextView.setTextColor(resources.getColor(R.color.weathery_orange))
+                    tomorrowIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weathery_orange), android.graphics.PorterDuff.Mode.SRC_IN)
+                    thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
+                    thisWeekIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    todayTextView.setTextColor(resources.getColor(R.color.default_colour))
+                    todayIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                }
+            }
+
+            THIS_WEEK_VIEW_MODE -> {
+                binding.apply {
+                    currentViewTextView.text = "This Week"
+                    thisWeekTextView.setTextColor(resources.getColor(R.color.weathery_orange))
+                    thisWeekIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weathery_orange), android.graphics.PorterDuff.Mode.SRC_IN)
+                    tomorrowTextView.setTextColor(resources.getColor(R.color.default_colour))
+                    tomorrowIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    todayTextView.setTextColor(resources.getColor(R.color.default_colour))
+                    todayIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                }
+            }
+
+        }
+    }
+
+
+    private fun updateViewsForNewCurrentWeather(newCurrentWeather: WeatherCondition?) {
+        if (newCurrentWeather == null){
+            return
+        }
+
+        binding.stateAndCountryTextView.text = "${newCurrentWeather.state}, ${newCurrentWeather.country}"
+        binding.currentWeatherTextView.text = newCurrentWeather.main
+        val startTime = getTimeForDisplay(newCurrentWeather.timeInMillis)
+        val endTime = getTimeForDisplay(newCurrentWeather.endTimeTimeInMillis)
+        binding.currentWeatherTimeTextView.text = "$startTime to $endTime"
+        binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
+    }
+
+    private fun updateViewsForNewTimeline(newTimeLine: Pair<List<TimelineWeather>, String>){
+        adapter.updateItemList(newTimeLine.first, newTimeLine.second)
+    }
+
+    private fun navigateToSignin() {
         signInNavigation.navigateToSignIn(navController = findNavController())
     }
 
-    private fun navigateToSettings(){
+    private fun navigateToSettings() {
         settingsNavigation.navigateToSettings(navController = findNavController())
     }
 
-    private fun navigateToNotifications(){
+    private fun navigateToNotifications() {
         notificationsNavigation.navigateToNotifications(navController = findNavController())
     }
 
-    private fun navigateToLocation(){
+    private fun navigateToLocation() {
         locationsNavigation.navigateToAddRemoveLocation(navController = findNavController())
     }
 
-    private fun hideDialog(dialog: ConstraintLayout) {
+    private fun hideDialog(dialog: View) {
         overlay.visibility = View.GONE
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             exitApp()
         }
 
-        val movePropertyValueHolder = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 0f, -dialog.height.toFloat())
+        val movePropertyValueHolder =
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 0f, -dialog.height.toFloat())
         val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 0.0f)
         val animator = ObjectAnimator.ofPropertyValuesHolder(
             dialog,
@@ -203,14 +430,33 @@ class DashBoardFragment : Fragment() , LocationListener{
 
     }
 
-    private fun showDialog(dialog: ConstraintLayout) {
+    private fun hideViewsMenu(dialog: View = viewsMenu) {
+        overlay.visibility = View.GONE
+        backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            exitApp()
+        }
+
+        val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 0.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            dialog,
+            transparencyValueHolder
+        )
+        animator.start()
+
+    }
+
+    private fun showDialog(dialog: View) {
 
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            hideDialog(dialog)
+        }
+
+        overlay.setOnClickListener {
             hideDialog(navDrawer)
         }
 
         overlay.visibility = View.VISIBLE
-        navDrawer.visibility = View.VISIBLE
+        dialog.visibility = View.VISIBLE
 
         val movePropertyValueHolder =
             PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -dialog.width.toFloat(), 0f)
@@ -223,19 +469,29 @@ class DashBoardFragment : Fragment() , LocationListener{
         animator.start()
     }
 
-    private fun generateMockTimesWeatherUIItems(): List<UITimesWeather>{
-        val uiTimesWeatherList = mutableListOf<UITimesWeather>()
-        val weatherNames = listOf("Rainy", "Cloudy", "Drizzle", "Fog", "Wind")
-        val weatherIconRsrcIds = listOf(R.drawable.rain, R.drawable.cloudy, R.drawable.drizzle, R.drawable.fog, R.drawable.wind)
-        for(item in 1..20){
-            val randomIndex = (0..4).random()
-            uiTimesWeatherList.add(UITimesWeather(weatherNames[randomIndex], weatherIconRsrcIds[randomIndex], "${item}am"))
+    private fun showViewsMenu(dialog: View = viewsMenu) {
+
+        backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            hideViewsMenu(dialog)
         }
-        return uiTimesWeatherList
+
+        overlay.setOnClickListener {
+            hideViewsMenu()
+        }
+
+        overlay.visibility = View.VISIBLE
+        dialog.visibility = View.VISIBLE
+
+        val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            dialog,
+            transparencyValueHolder
+        )
+        animator.start()
     }
 
     private fun exitApp() {
-        if (exitAppToastStillShowing){
+        if (exitAppToastStillShowing) {
             requireActivity().finish()
             return
         }
@@ -245,10 +501,47 @@ class DashBoardFragment : Fragment() , LocationListener{
         exitAppTimer.start()
     }
 
+    private fun updateWeatherLink() {
+        viewModel.getSharedWeatherLink(currentLocation.latitude, currentLocation.longitude)
+        lifecycleScope.launch {
+            viewModel.sharedLinkEvent.collect { linkResponse ->
+                when (linkResponse) {
+                    is ShareLinkEvents.Successful -> {
+
+                        linkResponse.data.data?.link?.let {
+                            getShareIntent(it)
+                        } ?: Toast.makeText(
+                            requireContext(),
+                            "Current Location Link Not Available",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        getShareIntent(URL_TO_SHARE)
+                    }
+                    is ShareLinkEvents.Failure -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Current Location Link Not Available",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        getShareIntent(URL_TO_SHARE)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getShareIntent(url: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(Intent.createChooser(intent, "Share"))
+    }
 
 
     private fun getLocation() {
-        locationManager =  (requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+        locationManager =
+            (requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -257,7 +550,11 @@ class DashBoardFragment : Fragment() , LocationListener{
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermissionCode
+            )
             return
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
@@ -267,6 +564,21 @@ class DashBoardFragment : Fragment() , LocationListener{
         latitude = location.latitude.toInt()
         longitude = location.longitude.toInt()
 
+    }
+
+    private fun setTodayView(){
+        viewModel.showTodayView()
+        hideViewsMenu()
+    }
+
+    private fun setTomorrowView(){
+        viewModel.showTomorrowView()
+        hideViewsMenu()
+    }
+
+    private fun setThisWeekView(){
+        viewModel.showThisWeekView()
+        hideViewsMenu()
     }
 
 }

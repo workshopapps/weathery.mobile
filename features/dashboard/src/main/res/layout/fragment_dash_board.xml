@@ -1,336 +1,439 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/app_bar_rel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/navLayoutButton_imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/menu_05"
+            app:tint="@color/default_colour" />
+
+        <LinearLayout
+            android:id="@+id/locationHeader_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/marker_pin_01"
+                app:tint="@color/default_colour" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/outfit_semibold"
+                        android:text="Lagos, Nigeria"
+                        android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/chevron_down"
+                app:tint="@color/default_colour" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/norification_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="40dp"
+            android:src="@drawable/bell"
+            app:tint="@color/default_colour" />
+
+        <ImageView
+            android:id="@+id/shareButton_imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/share_07"
+            app:tint="@color/default_colour" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/background_with_shadow"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_rel">
+
+
+        <LinearLayout
+            android:id="@+id/currentWeatherGroup_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.DashBoardFragment">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/navLayoutButton_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:src="@drawable/menu_05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/default_colour" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/outfit_semibold"
+                        android:text="TODAY'S FORECAST"
+
+                        android:textSize="12sp" />
+
 
             <LinearLayout
-                android:id="@+id/locationHeader_linearLayout"
+                android:id="@+id/today_linear_layout"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:foregroundGravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/navLayoutButton_imageView">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/marker_pin_01"
-                    app:tint="@color/default_colour"
-                    />
+                    app:tint="@color/default_colour" />
 
                 <TextView
+                    android:id="@+id/stateAndCountry_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/outfit_semibold"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/outfit_light"
                     android:text="@string/lagos_nigeria"
-                    android:textSize="16sp" />
+                    android:textAlignment="center"
+                    android:textColor="#4D5E6E"
+                    android:textSize="14sp" />
+
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/chevron_down"
-                    app:tint="@color/default_colour"
-                    />
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/rectangle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/rainy_sharp" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/shareButton_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/share_07"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/navLayoutButton_imageView"
-                app:tint="@color/default_colour" />
+                    <TextView
+                        android:id="@+id/currentWeather_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/outfit_bold"
+                        android:text="Heavy Rain"
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/weatherForTimes_recylcerView"
+                        android:textSize="34sp" />
+
+                    <TextView
+                        android:id="@+id/currentWeatherTime_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/outfit_semibold"
+                        android:text="12:00pm to 3:00pm"
+                        android:textSize="28sp" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/locationHeader_linearLayout"
-                tools:listitem="@layout/weather_for_times_list_item" />
-
-            
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mainWeatherWidget_constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="274dp"
-                android:background="@drawable/bg_main_widget"
-                android:layout_marginHorizontal="24dp"
-                app:layout_constraintTop_toBottomOf="@id/weatherForTimes_recylcerView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="vertical"
-                >
-
-                <ImageView
-                    android:id="@+id/mainWidgetWeatherIcon_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/rain_3"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/mainWidgetTimeRange_textView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-
-                <TextView
-                    android:id="@+id/mainWidgetWeatherDesc_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sunny"
-                    android:fontFamily="@font/outfit_bold"
-                    android:textSize="25sp"
-                    android:textColor="@android:color/white"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/mainWidgetWeatherIcon_imageView"
-                    app:layout_constraintStart_toEndOf="@id/mainWidgetWeatherIcon_imageView"
-                    />
-
-                <TextView
-                    android:id="@+id/mainWidgetTimeRange_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_12_3pm"
-                    android:fontFamily="@font/outfit_extrabold"
-                    android:textSize="34sp"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mainWidgetWeatherIcon_imageView"
-                    app:layout_constraintStart_toStartOf="@id/mainWidgetWeatherIcon_imageView"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:id="@+id/extraInfoBar1_linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_info_bar"
-                android:padding="20dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="16dp"
-                app:layout_constraintTop_toBottomOf="@id/mainWeatherWidget_constraintLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-
-                <ImageView
-                    android:id="@+id/extraInfo1Icon_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/wind_2"
-                    />
-
-                <TextView
-                    android:id="@+id/extraInfo1Name_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dust_level"
-                    android:fontFamily="@font/outfit_regular"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@android:color/black"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/extraInfo1Value_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/high"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/outfit_extrabold"
-                    android:layout_marginStart="8dp"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/extraInfoBar2_linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_info_bar"
-                android:padding="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="16dp"
-                app:layout_constraintTop_toBottomOf="@id/extraInfoBar1_linearLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                >
-
-                <ImageView
-                    android:id="@+id/extraInfo2Icon_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/fire_heat"
-                    />
-
-                <TextView
-                    android:id="@+id/extraInfo2Name_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sun_burn"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/outfit_regular"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/extraInfo2Value_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/high"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/outfit_extrabold"
-                    android:layout_marginStart="8dp"
-                    />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tomorrowsForcast_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tomorrow_s_forecast"
-                android:textSize="12sp"
-                android:fontFamily="@font/outfit_extrabold"
-                android:layout_marginStart="16dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/extraInfoBar2_linearLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/tomorrowForecastInfoBar_constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_tomorrow_forecast"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="24dp"
-                app:layout_constraintTop_toBottomOf="@id/tomorrowsForcast_textView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                >
+                android:background="@drawable/round_corner">
 
                 <ImageView
-                    android:id="@+id/tomorrowForecastWeatherIcon_imageView"
+                    android:id="@+id/currentWeatherRiskIndicator_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/rain_3"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/tomorrowForecastTimeRange_textView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toLeftOf="@id/currentWeatherRisk_textView"
+                    android:src="@drawable/alert_circle" />
 
-                <TextView
-                    android:id="@+id/tomorrowForecastWeatherDesc_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sunny"
-                    android:fontFamily="@font/outfit_bold"
-                    android:textSize="25sp"
-                    android:textColor="@android:color/white"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tomorrowForecastWeatherIcon_imageView"
-                    app:layout_constraintStart_toEndOf="@id/tomorrowForecastWeatherIcon_imageView"
-                    />
-
-                <TextView
-                    android:id="@+id/tomorrowForecastTimeRange_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_12_3pm"
-                    android:fontFamily="@font/outfit_extrabold"
-                    android:textSize="34sp"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tomorrowForecastWeatherIcon_imageView"
-                    app:layout_constraintStart_toStartOf="@id/tomorrowForecastWeatherIcon_imageView"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/currentWeatherRisk_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="Cloud, heavy rain in the afternoon"
+                            android:textAlignment="center"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
 
 
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/currentWeatherLoading_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading..."
+            android:visibility="gone"
+            android:fontFamily="@font/outfit_semibold"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/today_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:background="@color/white_color"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rel1">
+
+        <TextView
+            android:id="@+id/currentView_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/outfit_black"
+            android:gravity="start"
+            android:text="Today"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/timelineViewsMenu_imageView"
+            style="@style/actionOverflowButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:tint="@color/default_colour"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/today_lin">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/timeline_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white_color"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/weather_list" />
+
+        <TextView
+            android:id="@+id/timelineLoading_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading..."
+            android:fontFamily="@font/outfit_semibold"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <View
         android:id="@+id/overlay_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.3"
-        android:visibility="gone"
         android:background="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--    change visibility back to invisible-->
+    <LinearLayout
+        android:id="@+id/timelineViewsMenu_linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.0"
+        android:padding="8dp"
+        android:elevation="5dp"
+        android:background="@drawable/bg_dialog"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/today_lin">
+
+        <LinearLayout
+            android:id="@+id/todayGroup_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/todayIcon_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_today" />
+
+            <TextView
+                android:id="@+id/today_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/outfit_medium"
+                android:text="Today"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line_17"
+            android:layout_marginTop="4dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/tomorrowGroup_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/tomorrowIcon_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tomorrow" />
+
+            <TextView
+                android:id="@+id/tomorrow_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/outfit_medium"
+                android:text="Tomorrow"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line_17"
+            android:layout_marginTop="4dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/thisWeekGroup_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/thisWeekIcon_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_this_week" />
+
+            <TextView
+                android:id="@+id/thisWeek_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/outfit_medium"
+                android:text="This Week"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--    visibility should be set to visible.
+   to ensure animation bahaves correctly-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navDrawer_constraintLayout"
         android:layout_width="320dp"
         android:layout_height="0dp"
         android:alpha="0.0"
-        android:visibility="gone"
         android:background="@color/nav_drawer_color"
         android:paddingHorizontal="24dp"
         android:paddingVertical="40dp"
+        android:visibility="invisible"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -359,8 +462,8 @@
             android:id="@+id/navDrawerMenuItems_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="36dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appIcon_imageView">
@@ -369,10 +472,10 @@
                 android:id="@+id/homeMenuItem_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingVertical="16dp"
-                android:paddingHorizontal="8dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appIcon_imageView">
@@ -380,18 +483,16 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home"
-                    />
+                    android:src="@drawable/home" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textSize="16sp"
-                    android:textColor="@color/weathery_orange"
                     android:layout_marginStart="8dp"
-                    />
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/home"
+                    android:textColor="@color/weathery_orange"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -399,10 +500,10 @@
                 android:id="@+id/locationsMenuItem_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingVertical="16dp"
-                android:paddingHorizontal="8dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appIcon_imageView">
@@ -410,17 +511,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/marker_pin_02"
-                    />
+                    android:src="@drawable/marker_pin_02" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/saved_locations"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textSize="16sp"
                     android:layout_marginStart="8dp"
-                    />
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/saved_locations"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -428,10 +527,10 @@
                 android:id="@+id/notificationsMenuItem_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingVertical="16dp"
-                android:paddingHorizontal="8dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appIcon_imageView">
@@ -439,17 +538,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bell"
-                    />
+                    android:src="@drawable/bell" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/notifications"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textSize="16sp"
                     android:layout_marginStart="8dp"
-                    />
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/notifications"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -457,10 +554,10 @@
                 android:id="@+id/settingsMenuItem_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingVertical="16dp"
-                android:paddingHorizontal="8dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appIcon_imageView">
@@ -468,17 +565,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/settings"
-                    />
+                    android:src="@drawable/settings" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/settings"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textSize="16sp"
                     android:layout_marginStart="8dp"
-                    />
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/settings"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -488,29 +583,26 @@
             android:id="@+id/signInMenuItem_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingVertical="16dp"
-            android:paddingHorizontal="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/signin"
-                />
+                android:src="@drawable/signin" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_in_to_account"
-                android:fontFamily="@font/outfit_regular"
-                android:textSize="16sp"
                 android:layout_marginStart="8dp"
-                />
+                android:fontFamily="@font/outfit_regular"
+                android:text="@string/sign_in_to_account"
+                android:textSize="16sp" />
 
         </LinearLayout>
 

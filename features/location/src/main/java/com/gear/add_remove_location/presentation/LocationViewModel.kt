@@ -5,56 +5,109 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gear.add_remove_location.domain.repository.LocationFeatureRepo
+import com.gear.add_remove_location.presentation.manage_location.Action
 import com.gear.add_remove_location.presentation.manage_location.ManageScreenState
-import com.gear.add_remove_location.presentation.save_location.SaveLocationState
 import com.gear.weathery.common.utils.Resource
+import com.gear.weathery.location.api.Location
+import com.gear.weathery.location.api.LocationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LocationViewModel @Inject constructor(
-    private val repo: LocationFeatureRepo
+    private val service: LocationFeatureRepo,
+    private val local: LocationsRepository
 ) : ViewModel() {
+
+    private val _savedLocations = mutableStateOf<List<Location>>(emptyList())
+    val savedLocations: State<List<Location>> = _savedLocations
 
     private val _manageScreenState = mutableStateOf(ManageScreenState())
     val manageScreenState: State<ManageScreenState> = _manageScreenState
 
-    private val _saveScreenState = mutableStateOf(SaveLocationState())
-    val saveScreenState: State<SaveLocationState> = _saveScreenState
+    private val _isOnSearchState = mutableStateOf(true)
+    val isOnSearchState: State<Boolean> = _isOnSearchState
 
-    fun onLocationSearch(query: String){
-        viewModelScope.launch {
-            val result = repo.getLocations(query)
+    private val _searchTextState = mutableStateOf("")
+    val searchTextState: State<String> = _searchTextState
 
-            when(result){
-                is Resource.Error -> {
-                    _manageScreenState.value = _manageScreenState.value.copy(
-                        locations = emptyList(),
-                        isSuccessful = false,
-                        error = result.message ?: "Unknown Error Occurred"
-                    )
-                }
-                is Resource.Loading -> {
-                    _manageScreenState.value = _manageScreenState.value.copy(
-                        locations = emptyList(),
-                        isSuccessful = false,
-                        error = ""
-                    )
-                }
-                is Resource.Success -> {
-                   _manageScreenState.value = _manageScreenState.value.copy(
-                       locations = result.data ?: emptyList(),
-                       isSuccessful = true,
-                       error = ""
-                   )
+    private val _screenState = mutableStateOf(Action.VIEW)
+    val screenState: State<Action> = _screenState
+
+    init {
+        getSavedLocations()
+    }
+
+    private val saveItemMap: HashMap<Int, Location> = HashMap()
+
+    fun onLocationSearch(query: String) {
+        _searchTextState.value = query
+        if (query.length >= 3 && _isOnSearchState.value) {
+            viewModelScope.launch {
+                delay(500)
+                when (val result = service.getLocations(query)) {
+                    is Resource.Error -> {
+                        _manageScreenState.value = _manageScreenState.value.copy(
+                            locations = emptyList(),
+                            isSuccessful = false,
+                            error = result.message ?: "Unknown Error Occurred"
+                        )
+                    }
+                    is Resource.Loading -> {
+                        _manageScreenState.value = _manageScreenState.value.copy(
+                            locations = emptyList(),
+                            isSuccessful = false,
+                            error = ""
+                        )
+                    }
+                    is Resource.Success -> {
+                        _manageScreenState.value = _manageScreenState.value.copy(
+                            locations = result.data ?: emptyList(),
+                            isSuccessful = true,
+                            error = ""
+                        )
+                    }
                 }
             }
         }
     }
 
+    fun setSearchState(selected: String) {
+        _searchTextState.value = selected
+        _isOnSearchState.value = !_isOnSearchState.value
+    }
 
-    fun setLocationData(name: String, country: String) {
-        _saveScreenState.value = _saveScreenState.value.copy(name = name, country = country)
+    fun saveItemSelected(index: Int, location: Location, isSelected: Boolean) {
+        if (isSelected) {
+            saveItemMap[index] = location
+        } else {
+            saveItemMap.remove(index)
+        }
+    }
+
+    fun saveLocations() {
+        val locations = saveItemMap.values.distinct()
+        if (locations.isNotEmpty()) {
+            viewModelScope.launch {
+                local.saveLocation(*locations.toTypedArray())
+            }
+        }
+        _screenState.value = Action.VIEW
+    }
+
+    private fun getSavedLocations(){
+        with(local) {
+            locations.onEach {
+                _savedLocations.value = it
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun setAction(action: Action) {
+        _screenState.value = action
     }
 }

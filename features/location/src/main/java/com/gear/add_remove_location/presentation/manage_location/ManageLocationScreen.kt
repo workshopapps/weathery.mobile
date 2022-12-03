@@ -1,83 +1,95 @@
 package com.gear.add_remove_location.presentation.manage_location
 
-import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.gear.add_remove_location.presentation.LocationScreen
 import com.gear.add_remove_location.presentation.LocationViewModel
-import com.gear.add_remove_location.presentation.manage_location.components.LearnMore
-import com.gear.add_remove_location.presentation.manage_location.components.LocationSearchBar
-import com.gear.add_remove_location.presentation.manage_location.components.WeatherSearchItem
-import com.gear.add_remove_location.presentation.ui.theme.Outfit
-import java.util.*
+import com.gear.add_remove_location.presentation.manage_location.components.MenuActions
+import com.gear.add_remove_location.presentation.manage_location.components.actions.SearchAction
+import com.gear.add_remove_location.presentation.manage_location.components.actions.ViewAction
+import com.gear.add_remove_location.presentation.ui.theme.LocationTitleStyle
 
 
 @Composable
 fun ManageLocationScreen(
     onNavBack: () -> Unit,
-    navController: NavController,
     viewModel: LocationViewModel,
 ) {
-
+    var expandActions by remember { mutableStateOf(false) }
     val state = viewModel.manageScreenState.value
     val locations = state.locations
-
-    Column(Modifier.fillMaxSize()) {
-        val context = LocalContext.current
-        Icon(
-            imageVector = Icons.Default.ArrowBackIos,
-            contentDescription = "navigate",
-            modifier = Modifier
-                .clickable { onNavBack() }
-                .padding(start = 24.dp, bottom = 24.dp, top = 8.dp)
-        )
-        Text(
-            text = "Manage cities",
-            modifier = Modifier.padding(start = 24.dp),
-            fontFamily = Outfit,
-            fontSize = 24.sp,
-        )
-        LocationSearchBar {
-            viewModel.onLocationSearch(it)
-        }
-        Text(
-            text = "Saved locations",
-            modifier = Modifier.padding(start = 24.dp, bottom = 24.dp),
-            fontFamily = Outfit,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp,
-        )
-        Box(Modifier.fillMaxSize()) {
-            if (locations.any()) {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(locations) { location ->
-                        val loc = Locale("", location.country)
-                        val country = loc.displayCountry
-                        WeatherSearchItem(location = location.name, country = country) {
-                            viewModel.setLocationData(location.name,country)
-                            navController.navigate(LocationScreen.Save.route)
-                        }
+    val action = viewModel.screenState.value
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                elevation = 0.dp,
+                backgroundColor = Color.White,
+                navigationIcon = {
+                    IconButton(onClick = { onNavBack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Navigation"
+                        )
                     }
+                },
+                title = {
+                    Text(
+                        text = "Location",
+                        style = LocationTitleStyle,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                actions = {
+                    IconButton(onClick = { expandActions = true }) {
+                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "menu")
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues)) {
+
+            if (expandActions) {
+                MenuActions(modifier = Modifier.align(Alignment.TopEnd)) {
+                    viewModel.setAction(it)
+                    expandActions = false
                 }
             }
 
-            LearnMore(modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 8.dp)) { Toast.makeText(context, "check", Toast.LENGTH_LONG).show() }
+            Column {
+                when (action) {
+                    Action.SEARCH_SAVE -> {
+                        SearchAction(
+                            locations = locations,
+                            isOnSearch = viewModel.isOnSearchState.value,
+                            onLocationSearch = {
+                                viewModel.onLocationSearch(it)
+                            },
+                            text = viewModel.searchTextState.value,
+                            onLocationSelected = {
+                                viewModel.setSearchState(it)
+                            },
+                            onSaveItemClicked = { index, location, isSelected ->
+                                viewModel.saveItemSelected(index, location, isSelected)
+                            },
+                            saveLocations = { viewModel.saveLocations() }
+                        )
+                    }
+                    Action.EDIT -> {}
+                    Action.VIEW -> {
+                        ViewAction(savedLocations = viewModel.savedLocations.value)
+                    }
+                }
+            }
         }
     }
 }
+
+enum class Action { SEARCH_SAVE, EDIT, VIEW }
