@@ -2,7 +2,6 @@ package com.gear.add_remove_location.presentation.manage_location.components.act
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
+import com.gear.add_remove_location.presentation.manage_location.SaveListItem
 import com.gear.add_remove_location.presentation.manage_location.components.LocationItem
 import com.gear.add_remove_location.presentation.ui.theme.ButtonTextStyle
 import com.gear.add_remove_location.presentation.ui.theme.Gray500
@@ -34,16 +34,31 @@ fun SaveAction(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
     )
 
+    var items by remember{
+        mutableStateOf(
+            locations.map { loc ->
+                SaveListItem(
+                    location = loc,
+                    isSelected = false
+                )
+            }
+        )
+    }
+
+
     LazyColumn {
-        itemsIndexed(locations) { index, location ->
-            var isSelected by remember { mutableStateOf(false) }
+        items(items.size) { i ->
 
             LocationItem(imageRes = R.drawable.location_ic_on, location = buildString {
-                append(location.name)
-                append(if (location.state.isNotBlank()) ", ${location.state}" else "")
-            }, bgColor = if (isSelected) Primary500.copy(0.75f) else Color.White) {
-                isSelected = !isSelected
-                onItemSelected(index, location, isSelected)
+                append(items[i].location.name)
+                append(if (items[i].location.state.isNotBlank()) ", ${items[i].location.state}" else "")
+            }, bgColor = if (items[i].isSelected) Primary500.copy(0.75f) else Color.White) {
+                items = items.mapIndexed { j, item ->
+                    if(i == j){
+                        item.copy(isSelected = !item.isSelected)
+                    } else item
+                }
+                onItemSelected(i, items[i].location, items[i].isSelected)
             }
         }
 

@@ -78,7 +78,11 @@ class LocationViewModel @Inject constructor(
 
     fun setSearchState(selected: String) {
         _searchTextState.value = selected
-        _isOnSearchState.value = !_isOnSearchState.value
+        if (selected.isEmpty()) {
+            _isOnSearchState.value = true
+        } else {
+            _isOnSearchState.value = !_isOnSearchState.value
+        }
     }
 
     fun saveItemSelected(index: Int, location: Location, isSelected: Boolean) {
@@ -99,7 +103,7 @@ class LocationViewModel @Inject constructor(
         _screenState.value = Action.VIEW
     }
 
-    private fun getSavedLocations(){
+    private fun getSavedLocations() {
         with(local) {
             locations.onEach {
                 _savedLocations.value = it

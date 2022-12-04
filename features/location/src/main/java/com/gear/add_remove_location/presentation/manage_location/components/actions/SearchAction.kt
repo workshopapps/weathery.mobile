@@ -49,16 +49,18 @@ fun SearchAction(
                         Alignment.TopStart
                     )
             )
-            SearchResultsWidget(
-                modifier = Modifier.align(Alignment.TopCenter),
-                list = locations.map {
-                    buildString {
-                        append(it.name)
-                        append(if (it.country.isNotBlank()) ", ${it.country}" else "")
-                    }
-                }.distinct()
-            ) {
-                onLocationSelected(it)
+            if (text.isNotBlank()) {
+                SearchResultsWidget(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    list = locations.map {
+                        buildString {
+                            append(it.name)
+                            append(if (it.country.isNotBlank()) ", ${it.country}" else "")
+                        }
+                    }.distinct()
+                ) {
+                    onLocationSelected(it)
+                }
             }
         }
     } else SaveAction(

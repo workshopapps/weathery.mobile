@@ -60,6 +60,10 @@ fun ManageLocationScreen(
                 MenuActions(modifier = Modifier.align(Alignment.TopEnd)) {
                     viewModel.setAction(it)
                     expandActions = false
+
+                    if(it == Action.SEARCH_SAVE){
+                        viewModel.setSearchState("")
+                    }
                 }
             }
 

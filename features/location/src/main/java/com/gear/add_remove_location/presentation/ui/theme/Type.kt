@@ -17,7 +17,7 @@ val Outfit = FontFamily(
 
 val LocationItemStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 32.em,
+    lineHeight = 32.sp,
     fontWeight = FontWeight.Normal,
     textAlign = TextAlign.Center,
     fontSize = 16.sp,
@@ -27,7 +27,7 @@ val LocationItemStyle = TextStyle(
 
 val LocationSubStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 32.em,
+    lineHeight = 32.sp,
     fontWeight = FontWeight.Bold,
     textAlign = TextAlign.Start,
     fontSize = 24.sp,
@@ -37,7 +37,7 @@ val LocationSubStyle = TextStyle(
 
 val LocationTitleStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 20.em,
+    lineHeight = 32.sp,
     fontWeight = FontWeight.Normal,
     textAlign = TextAlign.Center,
     fontSize = 24.sp,
@@ -47,7 +47,7 @@ val LocationTitleStyle = TextStyle(
 
 val ButtonTextStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 24.em,
+    lineHeight = 24.sp,
     fontWeight = FontWeight.Normal,
     textAlign = TextAlign.Center,
     fontSize = 14.sp,
