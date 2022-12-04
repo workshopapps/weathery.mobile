@@ -520,7 +520,7 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
                     is ShareLinkEvents.Failure -> {
                         Toast.makeText(
                             requireContext(),
-                            "Current Location Link Not Available",
+                            "Current Location Link Not Available...",
                             Toast.LENGTH_SHORT
                         ).show()
                         getShareIntent(URL_TO_SHARE)
