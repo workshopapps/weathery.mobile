@@ -83,6 +83,7 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
     @Inject
     lateinit var signInNavigation: SignInNavigation
 
+
     @Inject
     lateinit var locationsNavigation: AddRemoveLocationNavigation
 
@@ -108,6 +109,12 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
                 locationResult ?: return
                 for (location in locationResult.locations){
                     viewModel.updateCurrentLocation(location)
+                    lifecycleScope.launch {
+                        val savedLocation = com.gear.weathery.location.api.Location(id = 0, state = "",
+                            name = "current location", country = "", longitude = location.longitude,
+                            latitude = location.latitude)
+                        locationsRepository.saveLocation(savedLocation)
+                    }
                 }
             }
         }

@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Toon meldingsvoorbeeld bovenaan uw scherm</string>
     <string name="notifications">Meldingen</string>
     <string name="notifications_will_be_deleted_after_30_days">Meldingen worden na 30 dagen verwijderd</string>
-    <string name="empty_now">Leeg nu</string>
+    <string name="Cancel">Leeg nu</string>
     <string name="select_your_language_you_best_understand">Selecteer uw taal die u het best begrijpt</string>
     <string name="language">Taal</string>
     <string name="navigate_back">Navigeer terug</string>
@@ -48,6 +48,6 @@
     <string name="english">Engels</string>
     <string name="expect_rain">Verwacht regen over 1 uur. Dit zou 3 dagen moeten duren</string>
 <!--    <string name="heavy_rain_northeast">There will be heavy rain for some in northeast with a few brighter exceptions.</string>-->
-    <string name="_12m">12 meter</string>
+    <string name="time">12 meter</string>
     <string name="heavy_rain_northeast">Er zal in het noordoosten voor sommigen zware regen vallen, met een paar lichtere uitzonderingen.</string>
 </resources>

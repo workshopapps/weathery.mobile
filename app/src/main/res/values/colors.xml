@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="weathery_orange_light">#FDEAD7</color>
+    <color name="weathery_orange_1">#EF6820</color>
+    <color name="popup_outline">@color/weathery_orange</color>
+    <color name="popup_background">@color/weathery_orange_light</color>
+
 
 </resources>
