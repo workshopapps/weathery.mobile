@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">إظهار معاينة الإخطار أعلى شاشتك</string>
     <string name="notifications">إشعارات</string>
     <string name="notifications_will_be_deleted_after_30_days">سيتم حذف الإخطارات بعد 30 يومًا</string>
-    <string name="empty_now">فارغ الآن</string>
+    <string name="Cancel">فارغ الآن</string>
     <string name="select_your_language_you_best_understand">حدد لغتك التي تفهمها بشكل أفضل</string>
     <string name="language">لغة</string>
     <string name="navigate_back">العودة</string>
@@ -48,5 +48,5 @@
     <string name="english">إنجليزي</string>
     <string name="expect_rain">توقع هطول أمطار خلال ساعة واحدة. يجب أن يستمر هذا لمدة 3 أيام</string>
     <string name="heavy_rain_northeast">ستكون هناك أمطار غزيرة بالنسبة للبعض في الشمال الشرقي مع بعض الاستثناءات الأكثر إشراقًا.</string>
-    <string name="_12m">12 م</string>
+    <string name="time">12 م</string>
 </resources>

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "143781602180",
+    "firebase_url": "https://myroomie-b2335.firebaseio.com",
+    "project_id": "myroomie-b2335",
+    "storage_bucket": "myroomie-b2335.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143781602180:android:a88cbe5857e02409a133d1",
+        "android_client_info": {
+          "package_name": "com.gear.weathery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143781602180-i8qpsfo8hmv7qpn755k356j90nadr06g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPeppWjJwWS8wtsmVjlUxzKaE49bVkuZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143781602180-i8qpsfo8hmv7qpn755k356j90nadr06g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143781602180:android:d2d06d655ec253e4",
+        "android_client_info": {
+          "package_name": "com.myroomie.sketcherslodge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143781602180-i8qpsfo8hmv7qpn755k356j90nadr06g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPeppWjJwWS8wtsmVjlUxzKaE49bVkuZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143781602180-i8qpsfo8hmv7qpn755k356j90nadr06g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

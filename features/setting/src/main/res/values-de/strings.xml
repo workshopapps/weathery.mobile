@@ -25,7 +25,7 @@
   <string name="show_notification_preview_on_the_top_of_your_screen">Benachrichtigungsvorschau oben auf dem Bildschirm anzeigen</string>
   <string name="notifications">Mitteilungen</string>
   <string name="notifications_will_be_deleted_after_30_days">Benachrichtigungen werden nach 30 Tagen gelöscht</string>
-  <string name="empty_now">Jetzt leer</string>
+  <string name="Cancel">Jetzt leer</string>
   <string name="select_your_language_you_best_understand">Wählen Sie Ihre Sprache, die Sie am besten verstehen</string>
   <string name="language">Sprache</string>
   <string name="navigate_back">Zurück navigieren</string>
@@ -49,5 +49,5 @@
   <string name="english">Englisch</string>
   <string name="expect_rain">Erwartet Regen in einer Stunde. Dies sollte drei Tage dauern</string>
   <string name="heavy_rain_northeast">Für einige im Nordosten wird es mit einigen helleren Ausnahmen heftigen Regen geben.</string>
-  <string name="_12m">12m</string>
+  <string name="time">12m</string>
 </resources>

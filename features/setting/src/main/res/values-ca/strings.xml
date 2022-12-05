@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Mostra la vista prèvia de les notificacions a la part superior de la pantalla</string>
     <string name="notifications">Notificacions</string>
     <string name="notifications_will_be_deleted_after_30_days">Les notificacions se suprimiran al cap de 30 dies</string>
-    <string name="empty_now">Ara buit</string>
+    <string name="Cancel">Ara buit</string>
     <string name="select_your_language_you_best_understand">Seleccioneu l\'idioma que enteneu millor</string>
     <string name="language">Llenguatge</string>
     <string name="navigate_back">Navega enrere</string>
@@ -48,5 +48,5 @@
     <string name="english">Anglès</string>
     <string name="expect_rain">S\'espera pluja d\'aquí a 1 hora. Això hauria de durar 3 dies</string>
     <string name="heavy_rain_northeast">Hi haurà pluges abundants per a alguns al nord-est amb algunes excepcions més brillants.</string>
-    <string name="_12m">12 m</string>
+    <string name="time">12 m</string>
 </resources>
