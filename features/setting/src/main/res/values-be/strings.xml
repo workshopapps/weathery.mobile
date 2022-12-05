@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Паказваць папярэдні прагляд апавяшчэнняў у верхняй частцы экрана</string>
     <string name="notifications">Апавяшчэнні</string>
     <string name="notifications_will_be_deleted_after_30_days">Апавяшчэнні будуць выдалены праз 30 дзён</string>
-    <string name="empty_now">Зараз пуста</string>
+    <string name="Cancel">Зараз пуста</string>
     <string name="select_your_language_you_best_understand">Выберыце мову, якую вы лепш за ўсё разумееце</string>
     <string name="language">мова</string>
     <string name="navigate_back">Перайсці назад</string>
@@ -48,5 +48,5 @@
     <string name="english">англійская</string>
     <string name="expect_rain">Праз 1 гадзіну чакаецца дождж. Гэта павінна працягвацца 3 дні</string>
     <string name="heavy_rain_northeast">На паўночным усходзе месцамі пройдуць моцныя дажджы, за невялікімі выключэннямі.</string>
-    <string name="_12m">12м</string>
+    <string name="time">12м</string>
 </resources>

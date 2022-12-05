@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Show notification preview on the top of your screen</string>
     <string name="notifications">Notifications</string>
     <string name="notifications_will_be_deleted_after_30_days">Notifications will be deleted after 30 days</string>
-    <string name="empty_now">Empty now</string>
+    <string name="Cancel">Cancel</string>
     <string name="select_your_language_you_best_understand">Select your language you best understand</string>
     <string name="language">Language</string>
     <string name="navigate_back">Navigate back</string>
@@ -48,5 +48,10 @@
     <string name="english">English</string>
     <string name="expect_rain">Expect rain in 1 hour. This should last for 3 days</string>
     <string name="heavy_rain_northeast">There will be heavy rain for some in northeast with a few brighter exceptions.</string>
-    <string name="_12m">12m</string>
+    <string name="time">Now</string>
+    <string name="empty_now">Empty Now</string>
+    <string name="confirmation">Are you Sure?</string>
+    <string name="empty_notification">Are you sure you want to empty your notifications. You\'ll lose access to them!</string>
+    <string name="empty_can_info">Nothing to see here. When you recieve weather updates, they\'ll appear here</string>
+    <string name="empty">Empty</string>
 </resources>

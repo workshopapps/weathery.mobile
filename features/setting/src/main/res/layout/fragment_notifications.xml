@@ -1,97 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/backButton_imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/chevron_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/default_colour"
-        />
 
-    <TextView
-        android:id="@+id/notifications_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/notifications"
-        android:textSize="24sp"
-        android:fontFamily="@font/outfit_extrabold"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/backButton_imageView"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/archiveButton_imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/archive"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toTopOf="@id/notifications_textView"
-        app:layout_constraintBottom_toBottomOf="@id/notifications_textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/default_colour"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notif"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="32dp"
-        tools:listitem="@layout/notifications_list_item"
-        app:layout_constraintTop_toBottomOf="@id/notifications_textView"
-        app:layout_constraintBottom_toTopOf="@id/notificationsWillBeDeleted_textView"
+        android:layout_height="match_parent">
 
-        />
-
-
-    <TextView
-        android:id="@+id/notificationsWillBeDeleted_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/outfit_medium"
-        android:textSize="16sp"
-        android:text="@string/notifications_will_be_deleted_after_30_days"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@id/emptyNowButton_frameLayout"
-        app:layout_constraintStart_toStartOf="@id/emptyNowButton_frameLayout"
-        app:layout_constraintEnd_toEndOf="@id/emptyNowButton_frameLayout"
-        />
-
-    <FrameLayout
-        android:id="@+id/emptyNowButton_frameLayout"
-        android:layout_width="154dp"
-        android:layout_height="56dp"
-        android:background="@drawable/bg_button_1"
-        android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
+        <ImageView
+            android:id="@+id/backButton_imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/chevron_left"
+            app:layout_constraintBottom_toBottomOf="@+id/notifications_textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/notifications_textView"
+            app:tint="@color/default_colour" />
 
         <TextView
+            android:id="@+id/notifications_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/outfit_light"
-            android:text="@string/empty_now"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/outfit_extrabold"
+            android:text="@string/notifications"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/archiveButton_imageView"
+            app:layout_constraintStart_toEndOf="@+id/backButton_imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/archiveButton_imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/archive"
+            app:layout_constraintBottom_toBottomOf="@id/notifications_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notifications_textView"
+            app:tint="@color/default_colour" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_notification"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notifications_textView"
+            tools:listitem="@layout/notifications_list_item" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/empty_state_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/empty_trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.373"
+                app:srcCompat="@drawable/trash_empty" />
+
+            <TextView
+                android:id="@+id/emptyContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/empty"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/empty_trash"
+                app:layout_constraintStart_toStartOf="@+id/empty_trash"
+                app:layout_constraintTop_toBottomOf="@+id/empty_trash" />
+
+            <TextView
+                android:id="@+id/emptyWarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:text="@string/empty_can_info"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/emptyContainer"
+                app:layout_constraintStart_toStartOf="@+id/emptyContainer"
+                app:layout_constraintTop_toBottomOf="@+id/emptyContainer" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:layout_width="match_parent"
+        android:paddingTop="20dp"
+        android:layout_height="220dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/confirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirmation"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/weathery_orange"
-            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
-    </FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/empty_notif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:textSize="16sp"
+            android:text="@string/empty_notification"
+            app:layout_constraintEnd_toEndOf="@id/confirmation"
+            app:layout_constraintStart_toStartOf="@id/confirmation"
+            app:layout_constraintTop_toBottomOf="@id/confirmation" />
+
+        <FrameLayout
+            android:id="@+id/frame_cancel"
+            android:layout_width="112dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/bg_button_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/empty_notif"
+            app:layout_constraintVertical_bias="0.195">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/outfit_light"
+                android:text="@string/Cancel"
+                android:textColor="@color/weathery_orange"
+                android:textSize="18sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_empty_now"
+            android:layout_width="112dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_button_1"
+            android:backgroundTint="@color/weathery_orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/frame_cancel">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/outfit_light"
+                android:text="@string/empty_now"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

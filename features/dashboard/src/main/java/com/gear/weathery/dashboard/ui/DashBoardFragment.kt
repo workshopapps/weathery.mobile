@@ -38,6 +38,7 @@ import com.gear.weathery.dashboard.models.getTimeForDisplay
 import com.gear.weathery.dashboard.network.URL_TO_SHARE
 import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
+import com.gear.weathery.location.api.LocationsRepository
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -83,6 +84,9 @@ class DashBoardFragment : Fragment(), LocationListener {
     lateinit var signInNavigation: SignInNavigation
 
     @Inject
+    lateinit var locationsRepository: LocationsRepository
+
+    @Inject
     lateinit var locationsNavigation: AddRemoveLocationNavigation
 
     private var exitAppToastStillShowing = false
@@ -107,6 +111,12 @@ class DashBoardFragment : Fragment(), LocationListener {
                 locationResult ?: return
                 for (location in locationResult.locations){
                     viewModel.updateCurrentLocation(location)
+                    lifecycleScope.launch {
+                        val savedLocation = com.gear.weathery.location.api.Location(id = 0, state = "",
+                            name = "current location", country = "", longitude = location.longitude,
+                            latitude = location.latitude)
+                        locationsRepository.saveLocation(savedLocation)
+                    }
                 }
             }
         }

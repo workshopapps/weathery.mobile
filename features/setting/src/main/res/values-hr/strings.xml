@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Prikažite pregled obavijesti na vrhu zaslona</string>
     <string name="notifications">Obavijesti</string>
     <string name="notifications_will_be_deleted_after_30_days">Obavijesti će biti izbrisane nakon 30 dana</string>
-    <string name="empty_now">Sada prazan</string>
+    <string name="Cancel">Sada prazan</string>
     <string name="select_your_language_you_best_understand">Odaberite svoj jezik koji najbolje razumijete</string>
     <string name="language">Jezik</string>
     <string name="navigate_back">Navigacija natrag</string>
@@ -48,5 +48,5 @@
     <string name="english">Engleski</string>
     <string name="expect_rain">Očekujte kišu za 1 sat. Ovo bi trebalo trajati 3 dana</string>
     <string name="heavy_rain_northeast">Obilne kiše bit će ponegdje na sjeveroistoku uz poneku vedru iznimku.</string>
-    <string name="_12m">12m</string>
+    <string name="time">12m</string>
 </resources>
