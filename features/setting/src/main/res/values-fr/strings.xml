@@ -25,7 +25,7 @@
   <string name="show_notification_preview_on_the_top_of_your_screen">Afficher l\'aperçu de la notification en haut de l\'écran</string>
   <string name="notifications">Notification</string>
   <string name="notifications_will_be_deleted_after_30_days">La notification sera supprimée dans 30 jours</string>
-  <string name="empty_now">Vide maintenant.</string>
+  <string name="Cancel">Vide maintenant.</string>
   <string name="select_your_language_you_best_understand">Choisissez la langue que vous connaissez le mieux</string>
   <string name="language">Langues</string>
   <string name="navigate_back">Naviguer vers l\'arrière</string>
@@ -49,5 +49,5 @@
   <string name="english">Anglais</string>
   <string name="expect_rain">Il devrait pleuvoir dans une heure. Ça devrait durer 3 jours.</string>
   <string name="heavy_rain_northeast">Il y aura de fortes pluies dans certaines régions du Nord - Est, à quelques exceptions près.</string>
-  <string name="_12m">12 m</string>
+  <string name="time">12 m</string>
 </resources>

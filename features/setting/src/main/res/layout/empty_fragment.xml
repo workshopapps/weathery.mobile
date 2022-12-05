@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/empty_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373"
+        app:srcCompat="@drawable/trash_empty" />
+
+    <TextView
+        android:id="@+id/emptyContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/empty"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/empty_trash"
+        app:layout_constraintStart_toStartOf="@+id/empty_trash"
+        app:layout_constraintTop_toBottomOf="@+id/empty_trash" />
+
+    <TextView
+        android:id="@+id/emptyWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:text="@string/empty_can_info"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/emptyContainer"
+        app:layout_constraintStart_toStartOf="@+id/emptyContainer"
+        app:layout_constraintTop_toBottomOf="@+id/emptyContainer" />
+</androidx.constraintlayout.widget.ConstraintLayout>
