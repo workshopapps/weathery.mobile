@@ -1,6 +1,7 @@
 package com.gear.weathery.dashboard.ui
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.*
 import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.dashboard.models.DayWeather
@@ -8,6 +9,8 @@ import com.gear.weathery.dashboard.models.LinkResponse
 import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.repository.WeatherRepo
+import com.gear.weathery.dashboard.repository.WeatherResponseRepository
+import com.gear.weathery.location.api.LocationsRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -21,7 +24,7 @@ const val BUSY = 1
 const val PASSED = 2
 const val FAILED = 3
 
-class DashboardViewModel: ViewModel() {
+class DashboardViewModel(private val locationRepository: LocationsRepository): ViewModel() {
 
     private var _dayWeather = MutableLiveData<DayWeather>()
     val dayWeather: LiveData<DayWeather> get() = _dayWeather
@@ -131,12 +134,25 @@ class DashboardViewModel: ViewModel() {
         }
     }
 
-    class DashboardViewModelFactory() :
+    val locationFlow = MutableStateFlow<List<com.gear.weathery.location.api.Location>>(emptyList())
+    fun getSavedLocation(){
+        viewModelScope.launch {
+            locationRepository.locations.collectLatest {
+                locationFlow.value = it
+            }
+        }
+    }
+
+    fun updateSavedWeatherView(lat: Double, long: Double){
+        updateWeatherWithLocation(lat=lat, long =  long)
+    }
+
+    class DashboardViewModelFactory(private val locationRepository: LocationsRepository) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DashboardViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return DashboardViewModel() as T
+                return DashboardViewModel(locationRepository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
@@ -14,9 +15,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
+import com.gear.weathery.dashboard.ui.DashboardViewModel
 import com.gear.weathery.databinding.ActivityMainBinding
 import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.google.firebase.messaging.FirebaseMessaging
+import com.gear.weathery.location.api.LocationsRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -31,9 +34,12 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var notificationDao: NotificationDao
+    private lateinit var viewModel:DashboardViewModel
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
+    @Inject
+    lateinit var locationsRepository: LocationsRepository
 
 
     private val notificationTimer = object : CountDownTimer(2000, 1000) {
@@ -45,7 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository)
+        viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         popUpNotification = binding.popupNotification
         setContentView(binding.root)
