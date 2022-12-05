@@ -39,7 +39,6 @@ import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFacto
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.LocationsRepository
-import com.gear.weathery.location.api.LocationsRepository
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
@@ -84,8 +83,6 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
     @Inject
     lateinit var signInNavigation: SignInNavigation
 
-    @Inject
-    lateinit var locationsRepository: LocationsRepository
 
     @Inject
     lateinit var locationsNavigation: AddRemoveLocationNavigation

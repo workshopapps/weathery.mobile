@@ -48,6 +48,7 @@ dependencies {
 
     implementation LibDependencies.INSTANCE.coroutine_core
     implementation LibDependencies.INSTANCE.coroutine_android
+    implementation project(path: ':common:location-api')
 
     testImplementation LibDependencies.INSTANCE.junit
     androidTestImplementation LibDependencies.INSTANCE.test_ext_junit
