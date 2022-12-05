@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Zobrazit náhled oznámení v horní části obrazovky</string>
     <string name="notifications">Oznámení</string>
     <string name="notifications_will_be_deleted_after_30_days">Oznámení budou smazána po 30 dnech</string>
-    <string name="empty_now">Nyní prázdný</string>
+    <string name="Cancel">Nyní prázdný</string>
     <string name="select_your_language_you_best_understand">Vyberte jazyk, kterému nejlépe rozumíte</string>
     <string name="language">Jazyk</string>
     <string name="navigate_back">Přejít zpět</string>
@@ -48,5 +48,5 @@
     <string name="english">Angličtina</string>
     <string name="expect_rain">Za 1 hodinu očekávejte déšť. To by mělo trvat 3 dny</string>
     <string name="heavy_rain_northeast">Na severovýchodě bude až na pár světlých výjimek vydatně pršet.</string>
-    <string name="_12m">12m</string>
+    <string name="time">12m</string>
 </resources>

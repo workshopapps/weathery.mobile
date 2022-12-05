@@ -2,9 +2,12 @@ package com.gear.weathery
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -14,8 +17,12 @@ import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.dashboard.ui.DashboardViewModel
 import com.gear.weathery.databinding.ActivityMainBinding
+import com.gear.weathery.setting.notifications.database.NotificationDao
+import com.google.firebase.messaging.FirebaseMessaging
 import com.gear.weathery.location.api.LocationsRepository
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 
@@ -23,6 +30,10 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var popUpNotification: ConstraintLayout
+
+    @Inject
+    lateinit var notificationDao: NotificationDao
     private lateinit var viewModel:DashboardViewModel
 
     @Inject
@@ -30,18 +41,28 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var locationsRepository: LocationsRepository
 
+
+    private val notificationTimer = object : CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {}
+        override fun onFinish() {
+            popUpNotification.visibility = View.INVISIBLE
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository)
         viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
+        popUpNotification = binding.popupNotification
         setContentView(binding.root)
 
         val fragHost = supportFragmentManager.findFragmentById(com.gear.weathery.R.id.fragHost) as NavHostFragment
         navController = fragHost.findNavController()
 
-
-
+        FirebaseMessaging.getInstance().token.addOnSuccessListener(this) { token ->
+            Log.d("newToken", token)
+        }
 
     }
     override fun onSupportNavigateUp(): Boolean {
@@ -60,6 +81,17 @@ class MainActivity : AppCompatActivity() {
                }else{
                    SharedPreference.putBoolean("THEMECHANGE",false)
                }
+
+        notificationDao.getNotifications().onEach {
+            if (it.isEmpty()){
+                return@onEach
+            }
+            val notification = it.last()
+            binding.notificationBodyTextView.text = notification.notificationText
+            binding.popupNotification.visibility = View.VISIBLE
+            notificationTimer.start()
+        }.launchIn(lifecycleScope)
+
 
     }
 }

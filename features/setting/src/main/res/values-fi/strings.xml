@@ -24,7 +24,7 @@
     <string name="show_notification_preview_on_the_top_of_your_screen">Näytä ilmoitusten esikatselu näytön yläosassa</string>
     <string name="notifications">Ilmoitukset</string>
     <string name="notifications_will_be_deleted_after_30_days">Ilmoitukset poistetaan 30 päivän kuluttua</string>
-    <string name="empty_now">Tyhjä nyt</string>
+    <string name="Cancel">Tyhjä nyt</string>
     <string name="select_your_language_you_best_understand">Valitse kieli, jota ymmärrät parhaiten</string>
     <string name="language">Kieli</string>
     <string name="navigate_back">Navigoi takaisin</string>
@@ -48,5 +48,5 @@
     <string name="english">Englanti</string>
     <string name="expect_rain">Odotettavissa sadetta 1 tunnin kuluttua. Tämän pitäisi kestää 3 päivää</string>
     <string name="heavy_rain_northeast">Koillisosassa tulee paikoin rankkasadetta muutamaa kirkkaampaa poikkeusta lukuun ottamatta.</string>
-    <string name="_12m">12 m</string>
+    <string name="time">12 m</string>
 </resources>
