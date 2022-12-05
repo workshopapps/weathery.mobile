@@ -24,7 +24,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     private lateinit var viewModel: DashboardViewModel
     private val locationAdapter by lazy { SavedLocationAdapter() }
     private var savedLocationList = emptyList<Location>()
-    private lateinit var  onClickEvent: OnClickEvent
+    private lateinit var onClickEvent: OnClickEvent
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
@@ -60,16 +60,20 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
 
         binding.savedLocationRecyclerView.adapter = locationAdapter
         locationAdapter.adapterClick {
-            onClickEvent.onSavedLocationClicked(it.latitude,it.longitude)
+            onClickEvent.onSavedLocationClicked(it.latitude, it.longitude)
             this.dismiss()
         }
+        binding.searchView.isActivated = false
         binding.searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     val searchList = savedLocationList.filter {
-                        it.name.lowercase().contains(query.lowercase()) || it.country.lowercase().contains(query.lowercase()) ||
-                        it.name.uppercase().contains(query.uppercase()) || it.country.uppercase().contains(query.uppercase())
+                        it.name.lowercase().contains(query.lowercase()) || it.country.lowercase()
+                            .contains(query.lowercase()) ||
+                                it.name.uppercase()
+                                    .contains(query.uppercase()) || it.country.uppercase()
+                            .contains(query.uppercase())
                     }
                     locationAdapter.submitList(searchList)
                 }
@@ -79,7 +83,11 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
                     val searchList = savedLocationList.filter {
-                        it.name.contains(newText) || it.country.contains(newText)
+                        it.name.lowercase().contains(newText.lowercase()) || it.country.lowercase()
+                            .contains(newText.lowercase()) ||
+                        it.name.uppercase()
+                            .contains(newText.uppercase()) || it.country.uppercase()
+                            .contains(newText.uppercase())
                     }
                     locationAdapter.submitList(searchList)
                 }

@@ -15,7 +15,7 @@ class SavedLocationAdapter: ListAdapter<Location, SavedLocationAdapter.ViewHolde
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val binding =SavedLocationItemBinding.bind(view)
         fun bind(location: Location){
-            binding.locationItem.text = "${location.state}, ${location.country}"
+            binding.locationItem.text = "${location.state }, ${location.country}"
 
             binding.root.setOnClickListener{
                 listener?.let { it1 -> it1(location) }
