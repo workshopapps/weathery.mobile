@@ -1,11 +1,7 @@
 package com.gear.add_remove_location.presentation.manage_location.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,20 +22,13 @@ import com.gear.add_remove_location.presentation.ui.theme.LocationItemStyle
 
 @Composable
 fun LocationItem(
+    modifier: Modifier = Modifier,
     imageRes: Int,
     location:String,
-    bgColor: Color = Color.White,
-    onClick: () -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .drawDropShadow(color = Color(0xFF4D5E6F))
-            .background(bgColor, RoundedCornerShape(8.dp))
-            .clickable { onClick() }
-            .padding(16.dp)
+        modifier = modifier
     ) {
         Icon(
             painter = painterResource(imageRes),
@@ -92,7 +81,7 @@ fun Modifier.drawDropShadow(
 @Preview(showBackground = true, backgroundColor = 0xffffffff)
 @Composable
 fun LocPrev() {
-    LocationItem(location = "Lagos, Nigeria", imageRes = R.drawable.location_ic_on){}
+    LocationItem(location = "Lagos, Nigeria", imageRes = R.drawable.location_ic_on)
 }
 
 

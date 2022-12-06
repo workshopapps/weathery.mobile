@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "143781602180-ostm0gnsuf74pskv1ivbh3vbd4bslj7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gear.weathery",
+            "certificate_hash": "7e65306ca5cbeff149ad5da935cfa40d5a7d9a1a"
+          }
+        },
+        {
           "client_id": "143781602180-i8qpsfo8hmv7qpn755k356j90nadr06g.apps.googleusercontent.com",
           "client_type": 3
         }
