@@ -13,7 +13,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -27,8 +26,8 @@ fun SearchResultsWidget(
             .padding(horizontal = 16.dp)
             .padding(bottom = 8.dp)
             .imePadding()
-            .drawDropShadow(color = Color(0xFF4D5E6F))
-            .background(Color.White, RoundedCornerShape(8.dp))
+            .drawDropShadow(color = MaterialTheme.colors.primary)
+            .background(MaterialTheme.colors.background, RoundedCornerShape(8.dp))
     ) {
         val scrollState = rememberScrollState()
         val viewMaxHeight = maxHeight.value

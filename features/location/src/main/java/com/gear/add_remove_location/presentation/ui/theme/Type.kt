@@ -1,7 +1,6 @@
 package com.gear.add_remove_location.presentation.ui.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -17,37 +16,34 @@ val Outfit = FontFamily(
 
 val LocationItemStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 32.em,
+    lineHeight = 32.sp,
     fontWeight = FontWeight.Normal,
     textAlign = TextAlign.Center,
     fontSize = 16.sp,
-    color = Color.Black,
     letterSpacing = 0.sp
 )
 
 val LocationSubStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 32.em,
+    lineHeight = 32.sp,
     fontWeight = FontWeight.Bold,
     textAlign = TextAlign.Start,
     fontSize = 24.sp,
-    color = Color.Black,
     letterSpacing = 0.sp
 )
 
 val LocationTitleStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 20.em,
+    lineHeight = 32.sp,
     fontWeight = FontWeight.Normal,
     textAlign = TextAlign.Center,
     fontSize = 24.sp,
-    color = Color.Black,
     letterSpacing = 0.01.em
 )
 
 val ButtonTextStyle = TextStyle(
     fontFamily = Outfit,
-    lineHeight = 24.em,
+    lineHeight = 24.sp,
     fontWeight = FontWeight.Normal,
     textAlign = TextAlign.Center,
     fontSize = 14.sp,

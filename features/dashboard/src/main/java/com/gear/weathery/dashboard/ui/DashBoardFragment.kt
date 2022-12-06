@@ -119,6 +119,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
                     lifecycleScope.launch {
                         val savedLocation = com.gear.weathery.location.api.Location(
                             id = 0, state = "",
+                        val savedLocation = com.gear.weathery.location.api.Location(id = 1, state = "",
                             name = "current location", country = "", longitude = location.longitude,
                             latitude = location.latitude
                         )
