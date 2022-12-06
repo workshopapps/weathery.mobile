@@ -1,12 +1,13 @@
 package com.gear.add_remove_location.presentation.manage_location.components.actions
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.presentation.manage_location.components.LocationSearchBar
 import com.gear.add_remove_location.presentation.manage_location.components.SearchResultsWidget
@@ -21,7 +22,8 @@ fun SearchAction(
     onLocationSearch: (String) -> Unit,
     onLocationSelected: (String) -> Unit,
     onSaveItemClicked: (index: Int, location: Location, isSelected: Boolean) -> Unit,
-    saveLocations: () -> Unit
+    saveLocations: () -> Unit,
+    cancelSave: () -> Unit
 ) {
     Text(
         text = "Add a new location",
@@ -37,18 +39,8 @@ fun SearchAction(
     ) { onLocationSearch(it) }
         Box(
             Modifier
-                .background(Color(0xFFD9D9D9).copy(0.15f))
                 .fillMaxSize()
         ) {
-            Spacer(
-                modifier = Modifier
-                    .height(32.dp)
-                    .background(Color.White)
-                    .fillMaxWidth()
-                    .align(
-                        Alignment.TopStart
-                    )
-            )
             if (text.isNotBlank()) {
                 SearchResultsWidget(
                     modifier = Modifier.align(Alignment.TopCenter),
@@ -69,6 +61,7 @@ fun SearchAction(
         { index, location, isSelected ->
             onSaveItemClicked(index, location, isSelected)
         },
-        { saveLocations() }
+        { saveLocations() },
+        { cancelSave() }
     )
 }
