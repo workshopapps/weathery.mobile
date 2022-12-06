@@ -1,15 +1,10 @@
 package com.gear.weathery.dashboard.ui
 
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.*
 import com.gear.weathery.common.utils.Resource
-import com.gear.weathery.dashboard.models.DayWeather
-import com.gear.weathery.dashboard.models.LinkResponse
-import com.gear.weathery.dashboard.models.TimelineWeather
-import com.gear.weathery.dashboard.models.WeatherCondition
+import com.gear.weathery.dashboard.models.*
 import com.gear.weathery.dashboard.repository.WeatherRepo
-import com.gear.weathery.dashboard.repository.WeatherResponseRepository
 import com.gear.weathery.location.api.LocationsRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -71,12 +66,20 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
             _currentWeatherStatus.value = BUSY
             _timelineStatus.value = BUSY
 
-            val dayWeather = WeatherRepo.getWeatherForToday(lat, long)
-            _currentWeather.value = dayWeather.currentWeather
-            _timeline.value = Pair(dayWeather.timeLine, HOURLY_TIMELINE)
+            when(val dayWeatherResponse = WeatherRepo.getWeatherForToday(lat, long)) {
 
-            _currentWeatherStatus.value = PASSED
-            _timelineStatus.value = PASSED
+                is DayWeatherResponse.SuccessDayWeatherResponse -> {
+                    _currentWeather.value = dayWeatherResponse.payLoad!!.currentWeather
+                    _timeline.value = Pair(dayWeatherResponse.payLoad.timeLine, HOURLY_TIMELINE)
+                    _currentWeatherStatus.value = PASSED
+                    _timelineStatus.value = PASSED
+                }
+
+                is DayWeatherResponse.FailureDayWeatherResponse -> {
+                    _currentWeatherStatus.value = FAILED
+                    _timelineStatus.value = FAILED
+                }
+            }
 
             _viewMode.value = TODAY_VIEW_MODE
         }
@@ -101,10 +104,13 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
         viewModelScope.launch {
             _timelineStatus.value = BUSY
 
-            val tomorrowWeatherTimeline = WeatherRepo.getTomorrowWeatherTimeline(latestLocation.latitude, latestLocation.longitude)
-            _timeline.value = Pair(tomorrowWeatherTimeline, HOURLY_TIMELINE)
-
-            _timelineStatus.value = PASSED
+            when(val tomorrowTimelineResponse = WeatherRepo.getTomorrowWeatherTimeline(latestLocation.latitude, latestLocation.longitude)){
+                is TimelineResponse.SuccessTimelineResponse -> {
+                    _timeline.value = Pair(tomorrowTimelineResponse.payLoad!!, HOURLY_TIMELINE)
+                    _timelineStatus.value = PASSED
+                }
+                else -> {_timelineStatus.value = FAILED}
+            }
         }
     }
 
@@ -112,17 +118,20 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
         viewModelScope.launch {
             _timelineStatus.value = BUSY
 
-            val thisWeekWeatherTimeline = WeatherRepo.getThisWeekTimeline(latestLocation.latitude, latestLocation.longitude)
-            _timeline.value = Pair(thisWeekWeatherTimeline, DAILY_TIMELINE)
-
-            _timelineStatus.value = PASSED
+            when(val thisWeekTimelineResponse = WeatherRepo.getThisWeekTimeline(latestLocation.latitude, latestLocation.longitude)){
+                is TimelineResponse.SuccessTimelineResponse -> {
+                    _timeline.value = Pair(thisWeekTimelineResponse.payLoad!!, DAILY_TIMELINE)
+                    _timelineStatus.value = PASSED
+                }
+                else -> {_timelineStatus.value = FAILED}
+            }
         }
     }
 
     init {
         _viewMode.value = TODAY_VIEW_MODE
-        _currentWeatherStatus.value = BUSY
-        _timelineStatus.value = BUSY
+        _currentWeatherStatus.value = DEFAULT
+        _timelineStatus.value = DEFAULT
     }
 
 
