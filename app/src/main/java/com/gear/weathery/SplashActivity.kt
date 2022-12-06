@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-@Suppress("DEPRECATION")
+
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
@@ -32,22 +32,18 @@ class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var settingsPreference: SettingsPreference
 
-    val activityScope = CoroutineScope(Dispatchers.Main)
+    private val activityScope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
 
         SharedPreference.init(applicationContext)
 
         val first : Boolean = SharedPreference.getBoolean("FIRST", true)
 
         activityScope.launch {
-            delay(3000)
+            delay(2000)
             if(first){
                 val intent:Intent = Intent(this@SplashActivity,MainActivity::class.java)
                 intent.putExtra("FIRST",first)

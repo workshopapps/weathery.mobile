@@ -267,9 +267,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
             navigateToSettings()
         }
 
-        binding.signInMenuItemLinearLayout.setOnClickListener {
-            navigateToSignin()
-        }
+
 
         binding.navLayoutButtonImageView.setOnClickListener {
             showDialog(navDrawer)

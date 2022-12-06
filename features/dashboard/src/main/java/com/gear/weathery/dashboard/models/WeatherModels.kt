@@ -47,7 +47,10 @@ sealed class DayWeatherResponse(val status: Int, val payLoad: DayWeather?){
     class FailureDayWeatherResponse(): DayWeatherResponse(FAILED, null)
 }
 
+
+
 sealed class TimelineResponse(val status: Int, val payLoad: List<TimelineWeather>?){
     class SuccessTimelineResponse(payLoad: List<TimelineWeather>): TimelineResponse(PASSED, payLoad)
     class FailureTimelineResponse(): TimelineResponse(FAILED, null)
 }
+

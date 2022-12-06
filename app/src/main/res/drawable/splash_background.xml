@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:name="android:windowSplashScreenBackground">
+        <color android:color="#F7B27A"/>
+    </item>
+
+    <item android:name="android:windowSplashScreenAnimatedIcon">
+        <bitmap android:gravity="center"
+            android:src="@drawable/tropical_logo"/>
+    </item>
+
+</layer-list>

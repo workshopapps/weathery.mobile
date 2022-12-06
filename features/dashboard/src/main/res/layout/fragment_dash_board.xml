@@ -144,7 +144,6 @@
                     android:fontFamily="@font/outfit_light"
                     android:text="@string/lagos_nigeria"
                     android:textAlignment="center"
-                    android:textColor="#4D5E6E"
                     android:textSize="14sp" />
 
 
@@ -169,7 +168,6 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/outfit_bold"
                 android:text="Heavy Rain"
-
                 android:textSize="34sp" />
 
             <TextView
@@ -621,32 +619,8 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/signInMenuItem_linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/signin" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/outfit_regular"
-                android:text="@string/sign_in_to_account"
-                android:textSize="16sp" />
-
-        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
