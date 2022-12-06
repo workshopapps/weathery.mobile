@@ -21,6 +21,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,6 +36,7 @@ import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.models.getTimeForDisplay
 import com.gear.weathery.dashboard.network.URL_TO_SHARE
+import com.gear.weathery.dashboard.repository.NONE
 import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.gear.weathery.dashboard.util.OnClickEvent
@@ -50,11 +52,16 @@ const val REQUEST_LOCATION_SETTINGS = 25
 
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
+class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     private lateinit var binding: FragmentDashBoardBinding
+
     @Inject
     lateinit var locationsRepository: LocationsRepository
-    private val viewModel: DashboardViewModel by activityViewModels{ DashboardViewModelFactory(locationsRepository) }
+    private val viewModel: DashboardViewModel by activityViewModels {
+        DashboardViewModelFactory(
+            locationsRepository
+        )
+    }
     private val adapter = TimelineRecyclerAdapter()
 
     private lateinit var backPressedCallback: OnBackPressedCallback
@@ -107,12 +114,15 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult ?: return
-                for (location in locationResult.locations){
+                for (location in locationResult.locations) {
                     viewModel.updateCurrentLocation(location)
                     lifecycleScope.launch {
+                        val savedLocation = com.gear.weathery.location.api.Location(
+                            id = 0, state = "",
                         val savedLocation = com.gear.weathery.location.api.Location(id = 1, state = "",
                             name = "current location", country = "", longitude = location.longitude,
-                            latitude = location.latitude)
+                            latitude = location.latitude
+                        )
                         locationsRepository.saveLocation(savedLocation)
                     }
                 }
@@ -141,9 +151,11 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
             return
         }
 
-        fusedLocationClient.requestLocationUpdates(locationRequest,
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
             locationCallback,
-            Looper.getMainLooper())
+            Looper.getMainLooper()
+        )
     }
 
     private fun setUpLocation() {
@@ -169,7 +181,7 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
         }
 
         task.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException){
+            if (exception is ResolvableApiException) {
                 // Location settings are not satisfied, but this can be fixed
                 // by showing the user a dialog.
                 try {
@@ -197,7 +209,9 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
                 this.requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
-        ) { return }
+        ) {
+            return
+        }
         /// end of check
 
 
@@ -211,7 +225,7 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_LOCATION_SETTINGS){
+        if (requestCode == REQUEST_LOCATION_SETTINGS) {
             startGettingLocationUpdates()
         }
     }
@@ -233,7 +247,7 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.locationHeaderLinearLayout.setOnClickListener {
-            BottomSheetDrawer().show(childFragmentManager,"BOTTOM SHEET")
+            BottomSheetDrawer().show(childFragmentManager, "BOTTOM SHEET")
         }
 
         SharedPreference.init(requireContext())
@@ -255,20 +269,18 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
             navigateToSettings()
         }
 
-        binding.signInMenuItemLinearLayout.setOnClickListener {
-            navigateToSignin()
-        }
+
 
         binding.navLayoutButtonImageView.setOnClickListener {
             showDialog(navDrawer)
         }
 
 
-        viewModel.currentWeather.observe(viewLifecycleOwner){
+        viewModel.currentWeather.observe(viewLifecycleOwner) {
             updateViewsForNewCurrentWeather(it)
         }
 
-        viewModel.timeline.observe(viewLifecycleOwner){
+        viewModel.timeline.observe(viewLifecycleOwner) {
             updateViewsForNewTimeline(it)
         }
 
@@ -276,11 +288,11 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
             updateWeatherLink()
         }
 
-        viewModel.viewMode.observe(viewLifecycleOwner){
+        viewModel.viewMode.observe(viewLifecycleOwner) {
             updateViewsForNewViewMode(it)
         }
 
-        binding.timelineViewsMenuImageView.setOnClickListener{
+        binding.timelineViewsMenuImageView.setOnClickListener {
             showViewsMenu(viewsMenu)
         }
 
@@ -296,11 +308,11 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
             setThisWeekView()
         }
 
-        viewModel.currentWeatherStatus.observe(viewLifecycleOwner){
+        viewModel.currentWeatherStatus.observe(viewLifecycleOwner) {
             updateViewsForNewCurrentWeatherStatus(it)
         }
 
-        viewModel.timelineStatus.observe(viewLifecycleOwner){
+        viewModel.timelineStatus.observe(viewLifecycleOwner) {
             updateViewsForNewTimelineStatus(it)
         }
 
@@ -308,57 +320,110 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
 
 
     private fun updateViewsForNewCurrentWeatherStatus(newCurrentWeatherStatus: Int?) {
-        if (newCurrentWeatherStatus == null){
+        if (newCurrentWeatherStatus == null) {
             return
         }
 
-        when(newCurrentWeatherStatus){
+        when (newCurrentWeatherStatus) {
 
             BUSY -> {
                 binding.currentWeatherLoadingTextView.visibility = View.VISIBLE
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
+                binding.currentWeatherDefaultTextView.visibility = View.GONE
+                binding.currentWeatherErrorTextView.visibility = View.GONE
             }
 
             PASSED -> {
                 binding.currentWeatherLoadingTextView.visibility = View.GONE
                 binding.currentWeatherGroupLinearLayout.visibility = View.VISIBLE
+                binding.currentWeatherDefaultTextView.visibility = View.GONE
+                binding.currentWeatherErrorTextView.visibility = View.GONE
+            }
+
+            FAILED -> {
+                binding.currentWeatherLoadingTextView.visibility = View.GONE
+                binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
+                binding.currentWeatherDefaultTextView.visibility = View.GONE
+                binding.currentWeatherErrorTextView.visibility = View.VISIBLE
+            }
+
+            DEFAULT -> {
+                binding.currentWeatherLoadingTextView.visibility = View.GONE
+                binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
+                binding.currentWeatherDefaultTextView.visibility = View.VISIBLE
+                binding.currentWeatherErrorTextView.visibility = View.GONE
             }
         }
     }
 
     private fun updateViewsForNewTimelineStatus(newTimelineStatus: Int?) {
-        if (newTimelineStatus == null){
+        if (newTimelineStatus == null) {
             return
         }
 
-        when(newTimelineStatus){
+        when (newTimelineStatus) {
             BUSY -> {
                 binding.timelineLoadingTextView.visibility = View.VISIBLE
                 binding.timelineRecyclerView.visibility = View.GONE
+                binding.timelineErrorTextView.visibility = View.GONE
+                binding.timelineDefaultTextView.visibility = View.GONE
             }
 
             PASSED -> {
                 binding.timelineLoadingTextView.visibility = View.GONE
                 binding.timelineRecyclerView.visibility = View.VISIBLE
+                binding.timelineErrorTextView.visibility = View.GONE
+                binding.timelineDefaultTextView.visibility = View.GONE
+            }
+
+            FAILED -> {
+                binding.timelineLoadingTextView.visibility = View.GONE
+                binding.timelineRecyclerView.visibility = View.GONE
+                binding.timelineErrorTextView.visibility = View.VISIBLE
+                binding.timelineDefaultTextView.visibility = View.GONE
+            }
+
+            DEFAULT -> {
+                binding.timelineLoadingTextView.visibility = View.GONE
+                binding.timelineRecyclerView.visibility = View.GONE
+                binding.timelineErrorTextView.visibility = View.GONE
+                binding.timelineDefaultTextView.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun updateViewsForNewViewMode(newViewMode: String?) {
-        if (newViewMode == null){
+    private fun updateViewsForNewViewMode(
+        newViewMode: String?
+    ) {
+        if (newViewMode == null) {
             return
         }
 
-        when(newViewMode){
+        when (newViewMode) {
             TODAY_VIEW_MODE -> {
                 binding.apply {
                     currentViewTextView.text = "Today"
                     todayTextView.setTextColor(resources.getColor(R.color.weathery_orange))
-                    todayIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weathery_orange), android.graphics.PorterDuff.Mode.SRC_IN)
+                    todayIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.weathery_orange
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                     tomorrowTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    tomorrowIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    tomorrowIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_colour
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                     thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    thisWeekIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    thisWeekIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_colour
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                 }
             }
 
@@ -366,11 +431,26 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
                 binding.apply {
                     currentViewTextView.text = "Tomorrow"
                     tomorrowTextView.setTextColor(resources.getColor(R.color.weathery_orange))
-                    tomorrowIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weathery_orange), android.graphics.PorterDuff.Mode.SRC_IN)
+                    tomorrowIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.weathery_orange
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                     thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    thisWeekIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    thisWeekIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_colour
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                     todayTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    todayIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    todayIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_colour
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                 }
             }
 
@@ -378,11 +458,26 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
                 binding.apply {
                     currentViewTextView.text = "This Week"
                     thisWeekTextView.setTextColor(resources.getColor(R.color.weathery_orange))
-                    thisWeekIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weathery_orange), android.graphics.PorterDuff.Mode.SRC_IN)
+                    thisWeekIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.weathery_orange
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                     tomorrowTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    tomorrowIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    tomorrowIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_colour
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                     todayTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    todayIconImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.default_colour), android.graphics.PorterDuff.Mode.SRC_IN)
+                    todayIconImageView.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.default_colour
+                        ), android.graphics.PorterDuff.Mode.SRC_IN
+                    )
                 }
             }
 
@@ -390,26 +485,30 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
     }
 
 
-    private fun updateViewsForNewCurrentWeather(newCurrentWeather: WeatherCondition?) {
-        if (newCurrentWeather == null){
+    private fun updateViewsForNewCurrentWeather(
+        newCurrentWeather: WeatherCondition?
+    ) {
+        if (newCurrentWeather == null) {
             return
         }
 
-        binding.stateAndCountryTextView.text = "${newCurrentWeather.state}, ${newCurrentWeather.country}"
+        binding.stateAndCountryTextView.text =
+            "${newCurrentWeather.state}, ${newCurrentWeather.country}"
         binding.currentWeatherTextView.text = newCurrentWeather.main
         val startTime = getTimeForDisplay(newCurrentWeather.timeInMillis)
         val endTime = getTimeForDisplay(newCurrentWeather.endTimeTimeInMillis)
         binding.currentWeatherTimeTextView.text = "$startTime to $endTime"
         binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
-        binding.locationTextView.text = "${newCurrentWeather.state}, ${newCurrentWeather.country}"
+        binding.locationTextView.text =
+            "${newCurrentWeather.state}, ${newCurrentWeather.country}"
+        binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
+
     }
 
-    private fun updateViewsForNewTimeline(newTimeLine: Pair<List<TimelineWeather>, String>){
+    private fun updateViewsForNewTimeline(
+        newTimeLine: Pair<List<TimelineWeather>, String>
+    ) {
         adapter.updateItemList(newTimeLine.first, newTimeLine.second)
-    }
-
-    private fun navigateToSignin() {
-        signInNavigation.navigateToSignIn(navController = findNavController())
     }
 
     private fun navigateToSettings() {
@@ -442,7 +541,9 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
 
     }
 
-    private fun hideViewsMenu(dialog: View = viewsMenu) {
+    private fun hideViewsMenu(
+        dialog: View = viewsMenu
+    ) {
         overlay.visibility = View.GONE
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             exitApp()
@@ -481,7 +582,9 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
         animator.start()
     }
 
-    private fun showViewsMenu(dialog: View = viewsMenu) {
+    private fun showViewsMenu(
+        dialog: View = viewsMenu
+    ) {
 
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             hideViewsMenu(dialog)
@@ -508,7 +611,8 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
             return
         }
 
-        Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT)
+            .show()
         exitAppToastStillShowing = true
         exitAppTimer.start()
     }
@@ -522,7 +626,7 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
 
                         linkResponse.data.data?.link?.let {
                             getShareIntent(it)
-                        } ?:getShareIntent(URL_TO_SHARE)
+                        } ?: getShareIntent(URL_TO_SHARE)
                     }
                     is ShareLinkEvents.Failure -> {
                         Toast.makeText(
@@ -577,17 +681,17 @@ class DashBoardFragment : Fragment(), LocationListener , OnClickEvent{
         viewModel.updateSavedWeatherView(lat, long)
     }
 
-    private fun setTodayView(){
+    private fun setTodayView() {
         viewModel.showTodayView()
         hideViewsMenu()
     }
 
-    private fun setTomorrowView(){
+    private fun setTomorrowView() {
         viewModel.showTomorrowView()
         hideViewsMenu()
     }
 
-    private fun setThisWeekView(){
+    private fun setThisWeekView() {
         viewModel.showThisWeekView()
         hideViewsMenu()
     }
