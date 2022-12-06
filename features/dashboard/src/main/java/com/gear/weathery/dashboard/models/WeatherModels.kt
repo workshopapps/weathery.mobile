@@ -1,5 +1,7 @@
 package com.gear.weathery.dashboard.models
 
+import com.gear.weathery.dashboard.ui.FAILED
+import com.gear.weathery.dashboard.ui.PASSED
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,3 +41,16 @@ fun getDateForDisplay(timeInMillis: Long): Pair<String, String>{
 
     return Pair(day, date)
 }
+
+sealed class DayWeatherResponse(val status: Int, val payLoad: DayWeather?){
+    class SuccessDayWeatherResponse(payLoad: DayWeather): DayWeatherResponse(PASSED, payLoad)
+    class FailureDayWeatherResponse(): DayWeatherResponse(FAILED, null)
+}
+
+
+
+sealed class TimelineResponse(val status: Int, val payLoad: List<TimelineWeather>?){
+    class SuccessTimelineResponse(payLoad: List<TimelineWeather>): TimelineResponse(PASSED, payLoad)
+    class FailureTimelineResponse(): TimelineResponse(FAILED, null)
+}
+

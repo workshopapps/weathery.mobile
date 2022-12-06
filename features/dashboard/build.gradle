@@ -53,6 +53,7 @@ dependencies {
     implementation LibDependencies.INSTANCE.androidx_core
     implementation LibDependencies.INSTANCE.androidx_appcompat
     implementation LibDependencies.INSTANCE.google_android_material
+    implementation project(path: ':common:location-api')
 
     testImplementation LibDependencies.INSTANCE.junit
     androidTestImplementation LibDependencies.INSTANCE.test_ext_junit

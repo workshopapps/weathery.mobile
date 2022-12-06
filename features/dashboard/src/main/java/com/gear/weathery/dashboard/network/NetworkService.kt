@@ -32,13 +32,13 @@ private val geoCodingRetrofit = Retrofit.Builder()
 
 interface NetworkService{
     @GET("weather/forcast/extended")
-    suspend fun getWeatherToday(@Query("lat") lat: Double, @Query("lng") lon: Double): String
+    suspend fun getWeatherToday(@Query("lat") lat: Double, @Query("lon") lon: Double): String
 
     @GET("weather/forecasts/tomorrow")
-    suspend fun getWeatherTomorrow(@Query("lat") lat: Double, @Query("lng") lon: Double): String
+    suspend fun getWeatherTomorrow(@Query("lat") lat: Double, @Query("lon") lon: Double): String
 
     @GET("/weather/weekly")
-    suspend fun getWeatherThisWeek(@Query("lat") lat: Double, @Query("lng") lon: Double): String
+    suspend fun getWeatherThisWeek(@Query("lat") lat: Double, @Query("lon") lon: Double): String
 }
 
 interface GeoCodingNetworkService{
