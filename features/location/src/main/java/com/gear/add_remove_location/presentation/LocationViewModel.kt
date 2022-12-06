@@ -35,7 +35,7 @@ class LocationViewModel @Inject constructor(
     private val _searchTextState = mutableStateOf("")
     val searchTextState: State<String> = _searchTextState
 
-    private val _screenState = mutableStateOf(Action.VIEW)
+    private val _screenState = mutableStateOf(Action.SEARCH_SAVE)
     val screenState: State<Action> = _screenState
 
     init {
@@ -43,6 +43,7 @@ class LocationViewModel @Inject constructor(
     }
 
     private val saveItemMap: HashMap<Int, Location> = HashMap()
+    private val deleteItemMap: HashMap<Int, Location> = HashMap()
 
     fun onLocationSearch(query: String) {
         _searchTextState.value = query
@@ -78,7 +79,11 @@ class LocationViewModel @Inject constructor(
 
     fun setSearchState(selected: String) {
         _searchTextState.value = selected
-        _isOnSearchState.value = !_isOnSearchState.value
+        if (selected.isEmpty()) {
+            _isOnSearchState.value = true
+        } else {
+            _isOnSearchState.value = !_isOnSearchState.value
+        }
     }
 
     fun saveItemSelected(index: Int, location: Location, isSelected: Boolean) {
@@ -96,10 +101,9 @@ class LocationViewModel @Inject constructor(
                 local.saveLocation(*locations.toTypedArray())
             }
         }
-        _screenState.value = Action.VIEW
     }
 
-    private fun getSavedLocations(){
+    private fun getSavedLocations() {
         with(local) {
             locations.onEach {
                 _savedLocations.value = it
@@ -109,5 +113,22 @@ class LocationViewModel @Inject constructor(
 
     fun setAction(action: Action) {
         _screenState.value = action
+    }
+
+    fun deleteItemSelected(index: Int, location: Location, isSelected: Boolean) {
+        if (isSelected) {
+            deleteItemMap[index] = location
+        } else {
+            deleteItemMap.remove(index)
+        }
+    }
+
+    fun deleteLocations() {
+        val locations = deleteItemMap.values
+        if (locations.isNotEmpty()) {
+            viewModelScope.launch {
+                local.deleteLocation(*locations.toTypedArray())
+            }
+        }
     }
 }
