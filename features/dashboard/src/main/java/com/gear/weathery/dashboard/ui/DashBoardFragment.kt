@@ -36,6 +36,7 @@ import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.WeatherCondition
 import com.gear.weathery.dashboard.models.getTimeForDisplay
 import com.gear.weathery.dashboard.network.URL_TO_SHARE
+import com.gear.weathery.dashboard.repository.NONE
 import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFactory
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.gear.weathery.dashboard.util.OnClickEvent
@@ -499,16 +500,14 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
         binding.locationTextView.text =
             "${newCurrentWeather.state}, ${newCurrentWeather.country}"
+        binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
+
     }
 
     private fun updateViewsForNewTimeline(
         newTimeLine: Pair<List<TimelineWeather>, String>
     ) {
         adapter.updateItemList(newTimeLine.first, newTimeLine.second)
-    }
-
-    private fun navigateToSignin() {
-        signInNavigation.navigateToSignIn(navController = findNavController())
     }
 
     private fun navigateToSettings() {
