@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.gear.weathery.dashboard.R
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var popUpNotification: ConstraintLayout
+    private var rebuild = false
 
     @Inject
     lateinit var notificationDao: NotificationDao
@@ -73,13 +73,15 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         val first  = intent.getBooleanExtra("FIRST",true)
         val themeChange = SharedPreference.getBoolean("THEMECHANGE",false)
+        val langChange = SharedPreference.getBoolean("CHANGELANGUAGE",false)
         Log.d("TAGf", "onStart: $themeChange")
         //go to dashboard if not first and not theme change
-               if(!first && !themeChange){
+               if(!first && !themeChange && !rebuild && !langChange){
                    val check = SharedPreference.getBoolean("THEMECHANGE",false)
             navController.navigate(R.id.dashboard_nav_graph)
                }else{
                    SharedPreference.putBoolean("THEMECHANGE",false)
+                   SharedPreference.putBoolean("CHANGELANGUAGE",false)
                }
 
         notificationDao.getNotifications().onEach {
@@ -93,5 +95,9 @@ class MainActivity : AppCompatActivity() {
         }.launchIn(lifecycleScope)
 
 
+    }
+    override fun onPause() {
+        super.onPause()
+        rebuild = true
     }
 }
