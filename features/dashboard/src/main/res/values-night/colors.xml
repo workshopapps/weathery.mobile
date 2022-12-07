@@ -6,4 +6,8 @@
     <color name="nav_drawer_color">@color/weathery_black</color>
     <color name="white_color">@android:color/black</color>
     <color name="dialog_color">@color/weathery_grey_1</color>
+
+
+    <color name="saved_item_color">@color/weathery_grey_2</color>
+    <color name="bottom_sheet_background">@color/weathery_grey_1</color>
 </resources>

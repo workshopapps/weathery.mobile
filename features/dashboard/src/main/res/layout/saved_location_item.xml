@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
+
     android:clipChildren="false">
 
     <androidx.cardview.widget.CardView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:elevation="50dp"
         app:cardCornerRadius="10dp"
+        android:backgroundTint="@color/saved_item_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,6 +29,8 @@
                 android:drawableStart="@drawable/location_on_outline"
                 android:maxWidth="250dp"
                 android:padding="8dp"
+                android:drawableTint="@color/default_colour"
+                android:textColor="@color/default_colour"
                 android:drawablePadding="4dip"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"

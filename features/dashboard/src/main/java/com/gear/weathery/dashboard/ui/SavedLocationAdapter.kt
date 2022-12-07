@@ -23,8 +23,11 @@ class SavedLocationAdapter: ListAdapter<Location, SavedLocationAdapter.ViewHolde
                 location.name.isEmpty()->{
                     binding.locationItem.text = "${location.state }, ${location.country}"
                 }
+                location.name.isNotEmpty() && location.state.isNotEmpty()->{
+                    binding.locationItem.text = "${location.name }, ${location.state }"
+                }
                 else->{
-                    binding.locationItem.text = "${location.name }, ${location.state }, ${location.country}"
+                    binding.locationItem.text = "Current Location"
                 }
             }
 
