@@ -78,49 +78,49 @@ class Settings : Fragment() {
 
 
 
-            lateinit var unitsImplRepo: UnitsImplRepo
-
-            val pressureUnits = arrayOf("mmHg", "hPo", "atm")
-            tvSelectedPressureUnit.adapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                pressureUnits
-            )
-
-            tvSelectedPressureUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long
-                    ) {
-                        val pressure = pressureUnits.get(position)
-                    }
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        TODO("Not yet implemented")
-                    }
-                }
-
-            val windspeedUnits = arrayOf("km/h", "m/s")
-            tvSelectedWindUnit.adapter = ArrayAdapter<String>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                windspeedUnits
-            )
-
-            tvSelectedWindUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val windspeed = windspeedUnits.get(position)
-                }
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-            }
+//            lateinit var unitsImplRepo: UnitsImplRepo
+//
+//            val pressureUnits = arrayOf("mmHg", "hPo", "atm")
+//            tvSelectedPressureUnit.adapter = ArrayAdapter<String>(
+//                requireContext(),
+//                android.R.layout.simple_list_item_1,
+//                pressureUnits
+//            )
+//
+//            tvSelectedPressureUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                    override fun onItemSelected(
+//                        parent: AdapterView<*>?,
+//                        view: View?,
+//                        position: Int,
+//                        id: Long
+//                    ) {
+//                        val pressure = pressureUnits.get(position)
+//                    }
+//                    override fun onNothingSelected(parent: AdapterView<*>?) {
+//                        TODO("Not yet implemented")
+//                    }
+//                }
+//
+//            val windspeedUnits = arrayOf("km/h", "m/s")
+//            tvSelectedWindUnit.adapter = ArrayAdapter<String>(
+//                requireContext(),
+//                android.R.layout.simple_list_item_1,
+//                windspeedUnits
+//            )
+//
+//            tvSelectedWindUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                override fun onItemSelected(
+//                    parent: AdapterView<*>?,
+//                    view: View?,
+//                    position: Int,
+//                    id: Long
+//                ) {
+//                    val windspeed = windspeedUnits.get(position)
+//                }
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                    TODO("Not yet implemented")
+//                }
+//            }
 
             ivAboutUsIcon.setOnClickListener {
                 val aboutUs = Intent(Intent.ACTION_VIEW)
