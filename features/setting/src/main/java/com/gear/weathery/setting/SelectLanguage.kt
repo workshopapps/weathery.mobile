@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gear.weathery.common.navigation.SharedPreference
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.adapters.LanguagesAdapter
 import com.gear.weathery.setting.databinding.FragmentSelectLanguageBinding
@@ -26,6 +27,7 @@ class SelectLanguage : Fragment() {
   private lateinit var binding: FragmentSelectLanguageBinding
   private lateinit var languagesAdapter: LanguagesAdapter
   var isCurrentLang:Boolean = false
+
     @Inject
     lateinit var settingsPreference: SettingsPreference
     private val settingsViewModel:SettingsViewModel by activityViewModels()
@@ -39,6 +41,8 @@ class SelectLanguage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        SharedPreference.init(requireContext())
+        SharedPreference.putBoolean("CHANGELANGUAGE",true)
         languagesAdapter = LanguagesAdapter{ selectedLanguage ->
             Toast.makeText(requireContext(), "${selectedLanguage.lang}", Toast.LENGTH_SHORT).show()
             settingsViewModel.saveLanguage(selectedLanguage.locale)

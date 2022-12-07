@@ -33,6 +33,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@id/norification_btn"
+            android:layout_toEndOf="@id/navLayoutButton_imageView"
             android:foregroundGravity="center"
             android:gravity="center"
             android:orientation="horizontal">
@@ -41,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/marker_pin_01"
                 app:tint="@color/default_colour" />
 
@@ -48,14 +54,14 @@
                 android:id="@+id/location_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/outfit_semibold"
-                android:text="--, ----"
+                android:text="--,----"
                 android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/chevron_down"
                 app:tint="@color/default_colour" />
@@ -66,9 +72,10 @@
             android:id="@+id/norification_btn"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="4dp"
+            android:layout_toStartOf="@id/shareButton_imageView"
             android:src="@drawable/bell"
             app:tint="@color/default_colour" />
 
@@ -247,9 +254,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/white_color"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -283,7 +289,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
         android:background="@color/white_color"
@@ -618,10 +624,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
