@@ -13,5 +13,13 @@
         <argument
             android:name="args"
             app:argType="string" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_locationPermissionFragment"
+            app:destination="@id/locationPermissionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/locationPermissionFragment"
+        android:name="com.gear.weathery.dashboard.LocationPermissionFragment"
+        android:label="fragment_location_permission"
+        tools:layout="@layout/fragment_location_permission" />
 </navigation>

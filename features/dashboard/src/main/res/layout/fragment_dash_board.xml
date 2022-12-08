@@ -154,7 +154,7 @@
                     android:textSize="14sp" />
 
 
-                <ImageView
+             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -165,6 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/rainy_sharp" />
+
 
             </LinearLayout>
 
