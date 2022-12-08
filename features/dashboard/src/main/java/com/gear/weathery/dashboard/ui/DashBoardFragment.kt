@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -30,6 +32,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.*
+import com.gear.weathery.dashboard.LocationPermissionFragment
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
 import com.gear.weathery.dashboard.models.TimelineWeather
@@ -44,6 +47,12 @@ import com.gear.weathery.location.api.LocationsRepository
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -54,6 +63,7 @@ const val REQUEST_LOCATION_SETTINGS = 25
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     private lateinit var binding: FragmentDashBoardBinding
+    private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
@@ -134,6 +144,12 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     override fun onResume() {
         super.onResume()
         startLocationUpdates()
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
     }
 
     private fun startLocationUpdates() {
@@ -244,13 +260,10 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.locationHeaderLinearLayout.setOnClickListener {
             BottomSheetDrawer().show(childFragmentManager, "BOTTOM SHEET")
         }
-
-        SharedPreference.init(requireContext())
-        var permissionAllowed = SharedPreference.getBoolean("ALLOWPERMISSION", true)
-
 
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
@@ -702,5 +715,16 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         viewModel.showThisWeekView()
         hideViewsMenu()
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(!permissionGranted){
+            viewModel.setDefaultMode()
+            val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
+            btmDialog.setCancelable(true)
+            btmDialog.show(childFragmentManager,"LOCATION DIALOG")
+        }
+    }
+
 
 }
