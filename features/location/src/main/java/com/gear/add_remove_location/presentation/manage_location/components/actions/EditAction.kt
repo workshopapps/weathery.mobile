@@ -29,7 +29,7 @@ fun EditAction(
     deleteLocations: () -> Unit
 ) {
     Text(
-        text = "Edit locations",
+        text = "Delete locations",
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),

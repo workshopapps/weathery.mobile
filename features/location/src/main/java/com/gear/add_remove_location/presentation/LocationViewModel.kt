@@ -81,6 +81,9 @@ class LocationViewModel @Inject constructor(
         _searchTextState.value = selected
         if (selected.isEmpty()) {
             _isOnSearchState.value = true
+            _manageScreenState.value = _manageScreenState.value.copy(
+                locations =  emptyList()
+            )
         } else {
             _isOnSearchState.value = !_isOnSearchState.value
         }

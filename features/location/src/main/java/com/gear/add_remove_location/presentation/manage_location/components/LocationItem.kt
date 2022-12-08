@@ -13,11 +13,12 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
-import com.gear.add_remove_location.presentation.ui.theme.Gray500
 import com.gear.add_remove_location.presentation.ui.theme.LocationItemStyle
 
 @Composable
@@ -33,12 +34,11 @@ fun LocationItem(
         Icon(
             painter = painterResource(imageRes),
             contentDescription = "location",
-            tint = Gray500,
             modifier = Modifier.padding(start = 2.dp)
         )
 
         Text(
-            text = location,
+            text = location.capitalize(Locale.current),
             Modifier.padding(start = 10.dp),
             style = LocationItemStyle
         )
