@@ -20,7 +20,7 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
 
     fun darkMode(): Flow<String?> {
         return dataStore.data.map { preferences ->
-            preferences[themeKey]
+            preferences[themeKey]?:"system"
         }
     }
     fun pushNotification(): Flow<Boolean> {

@@ -128,7 +128,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        setUpLocation()
+      //  setUpLocation()
     }
 
     override fun onResume() {
@@ -234,7 +234,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDashBoardBinding.inflate(inflater, container, false)
-
+        setUpLocation()
         binding.apply {
             binding.timelineRecyclerView.adapter = adapter
         }
