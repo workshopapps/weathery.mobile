@@ -34,8 +34,10 @@ class DisplayTheme : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         SharedPreference.init(requireContext())
+        SharedPreference.putBoolean("THEMECHANGE",true)
+
+
 
         binding.apply {
             lifecycleScope.launch {
@@ -56,7 +58,6 @@ class DisplayTheme : Fragment() {
 
 
             rgTheme.setOnCheckedChangeListener { _, checkedId ->
-                SharedPreference.putBoolean("THEMECHANGE",true)
                 val theme = SharedPreference.getBoolean("THEMECHANGE",true)
 
                 when(checkedId){
@@ -72,7 +73,7 @@ class DisplayTheme : Fragment() {
                         }
                     }
 
-                    R.id.rBtnDark ->{
+                    R.id.rbtnUseDeviceTheme ->{
                         lifecycleScope.launch {
                             settingsPreference.toggleDayMode("system")
                             requireActivity().recreate()
