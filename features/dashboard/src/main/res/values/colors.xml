@@ -18,6 +18,7 @@
     <color name="weathery_yellow_2">#F5BD52</color>
     <color name="weathery_sky_blue_1">#7E83A9</color>
     <color name="weathery_sky_blue_2">#CED3EA</color>
+    <color name="weathery_grey_4">#66202424</color>
 
 
     <color name="default_colour">@android:color/black</color>
@@ -26,4 +27,9 @@
     <color name="nav_drawer_color">@android:color/white</color>
     <color name="white_color">@android:color/white</color>
     <color name="dialog_color">@android:color/white</color>
+
+
+    <color name="saved_item_color">@android:color/white</color>
+    <color name="bottom_sheet_background">@android:color/white</color>
+
 </resources>

@@ -40,7 +40,6 @@ fun LocationSearchBar(
         },
         leadingIcon = {
             IconButton(onClick = {
-                onSearch(text)
                 keyboardController?.hide()
             }) {
                 Icon(
@@ -65,7 +64,6 @@ fun LocationSearchBar(
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
-            onSearch(text)
             keyboardController?.hide()
         }),
         modifier = modifier
