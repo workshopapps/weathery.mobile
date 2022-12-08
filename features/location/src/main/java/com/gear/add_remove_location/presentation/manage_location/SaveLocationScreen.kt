@@ -77,6 +77,7 @@ fun SaveLocationScreen(
                     imageVector = Icons.Outlined.AddLocation,
                     action = "Add"
                 ) {
+                        viewModel.setSearchState("")
                         viewModel.setAction(Action.SEARCH_SAVE)
                         navController.navigate(LocationScreen.Manage.route)
                     }
