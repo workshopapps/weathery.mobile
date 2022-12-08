@@ -616,7 +616,16 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     }
 
     private fun updateWeatherLink() {
-        viewModel.getSharedWeatherLink(currentLocation.latitude, currentLocation.longitude)
+        try {
+            viewModel.getSharedWeatherLink(currentLocation.latitude, currentLocation.longitude)
+        }catch (e:Exception){
+            Toast.makeText(
+                requireContext(),
+                "You need to accept location permission request to continue",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
         lifecycleScope.launch {
             viewModel.sharedLinkEvent.collect { linkResponse ->
                 when (linkResponse) {

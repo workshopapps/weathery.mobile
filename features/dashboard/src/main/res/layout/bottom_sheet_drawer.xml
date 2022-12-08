@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:id="@+id/bottomSheetCoordinator"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:animateLayoutChanges ="true"
-        android:layout_height="match_parent">
+        android:background="@color/bottom_sheet_background"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -20,8 +20,9 @@
             android:text="Choose Location"
             android:textColor="@color/weathery_orange"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold"
+            />
+
 
 
         <androidx.appcompat.widget.SearchView
@@ -31,43 +32,61 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/round_corner"
+            android:layout_below="@id/textView"
+            android:background="@drawable/round_corner_sharp"
             app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
             app:queryHint="Choose a Location" />
 
-        <TextView
-            android:id="@+id/savedLocationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/outfit_regular"
-            android:text="Saved Location"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+    <TextView
+        android:id="@+id/savedLocationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchView"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/outfit_regular"
+        android:text="Saved Location"
+        android:textColor="@color/weathery_grey_2"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="5dp"
+        android:layout_below="@id/savedLocationText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emptyView"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/saved_location_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
+            android:clipChildren="false"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/savedLocationText"
             tools:itemCount="5"
             tools:listitem="@layout/saved_location_item" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/emptyStateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/weathery_grey_2"
+            android:text ="No Location Available"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
