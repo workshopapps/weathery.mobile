@@ -31,18 +31,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var popUpNotification: ConstraintLayout
     private var rebuild = false
-
-    @Inject
-    lateinit var notificationDao: NotificationDao
     private lateinit var viewModel:DashboardViewModel
 
     @Inject
+    lateinit var notificationDao: NotificationDao
+
+    @Inject
     lateinit var settingsPreference: SettingsPreference
+
     @Inject
     lateinit var locationsRepository: LocationsRepository
 
 
-    private val notificationTimer = object : CountDownTimer(2000, 1000) {
+    private val notificationTimer = object : CountDownTimer(4000, 2000) {
         override fun onTick(millisUntilFinished: Long) {}
         override fun onFinish() {
             popUpNotification.visibility = View.INVISIBLE

@@ -5,25 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.DashBoardNavigation
-import com.gear.weathery.location.api.Location
 import com.gear.weathery.location.api.LocationsRepository
-import com.gear.weathery.setting.R
 import com.gear.weathery.setting.notifications.adapter.NotificationsAdapter
 import com.gear.weathery.setting.databinding.FragmentNotificationsBinding
 import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.gear.weathery.setting.notifications.model.NotificationData
 import com.gear.weathery.setting.notifications.network.NetworkApi
-import com.gear.weathery.setting.notifications.network.NetworkService
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -35,7 +29,6 @@ import javax.inject.Inject
 class Notifications : Fragment() {
     private lateinit var binding: FragmentNotificationsBinding
     private var adapter = NotificationsAdapter()
-    private lateinit var bottomSheetBehaviour: BottomSheetBehavior<ConstraintLayout>
 
     @Inject
     lateinit var dashBoardNavigation: DashBoardNavigation
@@ -61,13 +54,8 @@ class Notifications : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerviewNotification.adapter = adapter
-
-        bottomSheetBehaviour = BottomSheetBehavior.from(view.findViewById<ConstraintLayout>(R.id.bottomSheet)).apply {
-            peekHeight = 0
-            this.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
         binding.archiveButtonImageView.setOnClickListener {
-            bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+            openBottomDialog()
         }
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -117,11 +105,7 @@ class Notifications : Fragment() {
                 }
             }.launchIn(lifecycleScope)
         }
-        binding.frameEmptyNow.setOnClickListener {
-            lifecycleScope.launch {
-                notificationDao.deleteNotifications()
-            }
-        }
+
         val notificationList = mutableListOf<NotificationData>()
         notificationList.add(NotificationData(
             notificationText = "There will be heavy rainfall in some part in the east",
@@ -148,5 +132,11 @@ class Notifications : Fragment() {
         }
 
 
+    }
+
+    private fun openBottomDialog() {
+        val dialog = NotificationBottomSheetFragment()
+        dialog.setCancelable(true)
+        dialog.show(childFragmentManager, "NOTIFICATION SHEET")
     }
 }
