@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.ui.theme.LocationItemStyle
 
 @Composable
@@ -19,10 +21,16 @@ fun CustomMenuItem(
     action: String,
     actionClick: () -> Unit
 ) {
-    Row (verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().clickable { actionClick() }.padding(8.dp)){
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { actionClick() }
+            .padding(8.dp)
+    ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = "Menu item",
+            contentDescription = stringResource(R.string.menu_item),
             modifier = Modifier.padding(end = 8.dp)
 
         )

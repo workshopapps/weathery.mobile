@@ -156,6 +156,11 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
         updateWeatherWithLocation(lat=lat, long =  long)
     }
 
+    fun setDefaultMode(){
+        _currentWeatherStatus.value = DEFAULT
+        _timelineStatus.value = DEFAULT
+    }
+
     class DashboardViewModelFactory(private val locationRepository: LocationsRepository) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

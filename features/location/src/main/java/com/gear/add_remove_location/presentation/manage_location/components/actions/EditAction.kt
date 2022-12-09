@@ -10,13 +10,13 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.manage_location.SaveListItem
 import com.gear.add_remove_location.presentation.manage_location.components.LocationItem
 import com.gear.add_remove_location.presentation.manage_location.components.drawDropShadow
 import com.gear.add_remove_location.presentation.ui.theme.ButtonTextStyle
-import com.gear.add_remove_location.presentation.ui.theme.Gray500
 import com.gear.add_remove_location.presentation.ui.theme.LocationSubStyle
 import com.gear.add_remove_location.presentation.ui.theme.Primary500
 import com.gear.weathery.location.api.Location
@@ -29,7 +29,7 @@ fun EditAction(
     deleteLocations: () -> Unit
 ) {
     Text(
-        text = "Delete locations",
+        text = stringResource(R.string.delete_locations),
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
@@ -44,9 +44,9 @@ fun EditAction(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Click on ", color = Gray500)
-            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "menu", tint = Gray500)
-            Text(text = "to add locations", color = Gray500)
+            Text(stringResource(R.string.click_on))
+            Icon(imageVector = Icons.Default.MoreVert, contentDescription = stringResource(R.string.expand))
+            Text(text = stringResource(R.string.to_add))
         }
     }
 
@@ -69,7 +69,8 @@ fun EditAction(
                 LocationItem(imageRes = R.drawable.location_ic_on, location = buildString {
                     append(items[i].location.name)
                     append(if (items[i].location.state.isNotBlank()) ", ${items[i].location.state}" else "")
-                }, modifier = Modifier.padding(16.dp)
+                }, modifier = Modifier
+                    .padding(16.dp)
                     .fillMaxWidth()
                     .drawDropShadow(color = MaterialTheme.colors.primary)
                     .background(MaterialTheme.colors.background, RoundedCornerShape(8.dp))
@@ -77,7 +78,10 @@ fun EditAction(
                     .padding(end = 8.dp))
 
                 Checkbox(
-                    modifier =  Modifier.padding(end = 24.dp).size(16.dp).align(Alignment.CenterEnd),
+                    modifier = Modifier
+                        .padding(end = 24.dp)
+                        .size(16.dp)
+                        .align(Alignment.CenterEnd),
                     checked = items[i].isSelected,
                     onCheckedChange = {
                         items = items.mapIndexed { j, item ->
@@ -100,7 +104,7 @@ fun EditAction(
                 Row(Modifier.align(Alignment.Center)) {
                     OutlinedButton(onClick = { cancelDelete() }, shape = RoundedCornerShape(4.dp)) {
                         Text(
-                            text = "Cancel",
+                            text = stringResource(R.string.cancel),
                             style = ButtonTextStyle,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         )
@@ -112,7 +116,7 @@ fun EditAction(
                         colors = ButtonDefaults.buttonColors(backgroundColor = Primary500)
                     ) {
                         Text(
-                            text = "Delete",
+                            text = stringResource(id = R.string.delete),
                             style = ButtonTextStyle,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         )

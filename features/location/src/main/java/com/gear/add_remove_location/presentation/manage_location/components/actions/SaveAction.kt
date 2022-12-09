@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.manage_location.SaveListItem
@@ -29,7 +30,7 @@ fun SaveAction(
 ) {
     val query by remember { mutableStateOf(text) }
     Text(
-        text = "Locations related to \"$query\" ",
+        text = stringResource(R.string.locations_related) + "\"$query\"",
         color = Gray500,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
     )
@@ -80,7 +81,7 @@ fun SaveAction(
                 Row(Modifier.align(Alignment.Center)) {
                     OutlinedButton(onClick = { cancelSave() }, shape = RoundedCornerShape(4.dp)) {
                         Text(
-                            text = "Cancel",
+                            text = stringResource(id = R.string.cancel),
                             style = ButtonTextStyle,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         )
@@ -92,7 +93,7 @@ fun SaveAction(
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                     ) {
                         Text(
-                            text = "Save",
+                            text = stringResource(R.string.save),
                             style = ButtonTextStyle,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         )

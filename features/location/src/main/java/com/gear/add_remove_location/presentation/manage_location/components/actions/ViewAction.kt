@@ -13,11 +13,11 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.manage_location.components.LocationItem
 import com.gear.add_remove_location.presentation.manage_location.components.drawDropShadow
-import com.gear.add_remove_location.presentation.ui.theme.Gray500
 import com.gear.add_remove_location.presentation.ui.theme.LocationSubStyle
 import com.gear.weathery.location.api.Location
 
@@ -26,7 +26,7 @@ fun ViewAction(
     savedLocations: List<Location>,
 ) {
     Text(
-        text = "Saved locations",
+        text = stringResource(R.string.saved_locations),
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
@@ -41,9 +41,9 @@ fun ViewAction(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Click on ", color = Gray500)
-            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "menu", tint = Gray500)
-            Text(text = "to add locations", color = Gray500)
+            Text(stringResource(R.string.click_on))
+            Icon(imageVector = Icons.Default.MoreVert, contentDescription = stringResource(R.string.expand))
+            Text(text = stringResource(R.string.to_add))
         }
     }
 
