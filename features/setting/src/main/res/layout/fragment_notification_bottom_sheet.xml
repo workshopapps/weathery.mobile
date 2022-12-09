@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:layout_width="match_parent"
-    android:paddingTop="20dp"
-    android:layout_height="220dp"
+    android:paddingTop="50dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -21,31 +21,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-
-    <TextView
-        android:id="@+id/empty_notif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:gravity="center"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:textSize="16sp"
-        android:text="@string/empty_notification"
-        app:layout_constraintEnd_toEndOf="@id/confirmation"
-        app:layout_constraintStart_toStartOf="@id/confirmation"
-        app:layout_constraintTop_toBottomOf="@id/confirmation" />
-
     <FrameLayout
         android:id="@+id/frame_cancel"
         android:layout_width="112dp"
         android:layout_height="40dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/bg_button_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/empty_notif"
-        app:layout_constraintVertical_bias="0.195">
+        app:layout_constraintTop_toBottomOf="@+id/confirmation"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:layout_width="wrap_content"

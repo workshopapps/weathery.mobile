@@ -14,4 +14,10 @@ object Constants {
         Language("fr", "Francais", false),
         Language("de", "German", false),
     )
+
+    val CHANNEL_ID = "Weathery Alert"
+    val CHANNEL_NAME = "Weathery Alert"
+    val CHANNEL_DESCRIPTION = "Weathery Alert"
+    val NOTIFICATION_ID = 45
+
 }
