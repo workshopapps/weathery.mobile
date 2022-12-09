@@ -82,56 +82,6 @@ class Notifications : Fragment() {
                 binding.emptyStateGroup.visibility = View.INVISIBLE
             }
         }.launchIn(lifecycleScope)
-
-        lifecycleScope.launch {
-            locationsRepository.locations.onEach { locations ->
-                val currentLocation = locations.find {
-                    it.name == "current location"
-                }
-                if (currentLocation != null){
-                    FirebaseMessaging.getInstance().token.addOnCompleteListener{
-                        lifecycleScope.launch {
-                            if (it.isSuccessful){
-                                val token = it.result
-                                try {
-                                    NetworkApi.retrofitService.subscribeNotifications(token,
-                                        currentLocation.latitude, currentLocation.longitude )
-                                } catch (e: Exception) {
-                                    Log.d("Notification Error", e.message ?:"Unknown Error")
-                                }
-                            }
-                        }
-                    }
-                }
-            }.launchIn(lifecycleScope)
-        }
-
-        val notificationList = mutableListOf<NotificationData>()
-        notificationList.add(NotificationData(
-            notificationText = "There will be heavy rainfall in some part in the east",
-            notificationTime = "3m",
-            notificationEvent = "Thunderstorm"
-        ))
-        notificationList.add(NotificationData(
-            notificationText = "There will be heavy rainfall in some part in the east",
-            notificationTime = "3m",
-            notificationEvent = "Thunderstorm"
-        ))
-        notificationList.add(NotificationData(
-            notificationText = "There will be heavy rainfall in some part in the east",
-            notificationTime = "3m",
-            notificationEvent = "Thunderstorm"
-        ))
-        notificationList.add(NotificationData(
-            notificationText = "There will be heavy rainfall in some part in the east",
-            notificationTime = "3m",
-            notificationEvent = "Thunderstorm"
-        ))
-        lifecycleScope.launch {
-            notificationDao.insert(*notificationList.toTypedArray())
-        }
-
-
     }
 
     private fun openBottomDialog() {

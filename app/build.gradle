@@ -79,6 +79,7 @@ dependencies {
 
 
     implementation project(':common')
+    implementation project(':common:location-impl')
     implementation project(':features:dashboard')
     implementation project(':features:onboarding')
     implementation project(':features:location')
