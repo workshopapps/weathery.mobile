@@ -15,8 +15,10 @@ import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.LocationScreen
 import com.gear.add_remove_location.presentation.LocationViewModel
 import com.gear.add_remove_location.presentation.manage_location.components.CustomMenuItem
@@ -42,20 +44,20 @@ fun SaveLocationScreen(
                     IconButton(onClick = { onNavBack() }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Navigation"
+                            contentDescription = stringResource(id = R.string.navigation)
                         )
                     }
                 },
                 title = {
                     Text(
-                        text = "Location",
+                        text = stringResource(id = R.string.location),
                         style = LocationTitleStyle,
                         modifier = Modifier.fillMaxWidth()
                     )
                 },
                 actions = {
                     IconButton(onClick = { expanded = true }) {
-                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "menu")
+                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = stringResource(id = R.string.menu))
                     }
                 }
             )
@@ -75,7 +77,7 @@ fun SaveLocationScreen(
                 modifier = Modifier) {
                     CustomMenuItem(
                     imageVector = Icons.Outlined.AddLocation,
-                    action = "Add"
+                    action = stringResource(id = R.string.add)
                 ) {
                         viewModel.setSearchState("")
                         viewModel.setAction(Action.SEARCH_SAVE)
@@ -83,7 +85,7 @@ fun SaveLocationScreen(
                     }
                     CustomMenuItem(
                         imageVector = Icons.Outlined.DeleteForever,
-                        action = "Delete"
+                        action = stringResource(id = R.string.delete)
                     ) {
                         viewModel.setAction(Action.EDIT)
                         navController.navigate(LocationScreen.Manage.route)
