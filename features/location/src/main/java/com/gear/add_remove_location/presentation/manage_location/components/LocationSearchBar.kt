@@ -54,7 +54,7 @@ fun LocationSearchBar(
         placeholder = {
             Box(Modifier.fillMaxSize()) {
                 Text(
-                    text = stringResource(R.string.choosealocation),
+                    text = stringResource(R.string.choose_a_location),
                     fontFamily = Outfit,
                     fontSize = 16.sp,
                     modifier = Modifier.align(Alignment.CenterStart)

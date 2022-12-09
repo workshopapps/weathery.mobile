@@ -6,5 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class LocationDto(
     @SerializedName("results")
-    val results: List<LocationDtoItem>
+    val results: List<LocationDtoItem>?,
+    @SerializedName("generationtime_ms")
+    val generationMs: Double,
 )

@@ -8,7 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.manage_location.components.LocationSearchBar
 import com.gear.add_remove_location.presentation.manage_location.components.SearchResultsWidget
 import com.gear.add_remove_location.presentation.ui.theme.LocationSubStyle
@@ -26,7 +28,7 @@ fun SearchAction(
     cancelSave: () -> Unit
 ) {
     Text(
-        text = "Add a new location",
+        text = stringResource(R.string.add_new),
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),

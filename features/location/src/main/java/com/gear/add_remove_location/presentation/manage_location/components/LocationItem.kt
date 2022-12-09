@@ -13,9 +13,9 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
@@ -33,7 +33,7 @@ fun LocationItem(
     ) {
         Icon(
             painter = painterResource(imageRes),
-            contentDescription = "location",
+            contentDescription = stringResource(id = R.string.location),
             modifier = Modifier.padding(start = 2.dp)
         )
 
@@ -76,16 +76,3 @@ fun Modifier.drawDropShadow(
         )
     }
 }
-
-
-@Preview(showBackground = true, backgroundColor = 0xffffffff)
-@Composable
-fun LocPrev() {
-    LocationItem(location = "Lagos, Nigeria", imageRes = R.drawable.location_ic_on)
-}
-
-
-
-
-
-

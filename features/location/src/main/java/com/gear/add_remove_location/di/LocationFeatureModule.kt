@@ -1,6 +1,6 @@
 package com.gear.add_remove_location.di
 
-import com.gear.add_remove_location.data.reppository.LocationFeatureRepoImpl
+import com.gear.add_remove_location.data.repository.LocationFeatureRepoImpl
 import com.gear.add_remove_location.data.responses.locations.LocationsApi
 import com.gear.add_remove_location.domain.repository.LocationFeatureRepo
 import dagger.Module
