@@ -43,7 +43,7 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
 
     fun vibrateMode(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[vibrateModeKey]?:false
+            preferences[vibrateModeKey]?:true
         }
     }
 
@@ -80,7 +80,7 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
         }
     }
 
-    suspend fun toggleVibrationMode(isDefault:Boolean){
+    suspend fun toggleVibrationMode(isDefault:Boolean=true){
         dataStore.edit { preference ->
             preference[vibrateModeKey] = isDefault
         }

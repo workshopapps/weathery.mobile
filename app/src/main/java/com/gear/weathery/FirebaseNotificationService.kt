@@ -1,11 +1,16 @@
 package com.gear.weathery
 
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.R
 import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.gear.weathery.setting.notifications.model.NotificationData
@@ -23,6 +28,9 @@ import javax.inject.Inject
 class FirebaseNotificationService : FirebaseMessagingService(){
     @Inject
     lateinit var notificationDao: NotificationDao
+
+    @Inject
+    lateinit var settingsPreference: SettingsPreference
     override fun onMessageReceived(message: RemoteMessage) {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
@@ -46,11 +54,18 @@ class FirebaseNotificationService : FirebaseMessagingService(){
                 .build()
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
             as NotificationManager
+
+            CoroutineScope(Dispatchers.Main).launch{
+                settingsPreference.pushNotification().collect{
+                    if (!it){
+                        notificationManager.cancelAll()
+                    }
+                }
+            }
             notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder)
         }
 
     }
-
 
 
     override fun onNewToken(token: String) {
