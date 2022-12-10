@@ -17,6 +17,7 @@ import com.gear.weathery.dashboard.databinding.BottomSheetDrawerBinding
 import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.Location
 import com.gear.weathery.location.api.LocationsRepository
+import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -35,6 +36,8 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     @Inject
     lateinit var locationsRepository: LocationsRepository
 
+    @Inject
+    lateinit var notificationDao: NotificationDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +51,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewModelProviderFactory =
-            DashboardViewModel.DashboardViewModelFactory(locationsRepository)
+            DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao)
         viewModel = ViewModelProvider(
             requireParentFragment(),
             viewModelProviderFactory

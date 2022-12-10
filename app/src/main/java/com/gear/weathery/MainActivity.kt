@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository)
+        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao)
         viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         popUpNotification = binding.popupNotification
