@@ -22,4 +22,20 @@
     <string name="fog">Nebel</string>
     <string name="wind">Wind</string>
     <string name="_exit_">erneut drücken, um zu beenden</string>
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+    <string name="today">Heute</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="thisweek">In dieser Woche</string>
+    <string name="notAvailable">Link zum aktuellen Standort nicht verfügbar...</string>
+    <string name="locationpermission">Sie müssen die Anfrage zur Standorterlaubnis akzeptieren, um fortzufahren</string>
+    <string name="exit">erneut drücken, um zu beenden</string>
+    <string name="heavy_rain">Starkregen</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Am Nachmittag bewölkt, starker Regen</string>
+    <string name="loading">Wird geladen...</string>
+    <string name="current_weather">Aktuelle Wetterlage</string>
+    <string name="could_not_load_current_weather">Aktuelles Wetter konnte nicht geladen werden</string>
+    <string name="could_not_load_timeline">Zeitleiste konnte nicht geladen werden</string>
+    <string name="timeline">Zeitleiste</string>
+    <string name="tropicalweather">TROPISCHES WETTER</string>
+    <string name="today_s_forecast">HEUTE PROGNOSE</string>
 </resources>

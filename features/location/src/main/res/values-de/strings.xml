@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Navigation</string>
+    <string name="location">Ort</string>
+    <string name="menu">Speisekarte</string>
+    <string name="add">Hinzufügen</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_locations">Standorte löschen</string>
+    <string name="expand">erweitern</string>
+    <string name="click_on">\\"Klicke auf \\"</string>
+    <string name="to_add">Orte hinzuzufügen</string>
+    <string name="cancel">Absagen</string>
+    <string name="locations_related">\\"Standorte im Zusammenhang mit \\"</string>
+    <string name="save">Speichern</string>
+    <string name="add_new">Fügen Sie einen neuen Standort hinzu</string>
+    <string name="saved_locations">Gespeicherte Orte</string>
+    <string name="choose_a_location">Wählen Sie einen Standort aus</string>
+    <string name="menu_item">Menüpunkt</string>
+    <string name="error_invalid_location">Bitte geben Sie einen gültigen Standort ein</string>
+    <string name="error_could_not_reach_server">Der Server konnte nicht erreicht werden, bitte überprüfen Sie Ihre Internetverbindung</string>
+    <string name="error_try_again_later">Etwas ist schief gelaufen, bitte versuchen Sie es später erneut</string>
+</resources>

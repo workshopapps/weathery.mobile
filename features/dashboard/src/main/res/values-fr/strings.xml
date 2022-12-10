@@ -22,4 +22,20 @@
     <string name="fog">Brouillard</string>
     <string name="wind">Vent</string>
     <string name="_exit_">appuyez à nouveau pour quitter</string>
+    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+    <string name="today">Aujourd hui</string>
+    <string name="tomorrow">Demain</string>
+    <string name="thisweek">Cette semaine</string>
+    <string name="notAvailable">Lien vers l emplacement actuel non disponible...</string>
+    <string name="locationpermission">Vous devez accepter la demande d autorisation de localisation pour continuer</string>
+    <string name="exit">appuyez à nouveau pour quitter</string>
+    <string name="heavy_rain">Forte pluie</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Nuageux, fortes pluies l\'après-midi</string>
+    <string name="loading">Chargement...</string>
+    <string name="current_weather">Météo actuelle</string>
+    <string name="could_not_load_current_weather">impossible de charger la météo actuelle</string>
+    <string name="could_not_load_timeline">impossible de charger la chronologie</string>
+    <string name="timeline">Chronologie</string>
+    <string name="tropicalweather">TEMPS TROPICAL</string>
+    <string name="today_s_forecast">PRÉVISIONS DU JOUR</string>
 </resources>

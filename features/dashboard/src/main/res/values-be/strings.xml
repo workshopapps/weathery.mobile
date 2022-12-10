@@ -22,4 +22,20 @@
     <string name="fog">Туман</string>
     <string name="wind">Вецер</string>
     <string name="_exit_">націсніце яшчэ раз, каб выйсці</string>
+    <string name="thisweek">Гэты тыдзень</string>
+    <string name="tomorrow">Заўтра</string>
+    <string name="today">сёння</string>
+    <string name="hello_blank_fragment">Прывітанне пусты фрагмент</string>
+    <string name="notAvailable">Спасылка на бягучае месцазнаходжанне недаступная...</string>
+    <string name="locationpermission">Каб працягнуць, трэба прыняць запыт на дазвол на вызначэнне месцазнаходжання</string>
+    <string name="exit">націсніце яшчэ раз, каб выйсці</string>
+    <string name="heavy_rain">Залева</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Воблачна, днём моцны дождж</string>
+    <string name="loading">Загрузка...</string>
+    <string name="current_weather">Бягучае надвор\'е</string>
+    <string name="could_not_load_current_weather">не атрымалася загрузіць бягучае надвор\'е</string>
+    <string name="could_not_load_timeline">не ўдалося загрузіць часовую шкалу</string>
+    <string name="timeline">Храналогія</string>
+    <string name="tropicalweather">ТРАПІЧНАЕ НАДГОР\'Е</string>
+    <string name="today_s_forecast">ПРАГНОЗ НА СЁННЯ</string>
 </resources>

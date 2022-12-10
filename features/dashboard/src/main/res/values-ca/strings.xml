@@ -22,4 +22,20 @@
     <string name="fog">Boira</string>
     <string name="wind">Vent</string>
     <string name="_exit_">premeu de nou per sortir</string>
+    <string name="hello_blank_fragment">Hola fragment en blanc</string>
+    <string name="today">Avui</string>
+    <string name="tomorrow">Demà</string>
+    <string name="thisweek">Aquesta setmana</string>
+    <string name="notAvailable">L\'enllaç de la ubicació actual no està disponible...</string>
+    <string name="locationpermission">Heu d\'acceptar la sol·licitud de permís d\'ubicació per continuar</string>
+    <string name="exit">premeu de nou per sortir</string>
+    <string name="heavy_rain">Pluja intensa</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Núvol, pluja intensa a la tarda</string>
+    <string name="loading">Carregant...</string>
+    <string name="current_weather">El temps actual</string>
+    <string name="could_not_load_current_weather">no s\'ha pogut carregar el temps actual</string>
+    <string name="could_not_load_timeline">no s\'ha pogut carregar la línia de temps</string>
+    <string name="timeline">Cronologia</string>
+    <string name="tropicalweather">CLIMA TROPICAL</string>
+    <string name="today_s_forecast">PREVISIONS D\'Avui</string>
 </resources>

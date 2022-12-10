@@ -49,4 +49,9 @@
     <string name="expect_rain">Odotettavissa sadetta 1 tunnin kuluttua. Tämän pitäisi kestää 3 päivää</string>
     <string name="heavy_rain_northeast">Koillisosassa tulee paikoin rankkasadetta muutamaa kirkkaampaa poikkeusta lukuun ottamatta.</string>
     <string name="time">12 m</string>
+    <string name="empty_now">Tyhjä nyt</string>
+    <string name="confirmation">Oletko varma\?</string>
+    <string name="empty_notification">Haluatko varmasti tyhjentää ilmoituksesi. Menetät pääsyn niihin!</string>
+    <string name="empty_can_info">Täällä ei ole mitään nähtävää. Kun saat sääpäivitykset, ne näkyvät täällä</string>
+    <string name="empty">Tyhjä</string>
 </resources>

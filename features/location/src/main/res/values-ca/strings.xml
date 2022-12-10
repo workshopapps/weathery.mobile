@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Navegació</string>
+    <string name="location">Ubicació</string>
+    <string name="menu">menú</string>
+    <string name="add">Afegeix</string>
+    <string name="delete">Suprimeix</string>
+    <string name="delete_locations">Suprimeix ubicacions</string>
+    <string name="expand">expandir</string>
+    <string name="click_on">\\"Fer clic a \\"</string>
+    <string name="to_add">per afegir ubicacions</string>
+    <string name="cancel">Cancel · lar</string>
+    <string name="locations_related">\\"Ubicacions relacionades amb \\"</string>
+    <string name="save">Desa</string>
+    <string name="add_new">Afegeix una ubicació nova</string>
+    <string name="saved_locations">Ubicacions desades</string>
+    <string name="choose_a_location">Trieu una ubicació</string>
+    <string name="menu_item">Element del menú</string>
+    <string name="error_invalid_location">Introduïu una ubicació vàlida</string>
+    <string name="error_could_not_reach_server">No s\'ha pogut accedir al servidor, comproveu la vostra connexió a Internet</string>
+    <string name="error_try_again_later">Alguna cosa ha anat malament. Si us plau torna-ho a intentar després</string>
+</resources>

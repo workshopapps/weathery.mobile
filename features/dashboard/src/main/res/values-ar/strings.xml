@@ -22,4 +22,20 @@
     <string name="fog">ضباب</string>
     <string name="wind">ريح</string>
     <string name="_exit_">اضغط مرة أخرى للخروج</string>
+    <string name="hello_blank_fragment">مرحبا جزء فارغ</string>
+    <string name="today">اليوم</string>
+    <string name="tomorrow">الغد</string>
+    <string name="thisweek">هذا الاسبوع</string>
+    <string name="notAvailable">رابط الموقع الحالي غير متوفر ...</string>
+    <string name="locationpermission">تحتاج إلى قبول طلب إذن الموقع للمتابعة</string>
+    <string name="exit">اضغط مرة أخرى للخروج</string>
+    <string name="heavy_rain">مطر غزير</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">سحابة ، أمطار غزيرة في فترة ما بعد الظهر</string>
+    <string name="loading">جار التحميل...</string>
+    <string name="current_weather">الطقس الحالي</string>
+    <string name="could_not_load_current_weather">لا يمكن تحميل الطقس الحالي</string>
+    <string name="could_not_load_timeline">لا يمكن تحميل الجدول الزمني</string>
+    <string name="timeline">الجدول الزمني</string>
+    <string name="tropicalweather">الطقس الاستوائي</string>
+    <string name="today_s_forecast">توقعات اليوم</string>
 </resources>

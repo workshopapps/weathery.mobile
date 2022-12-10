@@ -427,7 +427,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         when (newViewMode) {
             TODAY_VIEW_MODE -> {
                 binding.apply {
-                    currentViewTextView.text = "Today"
+                    currentViewTextView.text = getString(R.string.today)
                     todayTextView.setTextColor(resources.getColor(R.color.weathery_orange))
                     todayIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -454,7 +454,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
             TOMORROW_VIEW_MODE -> {
                 binding.apply {
-                    currentViewTextView.text = "Tomorrow"
+                    currentViewTextView.text = getString(R.string.tomorrow)
                     tomorrowTextView.setTextColor(resources.getColor(R.color.weathery_orange))
                     tomorrowIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -481,7 +481,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
             THIS_WEEK_VIEW_MODE -> {
                 binding.apply {
-                    currentViewTextView.text = "This Week"
+                    currentViewTextView.text = getString(R.string.thisweek)
                     thisWeekTextView.setTextColor(resources.getColor(R.color.weathery_orange))
                     thisWeekIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -630,7 +630,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
             return
         }
 
-        Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT)
+        Toast.makeText(this.requireContext(), getString(R.string.exit), Toast.LENGTH_SHORT)
             .show()
         exitAppToastStillShowing = true
         exitAppTimer.start()
@@ -642,7 +642,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }catch (e:Exception){
             Toast.makeText(
                 requireContext(),
-                "You need to accept location permission request to continue",
+                getString(R.string.locationpermission),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -659,7 +659,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
                     is ShareLinkEvents.Failure -> {
                         Toast.makeText(
                             requireContext(),
-                            "Current Location Link Not Available...",
+                            getString(R.string.notAvailable),
                             Toast.LENGTH_SHORT
                         ).show()
                         getShareIntent(URL_TO_SHARE)

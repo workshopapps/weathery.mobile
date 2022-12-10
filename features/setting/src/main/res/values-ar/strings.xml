@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">مرحبا جزء فارغ</string>
     <string name="turn_off_all_notifications">قم بإيقاف تشغيل جميع الإخطارات</string>
     <string name="turn_on_all_notifications">قم بتشغيل جميع الإخطارات</string>
@@ -49,4 +49,9 @@
     <string name="expect_rain">توقع هطول أمطار خلال ساعة واحدة. يجب أن يستمر هذا لمدة 3 أيام</string>
     <string name="heavy_rain_northeast">ستكون هناك أمطار غزيرة بالنسبة للبعض في الشمال الشرقي مع بعض الاستثناءات الأكثر إشراقًا.</string>
     <string name="time">12 م</string>
+    <string name="empty_now">فارغ الآن</string>
+    <string name="confirmation">هل أنت واثق؟</string>
+    <string name="empty_notification">هل أنت متأكد أنك تريد إفراغ إشعاراتك. ستفقد الوصول إليهم!</string>
+    <string name="empty_can_info">لا شيء لتراه هنا. عندما تتلقى تحديثات الطقس ، ستظهر هنا</string>
+    <string name="empty">فارغة</string>
 </resources>

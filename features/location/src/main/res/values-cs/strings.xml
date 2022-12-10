@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Navigace</string>
+    <string name="location">Umístění</string>
+    <string name="menu">Jídelní lístek</string>
+    <string name="add">Přidat</string>
+    <string name="delete">Vymazat</string>
+    <string name="delete_locations">Smazat místa</string>
+    <string name="expand">rozšířit</string>
+    <string name="click_on">\\"Klikněte na \\"</string>
+    <string name="to_add">přidat místa</string>
+    <string name="cancel">zrušení</string>
+    <string name="locations_related">\\"Místa související s \\"</string>
+    <string name="save">Uložit</string>
+    <string name="add_new">Přidat nové umístění</string>
+    <string name="saved_locations">Uložená místa</string>
+    <string name="choose_a_location">Vyberte umístění</string>
+    <string name="menu_item">Položka nabídky</string>
+    <string name="error_invalid_location">Zadejte platnou polohu</string>
+    <string name="error_could_not_reach_server">Nelze se spojit se serverem, zkontrolujte prosím své internetové připojení</string>
+    <string name="error_try_again_later">Něco se pokazilo, zkuste to prosím znovu později</string>
+</resources>
