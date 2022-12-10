@@ -44,6 +44,7 @@ import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFacto
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.LocationsRepository
+import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
@@ -62,14 +63,19 @@ const val REQUEST_LOCATION_SETTINGS = 25
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
+
     private lateinit var binding: FragmentDashBoardBinding
     private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
+
+    @Inject
+    lateinit var notificationDao: NotificationDao
+
     private val viewModel: DashboardViewModel by activityViewModels {
         DashboardViewModelFactory(
-            locationsRepository
+            locationsRepository, notificationDao
         )
     }
     private val adapter = TimelineRecyclerAdapter()
@@ -327,6 +333,16 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
             updateViewsForNewTimelineStatus(it)
         }
 
+        viewModel.notificationsNumber.observe(viewLifecycleOwner){
+            if (it == null || it == 0){
+                binding.notificationCounterFrameLayout.visibility = View.GONE
+            }
+            else{
+                binding.notificationCounterFrameLayout.visibility = View.VISIBLE
+                binding.notificationCounterTextView.text = it.toString()
+            }
+        }
+
     }
 
 
@@ -403,9 +419,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }
     }
 
-    private fun updateViewsForNewViewMode(
-        newViewMode: String?
-    ) {
+    private fun updateViewsForNewViewMode(newViewMode: String?) {
         if (newViewMode == null) {
             return
         }
@@ -496,9 +510,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     }
 
 
-    private fun updateViewsForNewCurrentWeather(
-        newCurrentWeather: WeatherCondition?
-    ) {
+    private fun updateViewsForNewCurrentWeather(newCurrentWeather: WeatherCondition?) {
         if (newCurrentWeather == null) {
             return
         }
@@ -552,9 +564,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
     }
 
-    private fun hideViewsMenu(
-        dialog: View = viewsMenu
-    ) {
+    private fun hideViewsMenu(dialog: View = viewsMenu) {
         overlay.visibility = View.GONE
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             exitApp()
@@ -593,9 +603,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         animator.start()
     }
 
-    private fun showViewsMenu(
-        dialog: View = viewsMenu
-    ) {
+    private fun showViewsMenu(dialog: View = viewsMenu) {
 
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             hideViewsMenu(dialog)
