@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Навігацыя</string>
+    <string name="location">Размяшчэнне</string>
+    <string name="menu">меню</string>
+    <string name="add">Дадаць</string>
+    <string name="delete">Выдаліць</string>
+    <string name="delete_locations">Выдаліць месцы</string>
+    <string name="expand">пашырыць</string>
+    <string name="click_on">\\"Націсніце \\"</string>
+    <string name="to_add">каб дадаць месцы</string>
+    <string name="cancel">Адмяніць</string>
+    <string name="locations_related">\\"Месцы, звязаныя з \\"</string>
+    <string name="save">Захаваць</string>
+    <string name="add_new">Дадайце новае месца</string>
+    <string name="saved_locations">Захаваныя месцы</string>
+    <string name="choose_a_location">Выберыце месца</string>
+    <string name="menu_item">Пункт меню</string>
+    <string name="error_invalid_location">Увядзіце сапраўднае месцазнаходжанне</string>
+    <string name="error_could_not_reach_server">Не ўдалося падключыцца да сервера, праверце падключэнне да інтэрнэту</string>
+    <string name="error_try_again_later">Нешта пайшло не так, паўтарыце спробу пазней</string>
+</resources>

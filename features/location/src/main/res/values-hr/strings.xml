@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Navigacija</string>
+    <string name="location">Mjesto</string>
+    <string name="menu">izbornik</string>
+    <string name="add">Dodati</string>
+    <string name="delete">Izbrisati</string>
+    <string name="delete_locations">Brisanje lokacija</string>
+    <string name="expand">proširiti</string>
+    <string name="click_on">\\"Kliknite na \\"</string>
+    <string name="to_add">za dodavanje lokacija</string>
+    <string name="cancel">Otkazati</string>
+    <string name="locations_related">\\"Lokacije povezane s \\"</string>
+    <string name="save">Uštedjeti</string>
+    <string name="add_new">Dodajte novu lokaciju</string>
+    <string name="saved_locations">Spremljene lokacije</string>
+    <string name="choose_a_location">Odaberite mjesto</string>
+    <string name="menu_item">Stavka izbornika</string>
+    <string name="error_invalid_location">Unesite valjanu lokaciju</string>
+    <string name="error_could_not_reach_server">Nije moguće pristupiti poslužitelju, provjerite internetsku vezu</string>
+    <string name="error_try_again_later">Nešto je pošlo po zlu. Molimo pokušajte ponovo kasnije</string>
+</resources>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Прывітанне пусты фрагмент</string>
     <string name="turn_off_all_notifications">Выключыце ўсе апавяшчэнні</string>
     <string name="turn_on_all_notifications">Уключыце ўсе апавяшчэнні</string>
@@ -49,4 +49,9 @@
     <string name="expect_rain">Праз 1 гадзіну чакаецца дождж. Гэта павінна працягвацца 3 дні</string>
     <string name="heavy_rain_northeast">На паўночным усходзе месцамі пройдуць моцныя дажджы, за невялікімі выключэннямі.</string>
     <string name="time">12м</string>
+    <string name="empty_now">Зараз пусты</string>
+    <string name="confirmation">Вы ўпэўнены\?</string>
+    <string name="empty_notification">Вы ўпэўнены, што хочаце ачысціць свае апавяшчэнні. Вы страціце доступ да іх!</string>
+    <string name="empty_can_info">Тут няма чаго бачыць. Калі вы атрымаеце інфармацыю пра надвор\'е, яна з\'явіцца тут</string>
+    <string name="empty">Пусты</string>
 </resources>

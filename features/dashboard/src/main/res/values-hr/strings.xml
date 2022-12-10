@@ -22,4 +22,20 @@
     <string name="fog">Magla</string>
     <string name="wind">Vjetar</string>
     <string name="_exit_">ponovno pritisnite za izlaz</string>
+    <string name="hello_blank_fragment">Pozdrav prazan fragment</string>
+    <string name="today">Danas</string>
+    <string name="tomorrow">Sutra</string>
+    <string name="thisweek">Ovaj tjedan</string>
+    <string name="notAvailable">Link na trenutnu lokaciju nije dostupan...</string>
+    <string name="locationpermission">Za nastavak morate prihvatiti zahtjev za dopuštenje lokacije</string>
+    <string name="exit">ponovno pritisnite za izlaz</string>
+    <string name="heavy_rain">Pljusak</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Oblačnost, poslijepodne jaka kiša</string>
+    <string name="loading">Učitavam...</string>
+    <string name="current_weather">Trenutno vrijeme</string>
+    <string name="could_not_load_current_weather">nije moguće učitati trenutno vrijeme</string>
+    <string name="could_not_load_timeline">nije moguće učitati vremensku traku</string>
+    <string name="timeline">Vremenska Crta</string>
+    <string name="tropicalweather">TROPSKO VRIJEME</string>
+    <string name="today_s_forecast">PROGNOZA ZA DANAS</string>
 </resources>

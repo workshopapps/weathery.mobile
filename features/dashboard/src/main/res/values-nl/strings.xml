@@ -22,4 +22,20 @@
     <string name="rainy">Regenachtig</string>
     <string name="drizzle">Motregen</string>
     <string name="wind">Wind</string>
+    <string name="hello_blank_fragment">Hallo blanco fragment</string>
+    <string name="today">Vandaag</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="thisweek">Deze week</string>
+    <string name="notAvailable">Huidige locatie Link niet beschikbaar...</string>
+    <string name="locationpermission">U moet het verzoek om locatietoestemming accepteren om door te gaan</string>
+    <string name="exit">druk nogmaals om af te sluiten</string>
+    <string name="heavy_rain">Zware regen</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Bewolking, zware regen in de middag</string>
+    <string name="loading">Bezig met laden...</string>
+    <string name="current_weather">Huidig ​​weer</string>
+    <string name="could_not_load_current_weather">kon het huidige weer niet laden</string>
+    <string name="could_not_load_timeline">kon de tijdlijn niet laden</string>
+    <string name="timeline">Tijdlijn</string>
+    <string name="tropicalweather">TROPISCH WEER</string>
+    <string name="today_s_forecast">DE VOORSPELLING VAN VANDAAG</string>
 </resources>

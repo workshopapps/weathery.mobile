@@ -1,4 +1,4 @@
-package com.gear.weathery.common.`translation-api`
+package com.gear.weathery.common.translationapi
 
 class Jsonrequest : ArrayList<JsonrequestItem>()
 

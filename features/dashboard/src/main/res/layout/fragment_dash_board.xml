@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/outfit_semibold"
-                android:text="TODAY'S FORECAST"
+                android:text="@string/today_s_forecast"
 
                 android:textSize="12sp" />
 
@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/outfit_bold"
-                android:text="Heavy Rain"
+                android:text="@string/heavy_rain"
                 android:textSize="34sp" />
 
             <TextView
@@ -209,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Cloud, heavy rain in the afternoon"
+                    android:text="@string/cloud_heavy_rain_in_the_afternoon"
                     android:textAlignment="center"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -223,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/outfit_semibold"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:textSize="20sp"
             android:visibility="gone" />
 
@@ -233,7 +233,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/outfit_semibold"
-            android:text="Current Weather"
+            android:text="@string/current_weather"
             android:textSize="20sp"
             android:visibility="gone" />
 
@@ -243,7 +243,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/outfit_semibold"
-            android:text="could not load current weather"
+            android:text="@string/could_not_load_current_weather"
             android:textSize="20sp"
             android:visibility="gone" />
 
@@ -270,7 +270,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/outfit_black"
             android:gravity="start"
-            android:text="Today"
+            android:text="@string/today"
             android:textSize="24sp" />
 
         <ImageButton
@@ -317,7 +317,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/outfit_semibold"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:textSize="20sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -330,7 +330,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/outfit_semibold"
-            android:text="Timeline"
+            android:text="@string/timeline"
             android:textSize="20sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -343,7 +343,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/outfit_semibold"
-            android:text="could not load timeline"
+            android:text="@string/could_not_load_timeline"
             android:textSize="20sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -401,7 +401,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/outfit_medium"
-                android:text="Today"
+                android:text="@string/today"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -431,7 +431,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/outfit_medium"
-                android:text="Tomorrow"
+                android:text="@string/tomorrow"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -461,7 +461,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/outfit_medium"
-                android:text="This Week"
+                android:text="@string/thisweek"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -498,7 +498,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/outfit_bold"
-            android:text="TROPICALWEATHER"
+            android:text="@string/tropicalweather"
             android:textColor="@color/weathery_orange"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/appIcon_imageView"
