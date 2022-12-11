@@ -19,6 +19,7 @@
     <color name="weathery_sky_blue_1">#7E83A9</color>
     <color name="weathery_sky_blue_2">#CED3EA</color>
     <color name="weathery_grey_4">#66202424</color>
+    <color name="weathery_grey_5">#40202424</color>
 
 
     <color name="default_colour">@android:color/black</color>

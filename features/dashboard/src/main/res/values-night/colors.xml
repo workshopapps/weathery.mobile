@@ -10,4 +10,6 @@
 
     <color name="saved_item_color">@color/weathery_grey_2</color>
     <color name="bottom_sheet_background">@color/weathery_grey_1</color>
+    <color name="weathery_grey_5">#40FFFFFF</color>
+
 </resources>
