@@ -6,6 +6,7 @@ import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.dashboard.models.*
 import com.gear.weathery.dashboard.repository.WeatherRepo
 import com.gear.weathery.location.api.LocationsRepository
+import com.gear.weathery.setting.notifications.database.NotificationDao
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ const val BUSY = 1
 const val PASSED = 2
 const val FAILED = 3
 
-class DashboardViewModel(private val locationRepository: LocationsRepository): ViewModel() {
+class DashboardViewModel(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao): ViewModel() {
 
     private var _dayWeather = MutableLiveData<DayWeather>()
     val dayWeather: LiveData<DayWeather> get() = _dayWeather
@@ -49,6 +50,10 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
 
     private var _timelineStatus = MutableLiveData<Int>()
     val timelineStatus: LiveData<Int> get() = _timelineStatus
+
+    val notificationsNumber = Transformations.map(notificationDao.getNotifications().asLiveData()){
+        it.size
+    }
 
     private var _locationFlow = MutableStateFlow<List<com.gear.weathery.location.api.Location>>(emptyList())
     val locationFlow = _locationFlow.asStateFlow()
@@ -164,12 +169,12 @@ class DashboardViewModel(private val locationRepository: LocationsRepository): V
         _timelineStatus.value = DEFAULT
     }
 
-    class DashboardViewModelFactory(private val locationRepository: LocationsRepository) :
+    class DashboardViewModelFactory(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DashboardViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return DashboardViewModel(locationRepository) as T
+                return DashboardViewModel(locationRepository, notificationDao) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

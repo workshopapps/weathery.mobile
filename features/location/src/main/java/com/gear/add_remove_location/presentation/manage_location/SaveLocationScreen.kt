@@ -1,10 +1,7 @@
 package com.gear.add_remove_location.presentation.manage_location
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -57,7 +54,10 @@ fun SaveLocationScreen(
                 },
                 actions = {
                     IconButton(onClick = { expanded = true }) {
-                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = stringResource(id = R.string.menu))
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = stringResource(id = R.string.menu)
+                        )
                     }
                 }
             )
@@ -73,20 +73,30 @@ fun SaveLocationScreen(
             ) {
                 DropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { expanded = false},
-                modifier = Modifier) {
-                    CustomMenuItem(
-                    imageVector = Icons.Outlined.AddLocation,
-                    action = stringResource(id = R.string.add)
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
                 ) {
+                    CustomMenuItem(
+                        imageVector = Icons.Outlined.AddLocation,
+                        action = stringResource(id = R.string.add)
+                    ) {
+                        expanded = false
                         viewModel.setSearchState("")
                         viewModel.setAction(Action.SEARCH_SAVE)
                         navController.navigate(LocationScreen.Manage.route)
                     }
+                    Spacer(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 4.dp)
+                            .height(2.dp)
+                            .background(MaterialTheme.colors.primary.copy(0.75f))
+                    )
                     CustomMenuItem(
                         imageVector = Icons.Outlined.DeleteForever,
                         action = stringResource(id = R.string.delete)
                     ) {
+                        expanded = false
                         viewModel.setAction(Action.EDIT)
                         navController.navigate(LocationScreen.Manage.route)
                     }

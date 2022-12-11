@@ -1,6 +1,10 @@
 package com.gear.weathery.setting
 
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -14,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.databinding.FragmentNotificationSettingsBinding
+import com.gear.weathery.setting.util.Constants.CHANNEL_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -152,20 +157,19 @@ class NotificationSettings : Fragment() {
                 }
             }
             tvDefaultTone.setOnClickListener {
-                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                intent.putExtra(Settings.EXTRA_CHANNEL_ID, "channel.id")
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-                startActivity(intent)
+                openNotificationSettings()
             }
             rgVibrate.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.rBtnVibrateOff -> {
                         tvVibrateStatus.text = getString(R.string.off)
                        settingsViewModel.toggleVibrationMode(false)
+                        openNotificationSettings()
                     }
                     R.id.rBtnVibrateDefault -> {
                         tvVibrateStatus.text = getString(R.string.default1)
                         settingsViewModel.toggleVibrationMode(true)
+                        openNotificationSettings()
                     }
                 }
             }
@@ -186,13 +190,53 @@ class NotificationSettings : Fragment() {
             swBannerOnOff.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     settingsViewModel.toggleBanner(true)
+                    openNotificationSettings()
                 } else {
                     settingsViewModel.toggleBanner(false)
+                    openNotificationSettings()
                 }
-
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val toneUri = notificationManager.getNotificationChannel(CHANNEL_ID).sound
+                val toneName = RingtoneManager.getRingtone(requireContext(), toneUri).getTitle(requireContext())
+                lifecycleScope.launch {
+                    settingsViewModel.setNotificationTone(toneName)
+                }
+            }
+        }
+    }
+
+    private fun openNotificationSettings(){
+        val intent=  Intent().apply {
+            when{
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ->{
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_CHANNEL_ID, CHANNEL_ID)
+                    putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                }
+
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ->{
+                    action = "android.settings.APP_NOTIFICATION_SETTINGS"
+                    putExtra("app_package", requireContext().packageName)
+                    putExtra("app_uid", requireContext().applicationInfo.uid)
+                }
+                else ->{
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    addCategory(Intent.CATEGORY_DEFAULT)
+                    data = Uri.parse("package:" + requireContext().packageName)
+                }
+            }
+        }
+
+        requireContext().startActivity(intent)
     }
 
 }

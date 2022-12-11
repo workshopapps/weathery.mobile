@@ -1,9 +1,7 @@
 package com.gear.add_remove_location.presentation.manage_location.components.actions
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +25,7 @@ fun SearchAction(
     saveLocations: () -> Unit,
     cancelSave: () -> Unit
 ) {
+
     Text(
         text = stringResource(R.string.add_new),
         modifier = Modifier
@@ -36,34 +35,44 @@ fun SearchAction(
     )
 
 
-    if (isOnSearch) {LocationSearchBar(
-        modifier = Modifier.padding(top = 16.dp), text = text,
-    ) { onLocationSearch(it) }
-        Box(
-            Modifier
-                .fillMaxSize()
-        ) {
-            if (text.isNotBlank()) {
-                SearchResultsWidget(
-                    modifier = Modifier.align(Alignment.TopCenter),
-                    list = locations.map {
-                        buildString {
-                            append(it.name)
-                            append(if (it.country.isNotBlank()) ", ${it.country}" else "")
+    Crossfade(targetState = isOnSearch) { onSearch ->
+        Column {
+            when (onSearch) {
+                true -> {
+                    LocationSearchBar(
+                        modifier = Modifier.padding(top = 16.dp), text = text,
+                    ) { onLocationSearch(it) }
+                    Box(
+                        Modifier
+                            .fillMaxSize()
+                    ) {
+                        if (text.isNotBlank()) {
+                            SearchResultsWidget(
+                                modifier = Modifier.align(Alignment.TopCenter),
+                                list = locations.map {
+                                    buildString {
+                                        append(it.name)
+                                        append(if (it.country.isNotBlank()) ", ${it.country}" else "")
+                                    }
+                                }.distinct()
+                            ) {
+                                onLocationSelected(it)
+                            }
                         }
-                    }.distinct()
-                ) {
-                    onLocationSelected(it)
+                    }
+                }
+                false -> {
+                    SaveAction(
+                        locations = locations,
+                        text = text,
+                        { index, location, isSelected ->
+                            onSaveItemClicked(index, location, isSelected)
+                        },
+                        { saveLocations() },
+                        { cancelSave() }
+                    )
                 }
             }
         }
-    } else SaveAction(
-        locations = locations,
-        text = text,
-        { index, location, isSelected ->
-            onSaveItemClicked(index, location, isSelected)
-        },
-        { saveLocations() },
-        { cancelSave() }
-    )
+    }
 }

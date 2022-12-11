@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">التنقل</string>
+    <string name="location">موقع</string>
+    <string name="menu">قائمة</string>
+    <string name="add">يضيف</string>
+    <string name="delete">حذف</string>
+    <string name="delete_locations">حذف المواقع</string>
+    <string name="expand">وسعت</string>
+    <string name="click_on">\ \"انقر فوق \\"</string>
+    <string name="to_add">لإضافة المواقع</string>
+    <string name="cancel">يلغي</string>
+    <string name="locations_related">\ \"المواقع المتعلقة بـ \\"</string>
+    <string name="save">يحفظ</string>
+    <string name="add_new">أضف موقعًا جديدًا</string>
+    <string name="saved_locations">المواقع المحفوظة</string>
+    <string name="choose_a_location">اختر موقعا</string>
+    <string name="menu_item">عنصر القائمة</string>
+    <string name="error_invalid_location">الرجاء إدخال موقع صحيح</string>
+    <string name="error_could_not_reach_server">تعذر الوصول إلى الخادم ، يرجى التحقق من اتصالك بالإنترنت</string>
+    <string name="error_try_again_later">هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق</string>
+</resources>

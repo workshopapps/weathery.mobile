@@ -22,4 +22,20 @@
     <string name="rainy">Sateinen</string>
     <string name="drizzle">Tihkusade</string>
     <string name="fog">Sumu</string>
+    <string name="hello_blank_fragment">Hei tyhjä fragmentti</string>
+    <string name="today">Tänään</string>
+    <string name="tomorrow">Huomenna</string>
+    <string name="thisweek">Tämä viikko</string>
+    <string name="notAvailable">Nykyisen sijainnin linkki ei ole käytettävissä...</string>
+    <string name="locationpermission">Sinun on hyväksyttävä sijaintilupapyyntö jatkaaksesi</string>
+    <string name="exit">paina uudelleen poistuaksesi</string>
+    <string name="heavy_rain">Rankkasade</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Pilvistä, rankkasadetta iltapäivällä</string>
+    <string name="loading">Ladataan...</string>
+    <string name="current_weather">Nykyinen sää</string>
+    <string name="could_not_load_current_weather">nykyistä säätä ei voitu ladata</string>
+    <string name="could_not_load_timeline">aikajanaa ei voitu ladata</string>
+    <string name="timeline">Aikajana</string>
+    <string name="tropicalweather">TROOPPINEN SÄÄ</string>
+    <string name="today_s_forecast">PÄIVÄN ENNUSTE</string>
 </resources>

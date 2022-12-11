@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola fragment en blanc</string>
     <string name="turn_off_all_notifications">Desactiva totes les notificacions</string>
     <string name="turn_on_all_notifications">Activa totes les notificacions</string>
@@ -49,4 +49,9 @@
     <string name="expect_rain">S\'espera pluja d\'aquí a 1 hora. Això hauria de durar 3 dies</string>
     <string name="heavy_rain_northeast">Hi haurà pluges abundants per a alguns al nord-est amb algunes excepcions més brillants.</string>
     <string name="time">12 m</string>
+    <string name="empty_now">Ara buit</string>
+    <string name="confirmation">Estàs segur\?</string>
+    <string name="empty_notification">Confirmes que vols buidar les notificacions\? Hi perdràs l\'accés!</string>
+    <string name="empty_can_info">No hi ha res a veure aquí. Quan rebeu actualitzacions meteorològiques, apareixeran aquí</string>
+    <string name="empty">Buit</string>
 </resources>

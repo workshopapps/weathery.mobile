@@ -55,4 +55,13 @@ dependencies {
     def room_version = "2.4.2"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    //for translation api
+    implementation LibDependencies.INSTANCE.retrofit2
+    implementation LibDependencies.INSTANCE.retrofit2_converter_gson
+    implementation LibDependencies.INSTANCE.okhttp3_logging_interceptor
+    implementation LibDependencies.INSTANCE.okhttp3
+
+    implementation LibDependencies.INSTANCE.coroutine_android
+    implementation LibDependencies.INSTANCE.coroutine_core
 }

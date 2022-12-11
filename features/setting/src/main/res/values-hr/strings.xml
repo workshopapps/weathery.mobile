@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Pozdrav prazan fragment</string>
     <string name="turn_off_all_notifications">Isključi sve obavijesti</string>
     <string name="turn_on_all_notifications">Uključite sve obavijesti</string>
@@ -38,8 +38,8 @@
     <string name="temperature">Temperatura</string>
     <string name="f">°F</string>
     <string name="c">°C</string>
-    <string name="hpo">hPo</string>
     <string name="pressure">Pritisak</string>
+    <string name="hpo">hPo</string>
     <string name="wind_speed">Brzina vjetra</string>
     <string name="km_h">km/h</string>
     <string name="about_us">O nama</string>
@@ -49,4 +49,9 @@
     <string name="expect_rain">Očekujte kišu za 1 sat. Ovo bi trebalo trajati 3 dana</string>
     <string name="heavy_rain_northeast">Obilne kiše bit će ponegdje na sjeveroistoku uz poneku vedru iznimku.</string>
     <string name="time">12m</string>
+    <string name="empty_now">Isprazni sada</string>
+    <string name="confirmation">Jesi li siguran\?</string>
+    <string name="empty_notification">Jeste li sigurni da želite isprazniti svoje obavijesti. Izgubit ćete pristup njima!</string>
+    <string name="empty_can_info">Ovdje nema nista za vidjeti. Kada primite ažurirane informacije o vremenu, one će se pojaviti ovdje</string>
+    <string name="empty">Prazan</string>
 </resources>

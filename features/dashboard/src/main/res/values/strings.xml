@@ -23,7 +23,22 @@
     <string name="wind">Wind</string>
     <string name="_exit_">press again to exit</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="thisweek">This Week</string>
+    <string name="notAvailable">Current Location Link Not Available...</string>
+    <string name="locationpermission">You need to accept location permission request to continue</string>
+    <string name="exit">press again to exit</string>
+    <string name="heavy_rain">Heavy Rain</string>
+    <string name="cloud_heavy_rain_in_the_afternoon">Cloud, heavy rain in the afternoon</string>
+    <string name="loading">Loading...</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="could_not_load_current_weather">could not load current weather</string>
+    <string name="could_not_load_timeline">could not load timeline</string>
+    <string name="timeline">Timeline</string>
+    <string name="tropicalweather">TROPICALWEATHER</string>
+    <string name="today_s_forecast">TODAY\'S FORECAST</string>
 
 
 </resources>

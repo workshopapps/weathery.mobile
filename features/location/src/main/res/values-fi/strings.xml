@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Navigointi</string>
+    <string name="location">Sijainti</string>
+    <string name="menu">valikosta</string>
+    <string name="add">Lisätä</string>
+    <string name="delete">Poistaa</string>
+    <string name="delete_locations">Poista sijainnit</string>
+    <string name="expand">laajentaa</string>
+    <string name="click_on">\\"Klikkaa \\"</string>
+    <string name="to_add">lisätäksesi sijainteja</string>
+    <string name="cancel">Peruuttaa</string>
+    <string name="locations_related">\\"Sijainnit liittyvät \\"</string>
+    <string name="save">Tallentaa</string>
+    <string name="add_new">Lisää uusi sijainti</string>
+    <string name="saved_locations">Tallennetut sijainnit</string>
+    <string name="choose_a_location">Valitse sijainti</string>
+    <string name="menu_item">Valikkokohta</string>
+    <string name="error_invalid_location">Anna kelvollinen sijainti</string>
+    <string name="error_could_not_reach_server">Palvelimeen ei saada yhteyttä. Tarkista Internet-yhteytesi</string>
+    <string name="error_try_again_later">Jokin meni pieleen. Ole hyvä ja kokeile myöhemmin uudestaan</string>
+</resources>

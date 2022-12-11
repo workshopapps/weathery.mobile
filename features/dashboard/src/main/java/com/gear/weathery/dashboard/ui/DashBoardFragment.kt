@@ -1,20 +1,14 @@
 package com.gear.weathery.dashboard.ui
 
-import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +16,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -44,15 +35,11 @@ import com.gear.weathery.dashboard.ui.DashboardViewModel.DashboardViewModelFacto
 import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.LocationsRepository
+import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -61,26 +48,26 @@ const val REQUEST_LOCATION_SETTINGS = 25
 
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
+class DashBoardFragment : Fragment(), OnClickEvent {
+
     private lateinit var binding: FragmentDashBoardBinding
     private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
+
+    @Inject
+    lateinit var notificationDao: NotificationDao
+
     private val viewModel: DashboardViewModel by activityViewModels {
         DashboardViewModelFactory(
-            locationsRepository
+            locationsRepository, notificationDao
         )
     }
     private val adapter = TimelineRecyclerAdapter()
 
     private lateinit var backPressedCallback: OnBackPressedCallback
 
-    private lateinit var locationManager: LocationManager
-    private val locationPermissionCode = 2
-
-    private var longitude: Int = 0
-    private var latitude: Int = 0
     private lateinit var currentLocation: Location
 
     private lateinit var navDrawer: ConstraintLayout
@@ -138,12 +125,67 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-      //  setUpLocation()
+
+        turnOnLocationSettings()
+    }
+
+    private fun turnOnLocationSettings() {
+        val locationRequestBuilder = LocationRequest.Builder(10000)
+            .setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
+            .setMinUpdateIntervalMillis(5000)
+
+        val locationSettingsRequestBuilder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequestBuilder.build())
+
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(locationSettingsRequestBuilder.build())
+
+        task.addOnSuccessListener {
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+
+            retrieveLocationAndUpdateWeather()
+        }
+
+        task.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException){
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+//                    exception.startResolutionForResult(requireActivity(), REQUEST_LOCATION_SETTINGS)
+                    startIntentSenderForResult(exception.resolution.intentSender, REQUEST_LOCATION_SETTINGS, null, 0, 0, 0, null);
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun retrieveLocationAndUpdateWeather() {
+        val cts = CancellationTokenSource()
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, cts.token).addOnSuccessListener {
+            if(it == null){
+                return@addOnSuccessListener
+            }
+
+            viewModel.updateCurrentLocation(it)
+            currentLocation = it
+
+            lifecycleScope.launch {
+                val savedLocation = com.gear.weathery.location.api.Location(id = 1, state = "",
+                    name = "current location", country = "", longitude = it.longitude,
+                    latitude = it.latitude
+                )
+                locationsRepository.saveLocation(savedLocation)
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        startLocationUpdates()
         permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
     }
 
@@ -152,95 +194,9 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
     }
 
-    private fun startLocationUpdates() {
-
-        if (ActivityCompat.checkSelfPermission(
-                this.requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this.requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-    }
-
-    private fun setUpLocation() {
-
-        locationRequest = (LocationRequest.create().apply {
-            interval = 2 * 60 * 1000
-            fastestInterval = 60 * 1000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        })
-
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest)
-
-        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-        task.addOnSuccessListener { locationSettingsResponse ->
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
-            // ...
-
-            startGettingLocationUpdates()
-        }
-
-        task.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    exception.startResolutionForResult(requireActivity(), REQUEST_LOCATION_SETTINGS)
-
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
-            }
-        }
-
-    }
-
-    private fun startGettingLocationUpdates() {
-
-        // this checks if the required permissions have been granted.
-        // this check is redundant here since the permission was already granted in the previous screen before navigating here.
-        // but without this check here again, android studio keeps showing errors. so,...
-        if (ActivityCompat.checkSelfPermission(
-                this.requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this.requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        /// end of check
-
-
-        Handler().postDelayed({
-            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                viewModel.updateCurrentLocation(location)
-                currentLocation = location!!
-            }
-        }, 200)
-
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LOCATION_SETTINGS) {
-            startGettingLocationUpdates()
+            retrieveLocationAndUpdateWeather()
         }
     }
 
@@ -250,7 +206,6 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDashBoardBinding.inflate(inflater, container, false)
-        setUpLocation()
         binding.apply {
             binding.timelineRecyclerView.adapter = adapter
         }
@@ -280,12 +235,9 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
             navigateToSettings()
         }
 
-
-
         binding.navLayoutButtonImageView.setOnClickListener {
             showDialog(navDrawer)
         }
-
 
         viewModel.currentWeather.observe(viewLifecycleOwner) {
             updateViewsForNewCurrentWeather(it)
@@ -325,6 +277,16 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
         viewModel.timelineStatus.observe(viewLifecycleOwner) {
             updateViewsForNewTimelineStatus(it)
+        }
+
+        viewModel.notificationsNumber.observe(viewLifecycleOwner){
+            if (it == null || it == 0){
+                binding.notificationCounterFrameLayout.visibility = View.GONE
+            }
+            else{
+                binding.notificationCounterFrameLayout.visibility = View.VISIBLE
+                binding.notificationCounterTextView.text = it.toString()
+            }
         }
 
     }
@@ -403,9 +365,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }
     }
 
-    private fun updateViewsForNewViewMode(
-        newViewMode: String?
-    ) {
+    private fun updateViewsForNewViewMode(newViewMode: String?) {
         if (newViewMode == null) {
             return
         }
@@ -413,7 +373,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         when (newViewMode) {
             TODAY_VIEW_MODE -> {
                 binding.apply {
-                    currentViewTextView.text = "Today"
+                    currentViewTextView.text = getString(R.string.today)
                     todayTextView.setTextColor(resources.getColor(R.color.weathery_orange))
                     todayIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -440,7 +400,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
             TOMORROW_VIEW_MODE -> {
                 binding.apply {
-                    currentViewTextView.text = "Tomorrow"
+                    currentViewTextView.text = getString(R.string.tomorrow)
                     tomorrowTextView.setTextColor(resources.getColor(R.color.weathery_orange))
                     tomorrowIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -467,7 +427,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
             THIS_WEEK_VIEW_MODE -> {
                 binding.apply {
-                    currentViewTextView.text = "This Week"
+                    currentViewTextView.text = getString(R.string.thisweek)
                     thisWeekTextView.setTextColor(resources.getColor(R.color.weathery_orange))
                     thisWeekIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -495,10 +455,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }
     }
 
-
-    private fun updateViewsForNewCurrentWeather(
-        newCurrentWeather: WeatherCondition?
-    ) {
+    private fun updateViewsForNewCurrentWeather(newCurrentWeather: WeatherCondition?) {
         if (newCurrentWeather == null) {
             return
         }
@@ -552,9 +509,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
 
     }
 
-    private fun hideViewsMenu(
-        dialog: View = viewsMenu
-    ) {
+    private fun hideViewsMenu(dialog: View = viewsMenu) {
         overlay.visibility = View.GONE
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             exitApp()
@@ -593,9 +548,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         animator.start()
     }
 
-    private fun showViewsMenu(
-        dialog: View = viewsMenu
-    ) {
+    private fun showViewsMenu(dialog: View = viewsMenu) {
 
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             hideViewsMenu(dialog)
@@ -622,7 +575,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
             return
         }
 
-        Toast.makeText(this.requireContext(), "press again to exit", Toast.LENGTH_SHORT)
+        Toast.makeText(this.requireContext(), getString(R.string.exit), Toast.LENGTH_SHORT)
             .show()
         exitAppToastStillShowing = true
         exitAppTimer.start()
@@ -634,7 +587,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         }catch (e:Exception){
             Toast.makeText(
                 requireContext(),
-                "You need to accept location permission request to continue",
+                getString(R.string.locationpermission),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -651,7 +604,7 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
                     is ShareLinkEvents.Failure -> {
                         Toast.makeText(
                             requireContext(),
-                            "Current Location Link Not Available...",
+                            getString(R.string.notAvailable),
                             Toast.LENGTH_SHORT
                         ).show()
                         getShareIntent(URL_TO_SHARE)
@@ -667,34 +620,6 @@ class DashBoardFragment : Fragment(), LocationListener, OnClickEvent {
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, url)
         startActivity(Intent.createChooser(intent, "Share"))
-    }
-
-
-    private fun getLocation() {
-        locationManager =
-            (requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager)
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                locationPermissionCode
-            )
-            return
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
-    }
-
-    override fun onLocationChanged(location: Location) {
-        latitude = location.latitude.toInt()
-        longitude = location.longitude.toInt()
-
     }
 
     override fun onSavedLocationClicked(lat: Double, long: Double) {

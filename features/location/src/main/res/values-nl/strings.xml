@@ -1,0 +1,21 @@
+<resources>
+    <string name="navigation">Navigatie</string>
+    <string name="location">Plaats</string>
+    <string name="menu">menu</string>
+    <string name="add">Toevoegen</string>
+    <string name="delete">Verwijderen</string>
+    <string name="delete_locations">Verwijder locaties</string>
+    <string name="expand">uitbreiden</string>
+    <string name="click_on">\\"Klik op \\"</string>
+    <string name="to_add">om locaties toe te voegen</string>
+    <string name="cancel">Annuleren</string>
+    <string name="locations_related">\\"Locaties gerelateerd aan \\"</string>
+    <string name="save">Opslaan</string>
+    <string name="add_new">Voeg een nieuwe locatie toe</string>
+    <string name="saved_locations">Opgeslagen locaties</string>
+    <string name="choose_a_location">Kies een locatie</string>
+    <string name="menu_item">Menu onderdeel</string>
+    <string name="error_invalid_location">Voer een geldige locatie in</string>
+    <string name="error_could_not_reach_server">Kon de server niet bereiken, controleer uw internetverbinding</string>
+    <string name="error_try_again_later">Er is iets misgegaan, probeer het later nog eens</string>
+</resources>
