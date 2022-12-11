@@ -60,7 +60,11 @@ class Notifications : Fragment() {
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("NotificationsFragment", "Fetching FCM registration token failed", task.exception)
+                Log.w(
+                    "NotificationsFragment",
+                    "Fetching FCM registration token failed",
+                    task.exception
+                )
                 return@OnCompleteListener
             }
 
@@ -74,14 +78,26 @@ class Notifications : Fragment() {
 
         notificationDao.getNotifications().onEach {
             adapter.updateDataList((it))
-            if (it.isEmpty() ){
+            if (it.isEmpty()) {
                 binding.recyclerviewNotification.visibility = View.INVISIBLE
                 binding.emptyStateGroup.visibility = View.VISIBLE
-            }else {
+            } else {
                 binding.recyclerviewNotification.visibility = View.VISIBLE
                 binding.emptyStateGroup.visibility = View.INVISIBLE
             }
         }.launchIn(lifecycleScope)
+
+//        val notificationList = mutableListOf<NotificationData>()
+//        notificationList.add(
+//            NotificationData(
+//                notificationText = "There will be heavy rainfall in some part in the east",
+//                notificationTime = "3m",
+//                notificationEvent = "Thunderstorm"
+//            )
+//        )
+//        lifecycleScope.launch {
+//            notificationDao.insert(*notificationList.toTypedArray())
+//        }
     }
 
     private fun openBottomDialog() {

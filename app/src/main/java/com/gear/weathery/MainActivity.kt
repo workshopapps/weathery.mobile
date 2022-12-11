@@ -12,6 +12,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.asLiveData
 import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -108,18 +109,35 @@ class MainActivity : AppCompatActivity() {
                    SharedPreference.putBoolean("CHANGELANGUAGE",false)
                }
 
-        notificationDao.getNotifications().onEach {
-            if (it.isEmpty()){
-                return@onEach
+        notificationDao.getNotifications().asLiveData().observe(this){
+            lifecycleScope.launch {
+                if (!settingsPreference.getAppForegroundStatus()){
+//                    return@launch
+                }
+
+                if(it.isEmpty()){
+                    return@launch
+                }
+                val notification = it.last()
+                binding.notificationBodyTextView.text = notification.notificationText
+                binding.popupNotification.visibility = View.VISIBLE
+                notificationTimer.start()
             }
-            val notification = it.last()
-            binding.notificationBodyTextView.text = notification.notificationText
-            binding.popupNotification.visibility = View.VISIBLE
-            notificationTimer.start()
-        }.launchIn(lifecycleScope)
 
+        }
 
+        lifecycleScope.launch{
+            settingsPreference.updateAppForegroundStatus(true)
+        }
     }
+
+    override fun onStop() {
+        super.onStop()
+        lifecycleScope.launch {
+            settingsPreference.updateAppForegroundStatus(false)
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         rebuild = true

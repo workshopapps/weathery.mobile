@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -17,6 +18,8 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
     private val vibrateModeKey = booleanPreferencesKey("vibrate_key")
     private val toneKey = stringPreferencesKey("tone_key")
     private val langKey = stringPreferencesKey("lang_key")
+    private val appForegroundStatusKey = booleanPreferencesKey("app_foreground")
+
 
     fun darkMode(): Flow<String?> {
         return dataStore.data.map { preferences ->
@@ -98,5 +101,18 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
             preference[langKey] = lang
 
         }
+    }
+
+    suspend fun updateAppForegroundStatus(newStatus:Boolean){
+        dataStore.edit { preference ->
+            preference[appForegroundStatusKey] = newStatus
+
+        }
+    }
+
+    suspend fun getAppForegroundStatus():Boolean{
+        return dataStore.data.map {
+            it[appForegroundStatusKey] ?: true
+        }.first()
     }
 }
