@@ -35,15 +35,15 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
-    private val viewModel: DashboardViewModel by activityViewModels {
-        DashboardViewModel.DashboardViewModelFactory(
-            locationsRepository
-        )
-    }
+
 
     @Inject
     lateinit var notificationDao: NotificationDao
-
+    private val viewModel: DashboardViewModel by activityViewModels {
+        DashboardViewModel.DashboardViewModelFactory(
+            locationsRepository,notificationDao
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,13 +55,6 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModelProviderFactory =
-            DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao)
-        viewModel = ViewModelProvider(
-            requireParentFragment(),
-            viewModelProviderFactory
-        )[DashboardViewModel::class.java]
-        viewModel.getSavedLocation()
         onClickEvent = requireParentFragment() as OnClickEvent
         adaptiveSearchView()
 
