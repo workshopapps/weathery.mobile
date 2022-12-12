@@ -31,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_toStartOf="@id/notificationButtonGroup_constraintLayout"
@@ -43,14 +42,15 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/marker_pin_01"
                 app:tint="@color/default_colour" />
 
             <TextView
                 android:id="@+id/location_text_view"
                 android:layout_width="wrap_content"
+                android:textColor="@color/location_dropdown"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/outfit_semibold"
                 android:text="--,----"
@@ -156,6 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:textColor="@color/todays_forecast_text"
                 android:fontFamily="@font/outfit_semibold"
                 android:text="@string/today_s_forecast"
 
@@ -183,6 +184,7 @@
                     android:id="@+id/stateAndCountry_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/location"
                     android:layout_gravity="center"
                     android:fontFamily="@font/outfit_light"
                     android:text="@string/lagos_nigeria"
@@ -210,6 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:textColor="@color/heavy_rain"
                 android:fontFamily="@font/outfit_bold"
                 android:text="@string/heavy_rain"
                 android:textSize="34sp" />
@@ -219,6 +222,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:textColor="@color/current_forecast_color"
                 android:fontFamily="@font/outfit_semibold"
                 android:text="12:00pm to 3:00pm"
                 android:textSize="28sp" />
@@ -245,6 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/outfit_regular"
+                    android:textColor="@color/risk_color"
                     android:text="@string/cloud_heavy_rain_in_the_afternoon"
                     android:textAlignment="center"
                     android:textSize="12sp" />
@@ -304,6 +309,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/today_color"
             android:fontFamily="@font/outfit_black"
             android:gravity="start"
             android:text="@string/today"

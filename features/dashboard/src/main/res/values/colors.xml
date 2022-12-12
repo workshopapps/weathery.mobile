@@ -38,7 +38,7 @@
     <color name="todays_forecast_text">#565560</color>
     <color name="location">#4D5E6E</color>
     <color name="heavy_rain">#4D5E6F</color>
-    <color name="current_forecast_color">#504D5E6F</color>
+    <color name="current_forecast_color">#4D5E6F</color>
     <color name="risk_color">#565560</color>
     <color name="location_dropdown">#161518</color>
     <color name="dashboard_bg">#FFFFFF</color>
