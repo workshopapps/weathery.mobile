@@ -202,7 +202,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/rainy_sharp" />
+                    android:src="@drawable/rainy_sharp"
+                    android:visibility="gone" />
 
 
             </LinearLayout>

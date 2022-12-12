@@ -66,7 +66,7 @@ fun SaveLocationScreen(
         Box(modifier = Modifier.padding(paddingValues)) {
             Box(
                 modifier = Modifier
-                    .padding(end = 16.dp)
+                    .padding(end = 24.dp)
                     .drawDropShadow(color = MaterialTheme.colors.primary)
                     .background(MaterialTheme.colors.background, RoundedCornerShape(8.dp))
                     .align(Alignment.TopEnd)

@@ -10,8 +10,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.BottomSheetDrawerBinding
@@ -44,11 +44,17 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
             locationsRepository,notificationDao
         )
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BottomSheetDrawerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -147,7 +153,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
       val isEmpty = locationAdapter.currentList.isEmpty() || list.isEmpty() && locationAdapter.itemCount==0
       binding.emptyView.isVisible = isEmpty
       binding.savedLocationRecyclerView.isVisible = !isEmpty
-
+      binding.emptyStateText.isVisible = isEmpty
     }
 
 }
