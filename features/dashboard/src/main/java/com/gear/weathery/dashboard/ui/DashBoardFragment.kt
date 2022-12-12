@@ -318,7 +318,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             requireContext(),
             NotificationManager::class.java
         ) as NotificationManager
-        notificationManager.sendNotification(requireContext(), "storm", "Flooding")
         processNotificationData(
             "rain",
             "there will be heavy rainfall",

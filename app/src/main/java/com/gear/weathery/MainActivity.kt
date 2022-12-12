@@ -111,9 +111,6 @@ class MainActivity : AppCompatActivity() {
 
         notificationDao.getNotifications().asLiveData().observe(this){
             lifecycleScope.launch {
-                if (!settingsPreference.getAppForegroundStatus()){
-//                    return@launch
-                }
 
                 if(it.isEmpty()){
                     return@launch
