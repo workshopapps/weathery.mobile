@@ -82,7 +82,8 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     val currentLocation = locationsRepository.locations.first().first()
-                    NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
+                    val networkResponse = NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
+                    Log.e("SubRahmon", networkResponse)
                 } catch (e: Exception){
                   Log.d("newToken", e.toString())
                 }

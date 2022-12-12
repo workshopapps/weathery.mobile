@@ -23,7 +23,7 @@
 <!--            android:layout_height="wrap_content"-->
 <!--            android:paddingTop="25dp"-->
 <!--            android:paddingLeft="5dp"-->
-<!--            android:src="@drawable/rain"/>-->
+<!--            android:src="@drawable/rainny"/>-->
 
         <TextView
             android:id="@+id/notificationBody_textView"
@@ -42,11 +42,11 @@
             android:id="@+id/age_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="350dp"
+            android:paddingLeft="340dp"
             android:paddingTop="65dp"
             android:paddingBottom="20dp"
             android:fontFamily="@font/outfit_semibold"
-            android:text="@string/time" />
+            android:text="8Hours" />
 
     </androidx.cardview.widget.CardView>
 

@@ -37,7 +37,7 @@ interface NetworkService {
         @Query("fcm_id") fcmId: String,
         @Query("lat") lat: Double,
         @Query("lng") lng: Double
-    )
+    ): String
 }
 
 object NetworkApi {

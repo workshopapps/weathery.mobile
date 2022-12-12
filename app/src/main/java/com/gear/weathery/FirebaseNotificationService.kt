@@ -37,6 +37,7 @@ class FirebaseNotificationService : FirebaseMessagingService() {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
             super.onMessageReceived(message)
+            message.notification?.body
             val random = message.data
 
             val event = random["event"]!!

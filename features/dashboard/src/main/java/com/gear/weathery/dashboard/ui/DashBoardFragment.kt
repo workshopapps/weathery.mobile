@@ -239,6 +239,10 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             BottomSheetDrawer().show(childFragmentManager, "BOTTOM SHEET")
         }
 
+        binding.notificationButtonGroupConstraintLayout.setOnClickListener{
+            navigateToNotifications()
+        }
+
         binding.textbutton.setOnClickListener {
             generateNotification()
         }
