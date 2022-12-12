@@ -17,10 +17,10 @@ class SavedLocationAdapter: ListAdapter<Location, SavedLocationAdapter.ViewHolde
         fun bind(location: Location){
 
             when{
-                location.state.isEmpty()->{
+                location.state.isEmpty() && location.country.isNotEmpty() ->{
                     binding.locationItem.text = "${location.name }, ${location.country}"
                 }
-                location.name.isEmpty()->{
+                location.name.isEmpty() && location.country.isNotEmpty()->{
                     binding.locationItem.text = "${location.state }, ${location.country}"
                 }
                 location.name.isNotEmpty() && location.state.isNotEmpty()->{
