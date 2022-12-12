@@ -32,4 +32,16 @@
     <color name="saved_item_color">@android:color/white</color>
     <color name="bottom_sheet_background">@android:color/white</color>
 
+
+    <color name="weather_item_color">#1E1E1E</color>
+    <color name="today_color">#000000</color>
+    <color name="todays_forecast_text">#565560</color>
+    <color name="location">#4D5E6E</color>
+    <color name="heavy_rain">#4D5E6F</color>
+    <color name="current_forecast_color">#4D5E6F</color>
+    <color name="risk_color">#565560</color>
+    <color name="location_dropdown">#161518</color>
+    <color name="dashboard_bg">#FFFFFF</color>
+    <color name="background_shadow_color">#FFFFFF</color>
+
 </resources>
