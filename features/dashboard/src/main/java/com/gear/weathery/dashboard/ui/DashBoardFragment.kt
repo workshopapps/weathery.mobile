@@ -470,6 +470,15 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         binding.locationTextView.text =
             "${newCurrentWeather.state}, ${newCurrentWeather.country}"
         binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
+        binding.currentWeatherIconId.setImageResource(
+            when (newCurrentWeather.main) {
+                "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain
+                "Rain", "Rain showers", "Thunderstorm" -> R.drawable.cloud_rain
+                "Fog and depositing rime fog" -> R.drawable.cloud
+                "Scattered clouds", "Few clouds", "Broken clouds" -> R.drawable.sun_cloud
+                else -> R.drawable.sun
+            }
+        )
 
     }
 
