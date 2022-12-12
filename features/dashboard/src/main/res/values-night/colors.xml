@@ -10,6 +10,19 @@
 
     <color name="saved_item_color">@color/weathery_grey_2</color>
     <color name="bottom_sheet_background">@color/weathery_grey_1</color>
+
+
+
+    <color name="weather_item_color">#FFFFFF</color>
+    <color name="today_color">#FFFFFF</color>
+    <color name="todays_forecast_text">#FFFFFF</color>
+    <color name="location">#FFFFFF</color>
+    <color name="heavy_rain">#FFFFFF</color>
+    <color name="current_forecast_color">#FFFFFF</color>
+    <color name="risk_color">#FFFFFF</color>
+    <color name="location_dropdown">#FFFFFF</color>
+    <color name="dashboard_bg">#000000</color>
+    <color name="background_shadow_color">#2B2A30</color>
     <color name="weathery_grey_5">#40FFFFFF</color>
 
 </resources>
