@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.LocationViewModel
 import com.gear.add_remove_location.presentation.manage_location.components.CustomMenuItem
-import com.gear.add_remove_location.presentation.manage_location.components.actions.EditAction
+import com.gear.add_remove_location.presentation.manage_location.components.actions.DeleteAction
 import com.gear.add_remove_location.presentation.manage_location.components.actions.SearchAction
 import com.gear.add_remove_location.presentation.manage_location.components.drawDropShadow
 import com.gear.add_remove_location.presentation.ui.theme.LocationTitleStyle
@@ -96,7 +96,7 @@ fun ManageLocationScreen(
 
             Box(
                 modifier = Modifier
-                    .padding(end = 16.dp)
+                    .padding(end = 24.dp)
                     .drawDropShadow(color = MaterialTheme.colors.primary)
                     .background(MaterialTheme.colors.background, RoundedCornerShape(8.dp))
                     .align(Alignment.TopEnd)
@@ -142,7 +142,7 @@ fun ManageLocationScreen(
                         )
                     }
                     Action.EDIT -> {
-                        EditAction(
+                        DeleteAction(
                             savedLocations = viewModel.savedLocations.value,
                             onDeleteItemSelected = { index, location, isSelected ->
                                 viewModel.deleteItemSelected(

@@ -11,6 +11,8 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.dashboard.R
@@ -29,7 +31,6 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetDrawerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: DashboardViewModel
     private val locationAdapter by lazy { SavedLocationAdapter() }
     private var savedLocationList = emptyList<Location>()
     private lateinit var onClickEvent: OnClickEvent
@@ -37,8 +38,19 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     @Inject
     lateinit var locationsRepository: LocationsRepository
 
+
     @Inject
     lateinit var notificationDao: NotificationDao
+    private val viewModel: DashboardViewModel by activityViewModels {
+        DashboardViewModel.DashboardViewModelFactory(
+            locationsRepository,notificationDao, settingsPreference
+        )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
+    }
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
@@ -47,23 +59,17 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BottomSheetDrawerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModelProviderFactory =
-            DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao, settingsPreference)
-        viewModel = ViewModelProvider(
-            requireParentFragment(),
-            viewModelProviderFactory
-        )[DashboardViewModel::class.java]
-        viewModel.getSavedLocation()
         onClickEvent = requireParentFragment() as OnClickEvent
         adaptiveSearchView()
 
+        toggleEmptyState(savedLocationList)
         lifecycleScope.launch {
             viewModel.locationFlow.collect {locationList->
                 savedLocationList = locationList
@@ -124,6 +130,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
                 Configuration.UI_MODE_NIGHT_MASK
         when (nightModeFlags) {
             Configuration.UI_MODE_NIGHT_YES -> {
+                searchEditText.setTextColor(ContextCompat.getColor(requireContext(),android.R.color.white))
                 searchEditText.setHintTextColor(ContextCompat.getColor(requireContext(),android.R.color.white))
                 searchIcon.setImageResource(R.drawable.search_icon_dark_mode)
             }
@@ -148,13 +155,10 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     }
 
   private  fun toggleEmptyState(list:List<Location>){
-        if (list.isEmpty()){
-            binding.emptyView.isVisible = true
-            binding.savedLocationRecyclerView.isVisible = false
-        }else{
-            binding.emptyView.isVisible = false
-            binding.savedLocationRecyclerView.isVisible = true
-        }
+      val isEmpty = locationAdapter.currentList.isEmpty() || list.isEmpty() && locationAdapter.itemCount==0
+      binding.emptyView.isVisible = isEmpty
+      binding.savedLocationRecyclerView.isVisible = !isEmpty
+      binding.emptyStateText.isVisible = isEmpty
     }
 
 }

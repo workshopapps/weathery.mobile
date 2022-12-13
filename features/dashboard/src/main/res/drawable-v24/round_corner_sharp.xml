@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <corners android:topLeftRadius="50dp" android:topRightRadius="50dp" />-->
     <corners android:radius="10dp" />
     <solid android:color="@color/saved_item_color" />
-    <stroke android:color="#32B5B5B5" android:width="12px">
+    <stroke android:color="@color/weathery_grey_5" android:width="4px">
     </stroke>
 </shape>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.SavedLocationItemBinding
 import com.gear.weathery.location.api.Location
+import java.util.*
 
 
 class SavedLocationAdapter: ListAdapter<Location, SavedLocationAdapter.ViewHolder>(diffObject) {
@@ -17,14 +18,14 @@ class SavedLocationAdapter: ListAdapter<Location, SavedLocationAdapter.ViewHolde
         fun bind(location: Location){
 
             when{
-                location.state.isEmpty()->{
-                    binding.locationItem.text = "${location.name }, ${location.country}"
+                location.state.isEmpty() && location.country.isNotEmpty() ->{
+                    binding.locationItem.text = "${location.name.capitalize(Locale.ROOT) }, ${location.country}"
                 }
-                location.name.isEmpty()->{
+                location.name.isEmpty() && location.country.isNotEmpty()->{
                     binding.locationItem.text = "${location.state }, ${location.country}"
                 }
                 location.name.isNotEmpty() && location.state.isNotEmpty()->{
-                    binding.locationItem.text = "${location.name }, ${location.state }"
+                    binding.locationItem.text = "${location.name.capitalize(Locale.ROOT) }, ${location.state }"
                 }
                 else->{
                     binding.locationItem.text = "Current Location"

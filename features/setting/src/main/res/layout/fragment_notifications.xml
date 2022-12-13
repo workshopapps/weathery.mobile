@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/outfit_extrabold"
+            android:fontFamily="@font/outfit_medium"
             android:text="@string/notifications"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/archiveButton_imageView"

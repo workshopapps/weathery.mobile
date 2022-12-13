@@ -54,6 +54,8 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
 
     val notificationsNumber = settingsPreference.unreadNotificationCounterFlow().asLiveData()
 
+    private var _locationFlow = MutableStateFlow<List<com.gear.weathery.location.api.Location>>(emptyList())
+    val locationFlow = _locationFlow.asStateFlow()
 
     fun updateCurrentLocation(location: Location?) {
         if (location == null){
@@ -136,6 +138,7 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         _viewMode.value = TODAY_VIEW_MODE
         _currentWeatherStatus.value = DEFAULT
         _timelineStatus.value = DEFAULT
+        getSavedLocation()
     }
 
 
@@ -147,11 +150,11 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         }
     }
 
-    val locationFlow = MutableStateFlow<List<com.gear.weathery.location.api.Location>>(emptyList())
-    fun getSavedLocation(){
+
+ private fun getSavedLocation(){
         viewModelScope.launch {
             locationRepository.locations.collectLatest {
-                locationFlow.value = it
+                _locationFlow.value = it
             }
         }
     }

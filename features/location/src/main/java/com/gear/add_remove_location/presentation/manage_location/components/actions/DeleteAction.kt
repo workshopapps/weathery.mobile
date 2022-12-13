@@ -1,5 +1,6 @@
 package com.gear.add_remove_location.presentation.manage_location.components.actions
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,11 +19,10 @@ import com.gear.add_remove_location.presentation.manage_location.components.Loca
 import com.gear.add_remove_location.presentation.manage_location.components.drawDropShadow
 import com.gear.add_remove_location.presentation.ui.theme.ButtonTextStyle
 import com.gear.add_remove_location.presentation.ui.theme.LocationSubStyle
-import com.gear.add_remove_location.presentation.ui.theme.Primary500
 import com.gear.weathery.location.api.Location
 
 @Composable
-fun EditAction(
+fun DeleteAction(
     savedLocations: List<Location>,
     onDeleteItemSelected: (index: Int, location: Location, isSelected: Boolean) -> Unit,
     cancelDelete: () -> Unit,
@@ -61,6 +61,36 @@ fun EditAction(
         )
     }
 
+    AnimatedVisibility(visible = items.any { it.isSelected }) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.background)
+                .padding(bottom = 16.dp)
+        ) {
+            Row(Modifier.align(Alignment.Center)) {
+                OutlinedButton(onClick = { cancelDelete() }, shape = RoundedCornerShape(4.dp)) {
+                    Text(
+                        text = stringResource(R.string.cancel),
+                        style = ButtonTextStyle,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(48.dp))
+                Button(
+                    onClick = { deleteLocations() },
+                    shape = RoundedCornerShape(4.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.delete),
+                        style = ButtonTextStyle,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
+                }
+            }
+        }
+    }
 
     LazyColumn {
         items(items.size) { i ->
@@ -92,36 +122,6 @@ fun EditAction(
                         onDeleteItemSelected(i, items[i].location, items[i].isSelected)
                     }
                 )
-            }
-        }
-
-        item {
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 16.dp)
-            ) {
-                Row(Modifier.align(Alignment.Center)) {
-                    OutlinedButton(onClick = { cancelDelete() }, shape = RoundedCornerShape(4.dp)) {
-                        Text(
-                            text = stringResource(R.string.cancel),
-                            style = ButtonTextStyle,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(48.dp))
-                    Button(
-                        onClick = { deleteLocations() },
-                        shape = RoundedCornerShape(4.dp),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Primary500)
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.delete),
-                            style = ButtonTextStyle,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                        )
-                    }
-                }
             }
         }
     }

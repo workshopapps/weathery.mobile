@@ -134,7 +134,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        turnOnLocationSettings()
+        //turnOnLocationSettings()
     }
 
     private fun turnOnLocationSettings() {
@@ -228,7 +228,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         binding.apply {
             binding.timelineRecyclerView.adapter = adapter
         }
-
+        turnOnLocationSettings()
         return binding.root
     }
 
