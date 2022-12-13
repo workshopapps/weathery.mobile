@@ -50,10 +50,10 @@
             <TextView
                 android:id="@+id/location_text_view"
                 android:layout_width="wrap_content"
-                android:textColor="@color/location_dropdown"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/outfit_semibold"
                 android:text="--,----"
+                android:textColor="@color/location_dropdown"
                 android:textSize="16sp" />
 
             <ImageView

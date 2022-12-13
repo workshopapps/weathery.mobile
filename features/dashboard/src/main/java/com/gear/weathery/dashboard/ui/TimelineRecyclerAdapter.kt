@@ -59,7 +59,7 @@ class TimelineRecyclerAdapter :
                     }
 
                 weatherDescriptionTextView.text = timelineWeather.main
-                weatherRiskTextView.text = timelineWeather.risk
+                weatherRiskTextView.text = if(timelineWeather.risk != "null") timelineWeather.risk else "None"
                 weatherIconImageView.setImageResource(
                     when (timelineWeather.main) {
                         "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain

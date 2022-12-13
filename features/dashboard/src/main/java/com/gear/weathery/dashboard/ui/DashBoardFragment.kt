@@ -466,7 +466,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         val startTime = getTimeForDisplay(newCurrentWeather.timeInMillis)
         val endTime = getTimeForDisplay(newCurrentWeather.endTimeTimeInMillis)
         binding.currentWeatherTimeTextView.text = "$startTime to $endTime"
-        binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
+        binding.currentWeatherRiskTextView.text = if(newCurrentWeather.risk != "null") newCurrentWeather.risk else "None"
         binding.locationTextView.text =
             "${newCurrentWeather.state}, ${newCurrentWeather.country}"
         binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
