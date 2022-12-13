@@ -93,7 +93,7 @@ class Notifications : Fragment() {
         })
 
         notificationDao.getNotifications().onEach {
-            adapter.updateDataList((it))
+            adapter.updateDataList((it.reversed()))
             if (it.isEmpty()) {
                 binding.recyclerviewNotification.visibility = View.INVISIBLE
                 binding.emptyStateGroup.visibility = View.VISIBLE
