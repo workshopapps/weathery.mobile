@@ -16,4 +16,5 @@
     <color name="popup_outline">@color/weathery_orange</color>
     <color name="white">#FFFFFF</color>
     <color name="tracker_color">#6F434C63</color>
+    <color name="background_shadow_color">#FFFFFF</color>
 </resources>

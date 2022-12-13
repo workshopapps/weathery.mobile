@@ -243,10 +243,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             navigateToNotifications()
         }
 
-        binding.textbutton.setOnClickListener {
-            generateNotification()
-        }
-
         navDrawer = binding.navDrawerConstraintLayout
         overlay = binding.overlayView
         viewsMenu = binding.timelineViewsMenuLinearLayout

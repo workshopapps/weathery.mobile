@@ -51,29 +51,6 @@ class FirebaseNotificationService : FirebaseMessagingService() {
                 notificationDao,
                 this@FirebaseNotificationService, settingsPreference
             )
-
-//            val notification = NotificationData(notificationText = body!!, notificationTime = time!!, notificationEvent = event!!)
-//            notificationDao.insert(notification)
-//
-//
-//            val notificationBuilder = NotificationCompat.Builder(this@FirebaseNotificationService)
-//                .setContentTitle(event)
-//                .setContentText(body)
-//                .setSmallIcon(R.drawable.ic_app_tropical)
-//                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.rain))
-//                .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                .build()
-//            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
-//            as NotificationManager
-//
-//            CoroutineScope(Dispatchers.Main).launch{
-//                settingsPreference.pushNotification().collect{
-//                    if (!it){
-//                        notificationManager.cancelAll()
-//                    }
-//                }
-//            }
-//            notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder)
         }
 
     }
