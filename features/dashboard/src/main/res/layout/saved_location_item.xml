@@ -11,7 +11,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="50dp"
         app:cardCornerRadius="10dp"
         android:backgroundTint="@color/saved_item_color"
         app:layout_constraintEnd_toEndOf="parent"

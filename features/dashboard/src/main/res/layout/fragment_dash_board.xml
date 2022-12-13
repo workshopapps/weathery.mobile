@@ -203,7 +203,8 @@
                     android:layout_height="22dp"
                     android:id="@+id/current_weather_icon_id"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/rainy_sharp" />
+                    android:src="@drawable/rainy_sharp"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
