@@ -2,6 +2,7 @@ package com.gear.weathery.dashboard.ui
 
 import android.location.Location
 import androidx.lifecycle.*
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.common.utils.Resource
 import com.gear.weathery.dashboard.models.*
 import com.gear.weathery.dashboard.repository.WeatherRepo
@@ -20,7 +21,7 @@ const val BUSY = 1
 const val PASSED = 2
 const val FAILED = 3
 
-class DashboardViewModel(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao): ViewModel() {
+class DashboardViewModel(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao, private val settingsPreference: SettingsPreference): ViewModel() {
 
     private var _dayWeather = MutableLiveData<DayWeather>()
     val dayWeather: LiveData<DayWeather> get() = _dayWeather
@@ -51,9 +52,7 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
     private var _timelineStatus = MutableLiveData<Int>()
     val timelineStatus: LiveData<Int> get() = _timelineStatus
 
-    val notificationsNumber = Transformations.map(notificationDao.getNotifications().asLiveData()){
-        it.size
-    }
+    val notificationsNumber = settingsPreference.unreadNotificationCounterFlow().asLiveData()
 
     private var _locationFlow = MutableStateFlow<List<com.gear.weathery.location.api.Location>>(emptyList())
     val locationFlow = _locationFlow.asStateFlow()
@@ -169,12 +168,12 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         _timelineStatus.value = DEFAULT
     }
 
-    class DashboardViewModelFactory(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao) :
+    class DashboardViewModelFactory(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao, private val settingsPreference: SettingsPreference) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DashboardViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return DashboardViewModel(locationRepository, notificationDao) as T
+                return DashboardViewModel(locationRepository, notificationDao, settingsPreference) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
