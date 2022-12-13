@@ -13,7 +13,7 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-const val NONE = "None"
+const val NONE = "null"
 const val EXTENDED_RESPONSE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN = "d MMM, yyyy h:mma"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN_X = "yyyy-MM-dd'T'HH:mm:ss"
@@ -30,26 +30,19 @@ object WeatherRepo {
 
     suspend fun getTomorrowWeatherTimeline(lat: Double, long: Double): TimelineResponse {
 
-        try {
-            return TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForTomorrow(lat, long))
-        } catch (_: Exception) { }
-
         return try {
-            return TimelineResponse.SuccessTimelineResponse(generateHourlyWeatherTimeline(Calendar.getInstance()))
-        } catch (e: Exception) {
+            TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForTomorrow(lat, long))
+        } catch (_: Exception) {
             TimelineResponse.FailureTimelineResponse()
         }
+
     }
 
     suspend fun getThisWeekTimeline(lat: Double, long: Double): TimelineResponse {
 
-        try {
-            return TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForThisWeek(lat, long))
-        } catch (_: Exception) { }
-
         return try {
-            TimelineResponse.SuccessTimelineResponse(generateDailyWeatherTimeline(Calendar.getInstance()))
-        } catch (e: Exception) {
+            TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForThisWeek(lat, long))
+        } catch (_: Exception) {
             TimelineResponse.FailureTimelineResponse()
         }
 

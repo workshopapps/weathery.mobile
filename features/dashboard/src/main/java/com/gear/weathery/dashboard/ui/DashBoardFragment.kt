@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
-import android.location.Location
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -68,15 +67,11 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     private lateinit var backPressedCallback: OnBackPressedCallback
 
-    private lateinit var currentLocation: Location
-
     private lateinit var navDrawer: ConstraintLayout
     private lateinit var overlay: View
     private lateinit var viewsMenu: LinearLayout
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: LocationRequest
 
     @Inject
     lateinit var settingsNavigation: SettingsNavigation
@@ -108,25 +103,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         }
         backPressedCallback.isEnabled = true
 
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                locationResult ?: return
-                for (location in locationResult.locations) {
-                    viewModel.updateCurrentLocation(location)
-                    lifecycleScope.launch {
-                        val savedLocation = com.gear.weathery.location.api.Location(id = 1, state = "",
-                            name = "current location", country = "", longitude = location.longitude,
-                            latitude = location.latitude
-                        )
-                        locationsRepository.saveLocation(savedLocation)
-                    }
-                }
-            }
-        }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        //turnOnLocationSettings()
     }
 
     private fun turnOnLocationSettings() {
@@ -171,8 +149,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 return@addOnSuccessListener
             }
 
-            viewModel.updateCurrentLocation(it)
-            currentLocation = it
+            viewModel.updateDeviceLocation(it)
 
             lifecycleScope.launch {
                 val savedLocation = com.gear.weathery.location.api.Location(id = 1, state = "",
@@ -227,6 +204,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         binding.locationsMenuItemLinearLayout.setOnClickListener {
             navigateToLocation()
         }
+
         binding.notificationsMenuItemLinearLayout.setOnClickListener {
             navigateToNotifications()
         }
@@ -289,6 +267,10 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
         }
 
+        binding.tryAgainButtonTextView.setOnClickListener{
+            retrieveLocationAndUpdateWeather()
+        }
+
     }
 
 
@@ -304,6 +286,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
                 binding.currentWeatherErrorTextView.visibility = View.GONE
+                binding.tryAgainButtonTextView.visibility = View.GONE
+                updateViewEnabledState(false)
             }
 
             PASSED -> {
@@ -311,6 +295,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.currentWeatherGroupLinearLayout.visibility = View.VISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
                 binding.currentWeatherErrorTextView.visibility = View.GONE
+                binding.tryAgainButtonTextView.visibility = View.GONE
+                updateViewEnabledState(true)
             }
 
             FAILED -> {
@@ -318,6 +304,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
                 binding.currentWeatherErrorTextView.visibility = View.VISIBLE
+                binding.tryAgainButtonTextView.visibility = View.VISIBLE
+                updateViewEnabledState(false)
             }
 
             DEFAULT -> {
@@ -325,6 +313,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.VISIBLE
                 binding.currentWeatherErrorTextView.visibility = View.GONE
+                binding.tryAgainButtonTextView.visibility = View.GONE
+                updateViewEnabledState(false)
             }
         }
     }
@@ -340,6 +330,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.GONE
                 binding.timelineDefaultTextView.visibility = View.GONE
+                binding.tryAgainButtonTextView.visibility = View.GONE
+                updateViewEnabledState(false)
             }
 
             PASSED -> {
@@ -347,6 +339,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.timelineRecyclerView.visibility = View.VISIBLE
                 binding.timelineErrorTextView.visibility = View.GONE
                 binding.timelineDefaultTextView.visibility = View.GONE
+                binding.tryAgainButtonTextView.visibility = View.GONE
+                updateViewEnabledState(true)
             }
 
             FAILED -> {
@@ -354,6 +348,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.VISIBLE
                 binding.timelineDefaultTextView.visibility = View.GONE
+                binding.tryAgainButtonTextView.visibility = View.VISIBLE
+                updateViewEnabledState(false)
             }
 
             DEFAULT -> {
@@ -361,6 +357,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.GONE
                 binding.timelineDefaultTextView.visibility = View.VISIBLE
+                binding.tryAgainButtonTextView.visibility = View.GONE
+                updateViewEnabledState(false)
             }
         }
     }
@@ -466,17 +464,26 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         val startTime = getTimeForDisplay(newCurrentWeather.timeInMillis)
         val endTime = getTimeForDisplay(newCurrentWeather.endTimeTimeInMillis)
         binding.currentWeatherTimeTextView.text = "$startTime to $endTime"
+
         binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
+        if(newCurrentWeather.risk == NONE){
+            binding.currentWeatherRiskTextView.text = "all clear"
+        }
+
         binding.locationTextView.text =
             "${newCurrentWeather.state}, ${newCurrentWeather.country}"
         binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
 
     }
 
-    private fun updateViewsForNewTimeline(
-        newTimeLine: Pair<List<TimelineWeather>, String>
-    ) {
+    private fun updateViewsForNewTimeline(newTimeLine: Pair<List<TimelineWeather>, String>) {
         adapter.updateItemList(newTimeLine.first, newTimeLine.second)
+    }
+
+    private fun updateViewEnabledState(newState: Boolean){
+        binding.locationHeaderLinearLayout.isEnabled = newState
+        binding.timelineViewsMenuImageView.isEnabled = newState
+        binding.shareButtonImageView.isEnabled = newState
     }
 
     private fun navigateToSettings() {
@@ -583,7 +590,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     private fun updateWeatherLink() {
         try {
-            viewModel.getSharedWeatherLink(currentLocation.latitude, currentLocation.longitude)
+            viewModel.getSharedWeatherLink()
         }catch (e:Exception){
             Toast.makeText(
                 requireContext(),
@@ -623,7 +630,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     }
 
     override fun onSavedLocationClicked(lat: Double, long: Double) {
-        viewModel.updateSavedWeatherView(lat, long)
+        viewModel.updateSelectedLocation(lat, long)
     }
 
     private fun setTodayView() {

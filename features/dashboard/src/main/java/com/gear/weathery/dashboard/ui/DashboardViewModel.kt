@@ -43,7 +43,8 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
     private var _viewMode = MutableLiveData<String>()
     val viewMode: LiveData<String> get() = _viewMode
 
-    private lateinit var latestLocation: Location
+    private lateinit var deviceLocation: Location
+    private lateinit var selectedLocation: Pair<Double, Double>
 
     private var _currentWeatherStatus = MutableLiveData<Int>()
     val currentWeatherStatus: LiveData<Int> get() = _currentWeatherStatus
@@ -58,16 +59,30 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
     private var _locationFlow = MutableStateFlow<List<com.gear.weathery.location.api.Location>>(emptyList())
     val locationFlow = _locationFlow.asStateFlow()
 
-    fun updateCurrentLocation(location: Location?) {
+    fun updateDeviceLocation(location: Location?) {
         if (location == null){
             return
         }
 
-        latestLocation = location
+        deviceLocation = location
+        selectedLocation = Pair(location.latitude, location.longitude)
         updateWeatherWithLocation(location.latitude, location.longitude)
     }
 
-    private fun updateWeatherWithLocation(lat: Double = latestLocation.latitude, long: Double = latestLocation.longitude) {
+    fun getLatLongDeviceLocation(): Pair<Double, Double>{
+        return Pair(deviceLocation.latitude, deviceLocation.longitude)
+    }
+
+    fun getDeviceLocation(): Location{
+        return deviceLocation
+    }
+
+    fun getLatLongSelectedLocation(): Pair<Double, Double>{
+        return selectedLocation
+    }
+
+
+    private fun updateWeatherWithLocation(lat: Double = selectedLocation.first, long: Double = selectedLocation.second){
 
         viewModelScope.launch {
             _currentWeatherStatus.value = BUSY
@@ -111,12 +126,15 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         viewModelScope.launch {
             _timelineStatus.value = BUSY
 
-            when(val tomorrowTimelineResponse = WeatherRepo.getTomorrowWeatherTimeline(latestLocation.latitude, latestLocation.longitude)){
+            when(val tomorrowTimelineResponse = WeatherRepo.getTomorrowWeatherTimeline(selectedLocation.first, selectedLocation.second)){
                 is TimelineResponse.SuccessTimelineResponse -> {
                     _timeline.value = Pair(tomorrowTimelineResponse.payLoad!!, HOURLY_TIMELINE)
                     _timelineStatus.value = PASSED
                 }
-                else -> {_timelineStatus.value = FAILED}
+                else -> {
+                    _timelineStatus.value = FAILED
+                    _currentWeatherStatus.value = FAILED
+                }
             }
         }
     }
@@ -125,12 +143,15 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         viewModelScope.launch {
             _timelineStatus.value = BUSY
 
-            when(val thisWeekTimelineResponse = WeatherRepo.getThisWeekTimeline(latestLocation.latitude, latestLocation.longitude)){
+            when(val thisWeekTimelineResponse = WeatherRepo.getThisWeekTimeline(selectedLocation.first, selectedLocation.second)){
                 is TimelineResponse.SuccessTimelineResponse -> {
                     _timeline.value = Pair(thisWeekTimelineResponse.payLoad!!, DAILY_TIMELINE)
                     _timelineStatus.value = PASSED
                 }
-                else -> {_timelineStatus.value = FAILED}
+                else -> {
+                    _timelineStatus.value = FAILED
+                    _currentWeatherStatus.value = FAILED
+                }
             }
         }
     }
@@ -143,9 +164,7 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
     }
 
 
-
-
-    fun getSharedWeatherLink(lat: Double,long: Double){
+    fun getSharedWeatherLink(lat: Double = deviceLocation.latitude,long: Double = deviceLocation.longitude){
         viewModelScope.launch {
             _sharedLinkEvent.send(ShareLinkEvents.Successful(WeatherRepo.getSharedWeatherLink(lat,long)))
         }
@@ -160,8 +179,9 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         }
     }
 
-    fun updateSavedWeatherView(lat: Double, long: Double){
-        updateWeatherWithLocation(lat=lat, long =  long)
+    fun updateSelectedLocation(lat: Double, long: Double){
+        selectedLocation = Pair(lat, long)
+        updateWeatherWithLocation()
     }
 
     fun setDefaultMode(){
