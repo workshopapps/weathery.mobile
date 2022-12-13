@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.DashBoardNavigation
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.location.api.LocationsRepository
 import com.gear.weathery.setting.notifications.adapter.NotificationsAdapter
 import com.gear.weathery.setting.databinding.FragmentNotificationsBinding
@@ -39,6 +40,9 @@ class Notifications : Fragment() {
     @Inject
     lateinit var locationsRepository: LocationsRepository
 
+    @Inject
+    lateinit var settingsPreference: SettingsPreference
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +53,18 @@ class Notifications : Fragment() {
             dashBoardNavigation.navigateToDashboard(navController = findNavController())
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        resetUnreadNotificationsCounter()
+    }
+
+    private fun resetUnreadNotificationsCounter() {
+        lifecycleScope.launch {
+            settingsPreference.updateUnreadNotificationCounter(0)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,18 +102,6 @@ class Notifications : Fragment() {
                 binding.emptyStateGroup.visibility = View.INVISIBLE
             }
         }.launchIn(lifecycleScope)
-
-//        val notificationList = mutableListOf<NotificationData>()
-//        notificationList.add(
-//            NotificationData(
-//                notificationText = "There will be heavy rainfall in some part in the east",
-//                notificationTime = "3m",
-//                notificationEvent = "Thunderstorm"
-//            )
-//        )
-//        lifecycleScope.launch {
-//            notificationDao.insert(*notificationList.toTypedArray())
-//        }
     }
 
     private fun openBottomDialog() {

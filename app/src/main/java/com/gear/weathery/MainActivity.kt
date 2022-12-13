@@ -31,6 +31,9 @@ import com.gear.weathery.setting.util.Constants.CHANNEL_DESCRIPTION
 import com.gear.weathery.setting.util.Constants.CHANNEL_ID
 import com.gear.weathery.setting.util.Constants.CHANNEL_NAME
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao)
+        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao, settingsPreference)
         viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         popUpNotification = binding.popupNotification
@@ -83,9 +86,9 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val currentLocation = locationsRepository.locations.first().first()
                     val networkResponse = NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
-                    Log.e("SubRahmon", networkResponse)
+                    Log.e("xsubscription", networkResponse)
                 } catch (e: Exception){
-                  Log.d("newToken", e.toString())
+                  Log.e("newToken", "error: ${e.toString()}")
                 }
             }
         }
@@ -131,9 +134,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        lifecycleScope.launch {
+
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
             settingsPreference.updateAppForegroundStatus(false)
         }
+
     }
 
     override fun onPause() {

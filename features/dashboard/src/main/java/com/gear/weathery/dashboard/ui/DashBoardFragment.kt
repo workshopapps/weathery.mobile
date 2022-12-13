@@ -66,7 +66,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     private val viewModel: DashboardViewModel by activityViewModels {
         DashboardViewModelFactory(
-            locationsRepository, notificationDao
+            locationsRepository, notificationDao, settingsPreference
         )
     }
     private val adapter = TimelineRecyclerAdapter()
@@ -318,10 +318,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     }
 
     private fun generateNotification() {
-        val notificationManager = ContextCompat.getSystemService(
-            requireContext(),
-            NotificationManager::class.java
-        ) as NotificationManager
         processNotificationData(
             "rain",
             "there will be heavy rainfall",
