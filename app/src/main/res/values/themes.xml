@@ -18,7 +18,7 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">#F7B27A</item>
+        <item name="android:statusBarColor">#EF6820</item>
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

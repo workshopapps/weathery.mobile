@@ -13,7 +13,7 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-const val NONE = "None"
+const val NONE = "null"
 const val EXTENDED_RESPONSE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN = "d MMM, yyyy h:mma"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN_X = "yyyy-MM-dd'T'HH:mm:ss"
