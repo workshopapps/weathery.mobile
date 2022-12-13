@@ -42,7 +42,7 @@ class TimelineRecyclerAdapter :
             binding.apply {
 
                 if(adapterPosition == 0){
-                    ellipseId.setImageResource(R.drawable.ellipse)
+                    ellipseId.setImageResource(R.drawable.ellipse_orange)
                     dividerLine.setImageResource(R.drawable.line)
                 }else{
                     ellipseId.setImageResource(R.drawable.ellipse_white)

@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                     val networkResponse = NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
                     Log.e("xsubscription", networkResponse)
                 } catch (e: Exception){
-                  Log.e("newToken", "error: ${e.toString()}")
+                  Log.e("newToken", "error: $e")
                 }
             }
         }
