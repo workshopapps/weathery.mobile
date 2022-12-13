@@ -14,6 +14,7 @@ import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.setting.R
 import com.gear.weathery.setting.notifications.database.NotificationDao
 import com.gear.weathery.setting.notifications.model.NotificationData
+import com.gear.weathery.setting.notifications.utils.processNotificationData
 import com.gear.weathery.setting.util.Constants
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -25,44 +26,31 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FirebaseNotificationService : FirebaseMessagingService(){
+class FirebaseNotificationService : FirebaseMessagingService() {
     @Inject
     lateinit var notificationDao: NotificationDao
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
+
     override fun onMessageReceived(message: RemoteMessage) {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
             super.onMessageReceived(message)
+            message.notification?.body
             val random = message.data
 
-            val event = random.get("event")
-            val body = random.get("message")
-            val time = random.get("datetime")
+            val event = random["event"]!!
+            val body = random["message"]!!
+            val dateTime = random["datetime"]!!
 
-            val notification = NotificationData(notificationText = body!!, notificationTime = time!!, notificationEvent = event!!)
-            notificationDao.insert(notification)
-
-
-            val notificationBuilder = NotificationCompat.Builder(this@FirebaseNotificationService)
-                .setContentTitle(event)
-                .setContentText(body)
-                .setSmallIcon(R.drawable.tropical_logo)
-                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.rain))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .build()
-            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
-            as NotificationManager
-
-            CoroutineScope(Dispatchers.Main).launch{
-                settingsPreference.pushNotification().collect{
-                    if (!it){
-                        notificationManager.cancelAll()
-                    }
-                }
-            }
-            notificationManager.notify(Constants.NOTIFICATION_ID, notificationBuilder)
+            processNotificationData(
+                event,
+                body,
+                dateTime,
+                notificationDao,
+                this@FirebaseNotificationService, settingsPreference
+            )
         }
 
     }

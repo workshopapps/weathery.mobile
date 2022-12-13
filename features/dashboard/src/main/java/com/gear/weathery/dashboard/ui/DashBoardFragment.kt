@@ -3,6 +3,7 @@ package com.gear.weathery.dashboard.ui
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
@@ -16,12 +17,14 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.*
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.dashboard.LocationPermissionFragment
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.FragmentDashBoardBinding
@@ -35,6 +38,8 @@ import com.gear.weathery.dashboard.ui.DashboardViewModel.ShareLinkEvents
 import com.gear.weathery.dashboard.util.OnClickEvent
 import com.gear.weathery.location.api.LocationsRepository
 import com.gear.weathery.setting.notifications.database.NotificationDao
+import com.gear.weathery.setting.notifications.utils.processNotificationData
+import com.gear.weathery.setting.notifications.utils.sendNotification
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -50,7 +55,7 @@ const val REQUEST_LOCATION_SETTINGS = 25
 class DashBoardFragment : Fragment(), OnClickEvent {
 
     private lateinit var binding: FragmentDashBoardBinding
-    private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
+    private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
 
     @Inject
     lateinit var locationsRepository: LocationsRepository
@@ -60,7 +65,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     private val viewModel: DashboardViewModel by activityViewModels {
         DashboardViewModelFactory(
-            locationsRepository, notificationDao
+            locationsRepository, notificationDao, settingsPreference
         )
     }
     private val adapter = TimelineRecyclerAdapter()
@@ -82,6 +87,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     @Inject
     lateinit var signInNavigation: SignInNavigation
 
+    @Inject
+    lateinit var settingsPreference: SettingsPreference
 
     @Inject
     lateinit var locationsNavigation: AddRemoveLocationNavigation
@@ -116,7 +123,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             .addLocationRequest(locationRequestBuilder.build())
 
         val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(locationSettingsRequestBuilder.build())
+        val task: Task<LocationSettingsResponse> =
+            client.checkLocationSettings(locationSettingsRequestBuilder.build())
 
         task.addOnSuccessListener {
             // All location settings are satisfied. The client can initialize
@@ -126,14 +134,22 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         }
 
         task.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException){
+            if (exception is ResolvableApiException) {
                 // Location settings are not satisfied, but this can be fixed
                 // by showing the user a dialog.
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
 //                    exception.startResolutionForResult(requireActivity(), REQUEST_LOCATION_SETTINGS)
-                    startIntentSenderForResult(exception.resolution.intentSender, REQUEST_LOCATION_SETTINGS, null, 0, 0, 0, null);
+                    startIntentSenderForResult(
+                        exception.resolution.intentSender,
+                        REQUEST_LOCATION_SETTINGS,
+                        null,
+                        0,
+                        0,
+                        0,
+                        null
+                    );
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
@@ -144,31 +160,33 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     @SuppressLint("MissingPermission")
     private fun retrieveLocationAndUpdateWeather() {
         val cts = CancellationTokenSource()
-        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, cts.token).addOnSuccessListener {
-            if(it == null){
-                return@addOnSuccessListener
-            }
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, cts.token)
+            .addOnSuccessListener {
+                if (it == null) {
+                    return@addOnSuccessListener
+                }
 
             viewModel.updateDeviceLocation(it)
 
-            lifecycleScope.launch {
-                val savedLocation = com.gear.weathery.location.api.Location(id = 1, state = "",
-                    name = "current location", country = "", longitude = it.longitude,
-                    latitude = it.latitude
-                )
-                locationsRepository.saveLocation(savedLocation)
+                lifecycleScope.launch {
+                    val savedLocation = com.gear.weathery.location.api.Location(
+                        id = 1, state = "",
+                        name = "current location", country = "", longitude = it.longitude,
+                        latitude = it.latitude
+                    )
+                    locationsRepository.saveLocation(savedLocation)
+                }
             }
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
     }
 
     override fun onPause() {
         super.onPause()
-        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -195,6 +213,10 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
         binding.locationHeaderLinearLayout.setOnClickListener {
             BottomSheetDrawer().show(childFragmentManager, "BOTTOM SHEET")
+        }
+
+        binding.notificationButtonGroupConstraintLayout.setOnClickListener{
+            navigateToNotifications()
         }
 
         navDrawer = binding.navDrawerConstraintLayout
@@ -257,11 +279,10 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             updateViewsForNewTimelineStatus(it)
         }
 
-        viewModel.notificationsNumber.observe(viewLifecycleOwner){
-            if (it == null || it == 0){
+        viewModel.notificationsNumber.observe(viewLifecycleOwner) {
+            if (it == null || it == 0) {
                 binding.notificationCounterFrameLayout.visibility = View.GONE
-            }
-            else{
+            } else {
                 binding.notificationCounterFrameLayout.visibility = View.VISIBLE
                 binding.notificationCounterTextView.text = it.toString()
             }
@@ -472,7 +493,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
         binding.locationTextView.text =
             "${newCurrentWeather.state}, ${newCurrentWeather.country}"
-        binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
+        binding.currentWeatherRiskIndicatorImageView.setImageResource(if (newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
 
     }
 
@@ -650,11 +671,11 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(!permissionGranted){
+        if (!permissionGranted) {
             viewModel.setDefaultMode()
             val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
             btmDialog.setCancelable(true)
-            btmDialog.show(childFragmentManager,"LOCATION DIALOG")
+            btmDialog.show(childFragmentManager, "LOCATION DIALOG")
         }
     }
 

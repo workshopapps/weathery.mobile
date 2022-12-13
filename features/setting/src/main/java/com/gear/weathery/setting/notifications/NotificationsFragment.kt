@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.gear.weathery.common.navigation.DashBoardNavigation
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.location.api.LocationsRepository
 import com.gear.weathery.setting.notifications.adapter.NotificationsAdapter
 import com.gear.weathery.setting.databinding.FragmentNotificationsBinding
@@ -39,6 +40,9 @@ class Notifications : Fragment() {
     @Inject
     lateinit var locationsRepository: LocationsRepository
 
+    @Inject
+    lateinit var settingsPreference: SettingsPreference
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +55,18 @@ class Notifications : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        resetUnreadNotificationsCounter()
+    }
+
+    private fun resetUnreadNotificationsCounter() {
+        lifecycleScope.launch {
+            settingsPreference.updateUnreadNotificationCounter(0)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerviewNotification.adapter = adapter
@@ -60,7 +76,11 @@ class Notifications : Fragment() {
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("NotificationsFragment", "Fetching FCM registration token failed", task.exception)
+                Log.w(
+                    "NotificationsFragment",
+                    "Fetching FCM registration token failed",
+                    task.exception
+                )
                 return@OnCompleteListener
             }
 
@@ -74,10 +94,10 @@ class Notifications : Fragment() {
 
         notificationDao.getNotifications().onEach {
             adapter.updateDataList((it.reversed()))
-            if (it.isEmpty() ){
+            if (it.isEmpty()) {
                 binding.recyclerviewNotification.visibility = View.INVISIBLE
                 binding.emptyStateGroup.visibility = View.VISIBLE
-            }else {
+            } else {
                 binding.recyclerviewNotification.visibility = View.VISIBLE
                 binding.emptyStateGroup.visibility = View.INVISIBLE
             }

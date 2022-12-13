@@ -512,7 +512,7 @@
     </LinearLayout>
 
 
-    <!--    visibility should be set to visible.
+    <!--    visibility should be set to invisible.
    to ensure animation bahaves correctly-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navDrawer_constraintLayout"
@@ -668,6 +668,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
