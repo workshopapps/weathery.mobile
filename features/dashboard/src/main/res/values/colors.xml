@@ -35,6 +35,7 @@
     <color name="bottom_sheet_background">@android:color/white</color>
 
 
+    <color name="shimmer_bg">#E6E6E6</color>
     <color name="weather_item_color">#1E1E1E</color>
     <color name="today_color">#000000</color>
     <color name="todays_forecast_text">#565560</color>

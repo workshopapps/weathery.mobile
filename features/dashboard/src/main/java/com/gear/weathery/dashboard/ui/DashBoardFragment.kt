@@ -103,6 +103,13 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(!permissionGranted){
+            viewModel.setBusyMode()
+            val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
+            btmDialog.setCancelable(true)
+            btmDialog.show(childFragmentManager,"LOCATION DIALOG")
+        }
+
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             exitApp()
         }
@@ -183,17 +190,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LOCATION_SETTINGS) {
             retrieveLocationAndUpdateWeather()
@@ -300,13 +296,17 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         when (newCurrentWeatherStatus) {
 
             BUSY -> {
-                binding.currentWeatherLoadingTextView.visibility = View.VISIBLE
+                binding.todayForecastShimmer.visibility = View.VISIBLE
+                binding.todayForecastShimmer.startShimmer()
+                //binding.currentWeatherLoadingTextView.visibility = View.VISIBLE
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
                 binding.currentWeatherErrorTextView.visibility = View.GONE
             }
 
             PASSED -> {
+                binding.todayForecastShimmer.visibility = View.GONE
+                binding.todayForecastShimmer.stopShimmer()
                 binding.currentWeatherLoadingTextView.visibility = View.GONE
                 binding.currentWeatherGroupLinearLayout.visibility = View.VISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
@@ -314,6 +314,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
 
             FAILED -> {
+                binding.todayForecastShimmer.visibility = View.GONE
+                binding.todayForecastShimmer.stopShimmer()
                 binding.currentWeatherLoadingTextView.visibility = View.GONE
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
@@ -336,13 +338,17 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
         when (newTimelineStatus) {
             BUSY -> {
-                binding.timelineLoadingTextView.visibility = View.VISIBLE
+                binding.timelineShimmer.visibility = View.VISIBLE
+                binding.timelineShimmer.startShimmer()
+               //binding.timelineLoadingTextView.visibility = View.VISIBLE
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.GONE
                 binding.timelineDefaultTextView.visibility = View.GONE
             }
 
             PASSED -> {
+                binding.timelineShimmer.visibility = View.GONE
+                binding.timelineShimmer.stopShimmer()
                 binding.timelineLoadingTextView.visibility = View.GONE
                 binding.timelineRecyclerView.visibility = View.VISIBLE
                 binding.timelineErrorTextView.visibility = View.GONE
@@ -350,6 +356,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
 
             FAILED -> {
+                binding.timelineShimmer.visibility = View.GONE
+                binding.timelineShimmer.stopShimmer()
                 binding.timelineLoadingTextView.visibility = View.GONE
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.VISIBLE
@@ -652,12 +660,24 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(!permissionGranted){
-            viewModel.setDefaultMode()
-            val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
-            btmDialog.setCancelable(true)
-            btmDialog.show(childFragmentManager,"LOCATION DIALOG")
-        }
+//        if(!permissionGranted){
+//            viewModel.setBusyMode()
+//            val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
+//            btmDialog.setCancelable(true)
+//            btmDialog.show(childFragmentManager,"LOCATION DIALOG")
+//        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
+        viewModel.setPassedMode()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
     }
 
 
