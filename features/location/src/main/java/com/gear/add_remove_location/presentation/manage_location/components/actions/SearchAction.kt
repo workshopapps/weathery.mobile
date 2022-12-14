@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
 import com.gear.add_remove_location.presentation.manage_location.components.LocationSearchBar
+import com.gear.add_remove_location.presentation.manage_location.components.SearchIndicator
 import com.gear.add_remove_location.presentation.manage_location.components.SearchResultsWidget
 import com.gear.add_remove_location.presentation.ui.theme.LocationSubStyle
 import com.gear.weathery.location.api.Location
@@ -19,6 +20,7 @@ fun SearchAction(
     locations: List<Location>,
     isOnSearch: Boolean,
     text: String,
+    isLoading: Boolean,
     onLocationSearch: (String) -> Unit,
     onLocationSelected: (String) -> Unit,
     onSaveItemClicked: (index: Int, location: Location, isSelected: Boolean) -> Unit,
@@ -41,7 +43,13 @@ fun SearchAction(
                 true -> {
                     LocationSearchBar(
                         modifier = Modifier.padding(top = 16.dp), text = text,
-                    ) { onLocationSearch(it) }
+                        onSearch = { onLocationSearch(it) }, indicator = {
+                            if (text.length >= 3) {
+                                if (isLoading) {
+                                    SearchIndicator()
+                                }
+                            }
+                        })
                     Box(
                         Modifier
                             .fillMaxSize()
