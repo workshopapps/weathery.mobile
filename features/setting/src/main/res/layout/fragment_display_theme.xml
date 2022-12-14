@@ -46,7 +46,7 @@
                 android:id="@+id/tvSelectDisplayTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/outfit_regular"
                 android:text="@string/select_your_prefered_display_theme"
                 android:textSize="20sp"

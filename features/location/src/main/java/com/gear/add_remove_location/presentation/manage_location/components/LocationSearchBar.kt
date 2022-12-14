@@ -25,7 +25,8 @@ import com.gear.add_remove_location.presentation.ui.theme.Primary500
 fun LocationSearchBar(
     modifier: Modifier = Modifier,
     text: String,
-    onSearch: (String) -> Unit
+    onSearch: (String) -> Unit,
+    indicator: @Composable () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -38,18 +39,14 @@ fun LocationSearchBar(
         onValueChange = {
             onSearch(it)
         },
+        trailingIcon = indicator,
         leadingIcon = {
-            IconButton(onClick = {
-                keyboardController?.hide()
-            }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.location_ic_search_icon),
-                    contentDescription = "",
-                    modifier = Modifier.size(16.dp),
-                    tint = MaterialTheme.colors.primary
-                )
-            }
-
+            Icon(
+                painter = painterResource(id = R.drawable.location_ic_search_icon),
+                contentDescription = "",
+                modifier = Modifier.size(16.dp),
+                tint = MaterialTheme.colors.primary
+            )
         },
         placeholder = {
             Box(Modifier.fillMaxSize()) {
@@ -62,8 +59,8 @@ fun LocationSearchBar(
             }
         },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = {
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = {
             keyboardController?.hide()
         }),
         modifier = modifier

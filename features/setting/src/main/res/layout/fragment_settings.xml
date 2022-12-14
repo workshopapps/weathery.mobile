@@ -58,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/tvGeneral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,16 +69,16 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
+                app:layout_constraintTop_toBottomOf="@+id/divider" />-->
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:src="@drawable/ic_device_mobile"
-                app:layout_constraintStart_toStartOf="@+id/tvGeneral"
-                app:layout_constraintTop_toBottomOf="@+id/tvGeneral"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
                 app:tint="?android:colorForeground" />
 
             <TextView
@@ -121,7 +121,7 @@
                 android:id="@+id/ivNotificationIcon"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:src="@drawable/ic_notifications"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/tvDispalyThemeSummary"
@@ -168,7 +168,7 @@
                 android:id="@+id/ivLanguageIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 app:tint="?android:colorForeground"
                 android:src="@drawable/ic_language"
                 app:layout_constraintStart_toStartOf="@+id/ivNotificationIcon"
@@ -216,7 +216,7 @@
                 android:id="@+id/dividerTwo"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -380,7 +380,7 @@
                 android:id="@+id/ivAboutUsIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:src="@drawable/ic_users"
                 app:tint="?android:colorForeground"
                 app:layout_constraintStart_toStartOf="parent"
@@ -405,7 +405,7 @@
                 android:id="@+id/ivPrivatePolicyIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 app:tint="?android:colorForeground"
                 android:src="@drawable/ic_file_text"
                 app:layout_constraintStart_toStartOf="parent"
