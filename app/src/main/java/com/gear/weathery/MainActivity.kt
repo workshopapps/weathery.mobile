@@ -12,6 +12,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.asLiveData
 import com.gear.weathery.dashboard.R
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -30,6 +31,9 @@ import com.gear.weathery.setting.util.Constants.CHANNEL_DESCRIPTION
 import com.gear.weathery.setting.util.Constants.CHANNEL_ID
 import com.gear.weathery.setting.util.Constants.CHANNEL_NAME
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -64,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao)
+        val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao, settingsPreference)
         viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         popUpNotification = binding.popupNotification
@@ -81,9 +85,10 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 try {
                     val currentLocation = locationsRepository.locations.first().first()
-                    NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
+                    val networkResponse = NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
+                    Log.e("xsubscription", networkResponse)
                 } catch (e: Exception){
-                  Log.d("newToken", e.toString())
+                  Log.e("newToken", "error: $e")
                 }
             }
         }
@@ -108,18 +113,35 @@ class MainActivity : AppCompatActivity() {
                    SharedPreference.putBoolean("CHANGELANGUAGE",false)
                }
 
-        notificationDao.getNotifications().onEach {
-            if (it.isEmpty()){
-                return@onEach
-            }
-            val notification = it.last()
-            binding.notificationBodyTextView.text = notification.notificationText
-            binding.popupNotification.visibility = View.VISIBLE
-            notificationTimer.start()
-        }.launchIn(lifecycleScope)
+        notificationDao.getNotifications().asLiveData().observe(this){
+            lifecycleScope.launch {
 
+                if(it.isEmpty()){
+                    return@launch
+                }
+                val notification = it.last()
+                binding.notificationBodyTextView.text = notification.notificationText
+                binding.popupNotification.visibility = View.VISIBLE
+                notificationTimer.start()
+            }
+
+        }
+
+        lifecycleScope.launch{
+            settingsPreference.updateAppForegroundStatus(true)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            settingsPreference.updateAppForegroundStatus(false)
+        }
 
     }
+
     override fun onPause() {
         super.onPause()
         rebuild = true

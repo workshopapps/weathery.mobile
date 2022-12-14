@@ -10,9 +10,11 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.gear.weathery.common.preference.SettingsPreference
 import com.gear.weathery.dashboard.R
 import com.gear.weathery.dashboard.databinding.BottomSheetDrawerBinding
 import com.gear.weathery.dashboard.util.OnClickEvent
@@ -41,7 +43,7 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
     lateinit var notificationDao: NotificationDao
     private val viewModel: DashboardViewModel by activityViewModels {
         DashboardViewModel.DashboardViewModelFactory(
-            locationsRepository,notificationDao
+            locationsRepository,notificationDao, settingsPreference
         )
     }
 
@@ -49,6 +51,9 @@ class BottomSheetDrawer : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
     }
+
+    @Inject
+    lateinit var settingsPreference: SettingsPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,

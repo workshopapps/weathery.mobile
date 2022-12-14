@@ -92,7 +92,7 @@
                 android:id="@+id/notificationCounter_frameLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ellipse"
+                android:background="@drawable/ellipse_orange"
                 android:padding="2dp"
                 android:layout_marginTop="-8dp"
                 app:layout_constraintTop_toTopOf="@id/notification_btn"
@@ -361,7 +361,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/timeline_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@color/white_color"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -564,7 +564,7 @@
     </LinearLayout>
 
 
-    <!--    visibility should be set to visible.
+    <!--    visibility should be set to invisible.
    to ensure animation bahaves correctly-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navDrawer_constraintLayout"
@@ -721,6 +721,24 @@
 
         </LinearLayout>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tryAgainButton_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/bg_button"
+        android:visibility="gone"
+        android:text="try again"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/outfit_semibold"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
