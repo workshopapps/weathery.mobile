@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gear.add_remove_location.R
@@ -85,6 +86,7 @@ fun DeleteAction(
                     Text(
                         text = stringResource(id = R.string.delete),
                         style = ButtonTextStyle,
+                        color = Color.White,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                     )
                 }
