@@ -1,10 +1,7 @@
 package com.gear.weathery.setting
 
-import android.app.NotificationManager
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -31,7 +28,7 @@ class NotificationSettings : Fragment() {
 
     @Inject
     lateinit var settingsPreference: SettingsPreference
-    private val settingsViewModel:SettingsViewModel by activityViewModels()
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -123,8 +120,8 @@ class NotificationSettings : Fragment() {
                 }
 
             }
-            lifecycleScope.launch{
-                settingsPreference.pushNotification().collect{
+            lifecycleScope.launch {
+                settingsPreference.pushNotification().collect {
                     swBannerOnOff.isEnabled = it
                 }
             }
@@ -132,7 +129,10 @@ class NotificationSettings : Fragment() {
             ivBackButton.setOnClickListener {
                 findNavController().popBackStack()
             }
-            swNotificationOnOff.setOnCheckedChangeListener { _, isChecked ->
+            swNotificationOnOff.setOnClickListener {
+                openNotificationSettings()
+            }
+            /*swNotificationOnOff.setOnCheckedChangeListener { _, isChecked ->
                 isPushNotificationOn = isChecked
                 if (isChecked) {
                     settingsViewModel.togglePushNotification(true)
@@ -140,7 +140,7 @@ class NotificationSettings : Fragment() {
                     settingsViewModel.togglePushNotification(false)
                     settingsViewModel.toggleBanner(false)
                 }
-            }
+            }*/
             tvVibrateStatus.setOnClickListener {
                 if (vibrateOptionsExpanded) {
                     tvVibrateStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -163,7 +163,7 @@ class NotificationSettings : Fragment() {
                 when (checkedId) {
                     R.id.rBtnVibrateOff -> {
                         tvVibrateStatus.text = getString(R.string.off)
-                       settingsViewModel.toggleVibrationMode(false)
+                        settingsViewModel.toggleVibrationMode(false)
                         openNotificationSettings()
                     }
                     R.id.rBtnVibrateDefault -> {
@@ -179,7 +179,7 @@ class NotificationSettings : Fragment() {
                         settingsViewModel.setPushNotification(frequency = getString(R.string.daily).lowercase())
                     }
                     R.id.rBtnWeekly -> {
-                       settingsViewModel.setPushNotification(frequency = getString(R.string.weekly).lowercase())
+                        settingsViewModel.setPushNotification(frequency = getString(R.string.weekly).lowercase())
                     }
                     R.id.rBtnMonthly -> {
                         settingsViewModel.setPushNotification(frequency = getString(R.string.monthly).lowercase())
@@ -187,52 +187,50 @@ class NotificationSettings : Fragment() {
                 }
             }
 
-            swBannerOnOff.setOnCheckedChangeListener { _, isChecked ->
+            swBannerOnOff.setOnClickListener {
+                openNotificationSettings()
+            }
+            /*swBannerOnOff.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    settingsViewModel.toggleBanner(true)
+                    //settingsViewModel.toggleBanner(true)
                     openNotificationSettings()
                 } else {
-                    settingsViewModel.toggleBanner(false)
+                   // settingsViewModel.toggleBanner(false)
                     openNotificationSettings()
                 }
-            }
+            }*/
 
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch {
-            val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val toneUri = notificationManager.getNotificationChannel(CHANNEL_ID).sound
-                val toneName = RingtoneManager.getRingtone(requireContext(), toneUri).getTitle(requireContext())
-                lifecycleScope.launch {
-                    settingsViewModel.setNotificationTone(toneName)
-                }
-            }
-        }
-    }
 
-    private fun openNotificationSettings(){
-        val intent=  Intent().apply {
-            when{
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ->{
-                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+    @SuppressLint("ObsoleteSdkInt")
+    private fun openNotificationSettings() {
+        val intent = Intent().apply {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                    action = Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS
                     putExtra(Settings.EXTRA_CHANNEL_ID, CHANNEL_ID)
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                        flags += Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
                 }
 
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ->{
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
                     action = "android.settings.APP_NOTIFICATION_SETTINGS"
                     putExtra("app_package", requireContext().packageName)
                     putExtra("app_uid", requireContext().applicationInfo.uid)
                 }
-                else ->{
-                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    addCategory(Intent.CATEGORY_DEFAULT)
-                    data = Uri.parse("package:" + requireContext().packageName)
-                }
+                /*Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1 ->{
+                    binding.swNotificationOnOff.setOnCheckedChangeListener { _, isChecked ->
+                        settingsViewModel.togglePushNotification(isChecked)
+                    }
+                    binding.swBannerOnOff.setOnCheckedChangeListener { _, isChecked ->
+                        settingsViewModel.toggleBanner(isChecked)
+                    }
+                }*/
+
             }
         }
 

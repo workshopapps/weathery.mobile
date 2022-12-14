@@ -2,6 +2,7 @@ package com.gear.weathery
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -147,25 +148,48 @@ class MainActivity : AppCompatActivity() {
         rebuild = true
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = notificationManager.getNotificationChannel(CHANNEL_ID)
+            val toneUri = channel.sound
+            val toneName =
+                RingtoneManager.getRingtone(this, toneUri).getTitle(this)
+            lifecycleScope.launch {
+                settingsPreference.setNotificationTone(toneName)
+            }
+            lifecycleScope.launch {
+                settingsPreference.togglePushNotification(channel.importance != NotificationManager.IMPORTANCE_NONE)
+            }
+            lifecycleScope.launch {
+                settingsPreference.toggleBanner(channel.importance == NotificationManager.IMPORTANCE_HIGH)
+            }
+       }
+    }
+
     private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_HIGH
-        ).apply {
-            description = CHANNEL_DESCRIPTION
-            enableVibration(true)
-        }
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-        val toneUri = channel.sound
-        val tone = RingtoneManager.getRingtone(this, toneUri)
-        val toneName = tone.getTitle(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = CHANNEL_DESCRIPTION
+                enableVibration(true)
+            }
 
-        lifecycleScope.launch {
-            settingsPreference.setNotificationTone(toneName)
-        }
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+            val toneUri = channel.sound
+            val tone = RingtoneManager.getRingtone(this, toneUri)
+            val toneName = tone.getTitle(this)
 
+            lifecycleScope.launch {
+                settingsPreference.setNotificationTone(toneName)
+            }
+
+        }
     }
 }
