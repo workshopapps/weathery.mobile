@@ -42,7 +42,7 @@ class TimelineRecyclerAdapter :
             binding.apply {
 
                 if(adapterPosition == 0){
-                    ellipseId.setImageResource(R.drawable.ellipse)
+                    ellipseId.setImageResource(R.drawable.ellipse_orange)
                     dividerLine.setImageResource(R.drawable.line)
                 }else{
                     ellipseId.setImageResource(R.drawable.ellipse_white)
@@ -59,7 +59,12 @@ class TimelineRecyclerAdapter :
                     }
 
                 weatherDescriptionTextView.text = timelineWeather.main
+
                 weatherRiskTextView.text = timelineWeather.risk
+                if(timelineWeather.risk == NONE){
+                    weatherRiskTextView.text = "all clear"
+                }
+
                 weatherIconImageView.setImageResource(
                     when (timelineWeather.main) {
                         "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain
