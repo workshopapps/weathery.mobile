@@ -3,6 +3,7 @@ package com.gear.weathery.setting.notifications.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.gear.weathery.setting.R
 import com.gear.weathery.setting.databinding.NotificationsListItemBinding
 import com.gear.weathery.setting.notifications.model.NotificationData
 import java.text.SimpleDateFormat
@@ -38,6 +39,26 @@ class NotificationsAdapter :  RecyclerView.Adapter<NotificationsAdapter.Notifica
             }
             binding.notificationBodyTextView.text=notificationData.notificationText
             binding.ageTextView.text = age
+            val image = when{
+                notificationData.notificationText.lowercase().contains("rain") ->{
+                    R.drawable.rain
+                }
+                notificationData.notificationText.lowercase().contains("fog") ->{
+                    R.drawable.fog
+                }
+                notificationData.notificationText.lowercase().contains("sun")&&
+                        !notificationData.notificationText.lowercase().contains("burn") ->{
+                    R.drawable.sun
+                }
+                notificationData.notificationText.lowercase().contains("burn") &&
+                        notificationData.notificationText.lowercase().contains("sun")->{
+                    R.drawable.sunburn
+                }
+                else -> {
+                    R.drawable.cloud
+                }
+            }
+            binding.event.setImageResource(image)
         }
     }
 
