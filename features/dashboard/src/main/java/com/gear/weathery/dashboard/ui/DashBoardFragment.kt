@@ -50,6 +50,7 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 const val REQUEST_LOCATION_SETTINGS = 25
@@ -500,7 +501,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         if(newCurrentWeather.risk == NONE){
             binding.currentWeatherRiskTextView.text = "RISK : NONE"
         }else{
-            binding.currentWeatherRiskTextView.text = "RISK : $newCurrentWeather.risk"
+            binding.currentWeatherRiskTextView.text = "RISK : ${(newCurrentWeather.risk)?.toUpperCase(Locale.ROOT)}"
         }
 
       //  binding.currentWeatherRiskTextView.text = if(newCurrentWeather.risk != "null") newCurrentWeather.risk else "RISK : NONE"
@@ -701,7 +702,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 btmDialog.setCancelable(true)
                 btmDialog.show(childFragmentManager, "LOCATION DIALOG")
             }
-
         }
     }
 

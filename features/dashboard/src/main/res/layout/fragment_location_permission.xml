@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:background="@color/dialog_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LocationPermissionFragment">
 
@@ -32,6 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/oops_tv"
         android:textSize="16dp"
+        android:textColor="@color/default_colour"
         android:id="@+id/long_txt_tv"
         android:fontFamily="@font/outfit_regular"
 
@@ -48,7 +50,7 @@
         android:layout_marginEnd="16dp"
         android:id="@+id/allow_permission"
         android:layout_marginBottom="24dp"
-        android:textColor="@color/white_color"
+        android:textColor="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@+id/long_txt_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/allow_permission_btn_bg"/>
