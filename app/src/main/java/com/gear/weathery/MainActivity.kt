@@ -1,5 +1,7 @@
 package com.gear.weathery
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -10,6 +12,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -49,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var popUpNotification: ConstraintLayout
     private var rebuild = false
     private lateinit var viewModel:DashboardViewModel
+    private lateinit var overlay: View
+    private lateinit var backPressedCallback: OnBackPressedCallback
 
     @Inject
     lateinit var notificationDao: NotificationDao
@@ -70,13 +76,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao, settingsPreference)
+
         viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         popUpNotification = binding.popupNotification
+        overlay = binding.overlayView
+
+        backPressedCallback = onBackPressedDispatcher.addCallback(this) {
+
+        }
+        backPressedCallback.isEnabled = false
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
-        setContentView(binding.root)
 
         val fragHost = supportFragmentManager.findFragmentById(com.gear.weathery.R.id.fragHost) as NavHostFragment
         navController = fragHost.findNavController()
@@ -94,6 +107,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        setContentView(binding.root)
     }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
@@ -123,9 +137,13 @@ class MainActivity : AppCompatActivity() {
                 val notification = it.last()
                 binding.notificationBodyTextView.text = notification.notificationText
                 binding.popupNotification.visibility = View.VISIBLE
-                notificationTimer.start()
+                showDialog()
             }
 
+        }
+
+        binding.gotItButtonFrameLayout.setOnClickListener{
+            hidePopup()
         }
 
         lifecycleScope.launch{
@@ -191,5 +209,40 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun hidePopup(dialog: View = popUpNotification) {
+        overlay.visibility = View.GONE
+        backPressedCallback.isEnabled = false
+
+        val movePropertyValueHolder =
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_Y , 0f, dialog.height.toFloat())
+        val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 0.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            dialog,
+            movePropertyValueHolder,
+            transparencyValueHolder
+        )
+        animator.start()
+
+    }
+
+    private fun showDialog(dialog: View = popUpNotification) {
+
+        backPressedCallback.isEnabled = true
+
+
+        overlay.visibility = View.VISIBLE
+        dialog.visibility = View.VISIBLE
+
+        val movePropertyValueHolder =
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, dialog.height.toFloat(), 0f)
+        val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            dialog,
+            movePropertyValueHolder,
+            transparencyValueHolder
+        )
+        animator.start()
     }
 }
