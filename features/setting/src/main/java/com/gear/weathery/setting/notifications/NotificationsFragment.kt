@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +31,7 @@ import javax.inject.Inject
 class Notifications : Fragment() {
     private lateinit var binding: FragmentNotificationsBinding
     private var adapter = NotificationsAdapter()
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
 
     @Inject
     lateinit var dashBoardNavigation: DashBoardNavigation
@@ -52,6 +54,11 @@ class Notifications : Fragment() {
         binding.backButtonImageView.setOnClickListener {
             dashBoardNavigation.navigateToDashboard(navController = findNavController())
         }
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.emptyBottomSheet)
+        bottomSheetBehavior.apply {
+            state = BottomSheetBehavior.STATE_COLLAPSED
+            peekHeight = 0
+        }
         return binding.root
     }
 
@@ -71,7 +78,22 @@ class Notifications : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerviewNotification.adapter = adapter
         binding.archiveButtonImageView.setOnClickListener {
-            openBottomDialog()
+            if (adapter.dataList.isNotEmpty()) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                // openBottomDialog()
+            }else{
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
+
+        binding.btnCancelDelete.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        binding.btnDelete.setOnClickListener {
+            lifecycleScope.launch {
+                notificationDao.deleteNotifications()
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
         }
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
