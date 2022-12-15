@@ -157,8 +157,8 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
 
     init {
         _viewMode.value = TODAY_VIEW_MODE
-        _currentWeatherStatus.value = BUSY
-        _timelineStatus.value = BUSY
+        _currentWeatherStatus.value = DEFAULT
+        _timelineStatus.value = DEFAULT
         getSavedLocation()
     }
 

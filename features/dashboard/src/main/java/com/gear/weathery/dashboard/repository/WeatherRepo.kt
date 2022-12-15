@@ -16,7 +16,6 @@ import java.util.Calendar
 const val NONE = "null"
 const val RESPONSE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm"
 const val RESPONSE_DATE_PATTERN = "yyyy-MM-dd"
-const val NONE = "null"
 const val EXTENDED_RESPONSE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN = "d MMM, yyyy h:mma"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN_X = "yyyy-MM-dd'T'HH:mm:ss"
