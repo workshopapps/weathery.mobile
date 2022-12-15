@@ -71,15 +71,7 @@ class Notifications : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerviewNotification.adapter = adapter
         binding.archiveButtonImageView.setOnClickListener {
-            lifecycleScope.launch{
-                notificationDao.getNotifications().collect{
-                    if(it.isEmpty() || it==null)
-                       return@collect
-                    else
-                        openBottomDialog()
-                }
-            }
-
+            openBottomDialog()
         }
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
