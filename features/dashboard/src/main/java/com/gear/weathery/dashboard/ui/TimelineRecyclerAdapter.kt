@@ -10,6 +10,7 @@ import com.gear.weathery.dashboard.models.TimelineWeather
 import com.gear.weathery.dashboard.models.getAmPmTime
 import com.gear.weathery.dashboard.models.getDateForDisplay
 import com.gear.weathery.dashboard.repository.NONE
+import java.util.*
 
 const val HOURLY_TIMELINE = "hourly timeline"
 const val DAILY_TIMELINE = "daily timeline"
@@ -60,11 +61,14 @@ class TimelineRecyclerAdapter :
 
                 weatherDescriptionTextView.text = timelineWeather.main
 
-                weatherRiskTextView.text = timelineWeather.risk
+              //  weatherRiskTextView.text = timelineWeather.risk
                 if(timelineWeather.risk == NONE){
-                    weatherRiskTextView.text = "all clear"
+                    weatherRiskTextView.text = "RISK : NONE"
+                }else{
+                    weatherRiskTextView.text = "RISK : ${(timelineWeather.risk)?.toUpperCase(Locale.ROOT)}"
                 }
 
+               // weatherRiskTextView.text = if(timelineWeather.risk != "null") timelineWeather.risk else "all clear"
                 weatherIconImageView.setImageResource(
                     when (timelineWeather.main) {
                         "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain

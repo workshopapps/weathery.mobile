@@ -205,6 +205,14 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         _currentWeatherStatus.value = DEFAULT
         _timelineStatus.value = DEFAULT
     }
+    fun setBusyMode(){
+        _currentWeatherStatus.value = BUSY
+        _timelineStatus.value = BUSY
+    }
+    fun setPassedMode(){
+        _currentWeatherStatus.value = PASSED
+        _timelineStatus.value = PASSED
+    }
 
     class DashboardViewModelFactory(private val locationRepository: LocationsRepository, private val notificationDao: NotificationDao, private val settingsPreference: SettingsPreference) :
         ViewModelProvider.Factory {

@@ -1,5 +1,6 @@
 package com.gear.weathery.dashboard.ui
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
@@ -7,8 +8,10 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -53,7 +57,7 @@ const val REQUEST_LOCATION_SETTINGS = 25
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), OnClickEvent {
-
+    var checkState : Boolean = true
     private lateinit var binding: FragmentDashBoardBinding
     private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
 
@@ -105,6 +109,9 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("CheckForPermissionw", "onCreate: $permissionGranted")
+
         backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             exitApp()
         }
@@ -179,15 +186,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
     }
 
-    override fun onResume() {
-        super.onResume()
-        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LOCATION_SETTINGS) {
@@ -303,7 +301,9 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         when (newCurrentWeatherStatus) {
 
             BUSY -> {
-                binding.currentWeatherLoadingTextView.visibility = View.VISIBLE
+                binding.todayForecastShimmer.visibility = View.VISIBLE
+                binding.todayForecastShimmer.startShimmer()
+                //binding.currentWeatherLoadingTextView.visibility = View.VISIBLE
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
                 binding.currentWeatherErrorTextView.visibility = View.GONE
@@ -312,6 +312,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
 
             PASSED -> {
+                binding.todayForecastShimmer.visibility = View.GONE
+                binding.todayForecastShimmer.stopShimmer()
                 binding.currentWeatherLoadingTextView.visibility = View.GONE
                 binding.currentWeatherGroupLinearLayout.visibility = View.VISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
@@ -321,6 +323,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
 
             FAILED -> {
+                binding.todayForecastShimmer.visibility = View.GONE
+                binding.todayForecastShimmer.stopShimmer()
                 binding.currentWeatherLoadingTextView.visibility = View.GONE
                 binding.currentWeatherGroupLinearLayout.visibility = View.INVISIBLE
                 binding.currentWeatherDefaultTextView.visibility = View.GONE
@@ -347,7 +351,9 @@ class DashBoardFragment : Fragment(), OnClickEvent {
 
         when (newTimelineStatus) {
             BUSY -> {
-                binding.timelineLoadingTextView.visibility = View.VISIBLE
+                binding.timelineShimmer.visibility = View.VISIBLE
+                binding.timelineShimmer.startShimmer()
+               //binding.timelineLoadingTextView.visibility = View.VISIBLE
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.GONE
                 binding.timelineDefaultTextView.visibility = View.GONE
@@ -356,6 +362,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
 
             PASSED -> {
+                binding.timelineShimmer.visibility = View.GONE
+                binding.timelineShimmer.stopShimmer()
                 binding.timelineLoadingTextView.visibility = View.GONE
                 binding.timelineRecyclerView.visibility = View.VISIBLE
                 binding.timelineErrorTextView.visibility = View.GONE
@@ -365,6 +373,8 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             }
 
             FAILED -> {
+                binding.timelineShimmer.visibility = View.GONE
+                binding.timelineShimmer.stopShimmer()
                 binding.timelineLoadingTextView.visibility = View.GONE
                 binding.timelineRecyclerView.visibility = View.GONE
                 binding.timelineErrorTextView.visibility = View.VISIBLE
@@ -486,13 +496,26 @@ class DashBoardFragment : Fragment(), OnClickEvent {
         val endTime = getTimeForDisplay(newCurrentWeather.endTimeTimeInMillis)
         binding.currentWeatherTimeTextView.text = "$startTime to $endTime"
 
-        binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
+       // binding.currentWeatherRiskTextView.text = newCurrentWeather.risk
         if(newCurrentWeather.risk == NONE){
-            binding.currentWeatherRiskTextView.text = "all clear"
+            binding.currentWeatherRiskTextView.text = "RISK : NONE"
+        }else{
+            binding.currentWeatherRiskTextView.text = "RISK : $newCurrentWeather.risk"
         }
 
+      //  binding.currentWeatherRiskTextView.text = if(newCurrentWeather.risk != "null") newCurrentWeather.risk else "RISK : NONE"
         binding.locationTextView.text =
             "${newCurrentWeather.state}, ${newCurrentWeather.country}"
+        binding.currentWeatherRiskIndicatorImageView.setImageResource(if(newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
+        binding.currentWeatherIconId.setImageResource(
+            when (newCurrentWeather.main) {
+                "Drizzle", "Freezing Drizzle", "Freezing rain" -> R.drawable.sun_cloud_rain
+                "Rain", "Rain showers", "Thunderstorm" -> R.drawable.cloud_rain
+                "Fog and depositing rime fog" -> R.drawable.cloud
+                "Scattered clouds", "Few clouds", "Broken clouds" -> R.drawable.sun_cloud
+                else -> R.drawable.sun
+            }
+        )
         binding.currentWeatherRiskIndicatorImageView.setImageResource(if (newCurrentWeather.risk == NONE) R.drawable.ic_warning_inactive else R.drawable.ic_warning_active)
 
     }
@@ -672,11 +695,27 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (!permissionGranted) {
-            viewModel.setDefaultMode()
-            val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
-            btmDialog.setCancelable(true)
-            btmDialog.show(childFragmentManager, "LOCATION DIALOG")
+            if (viewModel.getLatLongSelectedLocation() == null){
+                viewModel.setDefaultMode()
+                val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
+                btmDialog.setCancelable(true)
+                btmDialog.show(childFragmentManager, "LOCATION DIALOG")
+            }
+
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION",false)
+        val requiredPermission = Manifest.permission.ACCESS_COARSE_LOCATION
+        val checkVal = requireContext().checkCallingOrSelfPermission(requiredPermission)
+        if (checkVal == PackageManager.PERMISSION_GRANTED){
+            SharedPreference.putBoolean("ALLOWPERMISSION",true)
+            retrieveLocationAndUpdateWeather()
+        }
+
+        Log.d("CheckForPermissionw", "onResume: $permissionGranted ")
     }
 
 

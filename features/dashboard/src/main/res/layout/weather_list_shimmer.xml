@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/weather_item_id_shim"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/time_textView_shim"
+            android:layout_width="56dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/shimmer_bg"
+            android:textAlignment="viewEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/time_textView_shim"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ellipse_id"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:background="@drawable/round_bg_shimmer"/>
+
+            <ImageView
+                android:id="@+id/divider_line"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/line_white"
+                android:background="@color/shimmer_bg"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/weatherDescription_textView"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/outfit_regular"
+            android:background="@color/shimmer_bg"
+            android:textColor="@color/weather_item_color"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/line1"
+            />
+
+
+
+        <TextView
+            android:id="@+id/weatherRisk_textView"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/weather_item_color"
+            android:fontFamily="@font/outfit_regular"
+            android:gravity="center"
+            android:background="@color/shimmer_bg"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/weatherDescription_textView"
+            app:layout_constraintStart_toStartOf="@id/weatherDescription_textView"
+            />
+
+        <ImageView
+            android:id="@+id/riskIndicator_imageView"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/round_bg_shimmer"
+            app:layout_constraintBottom_toBottomOf="@id/weatherRisk_textView"
+            app:layout_constraintStart_toEndOf="@id/weatherRisk_textView"
+            app:layout_constraintTop_toTopOf="@id/weatherRisk_textView" />
+
+        <ImageView
+            android:id="@+id/weatherIcon_imageView_shim"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shimmer_weather_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

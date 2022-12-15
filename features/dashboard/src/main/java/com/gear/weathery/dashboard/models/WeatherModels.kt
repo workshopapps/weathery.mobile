@@ -6,7 +6,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class TimelineWeather(val main: String, val risk: String, val timeInMillis: Long)
+data class TimelineWeather(val main: String, val risk: String?, val timeInMillis: Long)
 
 class DayWeather{
     var state: String = ""
@@ -15,7 +15,7 @@ class DayWeather{
     var timeLine: List<TimelineWeather> = mutableListOf()
 }
 
-data class WeatherCondition(val state: String, val country: String, val main: String, val risk: String, val timeInMillis: Long, val endTimeTimeInMillis: Long)
+data class WeatherCondition(val state: String, val country: String, val main: String, val risk: String?, val timeInMillis: Long, val endTimeTimeInMillis: Long)
 
 fun getTimeForDisplay(timeInMillis: Long): String{
     val format = DateFormat.getTimeInstance(DateFormat.SHORT)
