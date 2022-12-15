@@ -26,7 +26,7 @@
             android:src="@drawable/menu_05"
             app:tint="@color/default_colour" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/locationHeader_linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,31 +40,53 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="32dp"
                 android:src="@drawable/marker_pin_01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/default_colour" />
 
             <TextView
                 android:id="@+id/location_text_view"
-                android:layout_width="wrap_content"
-                android:textColor="@color/location_dropdown"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="marquee"
                 android:fontFamily="@font/outfit_semibold"
+                android:marqueeRepeatLimit="3"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
                 android:text="--,----"
-                android:textSize="16sp" />
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textAlignment="center"
+                android:textColor="@color/location_dropdown"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                >
+                <requestFocus />
+            </TextView>
 
             <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="32dp"
                 android:src="@drawable/chevron_down"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/default_colour" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notificationButtonGroup_constraintLayout"
@@ -92,7 +114,7 @@
                 android:id="@+id/notificationCounter_frameLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ellipse"
+                android:background="@drawable/ellipse_orange"
                 android:padding="2dp"
                 android:layout_marginTop="-8dp"
                 app:layout_constraintTop_toTopOf="@id/notification_btn"
@@ -199,11 +221,12 @@
                     android:src="@drawable/rectangle" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:id="@+id/current_weather_icon_id"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/rainy_sharp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
 
             </LinearLayout>
@@ -291,6 +314,21 @@
 
     </RelativeLayout>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/today_forecast_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:visibility="gone"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_rel">
+        <include layout="@layout/shimmer_item_todays_forecast"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <LinearLayout
         android:id="@+id/today_lin"
         android:layout_width="match_parent"
@@ -332,6 +370,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingVertical="12dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -345,7 +384,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/timeline_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@color/white_color"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -395,6 +434,43 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/timeline_shimmer"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:visibility="gone"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/today_lin">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/white_color"
+          android:orientation="vertical"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+
+          app:layout_constraintTop_toTopOf="parent">
+
+          <include layout="@layout/weather_list_shimmer"/>
+          <include layout="@layout/weather_list_shimmer"/>
+          <include layout="@layout/weather_list_shimmer"/>
+          <include layout="@layout/weather_list_shimmer"/>
+          <include layout="@layout/weather_list_shimmer"/>
+
+      </LinearLayout>
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
     <View
@@ -671,5 +747,23 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tryAgainButton_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/bg_button"
+        android:visibility="gone"
+        android:text="try again"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/outfit_semibold"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

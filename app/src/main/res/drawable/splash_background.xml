@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:name="android:windowSplashScreenBackground">
-        <color android:color="#F7B27A"/>
+        <color android:color="#EF6820"/>
     </item>
 
     <item android:name="android:windowSplashScreenAnimatedIcon">

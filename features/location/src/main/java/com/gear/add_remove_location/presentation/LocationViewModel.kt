@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocationViewModel @Inject constructor(
-    private val service: LocationFeatureRepo,
+    private val remote: LocationFeatureRepo,
     private val local: LocationsRepository
 ) : ViewModel() {
 
@@ -45,9 +45,6 @@ class LocationViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private val _resourceState =
-        mutableStateOf<LocationResource<List<Location>>>(LocationResource.Loading())
-
     init {
         getSavedLocations()
     }
@@ -57,43 +54,48 @@ class LocationViewModel @Inject constructor(
 
 
     fun onLocationSearch(query: String) {
+        if (query.isEmpty() || query.length < 3) {
+            _manageScreenState.value = _manageScreenState.value.copy(
+                locations = emptyList(),
+                isLoading = false
+            )
+        }
         _searchTextState.value = query
         if (query.length >= 3 && _isOnSearchState.value) {
             viewModelScope.launch {
                 delay(500)
-                _resourceState.value = service.getLocations(query)
+                remote.getLocations(query)
+                    .onEach { result ->
+                        when (result) {
+                            is LocationResource.Error -> {
+                                _manageScreenState.value = _manageScreenState.value.copy(
+                                    locations = emptyList(),
+                                    isLoading = false
+                                )
+
+                                _eventFlow.emit(
+                                    UIEvent.ShowSearchErrors(
+                                        result.message
+                                            ?: UIText.StringResource(R.string.error_try_again_later)
+                                    )
+                                )
+
+                            }
+                            is LocationResource.Loading -> {
+                                _manageScreenState.value = _manageScreenState.value.copy(
+                                    locations = emptyList(),
+                                    isLoading = true
+                                )
+                            }
+                            is LocationResource.Success -> {
+                                _manageScreenState.value = _manageScreenState.value.copy(
+                                    locations = result.data ?: emptyList(),
+                                    isLoading = false
+                                )
+                            }
+                        }
+                    }.launchIn(this)
             }
-
-            when (_resourceState.value) {
-                is LocationResource.Error -> {
-                    _manageScreenState.value = _manageScreenState.value.copy(
-                        locations = emptyList(),
-                        isLoading = false
-                    )
-
-                    viewModelScope.launch {
-                        _eventFlow.emit(
-                            UIEvent.ShowSearchErrors(
-                                _resourceState.value.message
-                                    ?: UIText.StringResource(R.string.error_try_again_later)
-                            )
-                        )
-                    }
-                }
-                is LocationResource.Loading -> {
-                    _manageScreenState.value = _manageScreenState.value.copy(
-                        locations = emptyList(),
-                        isLoading = true
-                    )
-                }
-                is LocationResource.Success -> {
-                    _manageScreenState.value = _manageScreenState.value.copy(
-                        locations = _resourceState.value.data ?: emptyList(),
-                        isLoading = false
-                    )
-                }
-            }
-
         }
     }
 

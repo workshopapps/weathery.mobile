@@ -26,7 +26,7 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
     }
     fun pushNotification(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[pushNotificationKey]?:false
+            preferences[pushNotificationKey]?:true
         }
     }
 
@@ -61,7 +61,7 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
         }
     }
 
-    suspend fun togglePushNotification(isEnabled:Boolean){
+    suspend fun togglePushNotification(isEnabled:Boolean=true){
         dataStore.edit { preference ->
             preference[pushNotificationKey] = isEnabled
 

@@ -42,6 +42,7 @@ fun ManageLocationScreen(
     //Gets the value of the current screen after pressing on a menu item
     val action = viewModel.screenState.value
 
+
     val scaffoldState = rememberScaffoldState()
     val context = LocalContext.current
     //Displays the snackbar
@@ -127,6 +128,7 @@ fun ManageLocationScreen(
                             onLocationSearch = {
                                 viewModel.onLocationSearch(it)
                             },
+                            isLoading = state.isLoading,
                             text = viewModel.searchTextState.value,
                             onLocationSelected = {
                                 viewModel.setSearchState(it)

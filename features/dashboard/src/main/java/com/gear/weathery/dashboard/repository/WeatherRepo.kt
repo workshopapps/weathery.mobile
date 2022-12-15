@@ -13,7 +13,9 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-const val NONE = "None"
+const val NONE = "null"
+const val RESPONSE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm"
+const val RESPONSE_DATE_PATTERN = "yyyy-MM-dd"
 const val EXTENDED_RESPONSE_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN = "d MMM, yyyy h:mma"
 const val TIMELINE_RESPONSE_DATE_TIME_PATTERN_X = "yyyy-MM-dd'T'HH:mm:ss"
@@ -30,26 +32,19 @@ object WeatherRepo {
 
     suspend fun getTomorrowWeatherTimeline(lat: Double, long: Double): TimelineResponse {
 
-        try {
-            return TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForTomorrow(lat, long))
-        } catch (_: Exception) { }
-
         return try {
-            return TimelineResponse.SuccessTimelineResponse(generateHourlyWeatherTimeline(Calendar.getInstance()))
-        } catch (e: Exception) {
+            TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForTomorrow(lat, long))
+        } catch (_: Exception) {
             TimelineResponse.FailureTimelineResponse()
         }
+
     }
 
     suspend fun getThisWeekTimeline(lat: Double, long: Double): TimelineResponse {
 
-        try {
-            return TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForThisWeek(lat, long))
-        } catch (_: Exception) { }
-
         return try {
-            TimelineResponse.SuccessTimelineResponse(generateDailyWeatherTimeline(Calendar.getInstance()))
-        } catch (e: Exception) {
+            TimelineResponse.SuccessTimelineResponse(getWeatherFromNetworkForThisWeek(lat, long))
+        } catch (_: Exception) {
             TimelineResponse.FailureTimelineResponse()
         }
 
@@ -204,7 +199,7 @@ object WeatherRepo {
     ): List<TimelineWeather> {
         val jsonStringResponse = NetworkApi.retrofitService.getWeatherTomorrow(lat, long)
         val jsonArray = JSONArray(jsonStringResponse)
-        return parseJsonToWeatherTimeline(jsonArray)
+        return parseJsonToWeatherTimeline(jsonArray, RESPONSE_DATE_TIME_PATTERN)
     }
 
     private suspend fun getWeatherFromNetworkForThisWeek(
@@ -213,7 +208,7 @@ object WeatherRepo {
     ): List<TimelineWeather> {
         val jsonStringResponse = NetworkApi.retrofitService.getWeatherThisWeek(lat, long)
         val jsonArray = JSONArray(jsonStringResponse)
-        return parseJsonToWeatherTimeline(jsonArray)
+        return parseJsonToWeatherTimeline(jsonArray, RESPONSE_DATE_PATTERN)
     }
 
     private fun parseJsonToDayWeather(jsonObject: JSONObject): DayWeather {
@@ -227,11 +222,11 @@ object WeatherRepo {
         val currentMain = currentInfo.getString("main")
         val currentDateTime = getTimeInMillisFromString(
             currentInfo.getString("datetime"),
-            EXTENDED_RESPONSE_DATE_TIME_PATTERN
+            RESPONSE_DATE_TIME_PATTERN
         )
         val currentEndDateTime = getTimeInMillisFromString(
             currentInfo.getString("end_datetime"),
-            EXTENDED_RESPONSE_DATE_TIME_PATTERN
+            RESPONSE_DATE_TIME_PATTERN
         )
         val currentRisk = currentInfo.getString("risk")
 
@@ -242,7 +237,7 @@ object WeatherRepo {
             val main = hourWeatherJSONObject.getString("main")
             val dateTime = getTimeInMillisFromString(
                 hourWeatherJSONObject.getString("datetime"),
-                EXTENDED_RESPONSE_DATE_TIME_PATTERN
+                RESPONSE_DATE_TIME_PATTERN
             )
             val risk = hourWeatherJSONObject.getString("risk")
             hourWeathersList.add(TimelineWeather(main, risk, dateTime))
@@ -266,7 +261,7 @@ object WeatherRepo {
         return dayWeather
     }
 
-    private fun parseJsonToWeatherTimeline(jsonArray: JSONArray): List<TimelineWeather> {
+    private fun parseJsonToWeatherTimeline(jsonArray: JSONArray, dateTimePattern: String): List<TimelineWeather> {
 
         val timelineWeathersList = mutableListOf<TimelineWeather>()
         for (index in 0 until jsonArray.length()) {
@@ -276,7 +271,7 @@ object WeatherRepo {
 //            val dateResponse = timelineWeatherJSONObject.getString("datetime")
             val dateTimeResponse = timelineWeatherJSONObject.getString("datetime")
             val dateTime =
-                getTimeInMillisFromString(dateTimeResponse, TIMELINE_RESPONSE_DATE_TIME_PATTERN_X)
+                getTimeInMillisFromString(dateTimeResponse, dateTimePattern)
             val risk = timelineWeatherJSONObject.getString("risk")
             timelineWeathersList.add(TimelineWeather(main, risk, dateTime))
         }

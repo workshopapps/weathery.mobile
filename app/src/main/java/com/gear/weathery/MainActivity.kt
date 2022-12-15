@@ -1,7 +1,10 @@
 package com.gear.weathery
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -48,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var popUpNotification: ConstraintLayout
     private var rebuild = false
     private lateinit var viewModel:DashboardViewModel
+    private lateinit var overlay: View
+    private lateinit var backPressedCallback: OnBackPressedCallback
 
     @Inject
     lateinit var notificationDao: NotificationDao
@@ -69,13 +76,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModelProviderFactory = DashboardViewModel.DashboardViewModelFactory(locationsRepository, notificationDao, settingsPreference)
+
         viewModel = ViewModelProvider(this,viewModelProviderFactory)[DashboardViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         popUpNotification = binding.popupNotification
+        overlay = binding.overlayView
+
+        backPressedCallback = onBackPressedDispatcher.addCallback(this) {
+
+        }
+        backPressedCallback.isEnabled = false
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
-        setContentView(binding.root)
 
         val fragHost = supportFragmentManager.findFragmentById(com.gear.weathery.R.id.fragHost) as NavHostFragment
         navController = fragHost.findNavController()
@@ -88,11 +102,12 @@ class MainActivity : AppCompatActivity() {
                     val networkResponse = NetworkApi.retrofitService.subscribeNotifications(token, currentLocation.latitude, currentLocation.longitude)
                     Log.e("xsubscription", networkResponse)
                 } catch (e: Exception){
-                  Log.e("newToken", "error: ${e.toString()}")
+                  Log.e("newToken", "error: $e")
                 }
             }
         }
 
+        setContentView(binding.root)
     }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
@@ -116,15 +131,22 @@ class MainActivity : AppCompatActivity() {
         notificationDao.getNotifications().asLiveData().observe(this){
             lifecycleScope.launch {
 
-                if(it.isEmpty()){
+                val notificationsAlreadyRead = settingsPreference.unreadNotificationCounterFlow().first() == 0
+
+                if(it.isEmpty() || notificationsAlreadyRead){
                     return@launch
                 }
+
                 val notification = it.last()
                 binding.notificationBodyTextView.text = notification.notificationText
                 binding.popupNotification.visibility = View.VISIBLE
-                notificationTimer.start()
+                showDialog()
             }
 
+        }
+
+        binding.gotItButtonFrameLayout.setOnClickListener{
+            hidePopup()
         }
 
         lifecycleScope.launch{
@@ -147,25 +169,83 @@ class MainActivity : AppCompatActivity() {
         rebuild = true
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = notificationManager.getNotificationChannel(CHANNEL_ID)
+            val toneUri = channel.sound
+            val toneName =
+                RingtoneManager.getRingtone(this, toneUri).getTitle(this)
+            lifecycleScope.launch {
+                settingsPreference.setNotificationTone(toneName)
+            }
+            lifecycleScope.launch {
+                settingsPreference.togglePushNotification(channel.importance != NotificationManager.IMPORTANCE_NONE)
+            }
+            lifecycleScope.launch {
+                settingsPreference.toggleBanner(channel.importance == NotificationManager.IMPORTANCE_HIGH)
+            }
+       }
+    }
+
     private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_HIGH
-        ).apply {
-            description = CHANNEL_DESCRIPTION
-            enableVibration(true)
-        }
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-        val toneUri = channel.sound
-        val tone = RingtoneManager.getRingtone(this, toneUri)
-        val toneName = tone.getTitle(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = CHANNEL_DESCRIPTION
+                enableVibration(true)
+            }
 
-        lifecycleScope.launch {
-            settingsPreference.setNotificationTone(toneName)
-        }
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+            val toneUri = channel.sound
+            val tone = RingtoneManager.getRingtone(this, toneUri)
+            val toneName = tone.getTitle(this)
 
+            lifecycleScope.launch {
+                settingsPreference.setNotificationTone(toneName)
+            }
+
+        }
+    }
+
+    private fun hidePopup(dialog: View = popUpNotification) {
+        overlay.visibility = View.GONE
+        backPressedCallback.isEnabled = false
+
+        val movePropertyValueHolder =
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_Y , 0f, dialog.height.toFloat())
+        val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 0.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            dialog,
+            movePropertyValueHolder,
+            transparencyValueHolder
+        )
+        animator.start()
+
+    }
+
+    private fun showDialog(dialog: View = popUpNotification) {
+
+        backPressedCallback.isEnabled = true
+
+
+        overlay.visibility = View.VISIBLE
+        dialog.visibility = View.VISIBLE
+
+        val movePropertyValueHolder =
+            PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, dialog.height.toFloat(), 0f)
+        val transparencyValueHolder = PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            dialog,
+            movePropertyValueHolder,
+            transparencyValueHolder
+        )
+        animator.start()
     }
 }
