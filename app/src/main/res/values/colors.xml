@@ -7,11 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tropical_red">#DC2626</color>
+    <color name="tropical_orange">#EF6820</color>
 
-    <color name="weathery_orange_light">#FDEAD7</color>
-    <color name="weathery_orange_1">#EF6820</color>
-    <color name="popup_outline">@color/weathery_orange</color>
-    <color name="popup_background">@color/weathery_orange_light</color>
+    <color name="popup_background">@color/white</color>
 
 
 </resources>

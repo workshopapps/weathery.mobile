@@ -45,7 +45,7 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
     val viewMode: LiveData<String> get() = _viewMode
 
     private lateinit var deviceLocation: Location
-    private lateinit var selectedLocation: Pair<Double, Double>
+    private var selectedLocation: Pair<Double, Double>? = null
 
     private var _currentWeatherStatus = MutableLiveData<Int>()
     val currentWeatherStatus: LiveData<Int> get() = _currentWeatherStatus
@@ -64,8 +64,12 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         }
 
         deviceLocation = location
-        selectedLocation = Pair(location.latitude, location.longitude)
-        updateWeatherWithLocation(location.latitude, location.longitude)
+
+        if (selectedLocation == null) {
+            selectedLocation = Pair(location.latitude, location.longitude)
+        }
+
+        updateWeatherWithLocation()
     }
 
     fun getLatLongDeviceLocation(): Pair<Double, Double>{
@@ -76,12 +80,16 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
         return deviceLocation
     }
 
-    fun getLatLongSelectedLocation(): Pair<Double, Double>{
+    fun getLatLongSelectedLocation(): Pair<Double, Double>?{
         return selectedLocation
     }
 
 
-    private fun updateWeatherWithLocation(lat: Double = selectedLocation.first, long: Double = selectedLocation.second){
+    private fun updateWeatherWithLocation(lat: Double? = selectedLocation?.first, long: Double? = selectedLocation?.second){
+
+        if (lat == null || long == null){
+            return
+        }
 
         viewModelScope.launch {
             _currentWeatherStatus.value = BUSY
@@ -123,9 +131,14 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
 
     private fun showTomorrowWeather(){
         viewModelScope.launch {
+
+            if (selectedLocation == null){
+                return@launch
+            }
+
             _timelineStatus.value = BUSY
 
-            when(val tomorrowTimelineResponse = WeatherRepo.getTomorrowWeatherTimeline(selectedLocation.first, selectedLocation.second)){
+            when(val tomorrowTimelineResponse = WeatherRepo.getTomorrowWeatherTimeline(selectedLocation!!.first, selectedLocation!!.second)){
                 is TimelineResponse.SuccessTimelineResponse -> {
                     _timeline.value = Pair(tomorrowTimelineResponse.payLoad!!, HOURLY_TIMELINE)
                     _timelineStatus.value = PASSED
@@ -140,9 +153,14 @@ class DashboardViewModel(private val locationRepository: LocationsRepository, pr
 
     private fun showThisWeekWeather(){
         viewModelScope.launch {
+
+            if (selectedLocation == null){
+                return@launch
+            }
+
             _timelineStatus.value = BUSY
 
-            when(val thisWeekTimelineResponse = WeatherRepo.getThisWeekTimeline(selectedLocation.first, selectedLocation.second)){
+            when(val thisWeekTimelineResponse = WeatherRepo.getThisWeekTimeline(selectedLocation!!.first, selectedLocation!!.second)){
                 is TimelineResponse.SuccessTimelineResponse -> {
                     _timeline.value = Pair(thisWeekTimelineResponse.payLoad!!, DAILY_TIMELINE)
                     _timelineStatus.value = PASSED

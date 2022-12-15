@@ -502,7 +502,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     }
 
     private fun updateViewEnabledState(newState: Boolean){
-        binding.locationHeaderLinearLayout.isEnabled = newState
+//        binding.locationHeaderLinearLayout.isEnabled = newState
         binding.timelineViewsMenuImageView.isEnabled = newState
         binding.shareButtonImageView.isEnabled = newState
     }
