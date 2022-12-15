@@ -47,11 +47,12 @@ fun processNotificationData(
     val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     scope.launch {
+
+        incrementUnreadNotificationCounter(settingsPreference)
+
         val notificationData =
             NotificationData(event, body, dateTime)
         notificationDao.insert(notificationData)
-
-
 
         if (!settingsPreference.getAppForegroundStatus()){
             (ContextCompat.getSystemService(
@@ -60,7 +61,6 @@ fun processNotificationData(
             ) as NotificationManager).sendNotification(context, event, body)
         }
 
-        incrementUnreadNotificationCounter(settingsPreference)
     }
 }
 

@@ -131,9 +131,12 @@ class MainActivity : AppCompatActivity() {
         notificationDao.getNotifications().asLiveData().observe(this){
             lifecycleScope.launch {
 
-                if(it.isEmpty()){
+                val notificationsAlreadyRead = settingsPreference.unreadNotificationCounterFlow().first() == 0
+
+                if(it.isEmpty() || notificationsAlreadyRead){
                     return@launch
                 }
+
                 val notification = it.last()
                 binding.notificationBodyTextView.text = notification.notificationText
                 binding.popupNotification.visibility = View.VISIBLE
