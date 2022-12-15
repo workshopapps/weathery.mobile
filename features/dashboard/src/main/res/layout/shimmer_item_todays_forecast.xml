@@ -95,22 +95,26 @@
             android:layout_width="match_parent"
             android:layout_height="24dp"
             android:layout_gravity="center"
+            android:background="@drawable/round_corner"
             android:layout_marginTop="24dp">
 
             <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="4dp"
-                android:background="@drawable/round_bg_shimmer"
+                android:src="@drawable/alert_circle"
+
                 android:layout_toLeftOf="@id/currentWeatherRisk_textView_shim" />
 
             <TextView
                 android:id="@+id/currentWeatherRisk_textView_shim"
-                android:layout_width="237dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@color/shimmer_bg"
+                android:text="LOADING..."
+                android:fontFamily="@font/outfit_regular"
+                android:textColor="@color/risk_color"
                 android:textAlignment="center"
                 android:textSize="12sp" />
         </RelativeLayout>

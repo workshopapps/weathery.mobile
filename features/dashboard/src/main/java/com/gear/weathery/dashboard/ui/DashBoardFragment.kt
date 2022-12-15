@@ -57,7 +57,7 @@ const val REQUEST_LOCATION_SETTINGS = 25
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), OnClickEvent {
-
+    var checkState : Boolean = true
     private lateinit var binding: FragmentDashBoardBinding
     private var permissionGranted = SharedPreference.getBoolean("ALLOWPERMISSION", false)
 
@@ -525,7 +525,7 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     }
 
     private fun updateViewEnabledState(newState: Boolean){
-        binding.locationHeaderLinearLayout.isEnabled = newState
+//        binding.locationHeaderLinearLayout.isEnabled = newState
         binding.timelineViewsMenuImageView.isEnabled = newState
         binding.shareButtonImageView.isEnabled = newState
     }
@@ -695,11 +695,13 @@ class DashBoardFragment : Fragment(), OnClickEvent {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (!permissionGranted) {
-            Log.d("CheckForPermissionw", "onAttach: $permissionGranted ")
-            viewModel.setDefaultMode()
-            val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
-            btmDialog.setCancelable(true)
-            btmDialog.show(childFragmentManager, "LOCATION DIALOG")
+            if (viewModel.getLatLongSelectedLocation() == null){
+                viewModel.setDefaultMode()
+                val btmDialog: LocationPermissionFragment = LocationPermissionFragment()
+                btmDialog.setCancelable(true)
+                btmDialog.show(childFragmentManager, "LOCATION DIALOG")
+            }
+
         }
     }
 
