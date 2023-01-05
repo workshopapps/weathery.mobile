@@ -4,5 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 
-data class DBNotification(@ColumnInfo()
-                          val message: String, val time: String, val event: String)
+data class DBNotification(
+    @ColumnInfo()
+    val message: String, val time: String, val event: String
+)

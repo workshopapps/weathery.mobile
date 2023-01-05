@@ -266,9 +266,9 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             setTomorrowView()
         }
 
-        binding.thisWeekGroupLinearLayout.setOnClickListener {
-            setThisWeekView()
-        }
+//        binding.thisWeekGroupLinearLayout.setOnClickListener {
+//            setThisWeekView()
+//        }
 
         viewModel.currentWeatherStatus.observe(viewLifecycleOwner) {
             updateViewsForNewCurrentWeatherStatus(it)
@@ -418,13 +418,13 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                             R.color.default_colour
                         ), android.graphics.PorterDuff.Mode.SRC_IN
                     )
-                    thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    thisWeekIconImageView.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.default_colour
-                        ), android.graphics.PorterDuff.Mode.SRC_IN
-                    )
+//                    thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
+//                    thisWeekIconImageView.setColorFilter(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            R.color.default_colour
+//                        ), android.graphics.PorterDuff.Mode.SRC_IN
+//                    )
                 }
             }
 
@@ -438,13 +438,13 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                             R.color.weathery_orange
                         ), android.graphics.PorterDuff.Mode.SRC_IN
                     )
-                    thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    thisWeekIconImageView.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.default_colour
-                        ), android.graphics.PorterDuff.Mode.SRC_IN
-                    )
+//                    thisWeekTextView.setTextColor(resources.getColor(R.color.default_colour))
+//                    thisWeekIconImageView.setColorFilter(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            R.color.default_colour
+//                        ), android.graphics.PorterDuff.Mode.SRC_IN
+//                    )
                     todayTextView.setTextColor(resources.getColor(R.color.default_colour))
                     todayIconImageView.setColorFilter(
                         ContextCompat.getColor(
@@ -455,32 +455,32 @@ class DashBoardFragment : Fragment(), OnClickEvent {
                 }
             }
 
-            THIS_WEEK_VIEW_MODE -> {
-                binding.apply {
-                    currentViewTextView.text = getString(R.string.thisweek)
-                    thisWeekTextView.setTextColor(resources.getColor(R.color.weathery_orange))
-                    thisWeekIconImageView.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.weathery_orange
-                        ), android.graphics.PorterDuff.Mode.SRC_IN
-                    )
-                    tomorrowTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    tomorrowIconImageView.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.default_colour
-                        ), android.graphics.PorterDuff.Mode.SRC_IN
-                    )
-                    todayTextView.setTextColor(resources.getColor(R.color.default_colour))
-                    todayIconImageView.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.default_colour
-                        ), android.graphics.PorterDuff.Mode.SRC_IN
-                    )
-                }
-            }
+//            THIS_WEEK_VIEW_MODE -> {
+//                binding.apply {
+//                    currentViewTextView.text = getString(R.string.thisweek)
+//                    thisWeekTextView.setTextColor(resources.getColor(R.color.weathery_orange))
+//                    thisWeekIconImageView.setColorFilter(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            R.color.weathery_orange
+//                        ), android.graphics.PorterDuff.Mode.SRC_IN
+//                    )
+//                    tomorrowTextView.setTextColor(resources.getColor(R.color.default_colour))
+//                    tomorrowIconImageView.setColorFilter(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            R.color.default_colour
+//                        ), android.graphics.PorterDuff.Mode.SRC_IN
+//                    )
+//                    todayTextView.setTextColor(resources.getColor(R.color.default_colour))
+//                    todayIconImageView.setColorFilter(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            R.color.default_colour
+//                        ), android.graphics.PorterDuff.Mode.SRC_IN
+//                    )
+//                }
+//            }
 
         }
     }
@@ -714,7 +714,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             SharedPreference.putBoolean("ALLOWPERMISSION",true)
             retrieveLocationAndUpdateWeather()
         }
-
         Log.d("CheckForPermissionw", "onResume: $permissionGranted ")
     }
 

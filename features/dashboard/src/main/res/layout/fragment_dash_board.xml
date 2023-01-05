@@ -492,13 +492,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:alpha="0.0"
         android:background="@drawable/bg_dialog"
         android:elevation="5dp"
         android:gravity="start"
+        android:alpha="0.0"
+        android:visibility="invisible"
         android:orientation="vertical"
         android:padding="8dp"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/today_lin">
 
@@ -551,36 +551,6 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/outfit_medium"
                 android:text="@string/tomorrow"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/line_17" />
-
-        <LinearLayout
-            android:id="@+id/thisWeekGroup_linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/thisWeekIcon_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_this_week" />
-
-            <TextView
-                android:id="@+id/thisWeek_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/outfit_medium"
-                android:text="@string/thisweek"
                 android:textSize="16sp" />
 
         </LinearLayout>
