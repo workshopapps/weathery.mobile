@@ -714,7 +714,6 @@ class DashBoardFragment : Fragment(), OnClickEvent {
             SharedPreference.putBoolean("ALLOWPERMISSION",true)
             retrieveLocationAndUpdateWeather()
         }
-
         Log.d("CheckForPermissionw", "onResume: $permissionGranted ")
     }
 
