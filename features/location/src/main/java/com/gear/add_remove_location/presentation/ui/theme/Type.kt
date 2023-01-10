@@ -18,7 +18,7 @@ val LocationItemStyle = TextStyle(
     fontFamily = Outfit,
     lineHeight = 32.sp,
     fontWeight = FontWeight.Normal,
-    textAlign = TextAlign.Center,
+    textAlign = TextAlign.Start,
     fontSize = 16.sp,
     letterSpacing = 0.sp
 )

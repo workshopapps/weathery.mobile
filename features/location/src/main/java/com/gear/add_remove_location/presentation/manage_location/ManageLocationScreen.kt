@@ -97,24 +97,29 @@ fun ManageLocationScreen(
 
             Box(
                 modifier = Modifier
-                    .padding(end = 24.dp)
+                    .padding(end = 32.dp)
                     .drawDropShadow(color = MaterialTheme.colors.primary)
                     .background(MaterialTheme.colors.background, RoundedCornerShape(8.dp))
                     .align(Alignment.TopEnd)
             ) {
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    CustomMenuItem(
-                        imageVector = Icons.Outlined.AddLocation,
-                        action = stringResource(R.string.add)
-                    ) {
-                        viewModel.setAction(Action.SEARCH_SAVE)
-                        viewModel.setSearchState("")
-                    }
-                    CustomMenuItem(
-                        imageVector = Icons.Outlined.DeleteForever,
-                        action = stringResource(R.string.delete)
-                    ) {
-                        viewModel.setAction(Action.EDIT)
+                    if (action == Action.EDIT){
+                        CustomMenuItem(
+                            imageVector = Icons.Outlined.AddLocation,
+                            action = stringResource(R.string.add)
+                        ) {
+                            viewModel.setAction(Action.SEARCH_SAVE)
+                            viewModel.setSearchState("")
+                            expanded = false
+                        }}
+                    if (action == Action.SEARCH_SAVE) {
+                        CustomMenuItem(
+                            imageVector = Icons.Outlined.DeleteForever,
+                            action = stringResource(R.string.delete)
+                        ) {
+                            viewModel.setAction(Action.EDIT)
+                            expanded = false
+                        }
                     }
                 }
             }

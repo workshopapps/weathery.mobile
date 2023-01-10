@@ -27,6 +27,7 @@ fun CustomMenuItem(
             .fillMaxWidth()
             .clickable { actionClick() }
             .padding(8.dp)
+            .padding(end = 32.dp)
     ) {
         Icon(
             imageVector = imageVector,
