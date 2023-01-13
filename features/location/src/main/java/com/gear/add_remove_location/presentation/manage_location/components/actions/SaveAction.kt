@@ -30,6 +30,11 @@ fun SaveAction(
     cancelSave: () -> Unit
 ) {
     val query by remember { mutableStateOf(text) }
+
+    val saveList = locations.filter {
+        text.contains(it.country)
+    }
+
     Text(
         text = stringResource(R.string.locations_related) + "\"$query\"",
         color = MaterialTheme.colors.primaryVariant,
@@ -38,7 +43,7 @@ fun SaveAction(
 
     var items by remember {
         mutableStateOf(
-            locations.map { loc ->
+            saveList.map { loc ->
                 SaveListItem(
                     location = loc,
                     isSelected = false

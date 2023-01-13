@@ -66,15 +66,14 @@ fun SaveLocationScreen(
         Box(modifier = Modifier.padding(paddingValues)) {
             Box(
                 modifier = Modifier
-                    .padding(end = 24.dp)
+                    .padding(end = 32.dp)
                     .drawDropShadow(color = MaterialTheme.colors.primary)
                     .background(MaterialTheme.colors.background, RoundedCornerShape(8.dp))
                     .align(Alignment.TopEnd)
             ) {
                 DropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                    modifier = Modifier
+                    onDismissRequest = { expanded = false }
                 ) {
                     CustomMenuItem(
                         imageVector = Icons.Outlined.AddLocation,
@@ -87,9 +86,9 @@ fun SaveLocationScreen(
                     }
                     Spacer(
                         Modifier
+                            .padding(horizontal = 8.dp)
                             .fillMaxWidth()
-                            .padding(horizontal = 4.dp)
-                            .height(2.dp)
+                            .height(1.dp)
                             .background(MaterialTheme.colors.primary.copy(0.75f))
                     )
                     CustomMenuItem(
