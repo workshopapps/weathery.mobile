@@ -17,6 +17,8 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
     private val langKey = stringPreferencesKey("lang_key")
     private val appForegroundStatusKey = booleanPreferencesKey("app_foreground")
     private val unreadNotificationCounterKey = intPreferencesKey("unread_notifications_counter")
+    private val appStartsCountKey = intPreferencesKey("app_starts_counter")
+    private val autoFeedbackAlreadyPromptedKey = booleanPreferencesKey("autoFeedbackPrompted")
 
 
     fun darkMode(): Flow<String?> {
@@ -125,5 +127,32 @@ class SettingsPreference @Inject constructor(private val dataStore: DataStore<Pr
         return dataStore.data.map {
             it[unreadNotificationCounterKey] ?: 0
         }
+    }
+
+    suspend fun incrementAppStartsCount(){
+        val newValue = appStartsCountFlow().first()
+        dataStore.edit { preference ->
+            preference[appStartsCountKey] = newValue + 1
+
+        }
+    }
+
+    fun appStartsCountFlow():Flow<Int>{
+        return dataStore.data.map {
+            it[appStartsCountKey] ?: 0
+        }
+    }
+
+    suspend fun updateAutoFeedbackPrompted(newStatus: Boolean){
+        dataStore.edit { preference ->
+            preference[autoFeedbackAlreadyPromptedKey] = newStatus
+
+        }
+    }
+
+    suspend fun getAutoFeedbackAlreadyPromptedStatus(): Boolean{
+        return dataStore.data.map {
+            it[autoFeedbackAlreadyPromptedKey] ?: false
+        }.first()
     }
 }
