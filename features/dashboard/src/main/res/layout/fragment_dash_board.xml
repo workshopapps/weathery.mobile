@@ -559,17 +559,17 @@
 
 
     <!--    visibility should be set to invisible.
-   to ensure animation bahaves correctly-->
+   to ensure animation behaves correctly-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navDrawer_constraintLayout"
         android:layout_width="320dp"
         android:layout_height="0dp"
-        android:alpha="0.0"
         android:background="@color/nav_drawer_color"
         android:elevation="5dp"
+        android:visibility="invisible"
+        android:alpha="0.0"
         android:paddingHorizontal="24dp"
         android:paddingVertical="40dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -715,6 +715,28 @@
 
         </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/feedbackButton_frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_button_2"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Give feedback"
+                android:textSize="16sp"
+                android:fontFamily="@font/outfit_regular"
+                android:textColor="@color/white"
+                />
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.FeedbackFragment"
+    >
+
+    <data>
+        <variable
+            name="feedbackFragment"
+            type="com.gear.weathery.dashboard.ui.FeedbackFragment" />
+
+        <variable
+            name="viewmodel"
+            type="com.gear.weathery.dashboard.ui.FeedbackViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dialog_2"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/feedbackGroup_constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_2"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/appIcon_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/weathery_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/outfit_bold"
+                android:text="Feedback"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@id/appIcon_imageView"
+                app:layout_constraintStart_toEndOf="@id/appIcon_imageView"
+                app:layout_constraintTop_toTopOf="@id/appIcon_imageView" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/x_close_2"
+                android:onClick="@{() -> feedbackFragment.goToHome()}"
+                app:layout_constraintBottom_toBottomOf="@id/appIcon_imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/appIcon_imageView" />
+
+            <TextView
+                android:id="@+id/intro_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/outfit_regular"
+                android:text="We would love to know your experience with tropical weather"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appIcon_imageView" />
+
+            <View
+                android:id="@+id/divider_view"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/weathery_grey_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/intro_textView" />
+
+            <TextView
+                android:id="@+id/number1_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/outfit_bold"
+                android:text="1."
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_view" />
+
+            <TextView
+                android:id="@+id/item1_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/outfit_bold"
+                android:text="Rate your experience with tropical weather"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/number1_textView"
+                app:layout_constraintTop_toTopOf="@id/number1_textView" />
+
+            <LinearLayout
+                android:id="@+id/stars_linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@id/item1_textView"
+                app:layout_constraintTop_toBottomOf="@id/item1_textView">
+
+                <ImageView
+                    android:id="@+id/star1_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> feedbackFragment.selectRating(1)}"
+                    android:src="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/star2_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> feedbackFragment.selectRating(2)}"
+                    android:src="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/star3_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> feedbackFragment.selectRating(3)}"
+                    android:src="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/star4_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> feedbackFragment.selectRating(4)}"
+                    android:src="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/star5_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> feedbackFragment.selectRating(5)}"
+                    android:src="@drawable/star" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/number2_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/outfit_bold"
+                android:text="2."
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stars_linearLayout" />
+
+            <TextView
+                android:id="@+id/item2_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/outfit_bold"
+                android:text="Message (optional)"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/number2_textView"
+                app:layout_constraintTop_toTopOf="@id/number2_textView" />
+
+            <FrameLayout
+                android:id="@+id/messageGroup_frameLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_message"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item2_textView">
+
+
+                <View
+                    android:id="@+id/clickSurface_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="232dp"
+
+                    />
+
+                <LinearLayout
+                    android:id="@+id/messageGroup_linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="232dp"
+                    android:background="@drawable/bg_message"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/item2_textView">
+
+                    <ScrollView
+                        android:id="@+id/message_scrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:padding="8dp">
+
+                        <EditText
+                            android:id="@+id/message_editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent" />
+
+                    </ScrollView>
+
+                    <View
+                        android:id="@+id/divider2_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/weathery_grey_6" />
+
+                    <TextView
+                        android:id="@+id/charCounter_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/outfit_light"
+                        android:text="@{viewmodel.charCount}"
+                        />
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/submitButton_frameLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:background="@drawable/bg_button_2"
+                android:paddingVertical="16dp"
+                android:onClick="@{() -> feedbackFragment.sendFeedback()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/messageGroup_frameLayout">
+
+                <TextView
+                    android:id="@+id/submitButton_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/submittingButton_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Submitting feedback..."
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    />
+
+            </FrameLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/thankYouGroup_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/thumbs_up" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/outfit_extrabold"
+                android:text="Thank you!"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/outfit_medium"
+                android:text="Your feedback was successfully submitted!"
+                android:textSize="16sp" />
+
+            <FrameLayout
+                android:id="@+id/goToHomeButton_frameLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_button_2"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:onClick="@{() -> feedbackFragment.goToHome()}"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Go to Home"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>
